@@ -191,7 +191,7 @@ def executar_caso(tradutor: agent.Tradutor, caso: dict, repeticao: int, hoje: da
 
 
 def _glifo(linha: dict) -> Text:
-    if linha["erro"] and linha["classe_erro"] in ("timeout", "indisponivel", "falha"):
+    if metrics.erro_de_infra(linha):
         return Text("×", style="red")
     aval = metrics.avaliar_caso(linha["esperado_resolvido"], linha["predito"], linha["espera_tool_call"])
     return Text("✓", style="green") if aval.correto else Text("·", style="yellow")
@@ -296,7 +296,7 @@ def resumir(dir_saida: Path, console: Console | None = None) -> dict:
             f"\n[bold]{resumo['modelo']}[/bold] · {g['n_consultas']} consultas · "
             f"acurácia {g['acuracia']:.1%} · F1 ponderado {g['f1_ponderado']:.3f} · "
             f"latência mediana {g['latencia_llm_ms'].get('mediana', 0):.0f} ms · "
-            f"erros de chamada {g['diagnosticos']['chamadas_com_erro']}"
+            f"erros de infra {g['diagnosticos']['chamadas_com_erro']} · fora do schema {g['diagnosticos']['respostas_fora_do_schema']}"
         )
         console.print(f"→ {dir_saida / 'resumo.md'}")
     return resumo
@@ -353,7 +353,8 @@ def resumo_markdown(resumo: dict) -> str:
             f"- Tipos de erro: {d['tipos_erro']}",
             f"- Campos fora do schema: {d['campos_fora_do_schema']}",
             f"- IoU médio de períodos: { {k: round(v, 3) for k, v in d['iou_periodos_medio'].items()} }",
-            f"- Chamadas com erro de infraestrutura/formato: {d['chamadas_com_erro']} {d['classes_de_erro']}",
+            f"- Chamadas com erro de infraestrutura: {d['chamadas_com_erro']} {d['classes_de_erro']}",
+            f"- Respostas do modelo fora do schema da ferramenta: {d['respostas_fora_do_schema']} {d['classes_fora_do_schema']}",
             f"- Não chamou a ferramenta quando devia: {d['nao_chamou_quando_devia']}", ""]
     obs = g["observacionais"]
     out += ["## Observacionais (fora das métricas principais)", "",

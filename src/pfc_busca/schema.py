@@ -119,19 +119,21 @@ FERRAMENTA_BUSCAR_CATALOGO: dict[str, Any] = {
                 },
                 "publicationPeriod": {
                     "type": "object",
-                    "description": "Intervalo de datas de publicação em ISO 8601. Expressões relativas ('esse ano', 'últimos 3 meses') devem ser resolvidas usando a data atual informada no prompt de sistema.",
+                    "description": "Intervalo de datas de publicação em ISO 8601, como objeto com as chaves 'start' e 'end' (exatamente esses nomes). Expressões relativas ('esse ano', 'últimos 3 meses') devem ser resolvidas usando a data atual informada no prompt de sistema. Omita a chave que não se aplica.",
                     "properties": {
                         "start": {"type": "string", "description": "AAAA-MM-DD"},
                         "end": {"type": "string", "description": "AAAA-MM-DD"},
                     },
+                    "additionalProperties": False,
                 },
                 "creationPeriod": {
                     "type": "object",
-                    "description": "Intervalo de datas de criação em ISO 8601 (mesmas regras de publicationPeriod).",
+                    "description": "Intervalo de datas de criação em ISO 8601, como objeto com as chaves 'start' e 'end' (exatamente esses nomes; mesmas regras de publicationPeriod).",
                     "properties": {
                         "start": {"type": "string", "description": "AAAA-MM-DD"},
                         "end": {"type": "string", "description": "AAAA-MM-DD"},
                     },
+                    "additionalProperties": False,
                 },
                 "sortField": {"type": "string", "enum": CAMPOS_ORDENACAO},
                 "sortDirection": {"type": "string", "enum": DIRECOES_ORDENACAO},

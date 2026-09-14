@@ -35,6 +35,15 @@ from pfc_busca import schema
 
 CAMPO_FORA_DO_SCHEMA = "__fora_do_schema__"
 
+# Classes de erro de INFRAESTRUTURA (a chamada não completou): só estas excluem a
+# linha das estatísticas de latência. `args_invalidos` e `ferramenta_inexistente`
+# são erros DO MODELO -- a chamada completou e a latência é real.
+CLASSES_ERRO_INFRA = frozenset({"timeout", "indisponivel", "falha"})
+
+
+def erro_de_infra(linha: dict[str, Any]) -> bool:
+    return bool(linha.get("erro")) and linha.get("classe_erro") in CLASSES_ERRO_INFRA
+
 
 # ---------------------------------------------------------------------------
 # Comparação campo a campo
@@ -250,10 +259,11 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
         sub = [(lin, a) for lin, a in pares if lin["origem"] == origem]
         por_origem[origem] = {"n": len(sub), "acuracia": _acuracia(sub)}
 
-    erros = [lin for lin in principais if lin.get("erro")]
-    lat_llm = [lin["latencia_llm_ms"] for lin in principais if lin.get("latencia_llm_ms") is not None and not lin.get("erro")]
-    lat_tool = [lin["latencia_tool_ms"] for lin in principais if lin.get("latencia_tool_ms") is not None and not lin.get("erro")]
-    lat_total = [lin["latencia_total_ms"] for lin in principais if lin.get("latencia_total_ms") is not None and not lin.get("erro")]
+    erros = [lin for lin in principais if erro_de_infra(lin)]
+    erros_modelo = [lin for lin in principais if lin.get("erro") and not erro_de_infra(lin)]
+    lat_llm = [lin["latencia_llm_ms"] for lin in principais if lin.get("latencia_llm_ms") is not None and not erro_de_infra(lin)]
+    lat_tool = [lin["latencia_tool_ms"] for lin in principais if lin.get("latencia_tool_ms") is not None and not erro_de_infra(lin)]
+    lat_total = [lin["latencia_total_ms"] for lin in principais if lin.get("latencia_total_ms") is not None and not erro_de_infra(lin)]
 
     aval_obs = [(lin, avaliar_caso(lin["esperado_resolvido"], lin["predito"], lin["espera_tool_call"]))
                 for lin in observacionais]
@@ -279,6 +289,8 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
             "iou_periodos_medio": {c: statistics.fmean(v) for c, v in ious.items()},
             "chamadas_com_erro": len(erros),
             "classes_de_erro": dict(Counter(lin.get("classe_erro") for lin in erros)),
+            "respostas_fora_do_schema": len(erros_modelo),
+            "classes_fora_do_schema": dict(Counter(lin.get("classe_erro") for lin in erros_modelo)),
             "nao_chamou_quando_devia": sum(1 for lin, a in pares if a.tipo_erro == "nao_chamou"),
         },
         "observacionais": {

@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-09-14T09:19:34",
+  "gerado_em": "2026-09-14T11:30:30",
   "fonte": "Apêndice A do PFC (P01-P22, N01-N40) + generate_dataset.py seed=42 (G*)",
   "total": 310,
   "por_origem": {
@@ -847,12 +847,12 @@
       "esperado": {
         "city": "Curitiba",
         "limit": 3,
-        "sortField": "creationDate",
+        "sortField": "publicationDate",
         "sortDirection": "DESC"
       },
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "gabarito harmonizado com a camada G: 'mais recente(s)/antiga(s)' → publicationDate; 'feito/criado' → creationDate"
     },
     {
       "id": "N25",
@@ -885,12 +885,12 @@
       "consulta": "mais antigas em rondonia",
       "esperado": {
         "state": "Rondônia",
-        "sortField": "creationDate",
+        "sortField": "publicationDate",
         "sortDirection": "ASC"
       },
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "gabarito harmonizado com a camada G (ver N24)"
     },
     {
       "id": "N27",

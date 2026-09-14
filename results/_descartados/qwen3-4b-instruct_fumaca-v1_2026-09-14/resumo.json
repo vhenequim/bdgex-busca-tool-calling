@@ -6,18 +6,18 @@
   ],
   "geral": {
     "n_consultas": 13,
-    "acuracia": 0.6153846153846154,
-    "precisao_ponderada": 0.74375,
-    "recall_ponderado": 0.875,
-    "f1_ponderado": 0.7792410714285715,
-    "f1_macro": 0.7125,
+    "acuracia": 0.23076923076923078,
+    "precisao_ponderada": 0.609375,
+    "recall_ponderado": 0.53125,
+    "f1_ponderado": 0.5480790043290044,
+    "f1_macro": 0.5637806637806638,
     "micro": {
-      "precisao": 0.7222222222222222,
-      "recall": 0.896551724137931,
-      "f1": 0.7999999999999999,
-      "tp": 26,
-      "fp": 10,
-      "fn": 3
+      "precisao": 0.5666666666666667,
+      "recall": 0.68,
+      "f1": 0.6181818181818183,
+      "tp": 17,
+      "fp": 13,
+      "fn": 8
     },
     "por_campo": {
       "keyword": {
@@ -48,13 +48,13 @@
         "f1": 1.0
       },
       "state": {
-        "tp": 7,
+        "tp": 4,
         "fp": 0,
-        "fn": 0,
+        "fn": 3,
         "ocorrencias": 7,
         "precisao": 1.0,
-        "recall": 1.0,
-        "f1": 1.0
+        "recall": 0.5714285714285714,
+        "f1": 0.7272727272727273
       },
       "city": {
         "tp": 1,
@@ -84,13 +84,13 @@
         "f1": 1.0
       },
       "publicationPeriod": {
-        "tp": 3,
-        "fp": 1,
+        "tp": 0,
+        "fp": 4,
         "fn": 0,
         "ocorrencias": 4,
-        "precisao": 0.75,
-        "recall": 1.0,
-        "f1": 0.8571428571428571
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
       },
       "creationPeriod": {
         "tp": 0,
@@ -102,122 +102,119 @@
         "f1": 0.0
       },
       "sortField": {
-        "tp": 2,
-        "fp": 3,
-        "fn": 0,
+        "tp": 0,
+        "fp": 4,
+        "fn": 1,
         "ocorrencias": 3,
-        "precisao": 0.4,
-        "recall": 1.0,
-        "f1": 0.5714285714285715
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
       },
       "sortDirection": {
-        "tp": 3,
+        "tp": 2,
         "fp": 2,
-        "fn": 0,
+        "fn": 1,
         "ocorrencias": 3,
-        "precisao": 0.6,
-        "recall": 1.0,
-        "f1": 0.7499999999999999
+        "precisao": 0.5,
+        "recall": 0.6666666666666666,
+        "f1": 0.5714285714285715
       },
       "limit": {
         "tp": 2,
-        "fp": 3,
+        "fp": 2,
         "fn": 0,
         "ocorrencias": 2,
-        "precisao": 0.4,
+        "precisao": 0.5,
         "recall": 1.0,
-        "f1": 0.5714285714285715
+        "f1": 0.6666666666666666
       }
     },
     "por_categoria": {
       "S": {
         "n": 2,
-        "acuracia": 1.0,
-        "f1_ponderado": 1.0
+        "acuracia": 0.0,
+        "f1_ponderado": 0.0
       },
       "C": {
         "n": 9,
-        "acuracia": 0.5555555555555556,
-        "f1_ponderado": 0.7681122448979592
+        "acuracia": 0.3333333333333333,
+        "f1_ponderado": 0.6032879818594105
       },
       "M": {
         "n": 4,
-        "acuracia": 1.0,
-        "f1_ponderado": 1.0
+        "acuracia": 0.75,
+        "f1_ponderado": 0.8888888888888888
       },
       "T": {
         "n": 5,
-        "acuracia": 0.4,
-        "f1_ponderado": 0.673015873015873
+        "acuracia": 0.0,
+        "f1_ponderado": 0.4444444444444444
       },
       "O": {
         "n": 3,
-        "acuracia": 0.3333333333333333,
-        "f1_ponderado": 0.8666666666666667
+        "acuracia": 0.0,
+        "f1_ponderado": 0.5822222222222223
       },
       "A": {
         "n": 9,
-        "acuracia": 0.4444444444444444,
-        "f1_ponderado": 0.6909090909090909
+        "acuracia": 0.2222222222222222,
+        "f1_ponderado": 0.48333333333333334
       }
     },
     "por_origem": {
       "P": {
         "n": 5,
-        "acuracia": 0.6
+        "acuracia": 0.4
       },
       "N": {
         "n": 3,
-        "acuracia": 0.6666666666666666
+        "acuracia": 0.0
       },
       "G": {
         "n": 5,
-        "acuracia": 0.6
+        "acuracia": 0.2
       }
     },
     "latencia_llm_ms": {
-      "n": 13,
-      "min": 1438.6397000002944,
-      "max": 5961.859000000004,
-      "media": 2993.1649461537886,
-      "mediana": 2757.9421000000366,
-      "desvio": 1173.2988926412675,
-      "p95": 4370.815700000094
+      "n": 8,
+      "min": 1707.225600000129,
+      "max": 3779.5735999998215,
+      "media": 2388.1181124999102,
+      "mediana": 2240.679199999704,
+      "desvio": 620.3369267654098,
+      "p95": 3779.5735999998215
     },
     "latencia_tool_ms": {
-      "n": 13,
-      "min": 31.16070000032778,
-      "max": 54.88209999975879,
-      "media": 37.84973076930188,
-      "mediana": 37.25219999978435,
-      "desvio": 5.3676816765807684,
-      "p95": 39.47090000019671
+      "n": 5,
+      "min": 29.116699999576667,
+      "max": 32.32170000001133,
+      "media": 30.767519999972137,
+      "mediana": 31.001500000002125,
+      "desvio": 1.2131195299032647,
+      "p95": 32.32170000001133
     },
     "latencia_total_ms": {
-      "n": 13,
-      "min": 1475.1011000003018,
-      "max": 5999.111199999788,
-      "media": 3031.01467692309,
-      "mediana": 2792.445399999906,
-      "desvio": 1174.8557008177524,
-      "p95": 4405.109600000287
+      "n": 8,
+      "min": 1736.3422999997056,
+      "max": 3779.5735999998215,
+      "media": 2407.347812499893,
+      "mediana": 2271.010549999801,
+      "desvio": 608.3351144439278,
+      "p95": 3779.5735999998215
     },
     "diagnosticos": {
       "tipos_erro": {
+        "valor_errado": 4,
         "misto": 3,
-        "valor_errado": 1,
-        "campo_inventado": 1
+        "nao_chamou": 3
       },
       "campos_fora_do_schema": {},
-      "iou_periodos_medio": {
-        "publicationPeriod": 0.9946236559139785,
-        "creationPeriod": 0.0
+      "iou_periodos_medio": {},
+      "chamadas_com_erro": 5,
+      "classes_de_erro": {
+        "args_invalidos": 5
       },
-      "chamadas_com_erro": 0,
-      "classes_de_erro": {},
-      "respostas_fora_do_schema": 0,
-      "classes_fora_do_schema": {},
-      "nao_chamou_quando_devia": 0
+      "nao_chamou_quando_devia": 3
     },
     "observacionais": {
       "n": 1,
@@ -236,18 +233,18 @@
   "por_repeticao": {
     "1": {
       "n_consultas": 13,
-      "acuracia": 0.6153846153846154,
-      "precisao_ponderada": 0.74375,
-      "recall_ponderado": 0.875,
-      "f1_ponderado": 0.7792410714285715,
-      "f1_macro": 0.7125,
+      "acuracia": 0.23076923076923078,
+      "precisao_ponderada": 0.609375,
+      "recall_ponderado": 0.53125,
+      "f1_ponderado": 0.5480790043290044,
+      "f1_macro": 0.5637806637806638,
       "micro": {
-        "precisao": 0.7222222222222222,
-        "recall": 0.896551724137931,
-        "f1": 0.7999999999999999,
-        "tp": 26,
-        "fp": 10,
-        "fn": 3
+        "precisao": 0.5666666666666667,
+        "recall": 0.68,
+        "f1": 0.6181818181818183,
+        "tp": 17,
+        "fp": 13,
+        "fn": 8
       },
       "por_campo": {
         "keyword": {
@@ -278,13 +275,13 @@
           "f1": 1.0
         },
         "state": {
-          "tp": 7,
+          "tp": 4,
           "fp": 0,
-          "fn": 0,
+          "fn": 3,
           "ocorrencias": 7,
           "precisao": 1.0,
-          "recall": 1.0,
-          "f1": 1.0
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273
         },
         "city": {
           "tp": 1,
@@ -314,13 +311,13 @@
           "f1": 1.0
         },
         "publicationPeriod": {
-          "tp": 3,
-          "fp": 1,
+          "tp": 0,
+          "fp": 4,
           "fn": 0,
           "ocorrencias": 4,
-          "precisao": 0.75,
-          "recall": 1.0,
-          "f1": 0.8571428571428571
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
         },
         "creationPeriod": {
           "tp": 0,
@@ -332,122 +329,119 @@
           "f1": 0.0
         },
         "sortField": {
-          "tp": 2,
-          "fp": 3,
-          "fn": 0,
+          "tp": 0,
+          "fp": 4,
+          "fn": 1,
           "ocorrencias": 3,
-          "precisao": 0.4,
-          "recall": 1.0,
-          "f1": 0.5714285714285715
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
         },
         "sortDirection": {
-          "tp": 3,
+          "tp": 2,
           "fp": 2,
-          "fn": 0,
+          "fn": 1,
           "ocorrencias": 3,
-          "precisao": 0.6,
-          "recall": 1.0,
-          "f1": 0.7499999999999999
+          "precisao": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715
         },
         "limit": {
           "tp": 2,
-          "fp": 3,
+          "fp": 2,
           "fn": 0,
           "ocorrencias": 2,
-          "precisao": 0.4,
+          "precisao": 0.5,
           "recall": 1.0,
-          "f1": 0.5714285714285715
+          "f1": 0.6666666666666666
         }
       },
       "por_categoria": {
         "S": {
           "n": 2,
-          "acuracia": 1.0,
-          "f1_ponderado": 1.0
+          "acuracia": 0.0,
+          "f1_ponderado": 0.0
         },
         "C": {
           "n": 9,
-          "acuracia": 0.5555555555555556,
-          "f1_ponderado": 0.7681122448979592
+          "acuracia": 0.3333333333333333,
+          "f1_ponderado": 0.6032879818594105
         },
         "M": {
           "n": 4,
-          "acuracia": 1.0,
-          "f1_ponderado": 1.0
+          "acuracia": 0.75,
+          "f1_ponderado": 0.8888888888888888
         },
         "T": {
           "n": 5,
-          "acuracia": 0.4,
-          "f1_ponderado": 0.673015873015873
+          "acuracia": 0.0,
+          "f1_ponderado": 0.4444444444444444
         },
         "O": {
           "n": 3,
-          "acuracia": 0.3333333333333333,
-          "f1_ponderado": 0.8666666666666667
+          "acuracia": 0.0,
+          "f1_ponderado": 0.5822222222222223
         },
         "A": {
           "n": 9,
-          "acuracia": 0.4444444444444444,
-          "f1_ponderado": 0.6909090909090909
+          "acuracia": 0.2222222222222222,
+          "f1_ponderado": 0.48333333333333334
         }
       },
       "por_origem": {
         "P": {
           "n": 5,
-          "acuracia": 0.6
+          "acuracia": 0.4
         },
         "N": {
           "n": 3,
-          "acuracia": 0.6666666666666666
+          "acuracia": 0.0
         },
         "G": {
           "n": 5,
-          "acuracia": 0.6
+          "acuracia": 0.2
         }
       },
       "latencia_llm_ms": {
-        "n": 13,
-        "min": 1438.6397000002944,
-        "max": 5961.859000000004,
-        "media": 2993.1649461537886,
-        "mediana": 2757.9421000000366,
-        "desvio": 1173.2988926412675,
-        "p95": 4370.815700000094
+        "n": 8,
+        "min": 1707.225600000129,
+        "max": 3779.5735999998215,
+        "media": 2388.1181124999102,
+        "mediana": 2240.679199999704,
+        "desvio": 620.3369267654098,
+        "p95": 3779.5735999998215
       },
       "latencia_tool_ms": {
-        "n": 13,
-        "min": 31.16070000032778,
-        "max": 54.88209999975879,
-        "media": 37.84973076930188,
-        "mediana": 37.25219999978435,
-        "desvio": 5.3676816765807684,
-        "p95": 39.47090000019671
+        "n": 5,
+        "min": 29.116699999576667,
+        "max": 32.32170000001133,
+        "media": 30.767519999972137,
+        "mediana": 31.001500000002125,
+        "desvio": 1.2131195299032647,
+        "p95": 32.32170000001133
       },
       "latencia_total_ms": {
-        "n": 13,
-        "min": 1475.1011000003018,
-        "max": 5999.111199999788,
-        "media": 3031.01467692309,
-        "mediana": 2792.445399999906,
-        "desvio": 1174.8557008177524,
-        "p95": 4405.109600000287
+        "n": 8,
+        "min": 1736.3422999997056,
+        "max": 3779.5735999998215,
+        "media": 2407.347812499893,
+        "mediana": 2271.010549999801,
+        "desvio": 608.3351144439278,
+        "p95": 3779.5735999998215
       },
       "diagnosticos": {
         "tipos_erro": {
+          "valor_errado": 4,
           "misto": 3,
-          "valor_errado": 1,
-          "campo_inventado": 1
+          "nao_chamou": 3
         },
         "campos_fora_do_schema": {},
-        "iou_periodos_medio": {
-          "publicationPeriod": 0.9946236559139785,
-          "creationPeriod": 0.0
+        "iou_periodos_medio": {},
+        "chamadas_com_erro": 5,
+        "classes_de_erro": {
+          "args_invalidos": 5
         },
-        "chamadas_com_erro": 0,
-        "classes_de_erro": {},
-        "respostas_fora_do_schema": 0,
-        "classes_fora_do_schema": {},
-        "nao_chamou_quando_devia": 0
+        "nao_chamou_quando_devia": 3
       },
       "observacionais": {
         "n": 1,
@@ -464,5 +458,5 @@
       }
     }
   },
-  "gerado_em": "2026-09-14T11:32:31"
+  "gerado_em": "2026-09-14T11:26:27"
 }

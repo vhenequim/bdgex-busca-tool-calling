@@ -1,6 +1,6 @@
 # Dataset de avaliação — resumo
 
-Gerado em 2026-09-14 09:19. Total: **310** consultas (297 nas métricas principais, 13 observacionais).
+Gerado em 2026-09-14 11:30. Total: **310** consultas (297 nas métricas principais, 13 observacionais).
 
 ## Por origem
 

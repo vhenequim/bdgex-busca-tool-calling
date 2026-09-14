@@ -1,26 +1,26 @@
 # qwen3:4b-instruct-2507-q4_K_M — resumo da avaliação
 
-14 execuções · repetições [1] · gerado em 2026-09-14T11:26:27
+14 execuções · repetições [1] · gerado em 2026-09-14T11:32:31
 
 ## Geral (métricas principais)
 
 | Métrica | Valor |
 |---|---|
 | Consultas | 13 |
-| Acurácia por consulta | 23.1% |
-| Precisão ponderada | 0.609 |
-| Recall ponderado | 0.531 |
-| F1 ponderado | 0.548 |
-| F1 macro | 0.564 |
-| Micro P / R / F1 | 0.567 / 0.680 / 0.618 |
+| Acurácia por consulta | 61.5% |
+| Precisão ponderada | 0.744 |
+| Recall ponderado | 0.875 |
+| F1 ponderado | 0.779 |
+| F1 macro | 0.713 |
+| Micro P / R / F1 | 0.722 / 0.897 / 0.800 |
 
 ## Latência do LLM (ms)
 
 | n | mín | mediana | média | p95 | máx | desvio |
 |---|---|---|---|---|---|---|
-| 8 | 1707 | 2241 | 2388 | 3780 | 3780 | 620 |
+| 13 | 1439 | 2758 | 2993 | 4371 | 5962 | 1173 |
 
-Latência da ferramenta (SQL): mediana 31.0 ms, máx 32.3 ms.
+Latência da ferramenta (SQL): mediana 37.3 ms, máx 54.9 ms.
 
 ## Por campo
 
@@ -29,42 +29,43 @@ Latência da ferramenta (SQL): mediana 31.0 ms, máx 32.3 ms.
 | keyword | 4 | 4 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | scale | 2 | 0 | 0 | 2 | 0.000 | 0.000 | 0.000 |
 | productType | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
-| state | 7 | 4 | 0 | 3 | 1.000 | 0.571 | 0.727 |
+| state | 7 | 7 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | city | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | supplyArea | 3 | 2 | 0 | 1 | 1.000 | 0.667 | 0.800 |
 | project | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
-| publicationPeriod | 4 | 0 | 4 | 0 | 0.000 | 0.000 | 0.000 |
+| publicationPeriod | 4 | 3 | 1 | 0 | 0.750 | 1.000 | 0.857 |
 | creationPeriod | 1 | 0 | 1 | 0 | 0.000 | 0.000 | 0.000 |
-| sortField | 3 | 0 | 4 | 1 | 0.000 | 0.000 | 0.000 |
-| sortDirection | 3 | 2 | 2 | 1 | 0.500 | 0.667 | 0.571 |
-| limit | 2 | 2 | 2 | 0 | 0.500 | 1.000 | 0.667 |
+| sortField | 3 | 2 | 3 | 0 | 0.400 | 1.000 | 0.571 |
+| sortDirection | 3 | 3 | 2 | 0 | 0.600 | 1.000 | 0.750 |
+| limit | 2 | 2 | 3 | 0 | 0.400 | 1.000 | 0.571 |
 
 ## Por categoria
 
 | Categoria | n | Acurácia | F1 ponderado |
 |---|---|---|---|
-| Simples | 2 | 0.0% | 0.000 |
-| Compostas | 9 | 33.3% | 0.603 |
-| Código MI/INOM | 4 | 75.0% | 0.889 |
-| Tempo relativo | 5 | 0.0% | 0.444 |
-| Ordenação | 3 | 0.0% | 0.582 |
-| Ambíguas/informais | 9 | 22.2% | 0.483 |
+| Simples | 2 | 100.0% | 1.000 |
+| Compostas | 9 | 55.6% | 0.768 |
+| Código MI/INOM | 4 | 100.0% | 1.000 |
+| Tempo relativo | 5 | 40.0% | 0.673 |
+| Ordenação | 3 | 33.3% | 0.867 |
+| Ambíguas/informais | 9 | 44.4% | 0.691 |
 
 ## Por origem
 
 | Origem | n | Acurácia |
 |---|---|---|
-| P | 5 | 40.0% |
-| N | 3 | 0.0% |
-| G | 5 | 20.0% |
+| P | 5 | 60.0% |
+| N | 3 | 66.7% |
+| G | 5 | 60.0% |
 
 ## Diagnósticos
 
-- Tipos de erro: {'valor_errado': 4, 'misto': 3, 'nao_chamou': 3}
+- Tipos de erro: {'misto': 3, 'valor_errado': 1, 'campo_inventado': 1}
 - Campos fora do schema: {}
-- IoU médio de períodos: {}
-- Chamadas com erro de infraestrutura/formato: 5 {'args_invalidos': 5}
-- Não chamou a ferramenta quando devia: 3
+- IoU médio de períodos: {'publicationPeriod': 0.995, 'creationPeriod': 0.0}
+- Chamadas com erro de infraestrutura: 0 {}
+- Respostas do modelo fora do schema da ferramenta: 0 {}
+- Não chamou a ferramenta quando devia: 0
 
 ## Observacionais (fora das métricas principais)
 
