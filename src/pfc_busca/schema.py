@@ -9,7 +9,7 @@ referência é o texto do PFC.
 
 A descrição de cada parâmetro é o único lugar onde o modelo aprende a
 normalizar ("25k" -> "1:25.000"). Não há dicionário nem few-shot em lugar
-nenhum do pipeline — isso substitui as 159 entradas de `COMMON_TERMS` do
+nenhum do pipeline — isso substitui as 141 entradas de `COMMON_TERMS` do
 protótipo.
 """
 
