@@ -1,0 +1,58 @@
+{
+  "modelo": "gemma4:e2b-it-qat",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "4.6B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-14 11:52:21.962097-03:00",
+    "digest": "07ea59a474013479c8b6b802bef095c40e964a1d776ba02f264c0e30e1aede0c",
+    "tamanho_bytes": 4336358185
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "temperature": 0,
+    "num_predict": 1024,
+    "timeout_s": 180.0,
+    "keep_alive": "15m",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": true,
+  "dataset": {
+    "caminho": "data\\dataset.json",
+    "sha256": "57ba4fee7639441f2f3c5f5c274b9eaa49dbc7f0156ca54734fd0cd5e18bb3d3"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "software": {
+    "python": "3.14.4",
+    "ollama_servidor": "0.34.0",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.3",
+    "langchain_ollama": "1.1.0",
+    "so": "Windows-11-10.0.26200-SP0"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 616.64",
+    "maquina": "vhenequim"
+  },
+  "iniciado_em": "2026-09-14T11:53:09",
+  "aquecimento_ms": 95043.19619999934,
+  "encerrado_em": "2026-09-14T11:56:07"
+}
