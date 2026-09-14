@@ -3,18 +3,18 @@
 \caption{F1-\textit{score} por categoria de consulta e por modelo}
 \label{tab:resultados_por_categoria}
 \small
-\begin{tabular}{|l|c|}
+\begin{tabular}{|l|c|c|}
 \hline
-\textbf{Categoria} & \textbf{Qwen 3 4B} \\
+\textbf{Categoria} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E2B} \\
 \hline
-Simples (n=12) & 0.889 \\
-Compostas (n=45) & 0.692 \\
-Com código MI/INOM (n=16) & 0.863 \\
-Com referência temporal relativa (n=16) & 0.669 \\
-Com ordenação (n=11) & 0.723 \\
-Ambíguas / variações ortográficas (n=38) & 0.649 \\
+Simples (n=12) & 0.889 & 1.000 \\
+Compostas (n=45) & 0.692 & 0.696 \\
+Com código MI/INOM (n=16) & 0.863 & 0.815 \\
+Com referência temporal relativa (n=16) & 0.669 & 0.489 \\
+Com ordenação (n=11) & 0.723 & 0.633 \\
+Ambíguas / variações ortográficas (n=38) & 0.649 & 0.664 \\
 \hline
-\textbf{Média ponderada} & 0.706 \\
+\textbf{Média ponderada} & 0.706 & 0.672 \\
 \hline
 \end{tabular}
 \fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais.}

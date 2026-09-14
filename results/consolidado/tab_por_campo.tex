@@ -3,22 +3,22 @@
 \caption{F1-\textit{score} por campo do \textit{schema} de busca --- comparativo entre modelos}
 \label{tab:resultados_por_campo}
 \small
-\begin{tabular}{|l|c|c|}
+\begin{tabular}{|l|c|c|c|}
 \hline
-\textbf{Campo} & \textbf{Ocorr.} & \textbf{Qwen 3 4B} \\
+\textbf{Campo} & \textbf{Ocorr.} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E2B} \\
 \hline
-\texttt{keyword} & 21 & 0.895 \\
-\texttt{scale} & 15 & 0.696 \\
-\texttt{productType} & 13 & 0.815 \\
-\texttt{state} & 19 & 0.833 \\
-\texttt{city} & 5 & 0.750 \\
-\texttt{supplyArea} & 11 & 0.900 \\
-\texttt{project} & 5 & 0.909 \\
-\texttt{publicationPeriod} & 14 & 0.519 \\
-\texttt{creationPeriod} & 3 & 0.000 \\
-\texttt{sortField} & 11 & 0.417 \\
-\texttt{sortDirection} & 11 & 0.538 \\
-\texttt{limit} & 6 & 0.500 \\
+\texttt{keyword} & 21 & 0.895 & 0.889 \\
+\texttt{scale} & 15 & 0.696 & 1.000 \\
+\texttt{productType} & 13 & 0.815 & 1.000 \\
+\texttt{state} & 19 & 0.833 & 0.923 \\
+\texttt{city} & 5 & 0.750 & 1.000 \\
+\texttt{supplyArea} & 11 & 0.900 & 1.000 \\
+\texttt{project} & 5 & 0.909 & 1.000 \\
+\texttt{publicationPeriod} & 14 & 0.519 & 0.000 \\
+\texttt{creationPeriod} & 3 & 0.000 & 0.000 \\
+\texttt{sortField} & 11 & 0.417 & 0.000 \\
+\texttt{sortDirection} & 11 & 0.538 & 0.500 \\
+\texttt{limit} & 6 & 0.500 & 1.000 \\
 \hline
 \end{tabular}
 \fonte{Elaborado pelo autor. Ocorr. = vezes que o campo aparece no gabarito.}

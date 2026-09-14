@@ -385,6 +385,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--resultados", type=Path, default=DIR_RESULTADOS)
     p.add_argument("--modelos", help="tags separadas por vírgula, na ordem das tabelas")
     p.add_argument("--saida", type=Path, default=None)
+    p.add_argument("--paper", type=Path, metavar="DIR",
+                   help="copia tab_*.tex para DIR/tabelas e fig_*.pdf para DIR/figuras (o Cap. 5 os inclui)")
     args = p.parse_args(argv)
 
     modelos = [m.strip() for m in args.modelos.split(",")] if args.modelos else None
@@ -403,6 +405,15 @@ def main(argv: list[str] | None = None) -> int:
     (saida / "tab_por_campo.tex").write_text(tab_por_campo(dados), encoding="utf-8")
     (saida / "tab_latencia.tex").write_text(tab_latencia(dados), encoding="utf-8")
     figs = figuras(dados, saida)
+    if args.paper:
+        import shutil
+        (args.paper / "tabelas").mkdir(parents=True, exist_ok=True)
+        (args.paper / "figuras").mkdir(parents=True, exist_ok=True)
+        for f in saida.glob("tab_*.tex"):
+            shutil.copy2(f, args.paper / "tabelas" / f.name)
+        for f in saida.glob("fig_*.pdf"):
+            shutil.copy2(f, args.paper / "figuras" / f.name)
+        print(f"tabelas e figuras copiadas para {args.paper}")
     print(f"consolidado {len(dados)} modelo(s) em {saida}: comparativo.md, estatistica.md, "
           f"erros_representativos.md, 4 tabelas .tex, figuras {figs}")
     for m in dados:

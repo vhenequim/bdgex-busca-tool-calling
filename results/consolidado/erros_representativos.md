@@ -77,3 +77,52 @@
   - esperado: `{"scale": "1:25.000", "city": "Brasília"}`
   - predito: `{"scale": "1:25.000", "productType": "SCN Carta Topográfica Matricial", "city": "Brasília"}`
   - FP ['productType'] · FN [] · fora do schema []
+
+## Gemma 4 E2B
+
+### misto (2 casos)
+
+- **P05** — "buscar folha SF-22-Y-D-II-4 do RS publicada esse ano"
+  - esperado: `{"keyword": "SF-22-Y-D-II-4", "state": "Rio Grande do Sul", "publicationPeriod": {"start": "2026-01-01", "end": "2026-12-31"}}`
+  - predito: `{"keyword": "SF-22-Y-D-II-4", "publicationPeriod": {"start": "2026-01-01", "end": "2026-09-14"}}`
+  - FP ['publicationPeriod'] · FN ['state'] · fora do schema []
+- **P21** — "preciso das 5 cartas mais antigas do tipo ortoimg em escala detalhada do terceiro cgeo em pernambuco publicadas depois de 2020"
+  - esperado: `{"limit": 5, "productType": "SCN Carta Ortoimagem", "scale": "1:25.000", "supplyArea": "3° Centro de Geoinformação", "state": "Pernambuco", "publicationPeriod": {"start": "2020-01-01", "end": "2026-09-14"}, "sortField": "creationDate", "sortDirection": "ASC"}`
+  - predito: `{"scale": "1:25.000", "productType": "SCN Carta Ortoimagem", "state": "Pernambuco", "supplyArea": "3° Centro de Geoinformação", "publicationPeriod": {"start": "2020-01-01"}, "limit": 5}`
+  - FP ['publicationPeriod'] · FN ['sortDirection', 'sortField'] · fora do schema []
+
+### nao_chamou (2 casos)
+
+- **N17** — "produtos publicados nos últimos 3 meses"
+  - esperado: `{"publicationPeriod": {"start": "2026-06-16", "end": "2026-09-14"}}`
+  - predito: `null`
+  - FP [] · FN ['publicationPeriod'] · fora do schema []
+- **GT001** — "produtos publicados esse ano"
+  - esperado: `{"publicationPeriod": {"start": "2026-01-01", "end": "2026-12-31"}}`
+  - predito: `null`
+  - FP [] · FN ['publicationPeriod'] · fora do schema []
+
+### campo_omitido (2 casos)
+
+- **GO001** — "Mais recente carta de amapa"
+  - esperado: `{"state": "Amapá", "sortField": "publicationDate", "sortDirection": "DESC"}`
+  - predito: `{"state": "Amapá"}`
+  - FP [] · FN ['sortDirection', 'sortField'] · fora do schema []
+- **N24** — "3 cartas mais recentes de Curitiba"
+  - esperado: `{"city": "Curitiba", "limit": 3, "sortField": "publicationDate", "sortDirection": "DESC"}`
+  - predito: `{"city": "Curitiba", "sortDirection": "DESC", "limit": 3}`
+  - FP [] · FN ['sortField'] · fora do schema []
+
+### valor_errado (1 casos)
+
+- **P15** — "cartas criadas no último trimestre do ano passado do segundo cgeo"
+  - esperado: `{"supplyArea": "2° Centro de Geoinformação", "creationPeriod": {"start": "2025-10-01", "end": "2025-12-31"}}`
+  - predito: `{"supplyArea": "2° Centro de Geoinformação", "creationPeriod": {"start": "2025-10-01T00:00:00Z", "end": "2025-12-31T23:59:59Z"}}`
+  - FP ['creationPeriod'] · FN [] · fora do schema []
+
+### campo_inventado (1 casos)
+
+- **GC001** — "cartas de Rio Grande do Norte em detalhada"
+  - esperado: `{"state": "Rio Grande do Norte", "scale": "1:25.000"}`
+  - predito: `{"keyword": "Rio Grande do Norte", "scale": "1:25.000", "state": "Rio Grande do Norte"}`
+  - FP ['keyword'] · FN [] · fora do schema []
