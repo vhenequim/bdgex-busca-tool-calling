@@ -1,0 +1,21 @@
+services:
+  postgis:
+    image: postgis/postgis:16-3.4
+    container_name: pfc_postgis
+    environment:
+      POSTGRES_PASSWORD: pfc
+      POSTGRES_DB: geospatial_search
+    ports:
+      - "5433:5432"   # 5432 fica livre para o PostgreSQL 18 instalado na maquina
+    volumes:
+      - ./db/init_schema_prototipo.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./db/seed_sintetico.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+      - pfc_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d geospatial_search"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pfc_pgdata:

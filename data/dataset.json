@@ -1,0 +1,5355 @@
+{
+  "gerado_em": "2026-09-14T09:19:34",
+  "fonte": "Apêndice A do PFC (P01-P22, N01-N40) + generate_dataset.py seed=42 (G*)",
+  "total": 310,
+  "por_origem": {
+    "G": 248,
+    "N": 40,
+    "P": 22
+  },
+  "campos": [
+    "keyword",
+    "scale",
+    "productType",
+    "state",
+    "city",
+    "supplyArea",
+    "project",
+    "publicationPeriod",
+    "creationPeriod",
+    "sortField",
+    "sortDirection",
+    "limit"
+  ],
+  "casos": [
+    {
+      "id": "P01",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "preciso da carta MI 2965-2-NE do segundo cgeo",
+      "esperado": {
+        "keyword": "2965-2-NE",
+        "supplyArea": "2° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P02",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha MI 2866-3 em escala 50k",
+      "esperado": {
+        "keyword": "2866-3",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P03",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2901 do projeto olimpiadas",
+      "esperado": {
+        "keyword": "2901",
+        "project": "Olimpíadas Rio 2016"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P04",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "carta 530 em pequena escala",
+      "esperado": {
+        "keyword": "530",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P05",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "T"
+      ],
+      "consulta": "buscar folha SF-22-Y-D-II-4 do RS publicada esse ano",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4",
+        "state": "Rio Grande do Sul",
+        "publicationPeriod": {
+          "rel": "ano_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P06",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "carta SF-22-Y-D do tipo ortoimg",
+      "esperado": {
+        "keyword": "SF-22-Y-D",
+        "productType": "SCN Carta Ortoimagem"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P07",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "inom SF-22-Y-D-II-4-SE criado pelo primeiro cgeo",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4-SE",
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P08",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "carta topográfica Passo da Seringueira em 1:25.000",
+      "esperado": {
+        "keyword": "Passo da Seringueira",
+        "scale": "1:25.000",
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P09",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "folha Porto Velho publicada em 2024",
+      "esperado": {
+        "keyword": "Porto Velho",
+        "publicationPeriod": {
+          "start": "2024-01-01",
+          "end": "2024-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P10",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "carta Vale do Guaporé do projeto rondonia",
+      "esperado": {
+        "keyword": "Vale do Guaporé",
+        "project": "Base Cartográfica Digital de Rondônia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P11",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2965-2-NE e SF-22-Y-D do terceiro cgeo em grande escala",
+      "esperado": {
+        "keyword": "2965-2-NE",
+        "supplyArea": "3° Centro de Geoinformação",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "gabarito herdado do protótipo: dois códigos, fica o primeiro; 'grande escala' → 1:25.000"
+    },
+    {
+      "id": "P12",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "C",
+        "T",
+        "A"
+      ],
+      "consulta": "cartas do tipo topo com MI 530 ou SF-22 publicadas esse ano",
+      "esperado": {
+        "keyword": "530",
+        "productType": "SCN Carta Topográfica Matricial",
+        "publicationPeriod": {
+          "rel": "ano_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "gabarito herdado do protótipo: dois códigos, fica o primeiro"
+    },
+    {
+      "id": "P13",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "todas as cartas em escala maior que 100k do rio grande do sul",
+      "esperado": {
+        "state": "Rio Grande do Sul",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "gabarito herdado do protótipo: 'maior que 100k' → 1:25.000"
+    },
+    {
+      "id": "P14",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapeamento detalhado (25k ou 50k) de brasilia",
+      "esperado": {
+        "scale": "1:25.000",
+        "city": "Brasília"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "gabarito herdado do protótipo: duas escalas, fica a mais detalhada"
+    },
+    {
+      "id": "P15",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas criadas no último trimestre do ano passado do segundo cgeo",
+      "esperado": {
+        "supplyArea": "2° Centro de Geoinformação",
+        "creationPeriod": {
+          "rel": "ultimo_trimestre_ano_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P16",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos da semana passada do terceiro cgeo",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "semana_passada"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P17",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do mapeamento sistematico em goias",
+      "esperado": {
+        "project": "Mapeamento Sistemático",
+        "state": "Goiás"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P18",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos da copa das confederacoes em fortaleza",
+      "esperado": {
+        "project": "Copa das Confederações",
+        "city": "Fortaleza"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P19",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "primeiro mapeamento feito em cuiaba",
+      "esperado": {
+        "city": "Cuiabá",
+        "sortField": "creationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P20",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "ultima atualizacao do para",
+      "esperado": {
+        "state": "Pará",
+        "sortField": "creationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P21",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "O",
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "preciso das 5 cartas mais antigas do tipo ortoimg em escala detalhada do terceiro cgeo em pernambuco publicadas depois de 2020",
+      "esperado": {
+        "limit": 5,
+        "productType": "SCN Carta Ortoimagem",
+        "scale": "1:25.000",
+        "supplyArea": "3° Centro de Geoinformação",
+        "state": "Pernambuco",
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        },
+        "sortField": "creationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "P22",
+      "origem": "P",
+      "familia": "P",
+      "categorias": [
+        "M",
+        "O",
+        "T",
+        "C"
+      ],
+      "consulta": "MI 2901 ou SF-22 do quarto cgeo no sudeste em pequena escala criado entre 2022 e 2023 ordem cronologica",
+      "esperado": {
+        "keyword": "2901",
+        "supplyArea": "4° Centro de Geoinformação",
+        "scale": "1:250.000",
+        "creationPeriod": {
+          "start": "2022-01-01",
+          "end": "2023-12-31"
+        },
+        "sortField": "creationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "gabarito herdado do protótipo: 'sudeste' não vira parâmetro"
+    },
+    {
+      "id": "N01",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de São Paulo",
+      "esperado": {
+        "state": "São Paulo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N02",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos em escala 1:50.000",
+      "esperado": {
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N03",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "ortoimagens",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N04",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "mapas do rj",
+      "esperado": {
+        "state": "Rio de Janeiro"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N05",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "carta 25k",
+      "esperado": {
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N06",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "folha SF-22-Y-D",
+      "esperado": {
+        "keyword": "SF-22-Y-D"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N07",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "modelos digitais de terreno",
+      "esperado": {
+        "productType": "MDT — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N08",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas topográficas",
+      "esperado": {
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N09",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos do Amazonas",
+      "esperado": {
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N10",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "mi 2901",
+      "esperado": {
+        "keyword": "2901"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N11",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas do 1º CGEO em Minas Gerais",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação",
+        "state": "Minas Gerais"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N12",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "ortoimagens de Manaus em 1:50.000",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "city": "Manaus",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N13",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mdt do para em 25k",
+      "esperado": {
+        "productType": "MDT — RAM",
+        "state": "Pará",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N14",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha 2965-2 do Rio Grande do Sul",
+      "esperado": {
+        "keyword": "2965-2",
+        "state": "Rio Grande do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N15",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "INOM SG-22-X-A",
+      "esperado": {
+        "keyword": "SG-22-X-A"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N16",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "M",
+        "C",
+        "T"
+      ],
+      "consulta": "carta MI 3010 publicada em 2023",
+      "esperado": {
+        "keyword": "3010",
+        "publicationPeriod": {
+          "start": "2023-01-01",
+          "end": "2023-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N17",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "A"
+      ],
+      "consulta": "produtos publicados nos últimos 3 meses",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ultimos_90_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N18",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "C"
+      ],
+      "consulta": "cartas do ano passado em Roraima",
+      "esperado": {
+        "state": "Roraima",
+        "publicationPeriod": {
+          "rel": "ano_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N19",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "A"
+      ],
+      "consulta": "atualizações deste mês",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "mes_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N20",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas dos últimos 5 anos em escala 100k",
+      "esperado": {
+        "scale": "1:100.000",
+        "publicationPeriod": {
+          "rel": "ultimos_5_anos"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N21",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "A"
+      ],
+      "consulta": "qualquer coisa de hoje",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "hoje"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N22",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "ortoimagens de 2 anos atrás",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "publicationPeriod": {
+          "rel": "dois_anos_atras"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N23",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do trimestre passado do 4º CGEO",
+      "esperado": {
+        "supplyArea": "4° Centro de Geoinformação",
+        "creationPeriod": {
+          "rel": "trimestre_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N24",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "C"
+      ],
+      "consulta": "3 cartas mais recentes de Curitiba",
+      "esperado": {
+        "city": "Curitiba",
+        "limit": 3,
+        "sortField": "creationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N25",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "C"
+      ],
+      "consulta": "10 primeiras ortoimagens do Nordeste",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "limit": 10,
+        "sortField": "creationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "'Nordeste' não mapeia a um único estado; gabarito não inclui state"
+    },
+    {
+      "id": "N26",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "mais antigas em rondonia",
+      "esperado": {
+        "state": "Rondônia",
+        "sortField": "creationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N27",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "C"
+      ],
+      "consulta": "últimas 5 publicações",
+      "esperado": {
+        "limit": 5,
+        "sortField": "publicationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N28",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "M",
+        "C"
+      ],
+      "consulta": "carta MI 2901 mais recente",
+      "esperado": {
+        "keyword": "2901",
+        "sortField": "publicationDate",
+        "sortDirection": "DESC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N29",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "O",
+        "C",
+        "T"
+      ],
+      "consulta": "três produtos mais antigos deste ano",
+      "esperado": {
+        "limit": 3,
+        "publicationPeriod": {
+          "rel": "ano_corrente"
+        },
+        "sortField": "publicationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N30",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas topo do primeiro cgeo",
+      "esperado": {
+        "productType": "SCN Carta Topográfica Matricial",
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N31",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "orto banda p",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem Banda P Pol HH"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N32",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "mapas do rio em cem k",
+      "esperado": {
+        "state": "Rio de Janeiro",
+        "scale": "1:100.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N33",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartografia sistematica sp",
+      "esperado": {
+        "project": "Mapeamento Sistemático",
+        "state": "São Paulo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N34",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "ortos da amazonia legal",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": true,
+      "notas": "gabarito incerto: 'Amazônia Legal' abrange nove estados, não só o Amazonas"
+    },
+    {
+      "id": "N35",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A",
+        "M",
+        "C"
+      ],
+      "consulta": "sf22yd do dois cgeo",
+      "esperado": {
+        "keyword": "SF-22-Y-D",
+        "supplyArea": "2° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "N36",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas fora do brasil",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "fora do domínio: nenhum parâmetro extraível"
+    },
+    {
+      "id": "N37",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "A"
+      ],
+      "consulta": "quero um mapa bonito",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "subespecífico: nenhum parâmetro extraível"
+    },
+    {
+      "id": "N38",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "escala 1:10.000.000",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "valor fora do enum de escalas; qualquer scale emitido é falso positivo"
+    },
+    {
+      "id": "N39",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas topo no oceano atlântico",
+      "esperado": {
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": true,
+      "notas": "área não terrestre: state/city emitidos são falso positivo"
+    },
+    {
+      "id": "N40",
+      "origem": "N",
+      "familia": "N",
+      "categorias": [
+        "C",
+        "T"
+      ],
+      "consulta": "cartas do futuro (ano 2050)",
+      "esperado": {
+        "publicationPeriod": {
+          "start": "2050-01-01",
+          "end": "2050-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": true,
+      "notas": "gabarito determinístico; SQL válida com zero registros esperados"
+    },
+    {
+      "id": "GS001",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de AC",
+      "esperado": {
+        "state": "Acre"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS002",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de AL",
+      "esperado": {
+        "state": "Alagoas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS003",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de Amapa",
+      "esperado": {
+        "state": "Amapá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS004",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de amazonas",
+      "esperado": {
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS005",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de bahia",
+      "esperado": {
+        "state": "Bahia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS006",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de ceara",
+      "esperado": {
+        "state": "Ceará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS007",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de DF",
+      "esperado": {
+        "state": "Distrito Federal"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS008",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de ES",
+      "esperado": {
+        "state": "Espírito Santo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS009",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Goiás",
+      "esperado": {
+        "state": "Goiás"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS010",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de maranhão",
+      "esperado": {
+        "state": "Maranhão"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS011",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de MT",
+      "esperado": {
+        "state": "Mato Grosso"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS012",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de MS",
+      "esperado": {
+        "state": "Mato Grosso do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS013",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de MG",
+      "esperado": {
+        "state": "Minas Gerais"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS014",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de para",
+      "esperado": {
+        "state": "Pará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS015",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "cartas de paraiba",
+      "esperado": {
+        "state": "Paraíba"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS016",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos em escala 1k",
+      "esperado": {
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS017",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos em escala 1:2.000",
+      "esperado": {
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS018",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos em escala 5k",
+      "esperado": {
+        "scale": "1:5.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS019",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos em escala 1:10.000",
+      "esperado": {
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS020",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos em escala 1:25.000",
+      "esperado": {
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS021",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos em escala 50k",
+      "esperado": {
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS022",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "produtos em escala 1:100.000",
+      "esperado": {
+        "scale": "1:100.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS023",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos em escala pequena escala",
+      "esperado": {
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS024",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "topo",
+      "esperado": {
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS025",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "vetorial",
+      "esperado": {
+        "productType": "SCN Carta Topográfica Vetorial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS026",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "SCN Carta Ortoimagem",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS027",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "orto banda P",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem Banda P Pol HH"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS028",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "orto banda X",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem Banda X Pol HH"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS029",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "mdt",
+      "esperado": {
+        "productType": "MDT — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS030",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "mds",
+      "esperado": {
+        "productType": "MDS — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS031",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "circ",
+      "esperado": {
+        "productType": "CIRC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS032",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "carta temática",
+      "esperado": {
+        "productType": "Cartas Temáticas Não SCN"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS033",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos do 1o CGEO",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS034",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos do segundo cgeo",
+      "esperado": {
+        "supplyArea": "2° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS035",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos do 3o CGEO",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS036",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos do quarto cgeo",
+      "esperado": {
+        "supplyArea": "4° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS037",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "produtos do quinto cgeo",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS038",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Rio de Janeiro",
+      "esperado": {
+        "city": "Rio de Janeiro"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS039",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de São Paulo",
+      "esperado": {
+        "city": "São Paulo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS040",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Brasília",
+      "esperado": {
+        "city": "Brasília"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS041",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Manaus",
+      "esperado": {
+        "city": "Manaus"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS042",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Porto Velho",
+      "esperado": {
+        "city": "Porto Velho"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS043",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Cuiabá",
+      "esperado": {
+        "city": "Cuiabá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS044",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Fortaleza",
+      "esperado": {
+        "city": "Fortaleza"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS045",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Salvador",
+      "esperado": {
+        "city": "Salvador"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS046",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Belo Horizonte",
+      "esperado": {
+        "city": "Belo Horizonte"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS047",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Curitiba",
+      "esperado": {
+        "city": "Curitiba"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS048",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2965-2-NE",
+      "esperado": {
+        "keyword": "2965-2-NE"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS049",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2866-3",
+      "esperado": {
+        "keyword": "2866-3"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS050",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2901",
+      "esperado": {
+        "keyword": "2901"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS051",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 530",
+      "esperado": {
+        "keyword": "530"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS052",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 3010",
+      "esperado": {
+        "keyword": "3010"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS053",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2965",
+      "esperado": {
+        "keyword": "2965"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS054",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2866-2-SO",
+      "esperado": {
+        "keyword": "2866-2-SO"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS055",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "MI 2901-4-NE",
+      "esperado": {
+        "keyword": "2901-4-NE"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS056",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SF-22-Y-D",
+      "esperado": {
+        "keyword": "SF-22-Y-D"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS057",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SF-22-Y-D-II",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS058",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SF-22-Y-D-II-4",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS059",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SF-22-Y-D-II-4-SE",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4-SE"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS060",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SG-22-X-A",
+      "esperado": {
+        "keyword": "SG-22-X-A"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GS061",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S",
+        "M"
+      ],
+      "consulta": "INOM SF-23-V-C",
+      "esperado": {
+        "keyword": "SF-23-V-C"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC001",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Rio Grande do Norte em detalhada",
+      "esperado": {
+        "state": "Rio Grande do Norte",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC002",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de SE em 1:1.000",
+      "esperado": {
+        "state": "Sergipe",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC003",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de santa catarina em 1:250.000",
+      "esperado": {
+        "state": "Santa Catarina",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC004",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de PI em 1:2000",
+      "esperado": {
+        "state": "Piauí",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC005",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de minas gerais em 2k",
+      "esperado": {
+        "state": "Minas Gerais",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC006",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Piauí em detalhada",
+      "esperado": {
+        "state": "Piauí",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC007",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas de Tocantins em 1:50.000",
+      "esperado": {
+        "state": "Tocantins",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC008",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas de Rio de Janeiro em 1:10.000",
+      "esperado": {
+        "state": "Rio de Janeiro",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC009",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de roraima em 1:2000",
+      "esperado": {
+        "state": "Roraima",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC010",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de AL em 10k",
+      "esperado": {
+        "state": "Alagoas",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC011",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de São Paulo em 25k",
+      "esperado": {
+        "state": "São Paulo",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC012",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de AP em 10k",
+      "esperado": {
+        "state": "Amapá",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC013",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de AM em 1:100000",
+      "esperado": {
+        "state": "Amazonas",
+        "scale": "1:100.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC014",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Goiás em 250k",
+      "esperado": {
+        "state": "Goiás",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC015",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Rio Grande do Sul em 1:50000",
+      "esperado": {
+        "state": "Rio Grande do Sul",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC016",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas de Ceará em 1:50.000",
+      "esperado": {
+        "state": "Ceará",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC017",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de MTdoSul em 1:10.000",
+      "esperado": {
+        "state": "Mato Grosso do Sul",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC018",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de RO em 25k",
+      "esperado": {
+        "state": "Rondônia",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC019",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas de Roraima em 1:2.000",
+      "esperado": {
+        "state": "Roraima",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC020",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de rio grande do norte em 1:5.000",
+      "esperado": {
+        "state": "Rio Grande do Norte",
+        "scale": "1:5.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC021",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de piaui em 10k",
+      "esperado": {
+        "state": "Piauí",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC022",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Ceara em 1:250.000",
+      "esperado": {
+        "state": "Ceará",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC023",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de minas gerais em 1:25.000",
+      "esperado": {
+        "state": "Minas Gerais",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC024",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de RS em 1:10.000",
+      "esperado": {
+        "state": "Rio Grande do Sul",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC025",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Rondônia em 1:50000",
+      "esperado": {
+        "state": "Rondônia",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC026",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Tocantins em 1:1000",
+      "esperado": {
+        "state": "Tocantins",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC027",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Espírito Santo em 1k",
+      "esperado": {
+        "state": "Espírito Santo",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC028",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Sergipe em 1:50000",
+      "esperado": {
+        "state": "Sergipe",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC029",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de minas gerais em 1:25000",
+      "esperado": {
+        "state": "Minas Gerais",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC030",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Amapa em 10k",
+      "esperado": {
+        "state": "Amapá",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC031",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Belo Horizonte em 1:2000",
+      "esperado": {
+        "city": "Belo Horizonte",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC032",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Goiânia em 1:25000",
+      "esperado": {
+        "city": "Goiânia",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC033",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Belém em 1:1000",
+      "esperado": {
+        "city": "Belém",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC034",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Rio de Janeiro em 2k",
+      "esperado": {
+        "city": "Rio de Janeiro",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC035",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Curitiba em 250k",
+      "esperado": {
+        "city": "Curitiba",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC036",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Cuiabá em 5k",
+      "esperado": {
+        "city": "Cuiabá",
+        "scale": "1:5.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC037",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "mapas de Salvador em 1:250000",
+      "esperado": {
+        "city": "Salvador",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC038",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "mapas de Porto Alegre em 1:25.000",
+      "esperado": {
+        "city": "Porto Alegre",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC039",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "SCN Carta Ortoimagem Banda P Pol HH de paraiba",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem Banda P Pol HH",
+        "state": "Paraíba"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC040",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "temática de AM",
+      "esperado": {
+        "productType": "Cartas Temáticas Não SCN",
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC041",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "modelo digital de terreno de AP",
+      "esperado": {
+        "productType": "MDT — RAM",
+        "state": "Amapá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC042",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "ortoimg de rio de janeiro",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "state": "Rio de Janeiro"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC043",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "CIRC de Acre",
+      "esperado": {
+        "productType": "CIRC",
+        "state": "Acre"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC044",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "MDS de rio grande do sul",
+      "esperado": {
+        "productType": "MDS — RAM",
+        "state": "Rio Grande do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC045",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do projeto Olimpíadas Rio 2016 em goias",
+      "esperado": {
+        "project": "Olimpíadas Rio 2016",
+        "state": "Goiás"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC046",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do projeto mapeamento sistematico em Piauí",
+      "esperado": {
+        "project": "Mapeamento Sistemático",
+        "state": "Piauí"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC047",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "produtos do projeto Base Cartográfica Digital do Amapá em Rio de Janeiro",
+      "esperado": {
+        "project": "Base Cartográfica Digital do Amapá",
+        "state": "Rio de Janeiro"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC048",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do projeto copa do mundo em espirito santo",
+      "esperado": {
+        "project": "Copa do Mundo 2014",
+        "state": "Espírito Santo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC049",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do projeto NGA-BECA em DF",
+      "esperado": {
+        "project": "NGA-BECA",
+        "state": "Distrito Federal"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC050",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do projeto aman em rondonia",
+      "esperado": {
+        "project": "AMAN",
+        "state": "Rondônia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC051",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do 1º cgeo em 1:100.000",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação",
+        "scale": "1:100.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC052",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do 2 CGEO em 1k",
+      "esperado": {
+        "supplyArea": "2° Centro de Geoinformação",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC053",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do terceiro cgeo em 1 mil",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação",
+        "scale": "1:1.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC054",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do 4o CGEO em 2k",
+      "esperado": {
+        "supplyArea": "4° Centro de Geoinformação",
+        "scale": "1:2.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GC055",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do 5 CGEO em 1:10000",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação",
+        "scale": "1:10.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM001",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2965-2-NE de bahia",
+      "esperado": {
+        "keyword": "2965-2-NE",
+        "state": "Bahia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM002",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2866-3 de Ceara",
+      "esperado": {
+        "keyword": "2866-3",
+        "state": "Ceará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM003",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2901 de PB",
+      "esperado": {
+        "keyword": "2901",
+        "state": "Paraíba"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM004",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha MI 530 de Amapá",
+      "esperado": {
+        "keyword": "530",
+        "state": "Amapá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM005",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha MI 3010 de Sergipe",
+      "esperado": {
+        "keyword": "3010",
+        "state": "Sergipe"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM006",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2965 de AM",
+      "esperado": {
+        "keyword": "2965",
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM007",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2866-2-SO de RS",
+      "esperado": {
+        "keyword": "2866-2-SO",
+        "state": "Rio Grande do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM008",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2901-4-NE de amapa",
+      "esperado": {
+        "keyword": "2901-4-NE",
+        "state": "Amapá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM009",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha MI 531-1-NE de Ceará",
+      "esperado": {
+        "keyword": "531-1-NE",
+        "state": "Ceará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM010",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 2965-3 de parana",
+      "esperado": {
+        "keyword": "2965-3",
+        "state": "Paraná"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM011",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "folha MI 2866-3-NO de Distrito Federal",
+      "esperado": {
+        "keyword": "2866-3-NO",
+        "state": "Distrito Federal"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM012",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "folha MI 3010-2-SE de AL",
+      "esperado": {
+        "keyword": "3010-2-SE",
+        "state": "Alagoas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM013",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SF-22-Y-D do tipo MDS",
+      "esperado": {
+        "keyword": "SF-22-Y-D",
+        "productType": "MDS — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM014",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SF-22-Y-D-II do tipo modelo digital de superficie",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II",
+        "productType": "MDS — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM015",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "INOM SF-22-Y-D-II-4 do tipo circ",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4",
+        "productType": "CIRC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM016",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "INOM SF-22-Y-D-II-4-SE do tipo MDS — RAM",
+      "esperado": {
+        "keyword": "SF-22-Y-D-II-4-SE",
+        "productType": "MDS — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM017",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SG-22-X-A do tipo ortoimg",
+      "esperado": {
+        "keyword": "SG-22-X-A",
+        "productType": "SCN Carta Ortoimagem"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM018",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SF-23-V-C do tipo banda X HH",
+      "esperado": {
+        "keyword": "SF-23-V-C",
+        "productType": "SCN Carta Ortoimagem Banda X Pol HH"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM019",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SG-21-Z-B do tipo topo",
+      "esperado": {
+        "keyword": "SG-21-Z-B",
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM020",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SH-22-W-A-III-1-NE do tipo MDT",
+      "esperado": {
+        "keyword": "SH-22-W-A-III-1-NE",
+        "productType": "MDT — RAM"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM021",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C"
+      ],
+      "consulta": "INOM SG-22-Z-D-II-3 do tipo SCN Carta Topográfica Matricial",
+      "esperado": {
+        "keyword": "SG-22-Z-D-II-3",
+        "productType": "SCN Carta Topográfica Matricial"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM022",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "INOM SF-24-Y-A do tipo temática",
+      "esperado": {
+        "keyword": "SF-24-Y-A",
+        "productType": "Cartas Temáticas Não SCN"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM023",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2965-2-NE produzido pelo primeiro cgeo",
+      "esperado": {
+        "keyword": "2965-2-NE",
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM024",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 531-1-NE produzido pelo 4o CGEO",
+      "esperado": {
+        "keyword": "531-1-NE",
+        "supplyArea": "4° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM025",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2866-3 produzido pelo 5o CGEO",
+      "esperado": {
+        "keyword": "2866-3",
+        "supplyArea": "5° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM026",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2901 produzido pelo 5 CGEO",
+      "esperado": {
+        "keyword": "2901",
+        "supplyArea": "5° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM027",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 2965-3 produzido pelo 1o CGEO",
+      "esperado": {
+        "keyword": "2965-3",
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GM028",
+      "origem": "G",
+      "familia": "GM",
+      "categorias": [
+        "M",
+        "C",
+        "A"
+      ],
+      "consulta": "MI 3010 produzido pelo 4 CGEO",
+      "esperado": {
+        "keyword": "3010",
+        "supplyArea": "4° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT001",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados esse ano",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ano_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT002",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados ano passado",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ano_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT003",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados mês passado",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "mes_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT004",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados semana passada",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "semana_passada"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT005",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados últimos 3 meses",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ultimos_90_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT006",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados últimos 6 meses",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ultimos_180_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT007",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados últimos 5 anos",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ultimos_5_anos"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT008",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados desde 2020",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT009",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados depois de 2022",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "desde_2022"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT010",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados antes de 2020",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "antes_de_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT011",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados entre 2022 e 2023",
+      "esperado": {
+        "publicationPeriod": {
+          "start": "2022-01-01",
+          "end": "2023-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT012",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados no primeiro trimestre",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "primeiro_trimestre_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT013",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados segundo semestre passado",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "segundo_semestre_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT014",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados desta semana",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "semana_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT015",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T"
+      ],
+      "consulta": "produtos publicados de hoje",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "hoje"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT016",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C"
+      ],
+      "consulta": "cartas de Bahia antes de 2020",
+      "esperado": {
+        "state": "Bahia",
+        "publicationPeriod": {
+          "rel": "antes_de_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT017",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de gauchos de hoje",
+      "esperado": {
+        "state": "Rio Grande do Sul",
+        "publicationPeriod": {
+          "rel": "hoje"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT018",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de paraiba depois de 2022",
+      "esperado": {
+        "state": "Paraíba",
+        "publicationPeriod": {
+          "rel": "desde_2022"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT019",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de SP últimos 6 meses",
+      "esperado": {
+        "state": "São Paulo",
+        "publicationPeriod": {
+          "rel": "ultimos_180_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT020",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de acre últimos 3 meses",
+      "esperado": {
+        "state": "Acre",
+        "publicationPeriod": {
+          "rel": "ultimos_90_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT021",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C"
+      ],
+      "consulta": "cartas de Rio Grande do Norte semana passada",
+      "esperado": {
+        "state": "Rio Grande do Norte",
+        "publicationPeriod": {
+          "rel": "semana_passada"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT022",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de AM no primeiro trimestre",
+      "esperado": {
+        "state": "Amazonas",
+        "publicationPeriod": {
+          "rel": "primeiro_trimestre_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT023",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de PI desta semana",
+      "esperado": {
+        "state": "Piauí",
+        "publicationPeriod": {
+          "rel": "semana_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT024",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de pernambuco mês passado",
+      "esperado": {
+        "state": "Pernambuco",
+        "publicationPeriod": {
+          "rel": "mes_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT025",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de bahia desde 2020",
+      "esperado": {
+        "state": "Bahia",
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT026",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do 5 CGEO de hoje",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "hoje"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT027",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do 5o CGEO ano passado",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "ano_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT028",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do quinto cgeo semana passada",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "semana_passada"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT029",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do primeiro cgeo últimos 6 meses",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "ultimos_180_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT030",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do 3o CGEO últimos 3 meses",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "ultimos_90_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT031",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do primeiro cgeo mês passado",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "mes_anterior"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT032",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do terceiro cgeo desde 2020",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação",
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT033",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "produtos do 5o CGEO entre 2022 e 2023",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação",
+        "publicationPeriod": {
+          "start": "2022-01-01",
+          "end": "2023-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT034",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em 25k no primeiro trimestre",
+      "esperado": {
+        "scale": "1:25.000",
+        "publicationPeriod": {
+          "rel": "primeiro_trimestre_corrente"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT035",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C"
+      ],
+      "consulta": "cartas em 1:2.000 últimos 6 meses",
+      "esperado": {
+        "scale": "1:2.000",
+        "publicationPeriod": {
+          "rel": "ultimos_180_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT036",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em cem k semana passada",
+      "esperado": {
+        "scale": "1:100.000",
+        "publicationPeriod": {
+          "rel": "semana_passada"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT037",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em 1k entre 2022 e 2023",
+      "esperado": {
+        "scale": "1:1.000",
+        "publicationPeriod": {
+          "start": "2022-01-01",
+          "end": "2023-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT038",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em 50k de hoje",
+      "esperado": {
+        "scale": "1:50.000",
+        "publicationPeriod": {
+          "rel": "hoje"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT039",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em 1:25000 últimos 3 meses",
+      "esperado": {
+        "scale": "1:25.000",
+        "publicationPeriod": {
+          "rel": "ultimos_90_dias"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT040",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C"
+      ],
+      "consulta": "cartas em 1:250.000 depois de 2022",
+      "esperado": {
+        "scale": "1:250.000",
+        "publicationPeriod": {
+          "rel": "desde_2022"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GT041",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "T",
+        "C",
+        "A"
+      ],
+      "consulta": "cartas em 1k desde 2020",
+      "esperado": {
+        "scale": "1:1.000",
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO001",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Mais recente carta de amapa",
+      "esperado": {
+        "state": "Amapá",
+        "sortField": "publicationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO002",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Mais antiga carta de PI",
+      "esperado": {
+        "state": "Piauí",
+        "sortField": "publicationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO003",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Mais recentes carta de tocantins",
+      "esperado": {
+        "state": "Tocantins",
+        "sortField": "publicationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO004",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Mais antigas carta de rio de janeiro",
+      "esperado": {
+        "state": "Rio de Janeiro",
+        "sortField": "publicationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO005",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Primeira carta de para",
+      "esperado": {
+        "state": "Pará",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO006",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "Última carta de alagoas",
+      "esperado": {
+        "state": "Alagoas",
+        "sortField": "creationDate",
+        "sortDirection": "DESC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO007",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "3 mais antigas carta de MS",
+      "esperado": {
+        "state": "Mato Grosso do Sul",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 3
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO008",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "5 mais antigas carta de mato grosso do sul",
+      "esperado": {
+        "state": "Mato Grosso do Sul",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 5
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO009",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "10 mais recentes carta de RO",
+      "esperado": {
+        "state": "Rondônia",
+        "sortField": "creationDate",
+        "sortDirection": "DESC",
+        "limit": 10
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO010",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "ortoimg mais antiga",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "sortField": "publicationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO011",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "ortoimg última",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "sortField": "creationDate",
+        "sortDirection": "DESC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO012",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "MDS 3 mais antigas",
+      "esperado": {
+        "productType": "MDS — RAM",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 3
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO013",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "orto primeira",
+      "esperado": {
+        "productType": "SCN Carta Ortoimagem",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO014",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "C",
+        "A"
+      ],
+      "consulta": "mds mais antigas",
+      "esperado": {
+        "productType": "MDS — RAM",
+        "sortField": "publicationDate",
+        "sortDirection": "ASC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO015",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "T",
+        "A"
+      ],
+      "consulta": "Primeira carta publicada últimos 5 anos",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ultimos_5_anos"
+        },
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO016",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "T",
+        "A"
+      ],
+      "consulta": "Mais recentes carta publicada desta semana",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "semana_corrente"
+        },
+        "sortField": "publicationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO017",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "T",
+        "A"
+      ],
+      "consulta": "3 mais antigas carta publicada esse ano",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "ano_corrente"
+        },
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": 3
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO018",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "T",
+        "A"
+      ],
+      "consulta": "Última carta publicada desta semana",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "semana_corrente"
+        },
+        "sortField": "creationDate",
+        "sortDirection": "DESC",
+        "limit": 1
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GO019",
+      "origem": "G",
+      "familia": "GO",
+      "categorias": [
+        "O",
+        "T",
+        "A"
+      ],
+      "consulta": "Mais recente carta publicada desde 2020",
+      "esperado": {
+        "publicationPeriod": {
+          "rel": "desde_2020"
+        },
+        "sortField": "publicationDate",
+        "sortDirection": "DESC"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA001",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do rj",
+      "esperado": {
+        "state": "Rio de Janeiro"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA002",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do sp",
+      "esperado": {
+        "state": "São Paulo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA003",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do mg",
+      "esperado": {
+        "state": "Minas Gerais"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA004",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do ba",
+      "esperado": {
+        "state": "Bahia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA005",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do rs",
+      "esperado": {
+        "state": "Rio Grande do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA006",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "mapas do df",
+      "esperado": {
+        "state": "Distrito Federal"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA007",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Sao Paulo",
+      "esperado": {
+        "state": "São Paulo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA008",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Goias",
+      "esperado": {
+        "state": "Goiás"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA009",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Para",
+      "esperado": {
+        "state": "Pará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA010",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Rondonia",
+      "esperado": {
+        "state": "Rondônia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA011",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Piaui",
+      "esperado": {
+        "state": "Piauí"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA012",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Ceara",
+      "esperado": {
+        "state": "Ceará"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA013",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Amapa",
+      "esperado": {
+        "state": "Amapá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA014",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Maranhao",
+      "esperado": {
+        "state": "Maranhão"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA015",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Cuiaba",
+      "esperado": {
+        "city": "Cuiabá"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA016",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Goiania",
+      "esperado": {
+        "city": "Goiânia"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA017",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "cartas de Belem",
+      "esperado": {
+        "city": "Belém"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA018",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "mapas detalhados do Amazonas",
+      "esperado": {
+        "scale": "1:25.000",
+        "state": "Amazonas"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA019",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas em pequena escala do sul",
+      "esperado": {
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA020",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "S"
+      ],
+      "consulta": "produtos em média escala",
+      "esperado": {
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA021",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas do Espírito Santo em 25k",
+      "esperado": {
+        "state": "Espírito Santo",
+        "scale": "1:25.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA022",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas do Distrito Federal em 50k",
+      "esperado": {
+        "state": "Distrito Federal",
+        "scale": "1:50.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA023",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas do Tocantins em 100k",
+      "esperado": {
+        "state": "Tocantins",
+        "scale": "1:100.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GA024",
+      "origem": "G",
+      "familia": "GA",
+      "categorias": [
+        "A",
+        "C"
+      ],
+      "consulta": "cartas do Paraíba em 250k",
+      "esperado": {
+        "state": "Paraíba",
+        "scale": "1:250.000"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": ""
+    },
+    {
+      "id": "GP001",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todas as cartas de Mato Grosso do Sul",
+      "esperado": {
+        "state": "Mato Grosso do Sul"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+    },
+    {
+      "id": "GP002",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todas as cartas de Maranhão",
+      "esperado": {
+        "state": "Maranhão"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+    },
+    {
+      "id": "GP003",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todas as cartas de Tocantins",
+      "esperado": {
+        "state": "Tocantins"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+    },
+    {
+      "id": "GP004",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todas as cartas de Sergipe",
+      "esperado": {
+        "state": "Sergipe"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+    },
+    {
+      "id": "GP005",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todas as cartas de Espírito Santo",
+      "esperado": {
+        "state": "Espírito Santo"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+    },
+    {
+      "id": "GP006",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todos os produtos do 1° Centro de Geoinformação",
+      "esperado": {
+        "supplyArea": "1° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todos os produtos daquele CGEO"
+    },
+    {
+      "id": "GP007",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todos os produtos do 2° Centro de Geoinformação",
+      "esperado": {
+        "supplyArea": "2° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todos os produtos daquele CGEO"
+    },
+    {
+      "id": "GP008",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todos os produtos do 3° Centro de Geoinformação",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todos os produtos daquele CGEO"
+    },
+    {
+      "id": "GP009",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todos os produtos do 4° Centro de Geoinformação",
+      "esperado": {
+        "supplyArea": "4° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todos os produtos daquele CGEO"
+    },
+    {
+      "id": "GP010",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "todos os produtos do 5° Centro de Geoinformação",
+      "esperado": {
+        "supplyArea": "5° Centro de Geoinformação"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todos os produtos daquele CGEO"
+    },
+    {
+      "id": "GP011",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas em 1:10.000 do Distrito Federal",
+      "esperado": {
+        "scale": "1:10.000",
+        "state": "Distrito Federal"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as folhas naquela escala e UF"
+    },
+    {
+      "id": "GP012",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas em 1:1.000 do Minas Gerais",
+      "esperado": {
+        "scale": "1:1.000",
+        "state": "Minas Gerais"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as folhas naquela escala e UF"
+    },
+    {
+      "id": "GP013",
+      "origem": "G",
+      "familia": "GP",
+      "categorias": [
+        "C"
+      ],
+      "consulta": "cartas em 1:50.000 do Mato Grosso",
+      "esperado": {
+        "scale": "1:50.000",
+        "state": "Mato Grosso"
+      },
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "retorna todas as folhas naquela escala e UF"
+    },
+    {
+      "id": "GF001",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas fora do brasil",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "nenhum parâmetro extraível (fora do domínio)"
+    },
+    {
+      "id": "GF002",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "me ajuda",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "nenhum parâmetro extraível (sem intenção clara)"
+    },
+    {
+      "id": "GF003",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "A"
+      ],
+      "consulta": "quero um mapa bonito",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "nenhum parâmetro extraível (subespecífico)"
+    },
+    {
+      "id": "GF004",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "S",
+        "A"
+      ],
+      "consulta": "escala 1:10.000.000",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "escala fora do enum (erro esperado)"
+    },
+    {
+      "id": "GF005",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "C",
+        "T"
+      ],
+      "consulta": "cartas do futuro (ano 2050)",
+      "esperado": {
+        "publicationPeriod": {
+          "start": "2050-01-01",
+          "end": "2050-12-31"
+        }
+      },
+      "espera_tool_call": true,
+      "observacional": true,
+      "notas": "SQL válida com resultado esperado zero registros"
+    },
+    {
+      "id": "GF006",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Marte",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "nenhum estado brasileiro; deve devolver zero ou pedir esclarecimento"
+    },
+    {
+      "id": "GF007",
+      "origem": "G",
+      "familia": "GF",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas do estado 42",
+      "esperado": {},
+      "espera_tool_call": false,
+      "observacional": true,
+      "notas": "state inválido; erro de normalização detectável"
+    }
+  ]
+}
