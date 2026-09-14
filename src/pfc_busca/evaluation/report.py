@@ -242,7 +242,7 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     ax.set_xticklabels(schema.CAMPOS, rotation=35, ha="right")
     ax.set_ylim(0, 1.0)
     ax.set_ylabel("F1 por campo")
-    ax.legend(frameon=False, ncol=len(modelos), fontsize=8, loc="lower left")
+    ax.legend(frameon=False, ncol=len(modelos), fontsize=8, loc="lower left", bbox_to_anchor=(0.0, 1.01))
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     for ext in ("pdf", "png"):
@@ -260,7 +260,7 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     ax.set_xticklabels([NOMES_CATEGORIA[c] for c in cats], rotation=20, ha="right", fontsize=8)
     ax.set_ylim(0, 1.0)
     ax.set_ylabel("acurácia por consulta")
-    ax.legend(frameon=False, ncol=len(modelos), fontsize=8, loc="lower left")
+    ax.legend(frameon=False, ncol=len(modelos), fontsize=8, loc="lower left", bbox_to_anchor=(0.0, 1.01))
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     for ext in ("pdf", "png"):
