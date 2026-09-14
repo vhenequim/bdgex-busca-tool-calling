@@ -33,8 +33,8 @@ from pfc_busca.evaluation import metrics
 from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, carregar_execucoes, slug
 
 ROTULOS = {
-    "qwen3:4b": "Qwen 3 4B",
-    "qwen3:4b-instruct-2507-q4_K_M": "Qwen 3 4B (instruct-2507)",
+    "qwen3:4b-instruct-2507-q4_K_M": "Qwen 3 4B",
+    "qwen3:4b": "Qwen 3 4B (build com thinking — descartado)",
     "gemma4:e4b-it-qat": "Gemma 4 E4B",
     "gemma4:e2b-it-qat": "Gemma 4 E2B",
     "mistral-nemo:12b": "Mistral Nemo 12B",

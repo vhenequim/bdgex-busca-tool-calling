@@ -35,7 +35,7 @@ copy .env.example .env
 Ollama ≥ 0.34 aberto, com os modelos:
 
 ```bash
-ollama pull qwen3:4b
+ollama pull qwen3:4b-instruct-2507-q4_K_M
 ollama pull gemma4:e4b-it-qat
 ollama pull gemma4:e2b-it-qat
 ollama pull mistral-nemo:12b
@@ -51,8 +51,8 @@ docker compose up -d
 
 ```bash
 pfc-dataset --verificar ../paper_revisado/apendice_dataset_gerado.tex   # (re)gera data/dataset.json
-pfc-avaliar --modelo qwen3:4b --origem P,N --limite 20                    # rodada-fumaça
-pfc-avaliar --modelo qwen3:4b --repeticoes 3                              # protocolo completo (F6)
+pfc-avaliar --modelo qwen3:4b-instruct-2507-q4_K_M --origem P,N --limite 20                    # rodada-fumaça
+pfc-avaliar --modelo qwen3:4b-instruct-2507-q4_K_M --repeticoes 3                              # protocolo completo (F6)
 uvicorn pfc_busca.api:app --port 8000                                     # API
 pytest
 ```

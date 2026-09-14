@@ -24,7 +24,7 @@ from pfc_busca.pipeline import Pipeline
 
 load_dotenv()
 
-MODELO_PADRAO = os.environ.get("PFC_MODELO_PADRAO", "qwen3:4b")
+MODELO_PADRAO = os.environ.get("PFC_MODELO_PADRAO", "qwen3:4b-instruct-2507-q4_K_M")
 PERMITIR_MODELO = os.environ.get("PFC_PERMITIR_MODELO", "0") == "1"
 
 app = FastAPI(title="PFC · Busca em linguagem natural no acervo da DSG", version="0.1.0")

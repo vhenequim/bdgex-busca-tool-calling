@@ -1,0 +1,462 @@
+{
+  "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+  "n_execucoes": 14,
+  "repeticoes": [
+    1
+  ],
+  "geral": {
+    "n_consultas": 13,
+    "acuracia": 0.23076923076923078,
+    "precisao_ponderada": 0.609375,
+    "recall_ponderado": 0.53125,
+    "f1_ponderado": 0.5480790043290044,
+    "f1_macro": 0.5637806637806638,
+    "micro": {
+      "precisao": 0.5666666666666667,
+      "recall": 0.68,
+      "f1": 0.6181818181818183,
+      "tp": 17,
+      "fp": 13,
+      "fn": 8
+    },
+    "por_campo": {
+      "keyword": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 4,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "scale": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "ocorrencias": 2,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "productType": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 1,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "state": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 3,
+        "ocorrencias": 7,
+        "precisao": 1.0,
+        "recall": 0.5714285714285714,
+        "f1": 0.7272727272727273
+      },
+      "city": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 1,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "supplyArea": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "ocorrencias": 3,
+        "precisao": 1.0,
+        "recall": 0.6666666666666666,
+        "f1": 0.8
+      },
+      "project": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 1,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "publicationPeriod": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "ocorrencias": 4,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "creationPeriod": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "ocorrencias": 1,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "sortField": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 1,
+        "ocorrencias": 3,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "sortDirection": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 1,
+        "ocorrencias": 3,
+        "precisao": 0.5,
+        "recall": 0.6666666666666666,
+        "f1": 0.5714285714285715
+      },
+      "limit": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 0,
+        "ocorrencias": 2,
+        "precisao": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666
+      }
+    },
+    "por_categoria": {
+      "S": {
+        "n": 2,
+        "acuracia": 0.0,
+        "f1_ponderado": 0.0
+      },
+      "C": {
+        "n": 9,
+        "acuracia": 0.3333333333333333,
+        "f1_ponderado": 0.6032879818594105
+      },
+      "M": {
+        "n": 4,
+        "acuracia": 0.75,
+        "f1_ponderado": 0.8888888888888888
+      },
+      "T": {
+        "n": 5,
+        "acuracia": 0.0,
+        "f1_ponderado": 0.4444444444444444
+      },
+      "O": {
+        "n": 3,
+        "acuracia": 0.0,
+        "f1_ponderado": 0.5822222222222223
+      },
+      "A": {
+        "n": 9,
+        "acuracia": 0.2222222222222222,
+        "f1_ponderado": 0.48333333333333334
+      }
+    },
+    "por_origem": {
+      "P": {
+        "n": 5,
+        "acuracia": 0.4
+      },
+      "N": {
+        "n": 3,
+        "acuracia": 0.0
+      },
+      "G": {
+        "n": 5,
+        "acuracia": 0.2
+      }
+    },
+    "latencia_llm_ms": {
+      "n": 8,
+      "min": 1707.225600000129,
+      "max": 3779.5735999998215,
+      "media": 2388.1181124999102,
+      "mediana": 2240.679199999704,
+      "desvio": 620.3369267654098,
+      "p95": 3779.5735999998215
+    },
+    "latencia_tool_ms": {
+      "n": 5,
+      "min": 29.116699999576667,
+      "max": 32.32170000001133,
+      "media": 30.767519999972137,
+      "mediana": 31.001500000002125,
+      "desvio": 1.2131195299032647,
+      "p95": 32.32170000001133
+    },
+    "latencia_total_ms": {
+      "n": 8,
+      "min": 1736.3422999997056,
+      "max": 3779.5735999998215,
+      "media": 2407.347812499893,
+      "mediana": 2271.010549999801,
+      "desvio": 608.3351144439278,
+      "p95": 3779.5735999998215
+    },
+    "diagnosticos": {
+      "tipos_erro": {
+        "valor_errado": 4,
+        "misto": 3,
+        "nao_chamou": 3
+      },
+      "campos_fora_do_schema": {},
+      "iou_periodos_medio": {},
+      "chamadas_com_erro": 5,
+      "classes_de_erro": {
+        "args_invalidos": 5
+      },
+      "nao_chamou_quando_devia": 3
+    },
+    "observacionais": {
+      "n": 1,
+      "acuracia": 1.0,
+      "chamou_sem_dever": 0,
+      "por_caso": [
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        }
+      ]
+    }
+  },
+  "por_repeticao": {
+    "1": {
+      "n_consultas": 13,
+      "acuracia": 0.23076923076923078,
+      "precisao_ponderada": 0.609375,
+      "recall_ponderado": 0.53125,
+      "f1_ponderado": 0.5480790043290044,
+      "f1_macro": 0.5637806637806638,
+      "micro": {
+        "precisao": 0.5666666666666667,
+        "recall": 0.68,
+        "f1": 0.6181818181818183,
+        "tp": 17,
+        "fp": 13,
+        "fn": 8
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 4,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "scale": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "ocorrencias": 2,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "productType": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 1,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "state": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 3,
+          "ocorrencias": 7,
+          "precisao": 1.0,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273
+        },
+        "city": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 1,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "supplyArea": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 1,
+          "ocorrencias": 3,
+          "precisao": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8
+        },
+        "project": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 1,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "publicationPeriod": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 0,
+          "ocorrencias": 4,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "ocorrencias": 1,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 0,
+          "fp": 4,
+          "fn": 1,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortDirection": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "ocorrencias": 3,
+          "precisao": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715
+        },
+        "limit": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 0,
+          "ocorrencias": 2,
+          "precisao": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 2,
+          "acuracia": 0.0,
+          "f1_ponderado": 0.0
+        },
+        "C": {
+          "n": 9,
+          "acuracia": 0.3333333333333333,
+          "f1_ponderado": 0.6032879818594105
+        },
+        "M": {
+          "n": 4,
+          "acuracia": 0.75,
+          "f1_ponderado": 0.8888888888888888
+        },
+        "T": {
+          "n": 5,
+          "acuracia": 0.0,
+          "f1_ponderado": 0.4444444444444444
+        },
+        "O": {
+          "n": 3,
+          "acuracia": 0.0,
+          "f1_ponderado": 0.5822222222222223
+        },
+        "A": {
+          "n": 9,
+          "acuracia": 0.2222222222222222,
+          "f1_ponderado": 0.48333333333333334
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 5,
+          "acuracia": 0.4
+        },
+        "N": {
+          "n": 3,
+          "acuracia": 0.0
+        },
+        "G": {
+          "n": 5,
+          "acuracia": 0.2
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 8,
+        "min": 1707.225600000129,
+        "max": 3779.5735999998215,
+        "media": 2388.1181124999102,
+        "mediana": 2240.679199999704,
+        "desvio": 620.3369267654098,
+        "p95": 3779.5735999998215
+      },
+      "latencia_tool_ms": {
+        "n": 5,
+        "min": 29.116699999576667,
+        "max": 32.32170000001133,
+        "media": 30.767519999972137,
+        "mediana": 31.001500000002125,
+        "desvio": 1.2131195299032647,
+        "p95": 32.32170000001133
+      },
+      "latencia_total_ms": {
+        "n": 8,
+        "min": 1736.3422999997056,
+        "max": 3779.5735999998215,
+        "media": 2407.347812499893,
+        "mediana": 2271.010549999801,
+        "desvio": 608.3351144439278,
+        "p95": 3779.5735999998215
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "valor_errado": 4,
+          "misto": 3,
+          "nao_chamou": 3
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {},
+        "chamadas_com_erro": 5,
+        "classes_de_erro": {
+          "args_invalidos": 5
+        },
+        "nao_chamou_quando_devia": 3
+      },
+      "observacionais": {
+        "n": 1,
+        "acuracia": 1.0,
+        "chamou_sem_dever": 0,
+        "por_caso": [
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          }
+        ]
+      }
+    }
+  },
+  "gerado_em": "2026-09-14T11:26:27"
+}

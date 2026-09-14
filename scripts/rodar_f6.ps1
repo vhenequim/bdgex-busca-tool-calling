@@ -7,7 +7,7 @@
 # Retomável: se cair no meio, rode o mesmo comando com o MESMO -Hoje que
 # aparece no log (o avaliador pula o que já foi feito).
 param(
-    [string[]]$Modelos = @("qwen3:4b", "gemma4:e4b-it-qat", "gemma4:e2b-it-qat", "mistral-nemo:12b"),
+    [string[]]$Modelos = @("qwen3:4b-instruct-2507-q4_K_M", "gemma4:e4b-it-qat", "gemma4:e2b-it-qat", "mistral-nemo:12b"),
     [int]$Repeticoes = 3,
     [string]$Hoje = (Get-Date -Format "yyyy-MM-dd"),
     [switch]$SemSql
