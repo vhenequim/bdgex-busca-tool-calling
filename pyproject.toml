@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "PFC IME — camada de tradução linguística (NL → parâmetros de busca) com Tool Calling sobre o acervo da DSG"
 readme = "README.md"
 requires-python = ">=3.12"
+license = {file = "LICENSE"}
 authors = [
   { name = "Vinicius Henequim Corrêa" },
   { name = "Daniel Santana" },
@@ -38,6 +39,7 @@ pfc-avaliar = "pfc_busca.evaluation.run_evaluation:main"
 pfc-dataset = "pfc_busca.evaluation.dataset_builder:main"
 pfc-relatorio = "pfc_busca.evaluation.report:main"
 pfc-auditar = "pfc_busca.evaluation.audit:main"
+pfc-conferir = "pfc_busca.evaluation.conferencia:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
