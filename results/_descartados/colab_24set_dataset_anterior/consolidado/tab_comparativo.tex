@@ -1,0 +1,17 @@
+\begin{table}[htbp!]
+\centering
+\caption{Comparativo de desempenho entre os modelos avaliados}
+\label{tab:resultados_comparativo}
+\small
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Latência med. (ms)} \\
+\hline
+Qwen 3 4B & 43.8\% & 0.645 & 0.711 & 0.623 & 1044 \\
+Gemma 4 E4B & 50.4\% & 0.775 & 0.683 & 0.709 & 745 \\
+Gemma 4 E2B & 46.9\% & 0.720 & 0.631 & 0.636 & 404 \\
+Mistral Nemo 12B & 23.6\% & 0.696 & 0.351 & 0.448 & 2739 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito; latência do LLM na tradução.}
+\end{table}

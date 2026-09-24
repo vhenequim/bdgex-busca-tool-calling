@@ -1,0 +1,1344 @@
+{
+  "modelo": "mistral-nemo:12b",
+  "n_execucoes": 930,
+  "repeticoes": [
+    1,
+    2,
+    3
+  ],
+  "geral": {
+    "n_consultas": 891,
+    "acuracia": 0.2356902356902357,
+    "precisao_ponderada": 0.6960888094240629,
+    "recall_ponderado": 0.35148335435765493,
+    "f1_ponderado": 0.4482171938759615,
+    "f1_macro": 0.37049663328652754,
+    "micro": {
+      "precisao": 0.6020761245674741,
+      "recall": 0.3543788187372709,
+      "f1": 0.4461538461538462,
+      "tp": 522,
+      "fp": 345,
+      "fn": 951
+    },
+    "por_campo": {
+      "keyword": {
+        "tp": 63,
+        "fp": 0,
+        "fn": 123,
+        "ocorrencias": 186,
+        "precisao": 1.0,
+        "recall": 0.3387096774193548,
+        "f1": 0.5060240963855421
+      },
+      "scale": {
+        "tp": 69,
+        "fp": 24,
+        "fn": 156,
+        "ocorrencias": 249,
+        "precisao": 0.7419354838709677,
+        "recall": 0.30666666666666664,
+        "f1": 0.43396226415094336
+      },
+      "productType": {
+        "tp": 51,
+        "fp": 33,
+        "fn": 78,
+        "ocorrencias": 129,
+        "precisao": 0.6071428571428571,
+        "recall": 0.3953488372093023,
+        "f1": 0.4788732394366197
+      },
+      "state": {
+        "tp": 150,
+        "fp": 18,
+        "fn": 237,
+        "ocorrencias": 390,
+        "precisao": 0.8928571428571429,
+        "recall": 0.3875968992248062,
+        "f1": 0.5405405405405405
+      },
+      "city": {
+        "tp": 39,
+        "fp": 3,
+        "fn": 39,
+        "ocorrencias": 78,
+        "precisao": 0.9285714285714286,
+        "recall": 0.5,
+        "f1": 0.65
+      },
+      "supplyArea": {
+        "tp": 39,
+        "fp": 3,
+        "fn": 81,
+        "ocorrencias": 120,
+        "precisao": 0.9285714285714286,
+        "recall": 0.325,
+        "f1": 0.48148148148148157
+      },
+      "project": {
+        "tp": 0,
+        "fp": 9,
+        "fn": 33,
+        "ocorrencias": 33,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "publicationPeriod": {
+        "tp": 36,
+        "fp": 57,
+        "fn": 84,
+        "ocorrencias": 177,
+        "precisao": 0.3870967741935484,
+        "recall": 0.3,
+        "f1": 0.3380281690140845
+      },
+      "creationPeriod": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 9,
+        "ocorrencias": 9,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "sortField": {
+        "tp": 18,
+        "fp": 81,
+        "fn": 45,
+        "ocorrencias": 87,
+        "precisao": 0.18181818181818182,
+        "recall": 0.2857142857142857,
+        "f1": 0.2222222222222222
+      },
+      "sortDirection": {
+        "tp": 30,
+        "fp": 69,
+        "fn": 45,
+        "ocorrencias": 87,
+        "precisao": 0.30303030303030304,
+        "recall": 0.4,
+        "f1": 0.3448275862068965
+      },
+      "limit": {
+        "tp": 27,
+        "fp": 45,
+        "fn": 21,
+        "ocorrencias": 51,
+        "precisao": 0.375,
+        "recall": 0.5625,
+        "f1": 0.45
+      }
+    },
+    "por_categoria": {
+      "S": {
+        "n": 270,
+        "acuracia": 0.4,
+        "f1_ponderado": 0.5339751552795031
+      },
+      "C": {
+        "n": 552,
+        "acuracia": 0.17391304347826086,
+        "f1_ponderado": 0.43575677830600484
+      },
+      "M": {
+        "n": 171,
+        "acuracia": 0.2982456140350877,
+        "f1_ponderado": 0.38999518999519
+      },
+      "T": {
+        "n": 183,
+        "acuracia": 0.08196721311475409,
+        "f1_ponderado": 0.4150677814985644
+      },
+      "O": {
+        "n": 87,
+        "acuracia": 0.10344827586206896,
+        "f1_ponderado": 0.49199629569865505
+      },
+      "A": {
+        "n": 585,
+        "acuracia": 0.18461538461538463,
+        "f1_ponderado": 0.4485199245594382
+      }
+    },
+    "por_origem": {
+      "P": {
+        "n": 66,
+        "acuracia": 0.09090909090909091
+      },
+      "N": {
+        "n": 102,
+        "acuracia": 0.23529411764705882
+      },
+      "G": {
+        "n": 723,
+        "acuracia": 0.24896265560165975
+      }
+    },
+    "latencia_llm_ms": {
+      "n": 891,
+      "min": 386.7635000001428,
+      "max": 20639.12505600001,
+      "media": 3296.3419883007887,
+      "mediana": 2739.3659469998966,
+      "desvio": 2654.2556647430456,
+      "p95": 7433.240833000127
+    },
+    "latencia_tool_ms": {},
+    "latencia_total_ms": {
+      "n": 891,
+      "min": 386.7635000001428,
+      "max": 20639.12505600001,
+      "media": 3296.3419883007887,
+      "mediana": 2739.3659469998966,
+      "desvio": 2654.2556647430456,
+      "p95": 7433.240833000127
+    },
+    "diagnosticos": {
+      "tipos_erro": {
+        "nao_chamou": 501,
+        "campo_omitido": 12,
+        "campo_inventado": 78,
+        "valor_errado": 51,
+        "misto": 39
+      },
+      "campos_fora_do_schema": {},
+      "iou_periodos_medio": {
+        "publicationPeriod": 0.7840912124610023
+      },
+      "chamadas_com_erro": 0,
+      "classes_de_erro": {},
+      "respostas_fora_do_schema": 0,
+      "classes_fora_do_schema": {},
+      "nao_chamou_quando_devia": 501
+    },
+    "observacionais": {
+      "n": 39,
+      "acuracia": 0.6923076923076923,
+      "chamou_sem_dever": 0,
+      "por_caso": [
+        {
+          "id": "N34",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N34",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N34",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        }
+      ]
+    }
+  },
+  "por_repeticao": {
+    "1": {
+      "n_consultas": 297,
+      "acuracia": 0.2356902356902357,
+      "precisao_ponderada": 0.6960888094240629,
+      "recall_ponderado": 0.351483354357655,
+      "f1_ponderado": 0.4482171938759615,
+      "f1_macro": 0.37049663328652754,
+      "micro": {
+        "precisao": 0.6020761245674741,
+        "recall": 0.3543788187372709,
+        "f1": 0.4461538461538462,
+        "tp": 174,
+        "fp": 115,
+        "fn": 317
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 41,
+          "ocorrencias": 62,
+          "precisao": 1.0,
+          "recall": 0.3387096774193548,
+          "f1": 0.5060240963855421
+        },
+        "scale": {
+          "tp": 23,
+          "fp": 8,
+          "fn": 52,
+          "ocorrencias": 83,
+          "precisao": 0.7419354838709677,
+          "recall": 0.30666666666666664,
+          "f1": 0.43396226415094336
+        },
+        "productType": {
+          "tp": 17,
+          "fp": 11,
+          "fn": 26,
+          "ocorrencias": 43,
+          "precisao": 0.6071428571428571,
+          "recall": 0.3953488372093023,
+          "f1": 0.4788732394366197
+        },
+        "state": {
+          "tp": 50,
+          "fp": 6,
+          "fn": 79,
+          "ocorrencias": 130,
+          "precisao": 0.8928571428571429,
+          "recall": 0.3875968992248062,
+          "f1": 0.5405405405405405
+        },
+        "city": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 13,
+          "ocorrencias": 26,
+          "precisao": 0.9285714285714286,
+          "recall": 0.5,
+          "f1": 0.65
+        },
+        "supplyArea": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 27,
+          "ocorrencias": 40,
+          "precisao": 0.9285714285714286,
+          "recall": 0.325,
+          "f1": 0.48148148148148157
+        },
+        "project": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 11,
+          "ocorrencias": 11,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "publicationPeriod": {
+          "tp": 12,
+          "fp": 19,
+          "fn": 28,
+          "ocorrencias": 59,
+          "precisao": 0.3870967741935484,
+          "recall": 0.3,
+          "f1": 0.3380281690140845
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 3,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 6,
+          "fp": 27,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.18181818181818182,
+          "recall": 0.2857142857142857,
+          "f1": 0.2222222222222222
+        },
+        "sortDirection": {
+          "tp": 10,
+          "fp": 23,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.30303030303030304,
+          "recall": 0.4,
+          "f1": 0.3448275862068965
+        },
+        "limit": {
+          "tp": 9,
+          "fp": 15,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.375,
+          "recall": 0.5625,
+          "f1": 0.45
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.4,
+          "f1_ponderado": 0.5339751552795031
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.17391304347826086,
+          "f1_ponderado": 0.4357567783060048
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.2982456140350877,
+          "f1_ponderado": 0.38999518999519
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.08196721311475409,
+          "f1_ponderado": 0.4150677814985644
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.4919962956986551
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.18461538461538463,
+          "f1_ponderado": 0.4485199245594382
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.09090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.23529411764705882
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.24896265560165975
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 386.7635000001428,
+        "max": 20632.27140899926,
+        "media": 3297.2354568552355,
+        "mediana": 2785.4998620000515,
+        "desvio": 2656.190088103048,
+        "p95": 7364.240750000135
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 386.7635000001428,
+        "max": 20632.27140899926,
+        "media": 3297.2354568552355,
+        "mediana": 2785.4998620000515,
+        "desvio": 2656.190088103048,
+        "p95": 7364.240750000135
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "nao_chamou": 167,
+          "campo_omitido": 4,
+          "campo_inventado": 26,
+          "valor_errado": 17,
+          "misto": 13
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.7840912124610023
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 167
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.6923076923076923,
+        "chamou_sem_dever": 0,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          }
+        ]
+      }
+    },
+    "2": {
+      "n_consultas": 297,
+      "acuracia": 0.2356902356902357,
+      "precisao_ponderada": 0.6960888094240629,
+      "recall_ponderado": 0.351483354357655,
+      "f1_ponderado": 0.4482171938759615,
+      "f1_macro": 0.37049663328652754,
+      "micro": {
+        "precisao": 0.6020761245674741,
+        "recall": 0.3543788187372709,
+        "f1": 0.4461538461538462,
+        "tp": 174,
+        "fp": 115,
+        "fn": 317
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 41,
+          "ocorrencias": 62,
+          "precisao": 1.0,
+          "recall": 0.3387096774193548,
+          "f1": 0.5060240963855421
+        },
+        "scale": {
+          "tp": 23,
+          "fp": 8,
+          "fn": 52,
+          "ocorrencias": 83,
+          "precisao": 0.7419354838709677,
+          "recall": 0.30666666666666664,
+          "f1": 0.43396226415094336
+        },
+        "productType": {
+          "tp": 17,
+          "fp": 11,
+          "fn": 26,
+          "ocorrencias": 43,
+          "precisao": 0.6071428571428571,
+          "recall": 0.3953488372093023,
+          "f1": 0.4788732394366197
+        },
+        "state": {
+          "tp": 50,
+          "fp": 6,
+          "fn": 79,
+          "ocorrencias": 130,
+          "precisao": 0.8928571428571429,
+          "recall": 0.3875968992248062,
+          "f1": 0.5405405405405405
+        },
+        "city": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 13,
+          "ocorrencias": 26,
+          "precisao": 0.9285714285714286,
+          "recall": 0.5,
+          "f1": 0.65
+        },
+        "supplyArea": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 27,
+          "ocorrencias": 40,
+          "precisao": 0.9285714285714286,
+          "recall": 0.325,
+          "f1": 0.48148148148148157
+        },
+        "project": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 11,
+          "ocorrencias": 11,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "publicationPeriod": {
+          "tp": 12,
+          "fp": 19,
+          "fn": 28,
+          "ocorrencias": 59,
+          "precisao": 0.3870967741935484,
+          "recall": 0.3,
+          "f1": 0.3380281690140845
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 3,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 6,
+          "fp": 27,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.18181818181818182,
+          "recall": 0.2857142857142857,
+          "f1": 0.2222222222222222
+        },
+        "sortDirection": {
+          "tp": 10,
+          "fp": 23,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.30303030303030304,
+          "recall": 0.4,
+          "f1": 0.3448275862068965
+        },
+        "limit": {
+          "tp": 9,
+          "fp": 15,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.375,
+          "recall": 0.5625,
+          "f1": 0.45
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.4,
+          "f1_ponderado": 0.5339751552795031
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.17391304347826086,
+          "f1_ponderado": 0.4357567783060048
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.2982456140350877,
+          "f1_ponderado": 0.38999518999519
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.08196721311475409,
+          "f1_ponderado": 0.4150677814985644
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.4919962956986551
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.18461538461538463,
+          "f1_ponderado": 0.4485199245594382
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.09090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.23529411764705882
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.24896265560165975
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 386.9530069996472,
+        "max": 20637.821493000047,
+        "media": 3295.1219085319826,
+        "mediana": 2734.412646000237,
+        "desvio": 2653.4484640213964,
+        "p95": 7433.240833000127
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 386.9530069996472,
+        "max": 20637.821493000047,
+        "media": 3295.1219085319826,
+        "mediana": 2734.412646000237,
+        "desvio": 2653.4484640213964,
+        "p95": 7433.240833000127
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "nao_chamou": 167,
+          "campo_omitido": 4,
+          "campo_inventado": 26,
+          "valor_errado": 17,
+          "misto": 13
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.7840912124610023
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 167
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.6923076923076923,
+        "chamou_sem_dever": 0,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          }
+        ]
+      }
+    },
+    "3": {
+      "n_consultas": 297,
+      "acuracia": 0.2356902356902357,
+      "precisao_ponderada": 0.6960888094240629,
+      "recall_ponderado": 0.351483354357655,
+      "f1_ponderado": 0.4482171938759615,
+      "f1_macro": 0.37049663328652754,
+      "micro": {
+        "precisao": 0.6020761245674741,
+        "recall": 0.3543788187372709,
+        "f1": 0.4461538461538462,
+        "tp": 174,
+        "fp": 115,
+        "fn": 317
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 41,
+          "ocorrencias": 62,
+          "precisao": 1.0,
+          "recall": 0.3387096774193548,
+          "f1": 0.5060240963855421
+        },
+        "scale": {
+          "tp": 23,
+          "fp": 8,
+          "fn": 52,
+          "ocorrencias": 83,
+          "precisao": 0.7419354838709677,
+          "recall": 0.30666666666666664,
+          "f1": 0.43396226415094336
+        },
+        "productType": {
+          "tp": 17,
+          "fp": 11,
+          "fn": 26,
+          "ocorrencias": 43,
+          "precisao": 0.6071428571428571,
+          "recall": 0.3953488372093023,
+          "f1": 0.4788732394366197
+        },
+        "state": {
+          "tp": 50,
+          "fp": 6,
+          "fn": 79,
+          "ocorrencias": 130,
+          "precisao": 0.8928571428571429,
+          "recall": 0.3875968992248062,
+          "f1": 0.5405405405405405
+        },
+        "city": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 13,
+          "ocorrencias": 26,
+          "precisao": 0.9285714285714286,
+          "recall": 0.5,
+          "f1": 0.65
+        },
+        "supplyArea": {
+          "tp": 13,
+          "fp": 1,
+          "fn": 27,
+          "ocorrencias": 40,
+          "precisao": 0.9285714285714286,
+          "recall": 0.325,
+          "f1": 0.48148148148148157
+        },
+        "project": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 11,
+          "ocorrencias": 11,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "publicationPeriod": {
+          "tp": 12,
+          "fp": 19,
+          "fn": 28,
+          "ocorrencias": 59,
+          "precisao": 0.3870967741935484,
+          "recall": 0.3,
+          "f1": 0.3380281690140845
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 3,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 6,
+          "fp": 27,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.18181818181818182,
+          "recall": 0.2857142857142857,
+          "f1": 0.2222222222222222
+        },
+        "sortDirection": {
+          "tp": 10,
+          "fp": 23,
+          "fn": 15,
+          "ocorrencias": 29,
+          "precisao": 0.30303030303030304,
+          "recall": 0.4,
+          "f1": 0.3448275862068965
+        },
+        "limit": {
+          "tp": 9,
+          "fp": 15,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.375,
+          "recall": 0.5625,
+          "f1": 0.45
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.4,
+          "f1_ponderado": 0.5339751552795031
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.17391304347826086,
+          "f1_ponderado": 0.4357567783060048
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.2982456140350877,
+          "f1_ponderado": 0.38999518999519
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.08196721311475409,
+          "f1_ponderado": 0.4150677814985644
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.4919962956986551
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.18461538461538463,
+          "f1_ponderado": 0.4485199245594382
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.09090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.23529411764705882
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.24896265560165975
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 403.82543800023996,
+        "max": 20639.12505600001,
+        "media": 3296.6685995151474,
+        "mediana": 2723.8726290006525,
+        "desvio": 2653.1269235661666,
+        "p95": 7432.385110000723
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 403.82543800023996,
+        "max": 20639.12505600001,
+        "media": 3296.6685995151474,
+        "mediana": 2723.8726290006525,
+        "desvio": 2653.1269235661666,
+        "p95": 7432.385110000723
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "nao_chamou": 167,
+          "campo_omitido": 4,
+          "campo_inventado": 26,
+          "valor_errado": 17,
+          "misto": 13
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.7840912124610023
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 167
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.6923076923076923,
+        "chamou_sem_dever": 0,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          }
+        ]
+      }
+    }
+  },
+  "gerado_em": "2026-09-24T13:29:43"
+}

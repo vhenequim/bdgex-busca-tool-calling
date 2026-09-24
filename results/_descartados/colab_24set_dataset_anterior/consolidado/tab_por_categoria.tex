@@ -1,0 +1,21 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por categoria de consulta e por modelo}
+\label{tab:resultados_por_categoria}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Categoria} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E4B} & \textbf{Gemma 4 E2B} & \textbf{Mistral Nemo 12B} \\
+\hline
+Simples (n=270) & 0.650 & 0.853 & 0.806 & 0.534 \\
+Compostas (n=552) & 0.623 & 0.723 & 0.646 & 0.436 \\
+Com código MI/INOM (n=171) & 0.934 & 0.865 & 0.927 & 0.390 \\
+Com referência temporal relativa (n=183) & 0.555 & 0.360 & 0.392 & 0.415 \\
+Com ordenação (n=87) & 0.631 & 0.533 & 0.435 & 0.492 \\
+Ambíguas / variações ortográficas (n=585) & 0.589 & 0.695 & 0.613 & 0.449 \\
+\hline
+\textbf{Média ponderada} & 0.623 & 0.709 & 0.636 & 0.448 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais.}
+\end{table}

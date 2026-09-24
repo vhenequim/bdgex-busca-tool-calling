@@ -261,6 +261,20 @@ def ja_executados(caminho_jsonl: Path) -> set[tuple[str, int]]:
     return feitos
 
 
+def consultas_com_texto_obsoleto(caminho_jsonl: Path) -> list[str]:
+    """IDs já executados cujo texto de consulta difere do dataset vigente."""
+    if not caminho_jsonl.exists():
+        return []
+    atuais = {c["id"]: c["consulta"] for c in carregar_dataset()}
+    obsoletas = set()
+    for linha in caminho_jsonl.read_text(encoding="utf-8").splitlines():
+        if linha.strip():
+            d = json.loads(linha)
+            if atuais.get(d["id"]) != d["consulta"]:
+                obsoletas.add(d["id"])
+    return sorted(obsoletas)
+
+
 def executar_caso(tradutor: agent.Tradutor, caso: dict, repeticao: int, hoje: date,
                   executar_sql: bool, dsn: str) -> dict:
     traducao = tradutor.traduzir(caso["consulta"], hoje)
@@ -316,6 +330,12 @@ def rodar(args, console: Console) -> int:
     dir_saida.mkdir(parents=True, exist_ok=True)
     caminho_jsonl = dir_saida / "execucoes.jsonl"
     feitos = ja_executados(caminho_jsonl)
+    obsoletas = consultas_com_texto_obsoleto(caminho_jsonl)
+    if obsoletas:
+        console.print(f"[red]{len(obsoletas)} consulta(s) já executada(s) em {dir_saida} têm texto diferente do dataset "
+                      f"vigente (ex.: {', '.join(obsoletas[:5])}): a rodada foi feita com outra versão do dataset. "
+                      "Retomar reaproveitaria respostas a consultas antigas. Use outra --saida.[/red]")
+        return 3
 
     manifesto = montar_manifesto(args, tradutor, executar_sql)
     anterior = (json.loads((dir_saida / "manifesto.json").read_text(encoding="utf-8"))

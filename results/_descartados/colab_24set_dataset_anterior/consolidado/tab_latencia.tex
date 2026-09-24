@@ -1,0 +1,17 @@
+\begin{table}[htbp!]
+\centering
+\caption{Latência da tradução (LLM), em milissegundos, por modelo}
+\label{tab:latencia}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{n} & \textbf{Mín.} & \textbf{Mediana} & \textbf{Média} & \textbf{p95} & \textbf{Máx.} \\
+\hline
+Qwen 3 4B & 891 & 64 & 1044 & 1080 & 1824 & 4059 \\
+Gemma 4 E4B & 891 & 411 & 745 & 848 & 1306 & 5763 \\
+Gemma 4 E2B & 891 & 228 & 404 & 430 & 729 & 1284 \\
+Mistral Nemo 12B & 891 & 387 & 2739 & 3296 & 7433 & 20639 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Medido em volta da chamada ao Ollama, na estação da Seção~\ref{sec:ambiente}.}
+\end{table}

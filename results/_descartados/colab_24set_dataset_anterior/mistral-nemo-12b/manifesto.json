@@ -1,0 +1,55 @@
+{
+  "modelo": "mistral-nemo:12b",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "llama",
+      "families": [
+        "llama"
+      ],
+      "parameter_size": "12.2B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "tools"
+    ],
+    "modified_at": "2026-09-24 11:57:04.239363+00:00",
+    "digest": "e7e06d107c6c86ed0cf45445f1790720b5092149c4c95f4d965844e9afbfdc89",
+    "tamanho_bytes": 7071713227
+  },
+  "thinking_desativado": false,
+  "configuracao": {
+    "temperature": 0,
+    "num_predict": 1024,
+    "timeout_s": 180.0,
+    "keep_alive": "15m",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 3,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "57ba4fee7639441f2f3c5f5c274b9eaa49dbc7f0156ca54734fd0cd5e18bb3d3"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.1",
+    "langchain_ollama": "1.1.0",
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "ea552179b6c0"
+  },
+  "iniciado_em": "2026-09-24T12:38:38",
+  "aquecimento_ms": 33690.81561600024,
+  "encerrado_em": "2026-09-24T13:29:43"
+}

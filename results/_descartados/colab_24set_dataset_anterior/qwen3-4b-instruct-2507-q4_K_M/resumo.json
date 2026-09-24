@@ -1,0 +1,1402 @@
+{
+  "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+  "n_execucoes": 930,
+  "repeticoes": [
+    1,
+    2,
+    3
+  ],
+  "geral": {
+    "n_consultas": 891,
+    "acuracia": 0.4377104377104377,
+    "precisao_ponderada": 0.6448871120115144,
+    "recall_ponderado": 0.7109232034031134,
+    "f1_ponderado": 0.6226601412854642,
+    "f1_macro": 0.5206760971551853,
+    "micro": {
+      "precisao": 0.5414012738853503,
+      "recall": 0.7098121085594989,
+      "f1": 0.6142728093947606,
+      "tp": 1020,
+      "fp": 864,
+      "fn": 417
+    },
+    "por_campo": {
+      "keyword": {
+        "tp": 174,
+        "fp": 132,
+        "fn": 3,
+        "ocorrencias": 186,
+        "precisao": 0.5686274509803921,
+        "recall": 0.9830508474576272,
+        "f1": 0.7204968944099378
+      },
+      "scale": {
+        "tp": 108,
+        "fp": 12,
+        "fn": 129,
+        "ocorrencias": 249,
+        "precisao": 0.9,
+        "recall": 0.45569620253164556,
+        "f1": 0.6050420168067226
+      },
+      "productType": {
+        "tp": 102,
+        "fp": 144,
+        "fn": 24,
+        "ocorrencias": 129,
+        "precisao": 0.4146341463414634,
+        "recall": 0.8095238095238095,
+        "f1": 0.5483870967741935
+      },
+      "state": {
+        "tp": 294,
+        "fp": 63,
+        "fn": 90,
+        "ocorrencias": 390,
+        "precisao": 0.8235294117647058,
+        "recall": 0.765625,
+        "f1": 0.7935222672064778
+      },
+      "city": {
+        "tp": 21,
+        "fp": 0,
+        "fn": 57,
+        "ocorrencias": 78,
+        "precisao": 1.0,
+        "recall": 0.2692307692307692,
+        "f1": 0.42424242424242425
+      },
+      "supplyArea": {
+        "tp": 114,
+        "fp": 3,
+        "fn": 3,
+        "ocorrencias": 120,
+        "precisao": 0.9743589743589743,
+        "recall": 0.9743589743589743,
+        "f1": 0.9743589743589743
+      },
+      "project": {
+        "tp": 30,
+        "fp": 21,
+        "fn": 3,
+        "ocorrencias": 33,
+        "precisao": 0.5882352941176471,
+        "recall": 0.9090909090909091,
+        "f1": 0.7142857142857143
+      },
+      "publicationPeriod": {
+        "tp": 66,
+        "fp": 153,
+        "fn": 15,
+        "ocorrencias": 177,
+        "precisao": 0.3013698630136986,
+        "recall": 0.8148148148148148,
+        "f1": 0.44
+      },
+      "creationPeriod": {
+        "tp": 0,
+        "fp": 6,
+        "fn": 6,
+        "ocorrencias": 9,
+        "precisao": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "sortField": {
+        "tp": 27,
+        "fp": 129,
+        "fn": 33,
+        "ocorrencias": 87,
+        "precisao": 0.17307692307692307,
+        "recall": 0.45,
+        "f1": 0.25
+      },
+      "sortDirection": {
+        "tp": 54,
+        "fp": 102,
+        "fn": 33,
+        "ocorrencias": 87,
+        "precisao": 0.34615384615384615,
+        "recall": 0.6206896551724138,
+        "f1": 0.4444444444444444
+      },
+      "limit": {
+        "tp": 30,
+        "fp": 99,
+        "fn": 21,
+        "ocorrencias": 51,
+        "precisao": 0.23255813953488372,
+        "recall": 0.5882352941176471,
+        "f1": 0.3333333333333333
+      }
+    },
+    "por_categoria": {
+      "S": {
+        "n": 270,
+        "acuracia": 0.6666666666666666,
+        "f1_ponderado": 0.6495802469135802
+      },
+      "C": {
+        "n": 552,
+        "acuracia": 0.3423913043478261,
+        "f1_ponderado": 0.6234952986583222
+      },
+      "M": {
+        "n": 171,
+        "acuracia": 0.8771929824561403,
+        "f1_ponderado": 0.9337712804379472
+      },
+      "T": {
+        "n": 183,
+        "acuracia": 0.2459016393442623,
+        "f1_ponderado": 0.5550263206378986
+      },
+      "O": {
+        "n": 87,
+        "acuracia": 0.10344827586206896,
+        "f1_ponderado": 0.6314466533839435
+      },
+      "A": {
+        "n": 585,
+        "acuracia": 0.3384615384615385,
+        "f1_ponderado": 0.5894638974335611
+      }
+    },
+    "por_origem": {
+      "P": {
+        "n": 66,
+        "acuracia": 0.4090909090909091
+      },
+      "N": {
+        "n": 102,
+        "acuracia": 0.47058823529411764
+      },
+      "G": {
+        "n": 723,
+        "acuracia": 0.43568464730290457
+      }
+    },
+    "latencia_llm_ms": {
+      "n": 891,
+      "min": 63.52706300003774,
+      "max": 4059.001872999943,
+      "media": 1079.6777164107714,
+      "mediana": 1044.2047129999992,
+      "desvio": 473.52407575852203,
+      "p95": 1824.414815999944
+    },
+    "latencia_tool_ms": {},
+    "latencia_total_ms": {
+      "n": 891,
+      "min": 63.52706300003774,
+      "max": 4059.001872999943,
+      "media": 1079.6777164107714,
+      "mediana": 1044.2047129999992,
+      "desvio": 473.52407575852203,
+      "p95": 1824.414815999944
+    },
+    "diagnosticos": {
+      "tipos_erro": {
+        "misto": 279,
+        "valor_errado": 78,
+        "campo_inventado": 87,
+        "nao_chamou": 48,
+        "campo_omitido": 9
+      },
+      "campos_fora_do_schema": {},
+      "iou_periodos_medio": {
+        "publicationPeriod": 0.736076372006107,
+        "creationPeriod": 0.0
+      },
+      "chamadas_com_erro": 0,
+      "classes_de_erro": {},
+      "respostas_fora_do_schema": 0,
+      "classes_fora_do_schema": {},
+      "nao_chamou_quando_devia": 48
+    },
+    "observacionais": {
+      "n": 39,
+      "acuracia": 0.5384615384615384,
+      "chamou_sem_dever": 9,
+      "por_caso": [
+        {
+          "id": "N34",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": {
+            "productType": "SCN Carta Ortoimagem",
+            "state": "Amazonas"
+          }
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "state": "Rio Grande do Sul"
+          }
+        },
+        {
+          "id": "N34",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": {
+            "productType": "SCN Carta Ortoimagem",
+            "state": "Amazonas"
+          }
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "state": "Rio Grande do Sul"
+          }
+        },
+        {
+          "id": "N34",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": {
+            "productType": "SCN Carta Ortoimagem",
+            "state": "Amazonas"
+          }
+        },
+        {
+          "id": "N36",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N37",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N38",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF001",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF002",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF003",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF004",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "GF005",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF006",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "state": "Rio Grande do Sul"
+          }
+        }
+      ]
+    }
+  },
+  "por_repeticao": {
+    "1": {
+      "n_consultas": 297,
+      "acuracia": 0.4377104377104377,
+      "precisao_ponderada": 0.6448871120115144,
+      "recall_ponderado": 0.7109232034031134,
+      "f1_ponderado": 0.6226601412854642,
+      "f1_macro": 0.5206760971551853,
+      "micro": {
+        "precisao": 0.5414012738853503,
+        "recall": 0.7098121085594989,
+        "f1": 0.6142728093947606,
+        "tp": 340,
+        "fp": 288,
+        "fn": 139
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 58,
+          "fp": 44,
+          "fn": 1,
+          "ocorrencias": 62,
+          "precisao": 0.5686274509803921,
+          "recall": 0.9830508474576272,
+          "f1": 0.7204968944099378
+        },
+        "scale": {
+          "tp": 36,
+          "fp": 4,
+          "fn": 43,
+          "ocorrencias": 83,
+          "precisao": 0.9,
+          "recall": 0.45569620253164556,
+          "f1": 0.6050420168067226
+        },
+        "productType": {
+          "tp": 34,
+          "fp": 48,
+          "fn": 8,
+          "ocorrencias": 43,
+          "precisao": 0.4146341463414634,
+          "recall": 0.8095238095238095,
+          "f1": 0.5483870967741935
+        },
+        "state": {
+          "tp": 98,
+          "fp": 21,
+          "fn": 30,
+          "ocorrencias": 130,
+          "precisao": 0.8235294117647058,
+          "recall": 0.765625,
+          "f1": 0.7935222672064778
+        },
+        "city": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 19,
+          "ocorrencias": 26,
+          "precisao": 1.0,
+          "recall": 0.2692307692307692,
+          "f1": 0.42424242424242425
+        },
+        "supplyArea": {
+          "tp": 38,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 40,
+          "precisao": 0.9743589743589743,
+          "recall": 0.9743589743589743,
+          "f1": 0.9743589743589743
+        },
+        "project": {
+          "tp": 10,
+          "fp": 7,
+          "fn": 1,
+          "ocorrencias": 11,
+          "precisao": 0.5882352941176471,
+          "recall": 0.9090909090909091,
+          "f1": 0.7142857142857143
+        },
+        "publicationPeriod": {
+          "tp": 22,
+          "fp": 51,
+          "fn": 5,
+          "ocorrencias": 59,
+          "precisao": 0.3013698630136986,
+          "recall": 0.8148148148148148,
+          "f1": 0.44
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 2,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 9,
+          "fp": 43,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.17307692307692307,
+          "recall": 0.45,
+          "f1": 0.25
+        },
+        "sortDirection": {
+          "tp": 18,
+          "fp": 34,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.34615384615384615,
+          "recall": 0.6206896551724138,
+          "f1": 0.4444444444444444
+        },
+        "limit": {
+          "tp": 10,
+          "fp": 33,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.23255813953488372,
+          "recall": 0.5882352941176471,
+          "f1": 0.3333333333333333
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.6666666666666666,
+          "f1_ponderado": 0.6495802469135802
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.3423913043478261,
+          "f1_ponderado": 0.6234952986583222
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.8771929824561403,
+          "f1_ponderado": 0.9337712804379471
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.2459016393442623,
+          "f1_ponderado": 0.5550263206378986
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.6314466533839435
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.3384615384615385,
+          "f1_ponderado": 0.5894638974335611
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.4090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.47058823529411764
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.43568464730290457
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 88.70204699996975,
+        "max": 3153.253946999939,
+        "media": 1035.2428489966376,
+        "mediana": 988.9519570001539,
+        "desvio": 434.84259254988865,
+        "p95": 1770.7927789999758
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 88.70204699996975,
+        "max": 3153.253946999939,
+        "media": 1035.2428489966376,
+        "mediana": 988.9519570001539,
+        "desvio": 434.84259254988865,
+        "p95": 1770.7927789999758
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "misto": 93,
+          "valor_errado": 26,
+          "campo_inventado": 29,
+          "nao_chamou": 16,
+          "campo_omitido": 3
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.736076372006107,
+          "creationPeriod": 0.0
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 16
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.5384615384615384,
+        "chamou_sem_dever": 3,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": {
+              "productType": "SCN Carta Ortoimagem",
+              "state": "Amazonas"
+            }
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "state": "Rio Grande do Sul"
+            }
+          }
+        ]
+      }
+    },
+    "2": {
+      "n_consultas": 297,
+      "acuracia": 0.4377104377104377,
+      "precisao_ponderada": 0.6448871120115144,
+      "recall_ponderado": 0.7109232034031134,
+      "f1_ponderado": 0.6226601412854642,
+      "f1_macro": 0.5206760971551853,
+      "micro": {
+        "precisao": 0.5414012738853503,
+        "recall": 0.7098121085594989,
+        "f1": 0.6142728093947606,
+        "tp": 340,
+        "fp": 288,
+        "fn": 139
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 58,
+          "fp": 44,
+          "fn": 1,
+          "ocorrencias": 62,
+          "precisao": 0.5686274509803921,
+          "recall": 0.9830508474576272,
+          "f1": 0.7204968944099378
+        },
+        "scale": {
+          "tp": 36,
+          "fp": 4,
+          "fn": 43,
+          "ocorrencias": 83,
+          "precisao": 0.9,
+          "recall": 0.45569620253164556,
+          "f1": 0.6050420168067226
+        },
+        "productType": {
+          "tp": 34,
+          "fp": 48,
+          "fn": 8,
+          "ocorrencias": 43,
+          "precisao": 0.4146341463414634,
+          "recall": 0.8095238095238095,
+          "f1": 0.5483870967741935
+        },
+        "state": {
+          "tp": 98,
+          "fp": 21,
+          "fn": 30,
+          "ocorrencias": 130,
+          "precisao": 0.8235294117647058,
+          "recall": 0.765625,
+          "f1": 0.7935222672064778
+        },
+        "city": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 19,
+          "ocorrencias": 26,
+          "precisao": 1.0,
+          "recall": 0.2692307692307692,
+          "f1": 0.42424242424242425
+        },
+        "supplyArea": {
+          "tp": 38,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 40,
+          "precisao": 0.9743589743589743,
+          "recall": 0.9743589743589743,
+          "f1": 0.9743589743589743
+        },
+        "project": {
+          "tp": 10,
+          "fp": 7,
+          "fn": 1,
+          "ocorrencias": 11,
+          "precisao": 0.5882352941176471,
+          "recall": 0.9090909090909091,
+          "f1": 0.7142857142857143
+        },
+        "publicationPeriod": {
+          "tp": 22,
+          "fp": 51,
+          "fn": 5,
+          "ocorrencias": 59,
+          "precisao": 0.3013698630136986,
+          "recall": 0.8148148148148148,
+          "f1": 0.44
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 2,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 9,
+          "fp": 43,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.17307692307692307,
+          "recall": 0.45,
+          "f1": 0.25
+        },
+        "sortDirection": {
+          "tp": 18,
+          "fp": 34,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.34615384615384615,
+          "recall": 0.6206896551724138,
+          "f1": 0.4444444444444444
+        },
+        "limit": {
+          "tp": 10,
+          "fp": 33,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.23255813953488372,
+          "recall": 0.5882352941176471,
+          "f1": 0.3333333333333333
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.6666666666666666,
+          "f1_ponderado": 0.6495802469135802
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.3423913043478261,
+          "f1_ponderado": 0.6234952986583222
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.8771929824561403,
+          "f1_ponderado": 0.9337712804379471
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.2459016393442623,
+          "f1_ponderado": 0.5550263206378986
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.6314466533839435
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.3384615384615385,
+          "f1_ponderado": 0.5894638974335611
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.4090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.47058823529411764
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.43568464730290457
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 63.52706300003774,
+        "max": 4013.8500269999895,
+        "media": 1101.4117054377086,
+        "mediana": 1060.531772999866,
+        "desvio": 488.87730218688694,
+        "p95": 1824.414815999944
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 63.52706300003774,
+        "max": 4013.8500269999895,
+        "media": 1101.4117054377086,
+        "mediana": 1060.531772999866,
+        "desvio": 488.87730218688694,
+        "p95": 1824.414815999944
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "misto": 93,
+          "valor_errado": 26,
+          "campo_inventado": 29,
+          "nao_chamou": 16,
+          "campo_omitido": 3
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.736076372006107,
+          "creationPeriod": 0.0
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 16
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.5384615384615384,
+        "chamou_sem_dever": 3,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": {
+              "productType": "SCN Carta Ortoimagem",
+              "state": "Amazonas"
+            }
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "state": "Rio Grande do Sul"
+            }
+          }
+        ]
+      }
+    },
+    "3": {
+      "n_consultas": 297,
+      "acuracia": 0.4377104377104377,
+      "precisao_ponderada": 0.6448871120115144,
+      "recall_ponderado": 0.7109232034031134,
+      "f1_ponderado": 0.6226601412854642,
+      "f1_macro": 0.5206760971551853,
+      "micro": {
+        "precisao": 0.5414012738853503,
+        "recall": 0.7098121085594989,
+        "f1": 0.6142728093947606,
+        "tp": 340,
+        "fp": 288,
+        "fn": 139
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 58,
+          "fp": 44,
+          "fn": 1,
+          "ocorrencias": 62,
+          "precisao": 0.5686274509803921,
+          "recall": 0.9830508474576272,
+          "f1": 0.7204968944099378
+        },
+        "scale": {
+          "tp": 36,
+          "fp": 4,
+          "fn": 43,
+          "ocorrencias": 83,
+          "precisao": 0.9,
+          "recall": 0.45569620253164556,
+          "f1": 0.6050420168067226
+        },
+        "productType": {
+          "tp": 34,
+          "fp": 48,
+          "fn": 8,
+          "ocorrencias": 43,
+          "precisao": 0.4146341463414634,
+          "recall": 0.8095238095238095,
+          "f1": 0.5483870967741935
+        },
+        "state": {
+          "tp": 98,
+          "fp": 21,
+          "fn": 30,
+          "ocorrencias": 130,
+          "precisao": 0.8235294117647058,
+          "recall": 0.765625,
+          "f1": 0.7935222672064778
+        },
+        "city": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 19,
+          "ocorrencias": 26,
+          "precisao": 1.0,
+          "recall": 0.2692307692307692,
+          "f1": 0.42424242424242425
+        },
+        "supplyArea": {
+          "tp": 38,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 40,
+          "precisao": 0.9743589743589743,
+          "recall": 0.9743589743589743,
+          "f1": 0.9743589743589743
+        },
+        "project": {
+          "tp": 10,
+          "fp": 7,
+          "fn": 1,
+          "ocorrencias": 11,
+          "precisao": 0.5882352941176471,
+          "recall": 0.9090909090909091,
+          "f1": 0.7142857142857143
+        },
+        "publicationPeriod": {
+          "tp": 22,
+          "fp": 51,
+          "fn": 5,
+          "ocorrencias": 59,
+          "precisao": 0.3013698630136986,
+          "recall": 0.8148148148148148,
+          "f1": 0.44
+        },
+        "creationPeriod": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 2,
+          "ocorrencias": 3,
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "sortField": {
+          "tp": 9,
+          "fp": 43,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.17307692307692307,
+          "recall": 0.45,
+          "f1": 0.25
+        },
+        "sortDirection": {
+          "tp": 18,
+          "fp": 34,
+          "fn": 11,
+          "ocorrencias": 29,
+          "precisao": 0.34615384615384615,
+          "recall": 0.6206896551724138,
+          "f1": 0.4444444444444444
+        },
+        "limit": {
+          "tp": 10,
+          "fp": 33,
+          "fn": 7,
+          "ocorrencias": 17,
+          "precisao": 0.23255813953488372,
+          "recall": 0.5882352941176471,
+          "f1": 0.3333333333333333
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 90,
+          "acuracia": 0.6666666666666666,
+          "f1_ponderado": 0.6495802469135802
+        },
+        "C": {
+          "n": 184,
+          "acuracia": 0.3423913043478261,
+          "f1_ponderado": 0.6234952986583222
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.8771929824561403,
+          "f1_ponderado": 0.9337712804379471
+        },
+        "T": {
+          "n": 61,
+          "acuracia": 0.2459016393442623,
+          "f1_ponderado": 0.5550263206378986
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.10344827586206896,
+          "f1_ponderado": 0.6314466533839435
+        },
+        "A": {
+          "n": 195,
+          "acuracia": 0.3384615384615385,
+          "f1_ponderado": 0.5894638974335611
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.4090909090909091
+        },
+        "N": {
+          "n": 34,
+          "acuracia": 0.47058823529411764
+        },
+        "G": {
+          "n": 241,
+          "acuracia": 0.43568464730290457
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 297,
+        "min": 65.95970300031695,
+        "max": 4059.001872999943,
+        "media": 1102.378594797968,
+        "mediana": 1065.3819980000208,
+        "desvio": 491.55254091415827,
+        "p95": 1803.8012160000108
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 297,
+        "min": 65.95970300031695,
+        "max": 4059.001872999943,
+        "media": 1102.378594797968,
+        "mediana": 1065.3819980000208,
+        "desvio": 491.55254091415827,
+        "p95": 1803.8012160000108
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "misto": 93,
+          "valor_errado": 26,
+          "campo_inventado": 29,
+          "nao_chamou": 16,
+          "campo_omitido": 3
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.736076372006107,
+          "creationPeriod": 0.0
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 16
+      },
+      "observacionais": {
+        "n": 13,
+        "acuracia": 0.5384615384615384,
+        "chamou_sem_dever": 3,
+        "por_caso": [
+          {
+            "id": "N34",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": {
+              "productType": "SCN Carta Ortoimagem",
+              "state": "Amazonas"
+            }
+          },
+          {
+            "id": "N36",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N37",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N38",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF001",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF002",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF003",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF004",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "GF005",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF006",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "state": "Rio Grande do Sul"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "gerado_em": "2026-09-24T12:15:34"
+}
