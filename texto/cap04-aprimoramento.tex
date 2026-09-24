@@ -1,0 +1,333 @@
+% ----------------------------------------------------------
+% Capítulo 4 — Aprimoramento do Protótipo (organizado segundo a EAP)
+% ----------------------------------------------------------
+\chapter{Aprimoramento do Protótipo: Estrutura Analítica do Projeto}
+\label{cap:aprimoramento}
+
+Este capítulo apresenta a execução do projeto de aprimoramento da solução de busca em linguagem natural sobre o acervo cartográfico da DSG. Diferentemente de uma seção de \textit{trabalhos relacionados} no sentido clássico --- que tipicamente serve ao levantamento de hipóteses em pesquisas de iniciação científica ---, este capítulo é organizado segundo uma \textbf{Estrutura Analítica do Projeto (EAP)}, que decompõe o aprimoramento em quatro grandes etapas, sequenciais mas com pontos de realimentação: (1) \textit{Análise do Protótipo}; (2) \textit{Elicitação de Requisitos}; (3) \textit{Planejamento da Migração}; e (4) \textit{Desenvolvimento}. A EAP é apresentada graficamente na Figura~\ref{fig:eap} e norteia tanto a redação deste capítulo quanto o cronograma de execução, apresentado ao final.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=0.5cm,
+  eapstep/.style={rectangle, draw, rounded corners, minimum width=13cm, minimum height=0.9cm, align=center, fill=blue!8},
+  sub/.style={rectangle, draw, rounded corners, minimum width=2.4cm, minimum height=1.0cm, align=center, fill=gray!6, font=\scriptsize, inner sep=2pt},
+  arr/.style={-{Stealth[length=2.2mm]}, thick}
+]
+  \node[eapstep] (a) {\textbf{1. Análise do Protótipo} \;\;\small(arquitetura, dependências, limitações documentadas)};
+  \node[eapstep, below=of a] (r) {\textbf{2. Elicitação de Requisitos} \;\;\small(funcionais e não funcionais)};
+  \node[eapstep, below=of r] (p) {\textbf{3. Planejamento da Migração} \;\;\small(limitação $\to$ solução; reaproveitado / reescrito / novo)};
+  \node[eapstep, below=of p] (d) {\textbf{4. Desenvolvimento}};
+  \node[sub, below=0.9cm of d, xshift=-5.2cm] (s1) {4.1 API\\(FastAPI)};
+  \node[sub, right=0.2cm of s1] (s2) {4.2 Orquestração\\(LangChain)};
+  \node[sub, right=0.2cm of s2] (s3) {4.3 Ferramentas\\de Busca};
+  \node[sub, right=0.2cm of s3] (s4) {4.4 Persistência\\(PostGIS)};
+  \node[sub, right=0.2cm of s4] (s5) {4.5 \textit{Pipeline}\\de Avaliação};
+  \node[eapstep, below=1.3cm of s3] (c) {\textbf{5. Cronograma} \;\;\small(abr.--out./2026, fases F0--F7)};
+  \draw[arr] (a) -- (r);
+  \draw[arr] (r) -- (p);
+  \draw[arr] (p) -- (d);
+  \draw[arr] (d.south) -- ++(0,-0.30) -| (s1.north);
+  \draw[arr] (d.south) -- ++(0,-0.30) -| (s2.north);
+  \draw[arr] (d.south) -- ++(0,-0.30) -| (s3.north);
+  \draw[arr] (d.south) -- ++(0,-0.30) -| (s4.north);
+  \draw[arr] (d.south) -- ++(0,-0.30) -| (s5.north);
+  \draw[arr] (d.east) -- ++(0.8,0) |- (c.east);
+\end{tikzpicture}
+\caption{Estrutura Analítica do Projeto (EAP) adotada no aprimoramento}
+\label{fig:eap}
+\fonte{Elaborado pelo autor.}
+\end{figure}
+
+% ============================================================
+\section{Análise do Protótipo do 1º CGEO}
+% ============================================================
+
+\subsection{Visão Geral}
+
+O 1º Centro de Geoinformação (1º CGEO), por meio de sua Divisão de Levantamento ``Gen Augusto Tasso Fragoso'', desenvolveu um protótipo funcional de busca em linguagem natural sobre o catálogo de dados geoespaciais sob sua guarda \cite{cgeo2025prototipo}. O protótipo foi concebido como prova de conceito para avaliar a viabilidade do uso de LLMs locais no contexto cartográfico brasileiro e está disponível publicamente no repositório GitHub do 1º CGEO. Este protótipo é o \textit{benchmark} de referência do presente trabalho.
+
+\subsection{Arquitetura do Protótipo}
+
+A arquitetura do protótipo é composta por quatro camadas principais, conforme ilustrado na Figura~\ref{fig:arquitetura_prototipo}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=0.65cm,
+  layer/.style={rectangle, draw, rounded corners, minimum width=11cm, minimum height=1.0cm, align=center, fill=gray!6},
+  arr/.style={-{Stealth[length=2.2mm]}, thick}
+]
+  \node[layer, fill=blue!8] (l1) {\textbf{Frontend} --- React + TypeScript + Leaflet \\ \scriptsize mapa interativo do Brasil};
+  \node[layer, below=of l1] (l2) {\textbf{Backend} --- Node.js + Express + TypeScript \\ \scriptsize Pré-processamento (dicionário \textit{hardcoded} de termos)};
+  \node[layer, below=of l2, fill=orange!10] (l3) {\textbf{LLM} --- Ollama / Phi-4 14B \\ \scriptsize \textit{Structured Output} via Instructor + Zod};
+  \node[layer, below=of l3, fill=green!8] (l4) {\textbf{Banco de Dados} --- PostgreSQL + PostGIS \\ \scriptsize \textit{full-text} + busca espacial + GeoJSON};
+  \draw[arr] (l1) -- node[right, font=\scriptsize] {POST /api/natural-search} (l2);
+  \draw[arr] (l2) -- node[right, font=\scriptsize] {parâmetros de busca} (l3);
+  \draw[arr] (l3) -- node[right, font=\scriptsize] {SQL parametrizado} (l4);
+  \draw[arr, dashed] (l4.east) -- ++(0.6,0) |- node[right, font=\scriptsize, pos=0.25] {resultados (GeoJSON)} (l1.east);
+\end{tikzpicture}
+\caption{Arquitetura do protótipo de busca do 1º CGEO}
+\label{fig:arquitetura_prototipo}
+\fonte{Adaptado de \citeauthoronline{cgeo2025prototipo} (\citeyear{cgeo2025prototipo}).}
+\end{figure}
+
+\textbf{Frontend.} Implementado em React com TypeScript, utiliza a biblioteca Leaflet para exibição de um mapa interativo do Brasil. O usuário digita sua consulta em linguagem natural em um campo de texto, e os resultados são exibidos em lista paginada e como marcadores no mapa.
+
+\textbf{Backend.} Implementado em Node.js com Express e TypeScript, recebe as consultas via rota REST (\texttt{POST /api/natural-search}), aplica pré-processamento de termos e encaminha a consulta ao serviço de LLM, cujo resultado é convertido em SQL parametrizado para o banco PostgreSQL/PostGIS.
+
+\textbf{Pré-processamento.} Antes de enviar a consulta ao LLM, o protótipo aplica um módulo de pré-processamento (\texttt{preprocessor.ts}) que normaliza variações ortográficas comuns no domínio cartográfico. O módulo utiliza um dicionário \textit{hardcoded} de sinônimos e variações, com mapeamentos como ``25k'' $\rightarrow$ ``1:25.000'' ou ``primeiro cgeo'' $\rightarrow$ ``1º Centro de Geoinformação''.
+
+\textbf{Serviço de LLM com \textit{Structured Output}.} O núcleo do protótipo é o serviço de LLM (\texttt{service.ts}), que utiliza o modelo \textit{Phi-4 14B} executado localmente via Ollama. A integração é feita pela biblioteca Instructor para TypeScript, que usa Zod para definir o \textit{schema} de saída. O \textit{schema} prevê os campos: \texttt{keyword}, \texttt{scale}, \texttt{productType}, \texttt{state}, \texttt{city}, \texttt{supplyArea}, \texttt{project}, \texttt{publicationPeriod}, \texttt{creationPeriod}, \texttt{sortField}, \texttt{sortDirection} e \texttt{limit}. O \textit{prompt} do sistema fornece ao modelo exemplos detalhados (\textit{few-shot prompting}) para guiar a extração.
+
+\textbf{\textit{Fallback} com expressões regulares.} Em caso de falha do LLM (exceção após \texttt{max\_retries = 3}), o protótipo aciona um mecanismo de \textit{fallback} baseado em expressões regulares (\texttt{utils.ts}), que tenta extrair os parâmetros mais simples (escalas, datas) diretamente do texto.
+
+\textbf{Banco de dados.} O banco utiliza PostgreSQL com PostGIS para armazenar os metadados dos produtos cartográficos e suas geometrias (\textit{bounding boxes} das folhas). As consultas, montadas no serviço \texttt{search.ts} e executadas pela biblioteca \texttt{pg-promise}, combinam pesquisa textual (\textit{full-text search}) com operações espaciais do PostGIS para retornar resultados em GeoJSON. O repositório do protótipo contém o esquema do banco (\texttt{postgres/init.sql}, com as tabelas \texttt{datasets}, \texttt{estados}, \texttt{municipios} e \texttt{areas\_suprimento}), mas não os dados do acervo.
+
+\subsection{Contribuições do Protótipo}
+
+O protótipo representa contribuição pioneira no contexto brasileiro, demonstrando que: (i) a abordagem baseada em LLMs locais é tecnicamente viável para o domínio cartográfico; (ii) o modelo Phi-4 14B, via Ollama, é capaz de extrair parâmetros de busca relevantes a partir de consultas em linguagem natural em português; (iii) a combinação de \textit{few-shot prompting} com \textit{Structured Output} produz resultados utilizáveis para a maioria das consultas; e (iv) a integração de LLM com PostgreSQL/PostGIS para busca espacial é viável em ambiente controlado.
+
+\subsection{Limitações Identificadas}
+\label{sec:limitacoes}
+
+O próprio cliente identificou explicitamente seis limitações do protótipo, que constituem as frentes de aprimoramento deste Projeto Final de Curso:
+
+\begin{enumerate}
+  \item \textbf{Backend em Node.js.} O ecossistema Node.js tem suporte consideravelmente menor do que Python para bibliotecas de IA e aprendizado de máquina; as bibliotecas de integração com LLMs (LangChain, LlamaIndex, Instructor) têm versões mais completas em Python.
+  \item \textbf{Apenas Saída Estruturada.} A abordagem força o modelo a sempre retornar a estrutura predefinida, independentemente da consulta, e não permite encadear ferramentas nem adaptar o comportamento ao resultado de operações anteriores.
+  \item \textbf{Modelo único e defasado (Phi-4 14B).} O uso de um único modelo impede a seleção embasada do mais adequado ao caso de uso; o ecossistema evolui rapidamente, e a escolha precisa ser revista à luz dos modelos mais recentes.
+  \item \textbf{Pré-processamento manual com dicionário \textit{hardcoded}.} O protótipo mantém um dicionário fixo de 141 pares (``25k'' $\to$ ``1:25.000'', ``primeiro cgeo'' $\to$ ``1º Centro de Geoinformação'', ``carta ortoimg'' $\to$ ``SCN Carta Ortoimagem'') que é aplicado \textbf{antes} de o texto chegar ao LLM. Isso traz três problemas: (i) o dicionário só cobre variações \textit{previstas em tempo de desenvolvimento} --- grafias novas que emergem no uso operacional (``dois cgeo'' em vez de ``segundo cgeo'', ``25 mil'' em vez de ``25k'') falham silenciosamente; (ii) sua manutenção é \textbf{manual} e depende do desenvolvedor observar erros no \textit{log} e propor novas entradas; (iii) o pré-processamento pode \textbf{deturpar} consultas legítimas quando um termo do dicionário aparece em contexto ambíguo. A delegação ao LLM elimina o dicionário fixo em troca do conhecimento semântico do modelo, que reconhece variações inéditas sem alteração de código.
+  \item \textbf{\textit{Fallback} com expressões regulares.} Sua presença é sintoma de falhas do LLM que não foram sistematicamente documentadas, dificultando a análise de causa raiz.
+  \item \textbf{Ausência de métricas de avaliação.} O protótipo dispõe apenas de 22 casos de teste, pontuados por pesos atribuídos \textit{ad hoc} aos campos esperados, sem penalizar campos preenchidos indevidamente, e não há protocolo de medição, o que impede comparar objetivamente modelos, \textit{prompts} ou configurações.
+\end{enumerate}
+
+% ============================================================
+\section{Elicitação de Requisitos}
+\label{sec:requisitos}
+% ============================================================
+
+A análise do protótipo e as conversas com o cliente conduziram ao seguinte conjunto de requisitos para a solução aprimorada.
+
+\subsection{Requisitos Funcionais}
+
+\begin{enumerate}[label=\textbf{RF\arabic*}]
+  \item Receber, por uma rota REST, uma consulta em linguagem natural em português.
+  \item Traduzir a consulta em parâmetros técnicos compatíveis com os campos do catálogo (\texttt{keyword}, \texttt{scale}, \texttt{productType}, \texttt{state}, \texttt{city}, \texttt{supplyArea}, \texttt{project}, \texttt{publicationPeriod}, \texttt{creationPeriod}, \texttt{sortField}, \texttt{sortDirection}, \texttt{limit}).
+  \item Executar a busca técnica resultante no banco PostgreSQL/PostGIS, preservando a lógica de filtros e a saída em GeoJSON do protótipo.
+  \item Permitir a seleção, em tempo de requisição, do modelo de LLM utilizado para a tradução, viabilizando a avaliação comparativa.
+  \item Registrar, para cada requisição, os parâmetros extraídos, a sequência de \textit{tool calls}, os tempos de cada etapa e eventuais erros, em formato adequado ao cálculo automatizado das métricas.
+\end{enumerate}
+
+\subsection{Requisitos Não Funcionais}
+
+\begin{enumerate}[label=\textbf{RNF\arabic*}]
+  \item \textbf{Execução totalmente local}: nenhuma chamada a serviços de LLM em nuvem (privacidade e segurança).
+  \item \textbf{Latência aceitável}: a latência por consulta deve ser compatível com uso interativo; ela é medida e reportada por modelo, de modo que o limite operacional possa ser fixado pelo cliente conforme o contexto de implantação.
+  \item \textbf{Conformidade com normas}: aderência ao Perfil de Metadados Geoespaciais do Brasil (Perfil MGB) e às ET-PCDG no que diz respeito à estrutura dos metadados consultados.
+  \item \textbf{Reprodutibilidade}: \textit{tags} dos modelos, versões das bibliotecas e \textit{hashes} do \textit{dataset} e da definição da ferramenta registrados em cada rodada de avaliação.
+  \item \textbf{Manutenibilidade}: código modular, com testes automatizados das funções de busca e do cálculo das métricas.
+  \item \textbf{Substituibilidade de modelo}: troca do modelo sem alteração da camada de orquestração, apenas por configuração.
+\end{enumerate}
+
+% ============================================================
+\section{Planejamento da Migração}
+% ============================================================
+
+A migração não parte do zero: o protótipo fornece decisões de projeto já validadas (estrutura do banco, catálogo de parâmetros, lógica de \textit{queries} espaciais) que são integralmente aproveitadas. A estratégia adotada é, portanto, de \textbf{substituição dirigida}: identificar os componentes responsáveis pelas limitações documentadas e substituí-los, preservando o que já funciona.
+
+\subsection{Mapeamento Limitação $\to$ Solução}
+
+O Quadro~\ref{quadro:mapa-limitacoes} relaciona cada limitação identificada na Seção~\ref{sec:limitacoes} ao componente do novo sistema que a endereça.
+
+\begin{quadro}[h]
+\centering
+\caption{Mapeamento entre limitações do protótipo e soluções adotadas}
+\label{quadro:mapa-limitacoes}
+\small
+\begin{tabular}{|c|p{4.2cm}|p{4.2cm}|p{3.2cm}|}
+\hline
+\textbf{\#} & \textbf{Limitação} & \textbf{Solução adotada} & \textbf{Componente afetado} \\
+\hline
+1 & \textit{Backend} em Node.js & Reimplementação em Python com FastAPI & Nova API REST \\
+\hline
+2 & Apenas \textit{Structured Output} & \textit{Tool Calling} nativo via LangChain & Serviço de LLM \\
+\hline
+3 & Modelo único (Phi-4 14B) & Avaliação comparativa de quatro modelos atuais (Qwen 3 4B, Gemma 4 E2B, Gemma 4 E4B, Mistral Nemo 12B) & Configuração e testes \\
+\hline
+4 & Pré-processamento manual & Normalização delegada ao LLM, orientada pelas descrições do \textit{schema} da ferramenta & Remoção do pré-processador \\
+\hline
+5 & \textit{Fallback} via regex & Falhas registradas como métrica, sem \textit{fallback} oculto & Serviço de LLM \\
+\hline
+6 & Ausência de métricas & \textit{Dataset} auditado com gabarito + \textit{pipeline} de avaliação automatizado & Novo módulo de avaliação \\
+\hline
+\end{tabular}%
+\fonte{Elaborado pelo autor.}
+\end{quadro}
+
+\subsection{Componentes Reaproveitados, Reescritos e Novos}
+
+O Quadro~\ref{quadro:componentes} classifica cada componente do sistema final em relação ao protótipo.
+
+\begin{quadro}[h]
+\centering
+\caption{Classificação dos componentes do sistema final em relação ao protótipo}
+\label{quadro:componentes}
+\small
+\begin{tabular}{|p{4cm}|c|p{6.5cm}|}
+\hline
+\textbf{Componente} & \textbf{Categoria} & \textbf{Observação} \\
+\hline
+Esquema do banco PostgreSQL/PostGIS & Reaproveitado & Mesmo esquema do protótipo (\texttt{init.sql}, quatro tabelas), sem alterações \\
+\hline
+Conjunto de parâmetros de busca & Reaproveitado & Os mesmos doze campos, compatíveis com a lógica das consultas SQL; enumerados grafados conforme as ET-PCDG \\
+\hline
+Lógica das consultas SQL & Reaproveitado & Portada de \texttt{search.ts}; sem o filtro por retângulo do mapa e a paginação, próprios do \textit{frontend} \\
+\hline
+\textit{Frontend} React/Leaflet & Fora do escopo & Não é parte deste trabalho \\
+\hline
+API REST & Reescrito & Node.js/Express $\to$ Python/FastAPI \\
+\hline
+Serviço de LLM & Reescrito & \textit{Structured Output} (Instructor/Zod) $\to$ \textit{Tool Calling} (LangChain) \\
+\hline
+Camada de acesso ao banco & Reescrito & \texttt{pg-promise} $\to$ \texttt{psycopg} \\
+\hline
+Pré-processamento de termos & Eliminado & Função transferida ao LLM \\
+\hline
+\textit{Fallback} com regex & Eliminado & Falhas viram métricas \\
+\hline
+Semente sintética do banco & Novo & Apenas para a demonstração ponta a ponta; nenhuma métrica depende dela \\
+\hline
+\textit{Dataset} de avaliação & Novo & 310 consultas com gabarito auditado (Cap.~\ref{cap:metodologia} e Ap.~\ref{apendice:dataset}) \\
+\hline
+\textit{Pipeline} de avaliação & Novo & Comandos \texttt{pfc-dataset}, \texttt{pfc-auditar}, \texttt{pfc-avaliar} e \texttt{pfc-relatorio} \\
+\hline
+\end{tabular}%
+\fonte{Elaborado pelo autor.}
+\end{quadro}
+
+% ============================================================
+\section{Desenvolvimento}
+\label{sec:desenvolvimento}
+% ============================================================
+
+A arquitetura da solução aprimorada é apresentada na Figura~\ref{fig:arquitetura_proposta}, com as camadas detalhadas nas subseções seguintes.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=0.6cm,
+  layer/.style={rectangle, draw, rounded corners, minimum width=11.5cm, minimum height=1.0cm, align=center, fill=gray!6},
+  half/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=1.2cm, align=center, fill=gray!6},
+  arr/.style={-{Stealth[length=2.2mm]}, thick},
+  darr/.style={{Stealth[length=2.2mm]}-{Stealth[length=2.2mm]}, thick}
+]
+  \node[layer, fill=blue!8] (l1) {\textbf{Cliente} --- aplicação consumidora da API (HTTP/JSON)};
+  \node[layer, below=of l1] (l2) {\textbf{FastAPI} (Python) --- \texttt{POST /api/search} e \texttt{GET /api/health} \\ \scriptsize validação Pydantic};
+  \node[layer, below=of l2, fill=orange!10] (l3) {\textbf{\textit{Pipeline} + LangChain} --- \texttt{ChatOllama.bind\_tools()} \\ \scriptsize tradução por \textit{Tool Calling}; execução da ferramenta; resposta final};
+  \node[half, below=1.1cm of l3.south west, anchor=north west, fill=purple!8] (l4) {\textbf{Ollama} (local) \\ \scriptsize Qwen 3 4B \;|\; Gemma 4 E2B \;|\; Gemma 4 E4B \\ \scriptsize Mistral Nemo 12B};
+  \node[half, below=1.1cm of l3.south east, anchor=north east, fill=green!8] (l5) {\textbf{PostgreSQL + PostGIS} \\ \scriptsize \texttt{buscar\_catalogo}: SQL parametrizada \\ \scriptsize saída em GeoJSON};
+  \draw[arr] (l1) -- node[right, font=\scriptsize] {\texttt{POST /api/search} (JSON)} (l2);
+  \draw[arr] (l2) -- node[right, font=\scriptsize] {consulta} (l3);
+  \draw[darr] (l4.north) -- node[right, font=\scriptsize] {\textit{tool call} (JSON)} (l4.north |- l3.south);
+  \draw[darr] (l5.north) -- node[right, font=\scriptsize] {parâmetros / produtos} (l5.north |- l3.south);
+  \draw[arr, dashed] (l2.east) -- ++(0.6,0) |- node[right, font=\scriptsize, pos=0.25] {resposta JSON} (l1.east);
+\end{tikzpicture}
+\caption{Arquitetura da solução aprimorada de busca}
+\label{fig:arquitetura_proposta}
+\fonte{Elaborado pelo autor.}
+\end{figure}
+
+\subsection{Camada de API: FastAPI}
+
+O FastAPI~\cite{fastapi2018} é o \textit{framework} da API REST, que expõe duas rotas. A rota \texttt{POST /api/search} recebe um objeto JSON com o campo \texttt{query} (consulta em linguagem natural) e devolve os parâmetros técnicos extraídos pelo LLM, a sequência de \textit{tool calls}, os produtos cartográficos encontrados (total e itens, com geometria em GeoJSON), a resposta textual ao usuário, as latências de cada etapa (tradução, execução da SQL, resposta final e total) e eventuais erros e avisos, atendendo a RF1, RF2 e RF3 e expondo os traços de RF5, cujo registro para o cálculo das métricas é feito pelo \textit{pipeline} de avaliação (Seção~\ref{sec:pipeline-avaliacao}). A rota \texttt{GET /api/health} informa a versão do servidor Ollama, a disponibilidade do banco e o modelo configurado. A escolha do FastAPI justifica-se pela validação automática das requisições via Pydantic, pela documentação OpenAPI (Swagger) gerada automaticamente e pela integração direta com o ecossistema Python de IA. A camada de API é mantida minimalista; toda a lógica de orquestração reside no módulo de \textit{pipeline}. O \textit{pipeline} de avaliação não passa pela API: invoca diretamente a camada de tradução, de modo que a latência medida corresponde à chamada ao modelo, sem o custo do transporte HTTP.
+
+\paragraph{Seleção de modelo.} O serviço aceita um campo opcional \texttt{model} na requisição (RF4), habilitado apenas no ambiente de desenvolvimento por variável de ambiente; fora dele, a requisição que solicita um modelo diferente do configurado é recusada. Na configuração operacional, o modelo é fixado por variável de ambiente no servidor: alternar o modelo entre requisições implicaria desalocar e recarregar pesos na VRAM, com custo de segundos por chamada e problemas de concorrência em cenários multiusuário.
+
+\paragraph{Tratamento de falhas.} Falhas do LLM não são recuperadas por regras determinísticas nem por novas tentativas: cada falha é \textbf{registrada como métrica}, o que permite atribuir corretamente os erros ao modelo (limitação 5 da Seção~\ref{sec:limitacoes}). As falhas são classificadas em duas famílias: \textbf{erros de infraestrutura} (tempo esgotado, servidor ou modelo indisponível, falha de execução) e \textbf{erros do modelo} (argumentos fora do \textit{schema}, chamada a ferramenta inexistente). Uma chamada com argumentos fora do tipo esperado é preservada como veio, e a comparação campo a campo com o gabarito contabiliza o erro. Para uma versão de produção destinada aos usuários finais, é desejável um caminho de \textit{fallback} suave (por exemplo, delegar a consulta bruta à busca textual do PostgreSQL), preservando comportamento útil diante de falhas; essa evolução é apontada como trabalho futuro no Capítulo~\ref{cap:conclusao}.
+
+\subsection{Camada de Orquestração: LangChain + Ollama}
+
+A integração com o Ollama é feita pela classe \texttt{ChatOllama} do LangChain~\cite{langchain2022}, que encapsula a API nativa do Ollama: envia a consulta ao modelo junto com a definição da ferramenta e devolve, de forma estruturada, as chamadas de ferramenta que o modelo decidiu gerar --- desativando, por parâmetro (\texttt{reasoning=False}, que envia \texttt{think=false} à API do Ollama), o modo \textit{thinking} nos modelos que declaram essa capacidade. O objeto \texttt{ChatOllama} é instanciado com o nome do modelo, temperatura zero, limite de 1024 \textit{tokens} de saída e o \textit{base URL} do Ollama; a ligação da ferramenta é feita pelo método \texttt{bind\_tools()}, que recebe a definição de \texttt{buscar\_catalogo} em JSON Schema; a invocação é uma única chamada \texttt{invoke()}, cujo retorno traz a lista de \textit{tool calls}. Na versão 1.x do LangChain, adotada neste trabalho, o antigo \texttt{AgentExecutor} foi descontinuado; como a etapa avaliada é exatamente essa única decisão do modelo (chamar ou não a ferramenta, e com quais argumentos), o ciclo completo --- executar a ferramenta e devolver o resultado ao modelo para a resposta final --- é implementado explicitamente no módulo de \textit{pipeline}, sem necessidade de um grafo de estados como o LangGraph~\cite{langgraph2024}.
+
+No caso do Qwen 3 4B, empregou-se a \textit{build} oficial sem raciocínio, de mesmo porte e mesma quantização (\textit{tag} \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}), porque na \textit{build} \texttt{qwen3:4b} o raciocínio não pôde ser desligado nem pela diretiva \texttt{/no\_think} nem pelo parâmetro \texttt{think=false} (Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:config-modelos}).
+
+A mesma camada admite outro provedor sem alteração do restante do código: substituindo \texttt{ChatOllama} por \texttt{ChatOpenAI}, apontado para um \textit{endpoint} compatível com a API da OpenAI, o \texttt{bind\_tools()} e a interpretação das \textit{tool calls} permanecem idênticos. Essa portabilidade, discutida no Capítulo~\ref{cap:referencial}, foi empregada para obter o resultado paralelo com modelos maiores servidos em nuvem pelo Groq (Seção~\ref{sec:pipeline-avaliacao}), sem qualquer efeito sobre a configuração local avaliada.
+
+\subsection{Ferramentas de Busca}
+
+A solução expõe ao LLM uma única ferramenta, \texttt{buscar\_catalogo}, em linha direta com a funcionalidade do protótipo. Ela é descrita por um \textit{schema} JSON explícito --- nome, descrição geral e os doze parâmetros de busca (\texttt{keyword}, \texttt{scale}, \texttt{productType}, \texttt{state}, \texttt{city}, \texttt{supplyArea}, \texttt{project}, \texttt{publicationPeriod}, \texttt{creationPeriod}, \texttt{sortField}, \texttt{sortDirection}, \texttt{limit}), cada um com tipo, enumeração dos valores válidos quando aplicável e instruções de normalização na própria descrição (por exemplo, ``25k'' corresponde a ``1:25.000'') --- mantido em um único módulo do repositório (\texttt{schema.py}). O mesmo módulo é a fonte dos campos e tipos usados na validação dos argumentos devolvidos pelo modelo e dos enumerados usados na validação do \textit{dataset}. Manter o \textit{schema} explícito, em vez de derivá-lo de \textit{docstrings}, garante que o texto lido pelo modelo é exatamente o que está versionado no repositório; seu \textit{hash} é registrado no manifesto de cada rodada de avaliação.
+
+As descrições dos parâmetros são o único lugar em que o modelo recebe exemplos de normalização: o \textit{prompt} de sistema apenas instrui a converter cada valor para a forma canônica descrita na ferramenta, sem dicionário de termos nem exemplos resolvidos (\textit{few-shot}). As 141 entradas do dicionário do protótipo são, assim, substituídas pela capacidade semântica do modelo (limitação 4). A função Python que implementa a ferramenta recebe os argumentos decididos pelo modelo e executa a consulta parametrizada descrita na Seção~\ref{sec:persistencia}.
+
+\paragraph{Ferramentas auxiliares.} Ferramentas como \texttt{validar\_inom} e \texttt{validar\_mi} (verificação sintática de códigos INOM e MI antes da consulta ao banco) e \texttt{listar\_tipos\_produto} (retorno dos valores válidos de \texttt{productType}, útil quando o modelo precisa deduzir o tipo a partir de um sinônimo informal) não integram a solução avaliada, cujo objeto é a decisão única do modelo sobre \texttt{buscar\_catalogo}. Sua inclusão, orientada pelos padrões de erro por campo observados no Capítulo~\ref{cap:resultados}, fica como trabalho futuro.
+
+\subsection{Camada de Persistência}
+\label{sec:persistencia}
+
+O esquema do banco é o do protótipo: PostgreSQL com PostGIS~\cite{postgis2001}, com as quatro tabelas definidas em \texttt{postgres/init.sql} --- \texttt{datasets} (metadados e geometria de cada produto, com um vetor de busca textual gerado a partir dos campos descritivos), \texttt{estados}, \texttt{municipios} e \texttt{areas\_suprimento} ---, reaproveitado sem alterações. Como o repositório do protótipo contém apenas esse esquema, sem os dados do acervo, a demonstração ponta a ponta povoa o mesmo esquema com uma \textbf{semente sintética}, gerada por \textit{script} com semente fixa e rotulada como sintética nos comentários de cada tabela: 27 unidades da federação representadas como retângulos numa grade, 14 municípios, as cinco áreas de suprimento dos CGEO e 117 produtos. A semente serve apenas para demonstrar que a arquitetura fecha --- da consulta em linguagem natural ao resultado em GeoJSON ---; \textbf{nenhuma métrica deste trabalho depende do banco}, pois a avaliação incide sobre os parâmetros extraídos pelo modelo (Capítulo~\ref{cap:metodologia}). O ambiente é levantado por Docker Compose, com um contêiner PostgreSQL 16 com PostGIS 3.4 que aplica o esquema e a semente na inicialização.
+
+A camada de acesso foi reimplementada em Python com \texttt{psycopg}, em substituição à biblioteca \texttt{pg-promise} do protótipo. A lógica de construção das consultas, portada de \texttt{backend/src/services/search.ts}, foi preservada: busca textual (\textit{full-text search} em português) combinada com a identificação de códigos MI e INOM por expressão regular; filtros exatos de escala, tipo de produto e projeto; intervalos de datas de publicação e de criação; interseções espaciais (\texttt{ST\_Intersects}) com estados, municípios e áreas de suprimento; ordenação e limite de resultados. Para preservar a fidelidade ao protótipo, as mudanças limitaram-se à sintaxe do \textit{driver}, à restrição da direção de ordenação a \texttt{ASC}/\texttt{DESC} e à retirada do filtro por retângulo envolvente e da paginação, próprios do \textit{frontend} de mapa (fora do escopo); o limite de resultados passou a vir do parâmetro \texttt{limit} da ferramenta. Todas as consultas são parametrizadas: o modelo nunca escreve SQL, apenas preenche os parâmetros da ferramenta, e a função monta a consulta com os valores passados como argumentos do \textit{driver}.
+
+\paragraph{Resolução dos campos geográficos: fora do escopo.} Os campos \texttt{state} e \texttt{city} extraídos pelo LLM são \textit{strings} livres em português, que a consulta casa por nome com as tabelas de estados e municípios antes da interseção espacial com a geometria de cada folha. A correção desse resultado depende de geometrias reais das unidades territoriais (malhas do IBGE, Nominatim/OSM) e da qualidade das geometrias dos produtos importadas do catálogo (PYCSW), o que constitui uma frente de trabalho própria e \textbf{fica fora do escopo deste PFC}: a avaliação mede se o LLM extraiu o nome correto do estado ou do município, e não se a consulta espacial resultante retorna o conjunto exato de folhas. O tratamento completo dessa questão é apontado como trabalho futuro no Capítulo~\ref{cap:conclusao}.
+
+\subsection{Pipeline de Avaliação}
+\label{sec:pipeline-avaliacao}
+
+O \textit{pipeline} de avaliação automatiza a execução do \textit{dataset} de avaliação (Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:dataset}; Apêndice~\ref{apendice:dataset}) sobre cada modelo e a produção dos números apresentados no Capítulo~\ref{cap:resultados}. É composto por quatro comandos, declarados como pontos de entrada do pacote Python:
+
+\begin{itemize}
+  \item \textbf{\texttt{pfc-dataset}}: constrói, a partir de uma fonte única --- os casos das camadas P e N, mantidos em módulo próprio, e o gerador da camada G, com semente fixa ---, o arquivo JSON executado pelo avaliador e os blocos do Apêndice~\ref{apendice:dataset}, de modo que o texto e o arquivo avaliado não podem divergir; os enumerados e campos de cada gabarito são validados contra o \textit{schema} da ferramenta;
+  \item \textbf{\texttt{pfc-auditar}}: executa as checagens automáticas da auditoria do \textit{dataset} --- estrutura (identificadores únicos, consultas não repetidas, enumerados válidos, expressões de tempo relativo que resolvem em diferentes datas de referência); rastreabilidade (toda consulta tem fonte, e as da camada P aparecem literalmente na linha citada do arquivo de casos de teste do protótipo); evidência, por meio de um anotador baseado em regras, escrito sem acesso ao gabarito, que aponta campos anotados sem evidência no texto da consulta, evidências sem campo anotado e valores divergentes; e consistência, exigindo a mesma anotação para a mesma expressão em todos os casos. O comando também compara o gabarito com a anotação independente feita às cegas e lista cada divergência; esses apontamentos alimentam a adjudicação descrita no Capítulo~\ref{cap:metodologia};
+  \item \textbf{\texttt{pfc-avaliar}}: executa as consultas sobre um modelo, em ordem fixa e sequencialmente, e grava um registro por consulta $\times$ repetição em formato JSON Lines (texto da consulta, data de referência, \textit{tool calls}, argumentos, tempos, \textit{tokens} e erro classificado). A execução é retomável: se interrompida, é continuada pelo mesmo comando, sem repetir o que já foi registrado. Cada rodada gera um \textbf{manifesto de reprodutibilidade} (RNF4) com a \textit{tag} e o \textit{digest} do modelo, as versões de \textit{software} (Python, Ollama, LangChain), o \textit{hardware}, a data de referência injetada no \textit{prompt} e os \textit{hashes} SHA-256 do \textit{dataset} e do \textit{schema} da ferramenta. A pontuação é \textbf{sempre recalculada contra o gabarito vigente}: o registro guarda a resposta do modelo e a data de referência, e as métricas (Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:metricas}) são refeitas a partir do \textit{dataset} atual. Assim, uma correção de gabarito decidida na auditoria não exige nova execução dos modelos, e registros cuja consulta teve o texto alterado são descartados e listados no resumo;
+  \item \textbf{\texttt{pfc-relatorio}}: consolida os resultados dos modelos nas tabelas LaTeX e nas figuras do Capítulo~\ref{cap:resultados} (comparativo geral, F1 por categoria e por campo, latência), calcula o intervalo de confiança de Wilson para a acurácia e o teste exato de McNemar pareado entre modelos, e extrai uma amostra de erros representativos por tipo para a análise qualitativa.
+\end{itemize}
+
+\paragraph{Provedor alternativo e resultado paralelo.} O comando \texttt{pfc-avaliar} aceita a opção \texttt{-{}-provedor groq}, que substitui \texttt{ChatOllama} por \texttt{ChatOpenAI} apontado para o \textit{endpoint} compatível do Groq, mantendo o mesmo \textit{prompt}, a mesma ferramenta, o mesmo \textit{dataset} e as mesmas métricas. Com essa opção foram avaliados \res{groq}{geral}{nmodelos} modelos maiores servidos em nuvem (\res{groq}{geral}{tags}). Esses resultados são gravados em diretório próprio, com manifesto rotulado como execução em nuvem, e reportados à parte no Capítulo~\ref{cap:resultados} como referência: por dependerem de serviço externo, estão fora do requisito de execução local (RNF1) e não concorrem à recomendação de modelo para implantação. Duas particularidades do provedor são tratadas explicitamente: as respostas de limite de taxa do plano gratuito são aguardadas e a chamada é repetida --- assim como, até três vezes, as falhas transitórias de conexão ou do servidor, antes de serem registradas como erro de infraestrutura ---, registrando-se apenas a latência da tentativa respondida; e o servidor valida os argumentos contra o \textit{schema} e rejeita a \textit{tool call} inválida, o que é contado como erro do modelo, com os argumentos gerados --- quando recuperáveis da mensagem de rejeição --- avaliados campo a campo, como na execução local.
+
+\subsection{Ferramentas de Apoio ao Desenvolvimento}
+
+Em apoio ao desenvolvimento e à reprodutibilidade, foram empregados: \texttt{git}, para controle de versão; \texttt{pytest}, com 78 testes automatizados que cobrem o \textit{schema} da ferramenta, a montagem das consultas SQL, a resolução das expressões de tempo relativo, as invariantes do \textit{dataset}, o cálculo das métricas e a geração dos relatórios (RNF5); \texttt{ruff}, para análise estática do código; Docker Compose, para subir o contêiner PostgreSQL/PostGIS de forma reprodutível; e o arquivo \texttt{pyproject.toml}, que declara as dependências e os comandos do pacote, instalados com \texttt{pip} em ambiente virtual Python. A política de divulgação pública do repositório é definida em conjunto com o 1º CGEO.
+
+% ============================================================
+\section{Cronograma}
+\label{sec:cronograma}
+% ============================================================
+
+O projeto foi executado entre abril e outubro de 2026, em oito fases (F0--F7) alinhadas às etapas da EAP, conforme o Quadro~\ref{quadro:cronograma}.
+
+\begin{quadro}[h]
+\centering
+\caption{Cronograma de execução do projeto}
+\label{quadro:cronograma}
+\small
+\begin{tabular}{|c|p{6.6cm}|c|p{3.4cm}|}
+\hline
+\textbf{Fase} & \textbf{Atividade} & \textbf{Período} & \textbf{Marco} \\
+\hline
+F0 & Análise do protótipo: código-fonte, dependências, esquema do banco e limitações documentadas & abr/2026 & Limitações mapeadas \\
+\hline
+F1 & Elicitação de requisitos e planejamento da migração (limitação $\to$ solução; componentes reaproveitados, reescritos e novos) & mai/2026 & Requisitos e plano de migração \\
+\hline
+F2 & Referencial teórico; seleção dos modelos; definição das métricas e do protocolo de avaliação & mai--jun/2026 & Protocolo de avaliação \\
+\hline
+F3 & Construção do \textit{dataset} de avaliação: camadas P, N e G e respectivo gabarito (Apêndice~\ref{apendice:dataset}) & jun--jul/2026 & 310 consultas anotadas \\
+\hline
+F4 & Prova de conceito do \textit{Tool Calling} sobre consultas representativas, com modelo local e em nuvem & ago/2026 & Viabilidade do \textit{Tool Calling} demonstrada \\
+\hline
+F5 & Implementação: API, orquestração, ferramenta \texttt{buscar\_catalogo}, persistência e \textit{pipeline} de avaliação, com testes automatizados & set/2026 & Sistema ponta a ponta \\
+\hline
+F6 & Experimentos (modelos locais, validação na estação local e resultado paralelo em nuvem); auditoria do \textit{dataset}; análise de erros & set/2026 & Tabelas e figuras do Cap.~\ref{cap:resultados} \\
+\hline
+F7 & Redação dos resultados e da conclusão; preparação da defesa & set--out/2026 & Defesa (out/2026) \\
+\hline
+\end{tabular}%
+\fonte{Elaborado pelo autor.}
+\end{quadro}
+
+A fase F6 foi conduzida em três ambientes, com os mesmos comandos de avaliação: (i) as rodadas completas dos quatro modelos locais, com Ollama em uma GPU de nuvem (NVIDIA T4, 16~GB) e o mesmo \textit{software}; (ii) um subconjunto de validação (camadas P e N) na estação local com RTX 3050 Laptop de 4~GB de VRAM (Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:ambiente}); e (iii) o resultado paralelo com os modelos servidos pelo Groq, fora do requisito de execução local e reportado à parte. A configuração de cada ambiente e os resultados correspondentes são apresentados no Capítulo~\ref{cap:resultados} (Seção~\ref{sec:config-experimental}).
+
+A configuração do \textit{hardware} da estação local foi coletada por meio dos comandos PowerShell apresentados no Apêndice~\ref{apx:specs}; a saída na íntegra está reproduzida na Seção~\ref{apx:specs-resultado} do mesmo apêndice.

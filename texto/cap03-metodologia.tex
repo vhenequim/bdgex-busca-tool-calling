@@ -1,0 +1,247 @@
+% ----------------------------------------------------------
+% Capítulo 3 — Metodologia
+% ----------------------------------------------------------
+\chapter{Metodologia}
+\label{cap:metodologia}
+
+Este capítulo descreve o método de trabalho adotado para o aprimoramento da solução de busca em linguagem natural sobre o acervo cartográfico da DSG. O trabalho parte de um protótipo de referência desenvolvido pelo 1º CGEO, descrito e analisado em detalhe no Capítulo~\ref{cap:aprimoramento}, e adota a estratégia de \textbf{substituição dirigida}: identificam-se os componentes responsáveis pelas limitações documentadas pelo cliente e substituem-se esses componentes por equivalentes mais robustos, preservando o que já funciona (esquema do banco, conjunto de parâmetros de busca, lógica das consultas espaciais).
+
+O capítulo apresenta os elementos transversais ao projeto: o escopo (entregáveis e exclusões), os modelos comparados, a construção e a auditoria do \textit{dataset} de avaliação e o protocolo de medição. A execução do aprimoramento --- análise do protótipo, requisitos, planejamento da migração, desenvolvimento por camadas e cronograma --- é apresentada no Capítulo~\ref{cap:aprimoramento}.
+
+\paragraph{Foco da avaliação: a camada de tradução linguística.} O objeto de avaliação deste trabalho é o desempenho do LLM na \textbf{tradução de uma consulta em linguagem natural para os parâmetros estruturados} de busca no catálogo. A execução dessa consulta contra o banco (PostgreSQL/PostGIS), a resolução de nomes geográficos e a interpretação das \textit{bounding boxes} das cartas são componentes herdados do protótipo do 1º CGEO; sua correção é assumida como \textit{caixa-preta} e não é medida. Métricas sobre o \textit{conjunto de produtos retornados} ficam fora do escopo (Seção~\ref{sec:exclusoes-avaliacao}) e são apontadas como direção de trabalho futuro no Capítulo~\ref{cap:conclusao}. O LLM é comparado contra um \textit{ground truth} de \textbf{parâmetros extraídos}, não de produtos recuperados.
+
+% ---
+\section{Escopo do Projeto}
+% ---
+
+\subsection{Entregáveis}
+
+O projeto entregou:
+
+\begin{itemize}
+  \item uma nova arquitetura de \textit{backend} em Python (FastAPI + LangChain), que substitui o \textit{backend} Node.js do protótipo e implementa \textit{Tool Calling} nativo via Ollama;
+  \item um \textit{dataset} de avaliação com 310 consultas de referência (\textit{ground truth}), distribuídas em seis categorias de consulta e uma de consultas fora do domínio, acompanhado de um manual de anotação e de um relatório de auditoria;
+  \item um \textit{pipeline} de avaliação automatizado, que executa o \textit{dataset} sobre cada modelo e produz as métricas de acurácia, precisão, \textit{recall}, F1-\textit{score} e latência, com os testes estatísticos correspondentes;
+  \item um relatório comparativo entre quatro modelos de LLM com suporte a \textit{Tool Calling}, executados localmente, com a recomendação fundamentada do modelo mais adequado para uso operacional sobre o acervo da DSG, complementado por uma referência paralela com modelos maiores servidos em nuvem.
+\end{itemize}
+
+\subsection{Exclusões}
+\label{sec:exclusoes-avaliacao}
+
+Estão fora do escopo deste trabalho:
+
+\begin{itemize}
+  \item \textbf{Avaliação da qualidade de recuperação em nível de produto}: uma vez extraídos os parâmetros, o conjunto de produtos retornado depende do motor de busca (\texttt{buscar\_catalogo}) e da qualidade do banco cartográfico, ambos herdados do protótipo. O trabalho \textbf{não mede} precisão e \textit{recall} em nível de produto. A execução SQL permanece no \textit{pipeline} apenas como demonstração de que a arquitetura fecha ponta a ponta;
+  \item \textbf{Resolução avançada de nomes geográficos}: o cruzamento entre \textit{strings} livres (estado, município) e as \textit{bounding boxes} das cartas depende de recursos externos (malha do IBGE, Nominatim/OSM) e da qualidade das geometrias no banco; é tratado como trabalho futuro (Capítulo~\ref{cap:conclusao});
+  \item desenvolvimento de interface gráfica (\textit{frontend}) para o usuário final;
+  \item implantação em produção em ambiente da DSG ou de suas OM subordinadas;
+  \item pesquisa de opinião ou avaliação qualitativa com usuários;
+  \item treinamento ou ajuste fino (\textit{fine-tuning}) de modelos de linguagem;
+  \item busca por coordenadas geográficas brutas (\textit{bounding box}) sem referência nominal a um lugar;
+  \item suporte a idiomas além do português brasileiro.
+\end{itemize}
+
+\subsection{Requisitos que norteiam o escopo}
+\label{sec:requisitos-resumo}
+
+O escopo é norteado por requisitos funcionais (RF) e não funcionais (RNF) elicitados a partir da análise do protótipo e das conversas com o cliente. O Quadro~\ref{quadro:requisitos-resumo} traz o resumo; a discussão completa está no Capítulo~\ref{cap:aprimoramento} (Seção~\ref{sec:requisitos}).
+
+\begin{quadro}[h]
+\centering
+\caption{Resumo dos requisitos que norteiam o escopo}
+\label{quadro:requisitos-resumo}
+\small
+\begin{tabular}{|c|p{5.5cm}|c|p{5.0cm}|}
+\hline
+\multicolumn{2}{|l|}{\textbf{Requisitos Funcionais (RF)}} & \multicolumn{2}{l|}{\textbf{Requisitos N\~ao Funcionais (RNF)}} \\
+\hline
+RF1 & Receber consulta em linguagem natural via REST & RNF1 & Execu\c c\~ao totalmente local (privacidade) \\
+\hline
+RF2 & Traduzir consulta em par\^ametros do \textit{schema} & RNF2 & Lat\^encia mediana operacional aceit\'avel \\
+\hline
+RF3 & Executar busca no PostgreSQL/PostGIS & RNF3 & Conformidade a ET-PCDG e Perfil MGB \\
+\hline
+RF4 & Selecionar modelo por requisi\c c\~ao (\textit{dev only}) & RNF4 & Reprodutibilidade dos experimentos \\
+\hline
+RF5 & Registrar tra\c cos para as m\'etricas & RNF5 & Manutenibilidade (m\'odulos, testes) \\
+\hline
+    &                                       & RNF6 & Substituibilidade de modelo por configura\c c\~ao \\
+\hline
+\end{tabular}%
+\fonte{Elaborado pelo autor. Detalhes no Cap.~\ref{cap:aprimoramento}, Seção~\ref{sec:requisitos}.}
+\end{quadro}
+
+Requisitos ideais são mensuráveis, mas alguns dos RNF --- em particular o RNF2, latência --- dependem de fatores externos ao escopo deste PFC (\textit{hardware} do ambiente de implantação, carga concorrente). Por isso os valores de latência são reportados nas condições de cada ambiente de execução (Seção~\ref{sec:ambiente}), sem limiar operacional fixado \textit{a priori}.
+
+% ---
+\section{Seleção de Modelos}
+\label{sec:selecao-modelos}
+% ---
+
+\subsection{Critérios de Seleção}
+
+Os modelos foram selecionados segundo os critérios: (i) disponibilidade no Ollama com suporte nativo a \textit{Tool Calling}, verificada no catálogo oficial da biblioteca~\cite{ollama2023}, que mantém rankings de popularidade e uma etiqueta explícita de compatibilidade com \textit{tool calling}; (ii) disponibilidade em versões quantizadas compatíveis com estações de trabalho modestas; (iii) lançamento ou atualização entre 2024 e 2026; e (iv) diversidade de arquiteturas e organizações desenvolvedoras.
+
+\subsection{Modelos Avaliados}
+
+Foram avaliados quatro modelos abertos, executados localmente pelo Ollama:
+
+\begin{enumerate}
+  \item \textbf{Qwen 3 4B}~\cite{qwen2025qwen3} (Alibaba Cloud), \textit{tag} \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}: 4 bilhões de parâmetros, quantização Q4\_K\_M, 2,3~GB --- o único dos quatro que cabe integralmente nos 4~GB de VRAM da estação de referência. Usou-se a \textit{build} oficial sem raciocínio interno (\textit{Instruct-2507}), pela razão explicada na Seção~\ref{sec:config-modelos};
+  \item \textbf{Gemma 4 E4B}~\cite{team2026gemma4} (Google DeepMind), \textit{tag} \texttt{gemma4:\allowbreak e4b-it-qat}: variante \textit{edge} de 4 bilhões de parâmetros efetivos, com quantização consciente de treinamento. É a menor \textit{build} publicada do E4B ($\sim$5,7~GB) e não cabe em 4~GB de VRAM --- a variante Q4\_K\_M ocupa $\sim$9~GB ---, o que exige \textit{offload} parcial para a CPU na estação de referência;
+  \item \textbf{Gemma 4 E2B}~\cite{team2026gemma4}, \textit{tag} \texttt{gemma4:\allowbreak e2b-it-qat}: variante menor da mesma família ($\sim$4,0~GB), incluída justamente porque o E4B não cabe na VRAM da estação de referência. Permite observar, dentro de uma mesma família, o efeito do tamanho do modelo;
+  \item \textbf{Mistral Nemo 12B}~\cite{jiang2023mistral} (Mistral AI e NVIDIA), \textit{tag} \texttt{mistral-nemo:12b}: 12 bilhões de parâmetros ($\sim$6,6~GB), com suporte consolidado a \textit{Tool Calling} e bom desempenho em português. Representa a faixa superior de tamanho executável com \textit{offload} parcial numa estação modesta.
+\end{enumerate}
+
+\subsection{Referência paralela em nuvem}
+
+Como referência --- e não como candidatos à implantação, uma vez que o requisito RNF1 exige execução local ---, a mesma avaliação foi executada sobre \res{groq}{geral}{nmodelos} modelos maiores servidos pelo provedor Groq e disponíveis com suporte a \textit{Tool Calling} em setembro de 2026: \res{groq}{geral}{tags}. O objetivo é situar os modelos locais em relação a modelos de maior porte sob o mesmo \textit{prompt}, a mesma ferramenta, o mesmo \textit{dataset} e as mesmas métricas. A troca de provedor usa exatamente a portabilidade descrita no Capítulo~\ref{cap:referencial}: o \texttt{ChatOllama} do LangChain é substituído pelo \texttt{ChatOpenAI} apontado para o \textit{endpoint} compatível do provedor, sem alteração no restante do \textit{pipeline}. Esses resultados são sempre reportados à parte e identificados como execução em nuvem.
+
+% ---
+\section{Construção do \textit{Dataset} de Avaliação}
+\label{sec:dataset}
+% ---
+
+A comparação objetiva dos modelos exige um \textit{dataset} de referência representativo do espectro de consultas que usuários do catálogo tenderiam a formular, cobrindo diferentes níveis de complexidade e combinações de parâmetros, e cujo gabarito seja \textbf{auditável}: cada resposta esperada deve poder ser justificada a partir do texto da consulta e de regras escritas, e qualquer leitor deve poder refazer essa verificação.
+
+\subsection{Estrutura de cada entrada}
+
+Cada consulta do \textit{dataset} é registrada com os campos da Tabela~\ref{tab:estrutura-dataset}. O arquivo \texttt{dataset.json} e o Apêndice~\ref{apendice:dataset} são gerados a partir da mesma fonte, de modo que não podem divergir.
+
+\begin{table}[htbp!]
+\centering
+\caption{Estrutura de cada entrada do \textit{dataset} de avaliação}
+\label{tab:estrutura-dataset}
+\small
+\begin{tabular}{|l|p{10.5cm}|}
+\hline
+\textbf{Campo} & \textbf{Descrição} \\
+\hline
+\texttt{id} & Identificador (P01--P22, N01--N40, GS001 \ldots GF007) \\ \hline
+\texttt{fonte} & Rastreabilidade: arquivo e linha de origem (camada P), autores (camada N) ou função geradora, modelo de frase e semente (camada G) \\ \hline
+\texttt{categorias} & Uma ou mais das categorias S, C, M, T, O, A; ou F (fora do domínio), que não se combina com as demais \\ \hline
+\texttt{consulta} & Texto em linguagem natural \\ \hline
+\texttt{esperado} & Leitura preferencial do gabarito: parâmetros de busca na forma canônica, com períodos relativos expressos por regras nomeadas \\ \hline
+\texttt{alternativas} & Demais leituras aceitas, quando a consulta admite mais de uma (Seção~\ref{sec:manual-anotacao}) \\ \hline
+\texttt{espera\_tool\_call} & Falso quando o comportamento correto é não chamar a ferramenta \\ \hline
+\texttt{observacional} & Verdadeiro quando o caso fica fora das métricas principais \\ \hline
+\texttt{notas} & Justificativa das leituras alternativas e observações do anotador \\ \hline
+\end{tabular}%
+\fonte{Elaborada pelo autor.}
+\end{table}
+
+\subsection{Categorias de Consultas}
+
+O \textit{dataset} é organizado em seis categorias, alinhadas aos exemplos do protótipo e às demandas do cliente: \textbf{simples} (S, um único parâmetro: ``cartas de São Paulo''); \textbf{compostas} (C, dois ou mais parâmetros: ``ortoimagens de Manaus em 1:50.000''); \textbf{com código MI/INOM} (M: ``INOM SG-22-X-A''); \textbf{com referência temporal relativa} (T: ``nos últimos 3 meses'', ``depois de 2022''); \textbf{com ordenação} (O: ``as 3 cartas mais antigas''); e \textbf{ambíguas ou informais} (A: siglas, grafias sem acento, abreviações e expressões qualitativas). Uma consulta pode pertencer a mais de uma categoria. Uma sétima categoria, \textbf{fora do domínio} (F: ``cartas de Marte'', ``qual a previsão do tempo para amanhã em Manaus?''), reúne as consultas em que a resposta correta é não chamar a ferramenta; ela mede a capacidade de o modelo recusar pedidos que o catálogo não atende.
+
+\subsection{Camadas de Construção}
+
+O \textit{dataset} tem 310 consultas, construídas em três camadas complementares (Tabela~\ref{tab:dataset-composicao}):
+
+\begin{enumerate}
+  \item \textbf{Camada P (protótipo, 22 casos)}: as consultas do arquivo de testes do protótipo (\texttt{backend/\allowbreak evaluation/\allowbreak test-cases.ts}), cada uma rastreada até a linha de origem. A anotação original da equipe do 1º CGEO é mantida como leitura preferencial --- o \textit{baseline} não é reanotado ---, e as leituras alternativas acrescentadas seguem o manual de anotação, com justificativa registrada. Os gabaritos de datas relativas do arquivo original, fixados em datas de 2025, são substituídos pelas regras nomeadas da Seção~\ref{sec:manual-anotacao}, que se resolvem na data da execução.
+  \item \textbf{Camada N (autores, 40 casos)}: redigidos para preencher lacunas de distribuição --- em especial a categoria Simples, ausente na camada P --- e para exercitar ambiguidades e casos de fronteira do domínio.
+  \item \textbf{Camada G (geração programática, 248 casos)}: consultas sintetizadas pela combinação de catálogos fechados do domínio --- 27 UFs, 12 municípios de referência, 8 escalas do SCN, 9 tipos de produto das ET-PCDG, 5 CGEOs, 9 projetos, códigos MI e INOM, 15 expressões de tempo relativo e padrões de ordenação --- em modelos de frase do português corrente (com preposição adequada a cada UF e apelidos usuais de escala, como ``25k'' ou ``escala de 25 mil''). O gabarito é conhecido \textbf{por construção}: a frase é montada a partir dos parâmetros que deve produzir. A geração é determinística (semente 42) e rejeita qualquer consulta que repita, após normalização, outra do \textit{dataset}, inclusive das camadas P e N. A camada inclui sete consultas de fronteira do domínio (família G-F): seis fora do domínio e uma observacional.
+\end{enumerate}
+
+\input{tabelas/tab_dataset_composicao}
+
+\paragraph{Justificativa da geração programática.} Consultas escritas à mão são caras de redigir e anotar e tendem a variar sobre um pequeno conjunto de padrões familiares aos autores. A geração por modelos de frase sobre catálogos fechados oferece cobertura sistemática de combinações raras (pares UF $\times$ escala pouco frequentes, por exemplo), escala sem custo adicional de anotação e volume suficiente para estimar intervalos de confiança e comparar modelos com testes de significância. A contrapartida é a regularidade linguística: por isso os resultados são reportados também por camada, permitindo distinguir o desempenho nas consultas geradas do desempenho nas consultas redigidas por pessoas (P e N).
+
+\input{tabelas/tab_dataset_categorias}
+
+\subsection{Manual de Anotação e Leituras Múltiplas}
+\label{sec:manual-anotacao}
+
+O gabarito é construído segundo um manual de anotação escrito (Apêndice~\ref{apx:manual}) que fixa seis princípios --- evidência explícita no texto, forma canônica, leituras múltiplas explícitas, tratamento das consultas fora do domínio, consistência e casos observacionais --- e regras para cada um dos doze campos da ferramenta.
+
+O princípio mais importante para a confiabilidade da avaliação é o das \textbf{leituras múltiplas explícitas}. Uma parte das consultas admite, legitimamente, mais de uma resposta correta: ``cartas de São Paulo'' pode referir-se ao estado ou à capital; ``produtos publicados nos últimos 3 meses'' pode significar noventa dias ou três meses de calendário; ``as cartas mais recentes'' pode ser ordenado pela data de publicação ou pela de criação, pois a consulta não diz qual. Um gabarito que escolhesse uma única leitura penalizaria como erro uma resposta razoável e mediria a coincidência com a preferência do anotador, não a qualidade da tradução. Nesses casos o gabarito lista \textbf{todas} as leituras aceitas, por três mecanismos: \emph{valor alternativo} (o campo aceita mais de um valor), \emph{campo opcional} (pode faltar sem erro, como \texttt{limit = 1} em ``a carta mais recente'') e \emph{leitura estrutural alternativa} (o mesmo trecho pode ocupar campos diferentes, como \texttt{state} ou \texttt{city}). As expressões de tempo relativo são registradas como regras nomeadas, resolvidas na data da execução --- a mesma data informada ao modelo no \textit{prompt} de sistema --- com as leituras aceitas do Quadro~\ref{quadro:tempo-relativo}.
+
+A ambiguidade não é, porém, tratada com leniência genérica: toda leitura aceita está escrita no gabarito, justificada por uma regra do manual e visível no Apêndice~\ref{apendice:dataset}; fora delas, a comparação é estrita (Seção~\ref{sec:metricas}). Das 306 consultas das métricas principais, a Tabela~\ref{tab:dataset-composicao} indica quantas admitem mais de uma leitura.
+
+\paragraph{Consultas fora do domínio e casos observacionais.} Oito consultas estão fora do domínio (N36, N37 e seis da família G-F): o comportamento correto é determinado --- não chamar a ferramenta --- e elas entram nas métricas principais, na categoria F. Quatro consultas são observacionais (N38, N39, N40 e GF007), porque o comportamento correto não é determinável a partir do texto: valor impossível de representar (``escala 1:10.000.000'', ``cartas do estado 42'') ou pedido de resposta discutível (``cartas topo no oceano atlântico'', ``cartas do futuro (ano 2050)''). Elas são executadas e o comportamento de cada modelo é reportado à parte; as métricas principais cobrem as 306 consultas restantes.
+
+\input{tabelas/tab_dataset_campos}
+
+% ---
+\section{Auditoria do \textit{Dataset}}
+\label{sec:auditoria}
+% ---
+
+A confiabilidade das métricas depende diretamente da confiabilidade do gabarito. Por isso o \textit{dataset} foi submetido a uma auditoria em três etapas, repetidas até não restar divergência sem decisão registrada. O procedimento, as ferramentas e os resultados completos estão no Apêndice~\ref{apx:auditoria} e no repositório (\texttt{data/auditoria/}).
+
+\begin{enumerate}
+  \item \textbf{Checagens automáticas} (\texttt{pfc-auditar}): unicidade de identificadores e de consultas (após normalização de caixa, acentos e pontuação); validade de todos os valores contra os enumerados da ferramenta; resolução de todas as regras de tempo relativo em datas diversas, inclusive anos bissextos e viradas de ano; rastreabilidade das consultas da camada P até a linha citada do arquivo de origem; um \textbf{anotador por regras}, que localiza na consulta o trecho que justifica cada campo do gabarito e aponta campo sem evidência, evidência sem campo e valor divergente; e uma verificação de \textbf{consistência} de convenções entre casos (a mesma expressão, a mesma anotação).
+  \item \textbf{Anotação independente às cegas}: todas as 310 consultas foram anotadas novamente, a partir do zero, por um modelo de linguagem de propósito geral de grande porte (Claude Opus 5.5, da Anthropic), que não integra o conjunto de modelos avaliados. A anotação foi feita em dez lotes de 31 consultas, em sessões independentes, cada uma com acesso apenas ao manual de anotação, à definição da ferramenta, à data de referência e ao próprio lote --- sem acesso ao gabarito, ao gerador ou aos demais lotes. Para cada consulta, o anotador registrou a decisão (chamar a ferramenta, não chamar ou caso observacional), a leitura preferencial, as leituras alternativas previstas pelo manual e uma justificativa por referência às regras.
+  \item \textbf{Adjudicação}: cada consulta com divergência em qualquer das medidas de concordância recebeu uma decisão registrada --- gabarito mantido, corrigido ou ampliado com leitura alternativa --- com justificativa por referência ao manual. O gabarito anterior a cada decisão fica registrado, de modo que a concordância anterior à adjudicação pode ser recalculada a partir do repositório.
+\end{enumerate}
+
+A concordância entre o gabarito e a anotação independente foi medida em rigor crescente (Tabela~\ref{tab:auditoria}): a decisão sobre chamar a ferramenta, com o kappa de Cohen~\cite{cohen1960coefficient,artstein2008intercoder}, que desconta a concordância esperada ao acaso; a compatibilidade das leituras nos dois sentidos (a leitura do anotador é aceita pelo gabarito e a leitura preferencial do gabarito é aceita pelo anotador); a identidade da leitura preferencial; a presença e o valor de cada campo; e a detecção de ambiguidade, isto é, se a consulta admite mais de uma leitura. A coluna ``antes da adjudicação'' mede a concordância propriamente dita; a coluna ``após'' mostra o que restou depois das decisões.
+
+\input{tabelas/tab_auditoria}
+
+As medidas de campo e de ambiguidade mostram concordância quase perfeita já antes da adjudicação. A principal divergência foi de classificação: o gabarito tratava como observacionais oito consultas fora do domínio cujo comportamento correto é determinado pelo próprio manual (não chamar a ferramenta). A decisão foi corrigir o gabarito e incluí-las nas métricas principais, na categoria F. As demais divergências foram uma leitura ampliada (N33, em que ``cartografia sistemática'' passou a admitir a leitura sem o campo \texttt{project}, pois a expressão não consta da descrição da ferramenta) e cinco divergências mantidas com justificativa, entre elas três escolhas de leitura preferencial dentro do mesmo conjunto de leituras aceitas, que não afetam a pontuação. A lista completa está no Quadro~\ref{quadro:adjudicacao} do Apêndice~\ref{apx:auditoria}.
+
+Duas ressalvas delimitam o alcance da auditoria. O anotador por regras foi escrito pelos autores e, portanto, verifica evidência e consistência, mas não constitui uma anotação independente. A anotação às cegas é independente do gabarito, mas foi feita por um modelo de linguagem, e não por uma pessoa: ela identifica divergências com alta sensibilidade, e a decisão sobre cada uma é tomada na adjudicação, por referência ao manual. Na camada G, além disso, o gabarito é conhecido por construção, e a auditoria verifica sobretudo se a frase gerada sustenta, em português corrente, os parâmetros que a geraram.
+% PENDENTE (revisão humana): quando a planilha data/auditoria/revisao_humana_amostra.csv
+% estiver preenchida, rodar pfc-auditar --anotacao-independente data/auditoria/anotacao_independente.json --paper ../paper_revisado
+% (a linha da revisão humana entra sozinha na Tabela tab:auditoria) e acrescentar aqui:
+% "Uma amostra estratificada de 40 consultas (semente 42) foi, por fim, conferida manualmente pelos autores,
+%  que confirmaram o gabarito em X delas."
+
+% ---
+\section{Protocolo de Avaliação}
+\label{sec:protocolo}
+% ---
+
+\subsection{Visão Geral}
+
+Cada modelo executa todas as consultas do \textit{dataset}, em ordem fixa, sob condições controladas e reproduzíveis. A execução é automatizada pelo comando \texttt{pfc-avaliar} (Capítulo~\ref{cap:aprimoramento}), que grava um registro por consulta e repetição --- consulta, gabarito resolvido, parâmetros emitidos pelo modelo, \textit{tool calls} brutos, texto de resposta, latência, contagem de \textit{tokens} e classe de erro --- e um manifesto de reprodutibilidade por rodada.
+
+\subsection{Ambientes de Execução}
+\label{sec:ambiente}
+
+\paragraph{Estação de referência.} A estação que define o cenário de implantação modesta tem a seguinte configuração (especificação completa no Apêndice~\ref{apx:specs}):
+
+\begin{itemize}
+  \item \textbf{CPU}: Intel Core i7-12700H (12.ª geração, 14 núcleos / 20 \textit{threads}, base 2,3~GHz);
+  \item \textbf{RAM}: 32~GB DDR4 a 3200~MHz;
+  \item \textbf{GPU dedicada}: NVIDIA GeForce RTX 3050 Laptop GPU com 4~GB de VRAM;
+  \item \textbf{Disco}: SSD NVMe de 512~GB;
+  \item \textbf{Sistema operacional}: Microsoft Windows 11 Pro (versão 10.0.26200, 64 bits);
+  \item \textbf{Software}: Python 3.14.4; Ollama 0.34.0; LangChain 1.x (\texttt{langchain-core} 1.6.3, \texttt{langchain-ollama} 1.1.0, cliente \texttt{ollama} 0.6.2); PostgreSQL 16.4 com PostGIS 3.4 em contêiner Docker, usado apenas na demonstração ponta a ponta.
+\end{itemize}
+
+Com 4~GB de VRAM, só modelos quantizados de até cerca de 4 bilhões de parâmetros executam integralmente em GPU; os demais recebem \textit{offload} parcial para a CPU, com penalidade de latência.
+
+\paragraph{Rodadas completas.} As rodadas completas dos quatro modelos locais, com três repetições por modelo, foram executadas numa GPU de nuvem NVIDIA T4 com 16~GB de VRAM, suficiente para cada modelo inteiro, com Ollama (na versão registrada no manifesto de cada rodada), as mesmas \textit{tags} e quantizações e o mesmo \texttt{pfc-avaliar} usados na estação de referência. Isso separa o efeito do modelo do efeito do \textit{offload} e evita ocupar a estação de referência durante horas de execução. A qualidade da tradução depende essencialmente do modelo, e não do \textit{hardware} --- diferenças numéricas entre execução em GPU e em CPU podem alterar respostas isoladas, o que a validação na estação de referência quantifica ---; a latência, ao contrário, depende fortemente do \textit{hardware} e é reportada separadamente por ambiente.
+
+\paragraph{Validação na estação de referência.} As 62 consultas das camadas P e N foram executadas também na estação de referência pelos dois modelos de menor porte (Qwen 3 4B e Gemma 4 E2B), com uma repetição, para medir a latência no cenário de implantação modesta e verificar a concordância das respostas com as rodadas completas. As duas rodadas foram feitas na mesma sessão; antes de cada uma, todos os modelos residentes no Ollama foram descarregados, para que cada modelo fosse carregado a frio e dispusesse da mesma VRAM livre. O manifesto registra a VRAM livre no início da rodada e a parcela do modelo que o Ollama alocou na GPU, porque a latência nessa estação depende diretamente desses dois valores.
+
+\paragraph{Referência em nuvem.} Os \res{groq}{geral}{nmodelos} modelos do Groq (Seção~\ref{sec:selecao-modelos}) executaram as \res{groq}{geral}{nexecutadas} consultas com uma repetição, respeitando os limites de taxa do provedor.
+
+\subsection{Configuração dos Modelos}
+\label{sec:config-modelos}
+
+Todos os modelos foram avaliados com a mesma configuração: \textbf{temperatura zero}; limite de \textbf{1024 \textit{tokens}} de saída; \textbf{nenhum contexto de conversações anteriores} (\textit{zero-shot}); \textbf{nenhum exemplo resolvido no \textit{prompt}} (\textit{few-shot}) e \textbf{nenhum dicionário de normalização}; o mesmo \textit{prompt} de sistema, com a data de referência injetada; e a mesma definição da ferramenta \texttt{buscar\_catalogo}. Não há nova tentativa nem mecanismo de \textit{fallback}: cada falha do modelo é registrada e contada.
+
+\paragraph{Modo \textit{thinking}.} O modo de raciocínio interno foi desativado por parâmetro (\texttt{think=false} na API do Ollama) nos modelos que o declaram, para comparabilidade das latências. Na \textit{build} padrão do Qwen 3 (\texttt{qwen3:4b}) não foi possível desativá-lo de forma limpa --- nem pela diretiva \texttt{/no\_think} no \textit{prompt} nem pelo parâmetro \texttt{think=false} ---: nos testes preliminares, o modelo consumia integralmente o limite de 1024 \textit{tokens} de saída e, em parte das consultas, sequer emitia a chamada de ferramenta. Adotou-se, por isso, a \textit{build} oficial sem raciocínio (\textit{Qwen3-4B-Instruct-2507}), de mesmo porte e mesma quantização. Na referência em nuvem, o esforço de raciocínio foi fixado no mínimo aceito por cada modelo (\texttt{none} para o Qwen; \texttt{low} para a família GPT-OSS, que não permite desligá-lo), o que é registrado no manifesto.
+
+\subsection{Métricas}
+\label{sec:metricas}
+
+\paragraph{Comparação.} A resposta do modelo é comparada com o gabarito campo a campo (Capítulo~\ref{cap:referencial}): enumerados exigem igualdade exata; \textit{strings} livres (\texttt{keyword}, \texttt{state}, \texttt{city}) são comparadas após normalização de caixa, acentos e pontuação; períodos exigem coincidência exata dos limites; \texttt{limit} é inteiro. Quando o gabarito tem leituras múltiplas, a resposta é comparada com cada leitura aceita e avaliada contra a de melhor casamento: correta se coincidir com alguma; por campo, contra a leitura que maximiza acertos menos erros. Campos opcionais ausentes não contam como erro.
+
+\paragraph{Acurácia por consulta.} Uma consulta é correta se o conjunto de parâmetros emitidos coincide com uma leitura aceita --- nem campos a mais, nem a menos. Nas consultas cujo gabarito é não chamar a ferramenta, correta é a resposta sem \textit{tool call}. A acurácia é reportada com intervalo de confiança de 95\% pelo método de Wilson~\cite{wilson1927probable}, adequado a proporções com amostras moderadas.
+
+\paragraph{Precisão, \textit{recall} e F1 por campo.} Para cada campo: verdadeiro positivo (TP) quando o campo é emitido e corresponde a um valor aceito; falso positivo (FP) quando é emitido e não corresponde, ou não deveria ter sido emitido; falso negativo (FN) quando é obrigatório no gabarito e não foi emitido. Um valor errado conta, portanto, como FP. O F1 médio é ponderado pelo número de ocorrências de cada campo no gabarito; reportam-se também as médias \textit{macro} e \textit{micro}.
+
+\paragraph{Latência.} Tempo da chamada de tradução: do envio da consulta ao modelo até o recebimento da resposta com os \textit{tool calls}, medido com relógio monotônico. O tempo de execução da ferramenta (SQL) é registrado à parte e não entra na comparação entre modelos. Reportam-se mínimo, mediana, média, percentil 95 e máximo, por ambiente de execução.
+
+\paragraph{Comparação entre modelos.} Diferenças de acurácia entre dois modelos, sobre as mesmas consultas, são testadas pelo teste de McNemar exato~\cite{mcnemar1947note}, que usa apenas os pares discordantes (consultas em que só um dos modelos acerta). As repetições de um mesmo modelo entram como pares independentes, aproximação declarada nos resultados.
+
+\paragraph{Análise de erros.} Cada resposta incorreta é classificada em: campo inventado (emitido sem estar no gabarito), campo omitido, valor errado, erro misto, não chamou a ferramenta quando devia, chamou quando não devia e argumentos fora do \textit{schema} (tipo inválido ou campo inexistente). Erros de infraestrutura (\textit{timeout}, indisponibilidade) são separados dos erros do modelo e não entram nas estatísticas de latência. Como discutido no Capítulo~\ref{cap:referencial}, \textbf{não se busca um ranking único}: cada métrica revela um aspecto da tradução, e a recomendação final pondera qualidade e latência.
+
+\subsection{Reprodutibilidade}
+
+Cada rodada registra em manifesto: \textit{tag} e \textit{digest} do modelo no Ollama, versões do Ollama e do LangChain, configuração de inferência, data de referência, \textit{hardware} e os \textit{hashes} SHA-256 do \textit{dataset} e da definição da ferramenta. A pontuação é sempre recalculada contra o gabarito vigente: uma correção de gabarito não exige nova execução dos modelos, e uma consulta cujo texto tenha mudado é descartada da pontuação, com registro. O \textit{dataset}, o gerador, o manual, os relatórios de auditoria, os registros de execução e os \textit{scripts} estão no repositório do projeto (Apêndice~\ref{apendice:codigo}).

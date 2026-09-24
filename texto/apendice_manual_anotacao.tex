@@ -1,0 +1,66 @@
+% ----------------------------------------------------------
+% Manual de anotação do dataset (incluído no Apêndice A)
+% Fonte: pfc_busca/docs/manual_de_anotacao.md
+% ----------------------------------------------------------
+\section{Manual de anotação}
+\label{apx:manual}
+
+O gabarito de cada consulta foi construído segundo as regras abaixo. Elas são a referência para a redação e a revisão das consultas, para a auditoria automática e para a anotação independente descritas na Seção~\ref{apx:auditoria}; qualquer anotação que as contrarie é considerada erro do gabarito, e não do modelo.
+
+\subsection*{Princípios}
+
+\begin{description}
+  \item[P1 --- Evidência explícita.] O gabarito contém somente parâmetros para os quais existe um trecho da consulta que os justifica. Nada é inferido além do que o texto diz (``cartas de Manaus'' não implica \texttt{state = "Amazonas"}).
+  \item[P2 --- Forma canônica.] Todo valor é escrito na forma canônica da ferramenta \texttt{buscar\_catalogo}: enumerados exatamente como no \textit{schema}; estados e municípios por extenso, com acentos; datas em ISO 8601.
+  \item[P3 --- Leituras múltiplas explícitas.] Quando a consulta admite mais de uma leitura razoável e nem o texto nem a descrição da ferramenta desempatam, o gabarito lista todas as leituras aceitas, sendo a primeira a preferencial. Há três mecanismos: \emph{valor alternativo} (o campo aceita mais de um valor), \emph{campo opcional} (pode faltar; se aparecer, precisa ter o valor indicado) e \emph{leitura estrutural alternativa} (o mesmo trecho pode ocupar campos diferentes, como estado ou município).
+  \item[P4 --- Fora do domínio.] Consultas sem intenção de busca no acervo cartográfico brasileiro têm como gabarito ``não chamar a ferramenta''.
+  \item[P5 --- Consistência.] A mesma expressão recebe a mesma anotação em todo o \textit{dataset}.
+  \item[P6 --- Casos observacionais.] Consultas cujo comportamento correto não é determinável a partir do texto (valor impossível de representar, comportamento esperado discutível) são executadas e reportadas, mas ficam fora das métricas principais. Consultas fora do domínio (P4) não são observacionais, pois o comportamento correto é determinado.
+\end{description}
+
+\subsection*{Regras por campo}
+
+\begin{description}
+  \item[\texttt{keyword}] Código MI com seus sufixos, sem o prefixo ``MI''; código INOM na grafia com hífens (grafias compactadas, como ``sf22yd'', são normalizadas); nome próprio de carta quando precedido de ``carta'' ou ``folha''. Se o nome da carta coincide com um município, aceita-se também \texttt{city}. Havendo dois códigos, aceita-se qualquer um deles, pois o \textit{schema} comporta um só.
+  \item[\texttt{scale}] Escala explícita em qualquer grafia (``1:25.000'', ``1:25000'', ``25k'', ``25 mil''). As convenções informadas na descrição da ferramenta valem como regra (``detalhada'' $\to$ 1:25.000; ``pequena escala'' $\to$ 1:250.000). Expressões qualitativas não informadas ao modelo aceitam o conjunto de escalas que as satisfazem: ``grande escala'' $\to$ 1:25.000 ou maior; ``média escala'' $\to$ 1:50.000 ou 1:100.000; ``maior que 100k'' $\to$ 1:50.000 ou maior. Duas escalas explícitas: aceita-se qualquer uma.
+  \item[\texttt{productType}] Sinônimos informados na ferramenta (``topo'' e ``topográfica''; ``orto'' e ``ortoimg''; ``mdt'') e demais tipos pelo nome. ``Cartas'', ``mapas'', ``produtos'' e ``folhas'' sozinhos não definem tipo.
+  \item[\texttt{state}, \texttt{city}] Siglas e grafias sem acento são normalizadas. ``Rio de Janeiro'', ``São Paulo'' e ``rio'' sem qualificador admitem as leituras estado ou município; siglas são sempre estado. Regiões (``sul'', ``Nordeste'', ``Amazônia Legal'') não são estados e não são anotadas, pois o \textit{schema} não tem campo de região.
+  \item[\texttt{supplyArea}] Qualquer menção ao Centro de Geoinformação (``1º CGEO'', ``1o cgeo'', ``primeiro cgeo'', ``dois cgeo'').
+  \item[\texttt{project}] Pelo nome ou pelos apelidos informados na ferramenta, com ou sem acento. Expressão que designa o projeto pelo termo distintivo do nome, sem ser o nome nem um apelido informado (``cartografia sistemática'' para \texttt{Mapeamento Sistemático}), torna o campo opcional: a consulta sustenta a leitura, mas a ferramenta não a informa.
+  \item[Períodos] Verbo de publicação (``publicad-'') decide \texttt{publicationPeriod}; verbo de criação (``criad-'', ``feit-'', ``elaborad-'', ``produzid-'') decide \texttt{creationPeriod}; sem verbo que desempate, a leitura preferencial é \texttt{publicationPeriod} e \texttt{creationPeriod} é leitura estrutural alternativa, com o mesmo intervalo. O intervalo é resolvido com a data de referência da execução --- a mesma informada ao modelo --- segundo o Quadro~\ref{quadro:tempo-relativo}.
+  \item[Ordenação] ``Mais recente(s)'', ``último(s)'' $\to$ \texttt{DESC}; ``mais antiga(s)'', ``primeiro(s)'', ``ordem cronológica'' $\to$ \texttt{ASC}. Pista de criação ligada à ordenação (``primeiro mapeamento feito'', ``última atualização'', ``criadas mais recentemente'') $\to$ \texttt{creationDate}; pista de publicação (``últimas publicações'', ``última carta publicada'') $\to$ \texttt{publicationDate}; sem pista, aceita-se qualquer dos dois campos. Número explícito $\to$ \texttt{limit}; singular sem número (``a carta mais recente'') $\to$ \texttt{limit = 1} opcional; plural sem número $\to$ sem \texttt{limit}. Ordenação nunca é anotada por padrão.
+\end{description}
+
+\begin{quadro}[htbp!]
+\centering
+\caption{Leituras aceitas para as expressões de tempo relativo (D = data de referência da execução)}
+\label{quadro:tempo-relativo}
+\small
+\begin{tabular}{|p{4.6cm}|p{9.4cm}|}
+\hline
+\textbf{Expressão} & \textbf{Leituras aceitas (a primeira é a preferencial)} \\
+\hline
+esse ano / este ano / deste ano & ano inteiro; 1º de janeiro até D \\ \hline
+ano passado & ano anterior inteiro \\ \hline
+2 anos atrás & o ano de dois anos antes, inteiro; D menos 2 anos até D \\ \hline
+mês passado & mês anterior inteiro \\ \hline
+este mês / deste mês & dia 1 até D; mês inteiro \\ \hline
+semana passada & D$-$7 até D$-$1; D$-$7 até D; semana-calendário anterior (segunda a domingo) \\ \hline
+esta semana / nesta semana & segunda-feira até D; segunda a domingo \\ \hline
+hoje & D a D \\ \hline
+últimos 3 (6) meses & D$-$90 (180) dias até D; mesmo dia, 3 (6) meses antes, até D \\ \hline
+últimos 5 anos & D menos 5 anos até D; 1º de janeiro do ano$-$5 até D \\ \hline
+desde AAAA & AAAA-01-01 até D; AAAA-01-01 sem limite final \\ \hline
+depois de AAAA & início em AAAA-01-01 ou (AAAA+1)-01-01; fim em D ou sem limite final \\ \hline
+antes de AAAA & sem limite inicial até (AAAA$-$1)-12-31 \\ \hline
+primeiro trimestre (deste ano) & janeiro a março do ano de D \\ \hline
+segundo semestre do ano passado & julho a dezembro do ano anterior \\ \hline
+último trimestre do ano passado & outubro a dezembro do ano anterior \\ \hline
+trimestre passado & trimestre-calendário anterior ao de D \\ \hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Implementação: \texttt{relative\_time.py} do repositório.}
+\end{quadro}
+
+\subsection*{Consultas fora do domínio}
+
+A ferramenta não deve ser chamada quando a consulta trata de outro assunto (clima, preço, ficção), pede território fora do Brasil ou fora da Terra, ou não tem intenção de busca. Essas consultas formam a categoria F (fora do domínio) e entram nas métricas principais: a resposta é correta quando a ferramenta não é chamada. Consultas com valor impossível de representar (``escala 1:10.000.000'', ``estado 42'') ou cujo comportamento esperado é discutível (``cartas do futuro'', ``cartas topo no oceano atlântico'') são observacionais.

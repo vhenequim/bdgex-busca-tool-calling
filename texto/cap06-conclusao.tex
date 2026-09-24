@@ -1,0 +1,93 @@
+% ----------------------------------------------------------
+% Capítulo 6 — Conclusão
+% ----------------------------------------------------------
+\chapter{Conclusão}
+\label{cap:conclusao}
+
+% ---
+\section{Síntese do Trabalho}
+% ---
+
+Este Projeto Final de Curso aprimorou a camada de tradução linguística da solução de busca em linguagem natural sobre o acervo cartográfico da Diretoria de Serviço Geográfico (DSG), partindo do protótipo desenvolvido pelo 1º Centro de Geoinformação (1º CGEO). O protótipo demonstrou a viabilidade da abordagem, mas apresentava limitações documentadas pelo próprio cliente: \textit{backend} em Node.js, Saída Estruturada via Instructor e Zod, um único modelo (Phi-4 14B), dicionário de normalização fixo no código e ausência de um protocolo de avaliação.
+
+A partir da análise crítica do protótipo, o trabalho entregou:
+
+\begin{enumerate}
+  \item um \textit{backend} em Python, com FastAPI e LangChain, que substitui o do protótipo e preserva o esquema do banco e o conjunto de parâmetros de busca;
+  \item a substituição da Saída Estruturada por \textit{Tool Calling} nativo, em que o modelo decide se chama a ferramenta de busca e com quais argumentos, sem dicionário de normalização e sem exemplos resolvidos no \textit{prompt};
+  \item um \textit{dataset} de avaliação com 310 consultas, construído em três camadas (protótipo, autores e geração programática), com gabarito definido por um manual de anotação escrito, leituras múltiplas explícitas para as consultas ambíguas e uma auditoria em três etapas --- checagens automáticas, anotação independente às cegas e adjudicação registrada --- que deixou todas as divergências com decisão justificada;
+  \item um \textit{pipeline} de avaliação automatizado e reprodutível, que registra manifesto e traços de cada rodada, recalcula a pontuação contra o gabarito vigente e produz acurácia com intervalo de confiança, precisão, \textit{recall} e F1 por campo, latência e testes de significância entre modelos;
+  \item a comparação de quatro modelos abertos executáveis localmente --- Qwen 3 4B, Gemma 4 E4B, Gemma 4 E2B e Mistral Nemo 12B ---, complementada por uma referência paralela com \res{groq}{geral}{nmodelos} modelos de maior porte servidos em nuvem.
+\end{enumerate}
+
+% ---
+\section{Retomada dos Objetivos}
+% ---
+
+O objetivo geral --- aprimorar a camada de tradução linguística por meio do \textit{Tool Calling} nativo, da avaliação comparativa de modelos locais e de métricas quantitativas --- foi atendido pelos entregáveis definidos na Introdução:
+
+\begin{itemize}
+  \item \textbf{Nova arquitetura de \textit{backend}}: descrita no Capítulo~\ref{cap:aprimoramento}, com as camadas de API, orquestração, persistência e avaliação, e com a lógica de consulta ao banco portada do protótipo;
+  \item \textbf{\textit{Dataset} de avaliação}: 310 consultas com manual de anotação e registro de auditoria (Capítulo~\ref{cap:metodologia} e Apêndice~\ref{apendice:dataset}); a auditoria mostrou concordância quase perfeita entre o gabarito e uma anotação independente feita às cegas, e cada divergência recebeu decisão registrada;
+  \item \textbf{\textit{Pipeline} de avaliação}: implementado nos comandos \texttt{pfc-dataset}, \texttt{pfc-auditar}, \texttt{pfc-avaliar} e \texttt{pfc-relatorio}, cobertos por testes automatizados (Capítulo~\ref{cap:aprimoramento});
+  \item \textbf{Relatório comparativo e recomendação}: apresentados no Capítulo~\ref{cap:resultados}, com a recomendação de modelo para uso operacional na Seção~\ref{sec:discussao}.
+\end{itemize}
+
+% ---
+\section{Principais Resultados}
+% ---
+
+Os resultados do Capítulo~\ref{cap:resultados} permitem responder às perguntas que motivaram o trabalho.
+
+\begin{itemize}
+  \item \textbf{Qualidade dos modelos locais}: três dos quatro modelos --- Gemma 4 E4B, Qwen 3 4B e Gemma 4 E2B --- tiveram acurácias estatisticamente indistinguíveis, de \res{principal}{e4b}{acuracia}, \res{principal}{qwen}{acuracia} e \res{principal}{e2b}{acuracia}, com F1 ponderado entre \res{principal}{e4b}{f1} e \res{principal}{e2b}{f1}. O Mistral Nemo 12B, o maior dos quatro, ficou em \res{principal}{mistral}{acuracia}, porque em grande parte das consultas descreveu a chamada da ferramenta em texto, em vez de emiti-la; o porte do modelo, portanto, não determinou o desempenho.
+  \item \textbf{O que o \textit{Tool Calling} entregou}: todos os modelos recusaram corretamente as consultas fora do domínio, a normalização de nomes, siglas e escalas foi feita sem dicionário, e cada falha foi registrada e classificada, sem \textit{fallback} que a mascarasse.
+  \item \textbf{O que continua difícil}: datas relativas, ordenação e consultas com vários campos foram as categorias de menor acurácia para todos os modelos locais. Os modos de falha dominantes foram deixar de chamar a ferramenta em consultas amplas --- por recusa indevida, no Qwen 3 4B, ou por pedido de esclarecimento, nos modelos Gemma --- e acrescentar ordenação ou limite não pedidos.
+  \item \textbf{\textit{Hardware}}: a qualidade praticamente não mudou entre a estação de referência e a GPU de nuvem; a latência, sim. Na estação de 4~GB, o Gemma 4 E2B teve latência mediana de \res{estacao}{e2b}{latmeds}~s, contra \res{estacao}{qwen}{latmeds}~s do Qwen 3 4B, com a mesma acurácia.
+  \item \textbf{Referência em nuvem}: nas mesmas consultas, os modelos servidos pelo Groq acertaram \res{groqcomum}{gptoss120}{acuracia} (GPT-OSS 120B) e \res{groqcomum}{gptoss20}{acuracia} (GPT-OSS 20B), o que mostra que a tarefa é resolvível com o mesmo protocolo e indica a margem de melhoria disponível para os modelos locais.
+  \item \textbf{Recomendação}: para uso operacional em estações com GPU modesta, recomenda-se o Gemma 4 E2B, pela qualidade equivalente à dos melhores modelos e pela menor latência nos dois ambientes; o Qwen 3 4B é a alternativa quando predominarem consultas com códigos MI/INOM.
+\end{itemize}
+
+% ---
+\section{Limitações do Trabalho}
+% ---
+
+Os resultados devem ser interpretados à luz das seguintes limitações:
+
+\begin{itemize}
+  \item \textbf{Regularidade da camada gerada}: 248 das 310 consultas foram geradas por modelos de frase. A geração garante cobertura sistemática e volume para os testes estatísticos, mas essas consultas são linguisticamente mais regulares que as de usuários reais, o que pode favorecer os modelos; por isso os resultados são reportados também por camada.
+  \item \textbf{Consultas não coletadas de usuários}: nenhuma consulta do \textit{dataset} foi coletada do uso real do catálogo; as camadas P e N foram redigidas pela equipe do protótipo e pelos autores.
+  \item \textbf{Alcance da auditoria}: a anotação independente às cegas foi feita por um modelo de linguagem de propósito geral, e não por anotadores humanos; ela verifica a consistência do gabarito com o manual, mas não substitui uma anotação dupla por especialistas do domínio.
+  \item \textbf{Ambientes de execução}: as rodadas completas foram executadas em GPU de nuvem, e a estação de referência executou as camadas P e N. A latência depende fortemente do \textit{hardware} e é reportada por ambiente; valores obtidos em outras GPUs, com outra quantidade de VRAM, podem diferir.
+  \item \textbf{Configuração dos modelos}: todos os modelos foram avaliados sem modo de raciocínio, com temperatura zero e sem exemplos no \textit{prompt}. O desempenho com raciocínio ativado, com \textit{few-shot} ou com \textit{prompts} ajustados a cada modelo não foi medido.
+  \res{principal}{geral}{itemlimitacao}
+  \item \textbf{Referência em nuvem}: os modelos do Groq executaram uma repetição, sob os limites de taxa do plano gratuito, e servem apenas como referência de porte; não atendem ao requisito de execução local.
+  \item \textbf{Versões dos modelos}: os resultados valem para as versões registradas nos manifestos; o ecossistema de LLMs abertos evolui rapidamente, e o \textit{pipeline} foi construído para que a avaliação possa ser refeita com novos modelos.
+\end{itemize}
+
+% ---
+\section{Trabalhos Futuros}
+% ---
+
+Os resultados e a experiência adquirida apontam as seguintes direções. As três primeiras decorrem diretamente das exclusões de escopo declaradas no Capítulo~\ref{cap:metodologia}.
+
+\begin{enumerate}
+  \item \textbf{Avaliação da recuperação em nível de produto}: medir a fidelidade do conjunto de produtos retornado pela busca (precisão, \textit{recall} e F1 sobre os códigos das folhas), o que exige um gabarito de quais folhas cada consulta deveria devolver.
+  \item \textbf{Resolução avançada de nomes geográficos}: resolver os campos \texttt{state} e \texttt{city} em geometrias, para operações espaciais (\texttt{ST\_Intersects}, \texttt{ST\_Within}) contra as \textit{bounding boxes} das folhas, com integração à malha do IBGE e a serviços de geocodificação.
+  \item \textbf{\textit{Fallback} para produção}: neste trabalho, falhas do modelo são registradas como métrica, sem recuperação por regras determinísticas --- decisão adequada à avaliação. Em produção, convém um caminho alternativo, como encaminhar a consulta bruta à busca textual do PostgreSQL.
+  \item \textbf{Ferramentas auxiliares}: acrescentar ferramentas de validação de códigos INOM e MI e de listagem dos tipos de produto, que o \textit{Tool Calling} permite oferecer ao modelo sem alterar a arquitetura.
+  \item \textbf{Modos de raciocínio e \textit{prompts}}: avaliar os modelos com raciocínio ativado e com exemplos no \textit{prompt}, medindo o ganho de qualidade contra o custo de latência.
+  \item \textbf{\textit{Dataset} com consultas reais}: ampliar o \textit{dataset} com consultas coletadas de usuários do catálogo, anotadas por especialistas do domínio segundo o manual de anotação, com medida de concordância entre anotadores humanos.
+  \item \textbf{Interface e implantação}: desenvolver a interface gráfica, com mapa interativo, e integrar o \textit{pipeline} ao sistema de produção da DSG, com autenticação, controle de acesso e monitoramento.
+  \item \textbf{Ajuste fino}: treinar por ajuste fino um modelo de menor porte para o domínio das consultas cartográficas brasileiras, o que pode reduzir o requisito de \textit{hardware}.
+  \item \textbf{Estudo com usuários}: avaliar a solução com usuários reais do catálogo, medindo impacto na produtividade e na satisfação.
+  \item \textbf{Conversação em múltiplos turnos}: permitir que o usuário refine a busca a partir dos resultados, mantendo o contexto das consultas anteriores.
+\end{enumerate}
+
+% ---
+\section{Considerações Finais}
+% ---
+
+O trabalho mostra que a busca em linguagem natural sobre o acervo cartográfico da DSG pode ser construída com modelos de linguagem abertos, executados localmente e integrados por \textit{Tool Calling}, sem dependência de serviços de nuvem e com o controle sobre os dados que o contexto da DSG e de suas organizações subordinadas exige.
+
+Para o cliente, o resultado mais duradouro não é a classificação dos modelos avaliados, que envelhece com o ecossistema, mas o instrumento de avaliação: um \textit{dataset} auditável, com gabarito justificado por regras escritas e divergências adjudicadas, e um \textit{pipeline} reprodutível que permite comparar qualquer novo modelo, \textit{prompt} ou configuração com o mesmo critério.

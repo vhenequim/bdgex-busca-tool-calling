@@ -1,0 +1,182 @@
+\documentclass[
+	12pt,
+	openright,
+	oneside,
+	a4paper,
+	chapter=TITLE,
+	english,
+	brazil
+	]{./abntex2}
+
+% ---
+% Pacotes essenciais
+% ---
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{setspace}       % \SingleSpacing no resumo
+\usepackage{graphicx}       % \resizebox, \includegraphics
+\usepackage{color}
+\usepackage{amsmath}        % \text{} e fórmulas matemáticas
+\usepackage{amssymb}        % \checkmark (quadros do Apêndice A)
+\usepackage{enumitem}       % \begin{enumerate}[label=...] para RF/RNF
+\usepackage{tikz}           % diagramas vetoriais
+\usepackage{longtable}      % listagem completa da camada G (Apêndice A)
+% \usepackage{float} REMOVIDO — conflita com \newfloat do memoir/abntex2
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, calc, fit, backgrounds}
+
+% ---
+% Pacotes de citações (ABNT autor-data)
+% ---
+\usepackage[alf,abnt-etal-list=0,bibjustif]{./abntex2cite}
+
+% ---
+% Customizações do IME
+% ---
+\usepackage{abntex2ime}
+
+% ---
+% Dados do trabalho
+% ---
+\input{dados}
+
+% ---
+% Configurações do PDF
+% ---
+\makeatletter
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    bookmarksdepth=4
+}
+\makeatother
+
+% ---
+% Float "Quadro" (exigido pela ABNT via abntex2)
+% ---
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space}
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+\setfloatlocations{quadro}{hbtp}
+
+% ---
+% Posiciona floats no topo da página
+% ---
+\makeatletter
+\setlength{\@fptop}{5pt}
+\makeatother
+
+% ---
+% Espaçamentos
+% ---
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+
+% ---
+% Numeração até subsubseção: \paragraph{} fica sem número (evita "3.3.3.0.1")
+% ---
+\setsecnumdepth{subsubsection}
+\settocdepth{subsubsection}
+
+% ---
+% Linhas com identificadores longos em \texttt (tags de modelos, nomes de campos):
+% permite esticar os espaços em vez de ultrapassar a margem
+% ---
+\setlength{\emergencystretch}{3em}
+
+% ---
+% Tabelas geradas: reduz a tabela à largura do texto somente quando ela for mais larga
+% ---
+\newsavebox{\caixatabela}
+\newcommand{\ajustartabela}[1]{%
+  \sbox{\caixatabela}{#1}%
+  \ifdim\wd\caixatabela>\linewidth
+    \resizebox{\linewidth}{!}{\usebox{\caixatabela}}%
+  \else
+    \usebox{\caixatabela}%
+  \fi}
+
+% ---
+% Valores de resultado citados no texto: \res{rodada}{modelo}{medida}.
+% As definições são geradas por pfc-relatorio (tabelas/numeros*.tex); nenhum número é digitado à mão.
+% ---
+\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}
+\newcommand{\carregarnumeros}[1]{\IfFileExists{tabelas/#1.tex}{\input{tabelas/#1}}{}}
+\carregarnumeros{numeros}
+\carregarnumeros{numeros_estacao}
+\carregarnumeros{numeros_groq}
+\carregarnumeros{numeros_groqcomum}
+\carregarnumeros{numeros_ambientes}
+\carregarnumeros{numeros_reexecucao}
+
+\makeindex
+
+% ---
+% Início do documento
+% ---
+\begin{document}
+
+\selectlanguage{brazil}
+\frenchspacing
+
+% ==========================================================
+% ELEMENTOS PRÉ-TEXTUAIS
+% ==========================================================
+
+\imprimircapa
+\imprimirfolhaderosto*
+\imprimirfichacatalografica
+% Folha de aprovação (banca) — desativada nesta entrega; preencher antes da defesa.
+% \imprimirfolhadeaprovacao
+
+\input{pre-texto}
+
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+\input{simbolo-abrev}
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% ==========================================================
+% ELEMENTOS TEXTUAIS
+% ==========================================================
+\textual
+
+\input{cap01-introducao}
+\input{cap02-referencial}
+\input{cap03-metodologia}
+\input{cap04-aprimoramento}
+\input{cap05-resultados}
+\input{cap06-conclusao}
+
+% ==========================================================
+% ELEMENTOS PÓS-TEXTUAIS
+% ==========================================================
+\postextual
+
+\bibliography{refs}
+
+\begin{apendicesenv}
+    \partapendices
+    \input{apendice}
+\end{apendicesenv}
+
+\end{document}

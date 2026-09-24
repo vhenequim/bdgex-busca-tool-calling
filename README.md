@@ -31,6 +31,7 @@ tradução é avaliada sobre um *dataset* auditado de 310 consultas.
 | `notebooks/avaliacao_colab.ipynb` | rodadas completas em GPU de nuvem (Google Colab) |
 | `db/` | esquema do banco do protótipo e semente **sintética**, que não entra em nenhuma métrica |
 | `tests/` | testes automatizados (`pytest`) |
+| `texto/` | fontes LaTeX (abnTeX2) e PDF do texto do PFC |
 
 ## O *dataset* e a auditoria
 
@@ -123,6 +124,13 @@ pytest
   reportadas à parte.
 - **Semente do banco sintética**: prova que a arquitetura fecha ponta a ponta; nenhuma
   métrica depende dela.
+
+## Texto do PFC
+
+`texto/` traz as fontes LaTeX e o PDF (`texto/main.pdf`). As tabelas, figuras e valores
+citados no Capítulo 5 são gerados por `pfc-relatorio --paper texto` e `pfc-auditar --paper
+texto`; nenhum número de resultado é digitado à mão. Para compilar: `pdflatex main.tex`,
+`bibtex main` e mais duas passadas de `pdflatex`, ou `python build.py` (ver `texto/BUILD.md`).
 
 ## Licença
 

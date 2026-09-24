@@ -1,0 +1,42 @@
+% AUTO-GERADO por pfc-dataset --apendice a partir de manual_cases.py — não editar à mão
+
+\dtcasenota{N01}{S}{cartas de São Paulo}{state: "São Paulo"\newline aceita-se também city no lugar de state}{'São Paulo' sem qualificador: estado ou capital}
+\dtcase{N02}{S}{produtos em escala 1:50.000}{scale: "1:50.000"}
+\dtcase{N03}{S}{ortoimagens}{productType: "SCN Carta Ortoimagem"}
+\dtcase{N04}{S · A}{mapas do rj}{state: "Rio de Janeiro"}
+\dtcase{N05}{S · A}{carta 25k}{scale: "1:25.000"}
+\dtcase{N06}{S}{folha SF-22-Y-D}{keyword: "SF-22-Y-D"}
+\dtcase{N07}{S · A}{modelos digitais de terreno}{productType: "MDT — RAM"}
+\dtcase{N08}{S · A}{cartas topográficas}{productType: "SCN Carta Topográfica Matricial"}
+\dtcase{N09}{S}{produtos do Amazonas}{state: "Amazonas"}
+\dtcase{N10}{S · A}{mi 2901}{keyword: "2901"}
+\dtcase{N11}{C}{cartas do 1º CGEO em Minas Gerais}{supplyArea: "1$^\circ$ Centro de Geoinformação"\newline state: "Minas Gerais"}
+\dtcase{N12}{C}{ortoimagens de Manaus em 1:50.000}{productType: "SCN Carta Ortoimagem"\newline city: "Manaus"\newline scale: "1:50.000"}
+\dtcase{N13}{C · A}{mdt do para em 25k}{productType: "MDT — RAM"\newline state: "Pará"\newline scale: "1:25.000"}
+\dtcase{N14}{M · C}{folha 2965-2 do Rio Grande do Sul}{keyword: "2965-2"\newline state: "Rio Grande do Sul"}
+\dtcase{N15}{M · C}{INOM SG-22-X-A}{keyword: "SG-22-X-A"}
+\dtcase{N16}{M · C · T}{carta MI 3010 publicada em 2023}{keyword: "3010"\newline publicationPeriod: 2023-01-01 a 2023-12-31}
+\dtcase{N17}{T · A}{produtos publicados nos últimos 3 meses}{publicationPeriod: últimos 3 meses}
+\dtcasenota{N18}{T · C}{cartas do ano passado em Roraima}{state: "Roraima"\newline publicationPeriod: ano anterior, inteiro\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N19}{T · A}{atualizações deste mês}{publicationPeriod: mês corrente\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N20}{T · C · A}{cartas dos últimos 5 anos em escala 100k}{scale: "1:100.000"\newline publicationPeriod: últimos 5 anos\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N21}{T · A}{qualquer coisa de hoje}{publicationPeriod: dia da execução\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N22}{T · C · A}{ortoimagens de 2 anos atrás}{productType: "SCN Carta Ortoimagem"\newline publicationPeriod: ano de dois anos antes\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N23}{T · C · A}{produtos do trimestre passado do 4º CGEO}{supplyArea: "4$^\circ$ Centro de Geoinformação"\newline publicationPeriod: trimestre anterior\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
+\dtcasenota{N24}{O · C}{3 cartas mais recentes de Curitiba}{city: "Curitiba"\newline limit: 3\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"}{'mais recentes' sem pista: aceita-se publicationDate ou creationDate}
+\dtcasenota{N25}{O · C}{10 primeiras ortoimagens do Nordeste}{productType: "SCN Carta Ortoimagem"\newline limit: 10\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{'Nordeste' é região (nada a anotar); 'primeiras' sem pista}
+\dtcasenota{N26}{O · C · A}{mais antigas em rondonia}{state: "Rondônia"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{'mais antigas' sem pista}
+\dtcase{N27}{O · C}{últimas 5 publicações}{limit: 5\newline sortField: "publicationDate"\newline sortDirection: "DESC"}
+\dtcasenota{N28}{O · M · C}{carta MI 2901 mais recente}{keyword: "2901"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"\newline limit: 1 (opcional)}{singular sem número: limit 1 opcional; 'mais recente' sem pista}
+\dtcasenota{N29}{O · C · T}{três produtos mais antigos deste ano}{limit: 3\newline publicationPeriod: ano corrente\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida o período; 'mais antigos' sem pista}
+\dtcase{N30}{A · C}{cartas topo do primeiro cgeo}{productType: "SCN Carta Topográfica Matricial"\newline supplyArea: "1$^\circ$ Centro de Geoinformação"}
+\dtcase{N31}{A · S}{orto banda p}{productType: "SCN Carta Ortoimagem Banda P Pol HH"}
+\dtcasenota{N32}{A · C}{mapas do rio em cem k}{state: "Rio de Janeiro"\newline scale: "1:100.000"\newline aceita-se também city no lugar de state}{'rio' é ambíguo entre o estado e a capital}
+\dtcasenota{N33}{A · C}{cartografia sistematica sp}{project: "Mapeamento Sistemático" (opcional)\newline state: "São Paulo"}{'cartografia sistemática' designa o programa pelo termo distintivo do nome, sem ser nome nem apelido informado na ferramenta: project é opcional (regra de project; adjudicação)}
+\dtcasenota{N34}{A · C}{ortos da amazonia legal}{productType: "SCN Carta Ortoimagem"}{'Amazônia Legal' é região (nove estados), não estado: nada a anotar para ela}
+\dtcase{N35}{A · M · C}{sf22yd do dois cgeo}{keyword: "SF-22-Y-D"\newline supplyArea: "2$^\circ$ Centro de Geoinformação"}
+\dtcase{N36}{F}{cartas fora do brasil}{não chamar a ferramenta (fora do território brasileiro, P4)}
+\dtcase{N37}{F}{quero um mapa bonito}{não chamar a ferramenta (sem critério de busca, P4)}
+\dtcase{N38}{S · A}{escala 1:10.000.000}{não chamar a ferramenta (observacional, P6: escala fora do enumerado da ferramenta)}
+\dtcasenota{N39}{C · A}{cartas topo no oceano atlântico}{productType: "SCN Carta Topográfica Matricial"\newline caso observacional (P6): executado e reportado, fora das métricas principais}{área não terrestre: comportamento esperado discutível}
+\dtcasenota{N40}{C · T}{cartas do futuro (ano 2050)}{publicationPeriod: 2050-01-01 a 2050-12-31\newline aceita-se também creationPeriod no lugar de publicationPeriod\newline caso observacional (P6): executado e reportado, fora das métricas principais}{data futura: comportamento esperado discutível}

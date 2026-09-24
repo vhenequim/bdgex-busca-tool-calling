@@ -1,0 +1,22 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por categoria de consulta e por modelo --- estação de referência (camadas P e N)}
+\label{tab:resultados_por_categoria_estacao}
+\small
+\ajustartabela{%
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Categoria} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E2B} \\
+\hline
+Simples (n=11) & 0,879 & 0,887 \\
+Compostas (n=43) & 0,721 & 0,716 \\
+Código MI/INOM (n=15) & 0,886 & 0,867 \\
+Tempo relativo (n=15) & 0,760 & 0,655 \\
+Ordenação (n=10) & 0,740 & 0,541 \\
+Ambíguas/informais (n=35) & 0,694 & 0,693 \\
+\hline
+\textbf{Média ponderada} & 0,733 & 0,719 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}
+\end{table}

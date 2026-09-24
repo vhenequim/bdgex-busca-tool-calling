@@ -1,0 +1,16 @@
+\begin{table}[htbp!]
+\centering
+\caption{Comparativo de desempenho entre os modelos avaliados --- estação de referência (camadas P e N)}
+\label{tab:resultados_comparativo_estacao}
+\small
+\ajustartabela{%
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Lat. med. (ms)} \\
+\hline
+Qwen 3 4B & 49,2\% & 36,8\%--61,6\% & 0,741 & 0,762 & 0,733 & 2596 \\
+Gemma 4 E2B & 47,5\% & 35,3\%--60,0\% & 0,795 & 0,722 & 0,719 & 709 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelo autor. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}
+\end{table}

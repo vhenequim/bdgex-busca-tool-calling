@@ -32,3 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## abnTeX2
+
+`texto/abntex2.cls`, `texto/abntex2cite.sty` e `texto/abntex2ime.sty` são do
+[abnTeX2](https://www.abntex.net.br/) e da sua customização para o IME, distribuídos sob a
+LaTeX Project Public License (LPPL), versão 1.3 ou posterior, conforme o cabeçalho de cada
+arquivo.

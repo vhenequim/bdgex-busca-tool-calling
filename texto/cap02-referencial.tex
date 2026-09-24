@@ -1,0 +1,175 @@
+% ----------------------------------------------------------
+% Capítulo 2 — Referencial Teórico
+% ----------------------------------------------------------
+\chapter{Referencial Teórico}
+\label{cap:referencial}
+
+Este capítulo apresenta os fundamentos teóricos que sustentam o trabalho. A organização segue a ordem em que os conceitos são utilizados na metodologia: primeiro, os \textit{catálogos de dados espaciais} (acervo a ser consultado); em seguida, o mecanismo de \textit{Tool Calling} (estratégia central do projeto) e sua distinção em relação à \textit{Saída Estruturada} adotada pelo protótipo de referência; depois, os \textit{Modelos de Linguagem de Grande Porte} executados localmente por meio do Ollama; e, por fim, as \textit{métricas de avaliação} empregadas para comparar os modelos.
+
+% ---
+\section{Catálogos de Dados Espaciais}
+% ---
+
+A produção cartográfica brasileira é regida pelo Sistema Cartográfico Nacional (SCN) \cite{scn2016}, que define os tipos de produtos, as escalas de trabalho, os critérios de qualidade e as convenções de nomenclatura --- incluindo o Índice de Nomenclatura (INOM) e o Mapa Índice (MI) --- a serem seguidos pelos órgãos produtores de cartografia oficial. As Especificações Técnicas para Produtos de Conjuntos de Dados Geoespaciais (ET-PCDG) \cite{etpcdg2016}, mantidas pela DSG, complementam o SCN ao detalhar os requisitos técnicos dos produtos.
+
+A Infraestrutura Nacional de Dados Espaciais (INDE), instituída pelo Decreto n.º 6.666/2008 \cite{inde2010decreto}, organiza, em âmbito federal, o acesso integrado a conjuntos de dados geoespaciais produzidos e mantidos pelos órgãos governamentais. A INDE é constituída por \textit{nós} provedores --- entendidos como pontos de acesso institucionais que catalogam e disponibilizam dados conforme o Perfil de Metadados Geoespaciais do Brasil (Perfil MGB) \cite{perfilmgb2009}. O Banco de Dados Geográficos do Exército (BDGEx) é o nó do Exército Brasileiro na INDE \cite{bdgex2024} e, por meio dele, o acervo da DSG é disponibilizado para consulta pela sociedade. A obrigatoriedade de adesão das Organizações Militares produtoras de dados geoespaciais ao Perfil MGB e ao SCN é parte das atribuições legais decorrentes do referido decreto.
+
+Do ponto de vista técnico, a INDE e o BDGEx adotam os padrões do OGC para a disponibilização dos dados, incluindo os serviços \textit{Web Map Service} (WMS), \textit{Web Feature Service} (WFS), \textit{Web Coverage Service} (WCS) e \textit{Catalogue Service for the Web} (CSW). O protocolo CSW \cite{ogccsw2007} é o padrão internacional para publicação e descoberta de metadados de recursos geoespaciais e define operações de consulta (como \texttt{GetRecords}) que permitem a busca por título, data, tipo, área de abrangência geográfica e palavras-chave. A interface CSW, embora tecnicamente robusta, armazena os conteúdos de forma estruturada conforme um modelo de dados rígido; consequentemente, consultas sobre dados semiestruturados (texto livre, sinônimos, abreviações) requerem processamento adequado para serem traduzidas aos campos técnicos do catálogo.
+
+% ---
+\section{Tool Calling}
+\label{sec:toolcalling}
+% ---
+
+O mecanismo de \textit{Tool Calling} (também denominado \textit{Function Calling}) é a capacidade de um Modelo de Linguagem de Grande Porte (LLM) de, ao processar uma consulta do usuário, identificar que a resposta requer a execução de uma função externa e gerar uma chamada estruturada para essa função, incluindo todos os parâmetros necessários em formato JSON \cite{schick2023toolformer, qin2023toolllm}. Trata-se, portanto, de uma capacidade que estende o modelo para além da geração textual pura, permitindo que ele atue como o componente decisório de um sistema que orquestra ferramentas determinísticas (consultas a bancos de dados, chamadas a APIs, execuções de código).
+
+O fluxo completo de uma interação com \textit{Tool Calling} pode ser descrito da seguinte forma: o \textbf{usuário} formula uma consulta em linguagem natural; o \textbf{LLM} analisa a consulta e, com base nas definições de ferramentas (\textit{tools}) fornecidas no \textit{prompt} do sistema, decide que uma ou mais ferramentas devem ser invocadas; o LLM gera uma \textbf{chamada de ferramenta} (\textit{tool call}) em formato JSON, especificando o nome da função e seus argumentos; o \textbf{sistema de orquestração} (e.g., LangChain) intercepta a chamada, executa a função correspondente com os argumentos fornecidos e retorna o resultado ao LLM; por fim, o LLM incorpora o resultado da execução em seu contexto e formula a resposta final ao usuário. A Figura~\ref{fig:fluxo_toolcalling} ilustra este fluxo de forma esquemática.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=0.9cm and 0.7cm,
+  user/.style={rectangle, draw, rounded corners, minimum height=0.9cm, minimum width=2.2cm, align=center, fill=gray!8},
+  llm/.style={rectangle, draw, rounded corners, minimum height=0.9cm, minimum width=2.2cm, align=center, fill=blue!10, very thick},
+  payload/.style={rectangle, draw, rounded corners, minimum height=0.9cm, minimum width=2.2cm, align=center, fill=orange!12},
+  tool/.style={rectangle, draw, rounded corners, minimum height=0.9cm, minimum width=2.2cm, align=center, fill=green!10},
+  arr/.style={-{Stealth[length=2.2mm]}, thick}
+]
+  \node[user] (user1) {Usuário\\\textit{consulta NL}};
+  \node[llm, right=of user1] (llm1) {LLM\\\textit{analisa}};
+  \node[payload, right=of llm1] (call) {\textit{Tool Call}\\(JSON)};
+  \node[tool, below=of call] (exec) {Ferramenta\\\textit{executa}};
+  \node[payload, left=of exec] (result) {Resultado\\estruturado};
+  \node[llm, left=of result] (llm2) {LLM\\\textit{responde}};
+  \node[user, below=of llm2] (user2) {Usuário\\\textit{resposta}};
+
+  \draw[arr] (user1) -- (llm1);
+  \draw[arr] (llm1) -- (call);
+  \draw[arr] (call) -- (exec);
+  \draw[arr] (exec) -- (result);
+  \draw[arr] (result) -- (llm2);
+  \draw[arr] (llm2) -- (user2);
+\end{tikzpicture}
+\caption{Fluxo do mecanismo de \textit{Tool Calling}}
+\label{fig:fluxo_toolcalling}
+\fonte{Elaborado pelo autor.}
+\end{figure}
+
+No protocolo de \textit{Tool Calling} adotado pelo Ollama e pelo LangChain, as ferramentas são definidas por um \textit{schema} JSON que especifica o nome da função, sua descrição e os parâmetros aceitos, com seus tipos e descrições. O LLM recebe essas definições como parte do contexto do sistema e as utiliza para gerar chamadas estruturalmente válidas. Um exemplo de definição de ferramenta para a busca em um catálogo de dados espaciais é apresentado na Figura~\ref{fig:exemplo_tool_schema}.
+
+\begin{figure}[h]
+\centering
+\begin{verbatim}
+{
+  "name": "buscar_catalogo",
+  "description": "Busca produtos cartograficos no catalogo",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "keyword": {"type": "string",
+                  "description": "Codigo MI, INOM ou nome da carta"},
+      "scale":   {"type": "string",
+                  "enum": ["1:25.000", "1:50.000", "1:100.000", ...],
+                  "description": "Escala cartografica"},
+      "state":   {"type": "string",
+                  "description": "Nome do estado (normalizado)"},
+      "productType": {"type": "string",
+                       "description": "Tipo de produto SCN"}
+    }
+  }
+}
+\end{verbatim}
+\caption{Exemplo simplificado de definição de ferramenta para busca em catálogo de produtos cartográficos}
+\label{fig:exemplo_tool_schema}
+\fonte{Elaborado pelo autor.}
+\end{figure}
+
+\subsection{Tool Calling \textit{versus} Saída Estruturada}
+
+É importante distinguir \textit{Tool Calling} da abordagem de Saída Estruturada (\textit{Structured Output}), conceito frequentemente confundido com o primeiro. Na Saída Estruturada, o modelo é instruído a retornar sua resposta em um formato JSON validado por um \textit{schema} predefinido (e.g., Pydantic em Python \cite{pydantic2019} ou Zod em TypeScript): o modelo \textit{sempre} retorna uma saída estruturada, independentemente da consulta, e a decisão se restringe a quais campos preencher. Bibliotecas como o Instructor \cite{instructor2023} interceptam a saída do LLM e a forçam a corresponder ao \textit{schema}, repetindo a chamada em caso de saída inválida.
+
+A abordagem de \textit{Structured Output} tem uma limitação fundamental: o modelo é sempre compelido a preencher a estrutura predefinida, mesmo quando a consulta do usuário não contém informação suficiente para todos os campos, o que pode levar a alucinações estruturadas --- valores plausíveis mas incorretos inseridos para satisfazer o \textit{schema}. Além disso, o modelo não pode decidir invocar múltiplas ferramentas em sequência ou adaptar seu comportamento com base no resultado de uma operação anterior.
+
+No \textit{Tool Calling}, em contraste, o modelo \textit{decide} de forma autônoma se e quando invocar uma ferramenta, selecionando entre múltiplas ferramentas disponíveis. O modelo pode responder diretamente ao usuário sem invocar ferramentas, ou pode encadear múltiplas chamadas em sequência para resolver uma tarefa complexa. Para o caso de uso deste trabalho, o \textit{Tool Calling} \textit{pode ser mais adequado} do que a Saída Estruturada por permitir que o modelo trate consultas ambíguas de forma mais flexível, decida quais parâmetros de busca são realmente relevantes e potencialmente encadeie operações de validação e refinamento da busca --- a superioridade prática, contudo, só se estabelece empiricamente e é justamente o que a avaliação sistemática do Capítulo~\ref{cap:resultados} afere.
+
+\paragraph{Modelos com \textit{thinking}.} Uma parte dos modelos abertos recentes --- notadamente Gemma 4 e Qwen 3 --- incorpora, opcionalmente, uma etapa de raciocínio interno (\textit{thinking}) antes de emitir a resposta ou a chamada de ferramenta. Nesse modo, o modelo produz internamente uma sequência de tokens de raciocínio que não aparecem na saída, o que aumenta a latência total mas tende a melhorar a qualidade das decisões de \textit{Tool Calling} em consultas com múltiplos critérios. Neste trabalho, o modo \textit{thinking} foi mantido \textbf{desativado} em todos os modelos locais avaliados --- por parâmetro da API nos modelos que declaram essa capacidade e, no Qwen 3, pela adoção da \textit{build} oficial sem raciocínio ---, garantindo a comparabilidade dos tempos de resposta e das decisões de \textit{Tool Calling} entre modelos que oferecem e que não oferecem essa etapa (no resultado paralelo em nuvem, adotou-se o menor esforço de raciocínio aceito por cada modelo); a configuração adotada para cada modelo é detalhada no Capítulo~\ref{cap:metodologia}. A avaliação com o modo \textit{thinking} ativado, que permitiria medir o ganho de qualidade obtido em troca da latência adicional, não foi realizada e fica como trabalho futuro.
+
+% ---
+\section{Modelos de Linguagem de Grande Porte e Execução Local}
+% ---
+
+Os Modelos de Linguagem de Grande Porte (LLMs) baseiam-se, em sua quase totalidade, na arquitetura \textit{Transformer} \cite{vaswani2017attention}, que substituiu as arquiteturas recorrentes (RNN, LSTM) por um mecanismo puramente baseado em atenção (\textit{self-attention}). Essa mudança permitiu o processamento paralelo de sequências longas e a captura de dependências distantes no texto, viabilizando o treinamento em corpora de grande escala. Para o presente trabalho, a propriedade mais relevante dos LLMs modernos é a capacidade emergente de \textit{instruction following} \cite{wei2022emergent, brown2020gpt3} --- a habilidade de seguir instruções complexas em linguagem natural --- que é o fundamento sobre o qual o \textit{Tool Calling} se assenta: o modelo precisa entender a consulta, interpretar o \textit{schema} das ferramentas disponíveis e decidir como populá-las.
+
+\subsection{Vantagens da Execução Local}
+
+A execução local de LLMs, em contraste com o uso de APIs de serviços na nuvem, apresenta vantagens relevantes para contextos institucionais como o da DSG~\cite{ollama2023,gguf2023}: \textbf{privacidade e segurança}, pois as consultas e os dados não trafegam por redes externas --- fator crítico para organizações com restrições de sigilo; \textbf{ausência de custos recorrentes por \textit{token}}, eliminando dependência de orçamento variável; \textbf{controle e auditabilidade}, com a organização mantendo a versão exata do modelo utilizado; e \textbf{disponibilidade offline}, com o sistema funcionando independentemente da conectividade.
+
+Essa abordagem também traz \textbf{desvantagens} que devem ser reconhecidas: (i) o \textbf{acesso limitado aos modelos de fronteira} --- os LLMs proprietários mais capazes (GPT-4, Claude Sonnet, Gemini) não são liberados como código aberto e continuam superando os modelos abertos em \textit{benchmarks} de \textit{Tool Calling}; (ii) o \textbf{custo de infraestrutura} desloca-se do modelo de assinatura para o de \textit{hardware}: a organização precisa adquirir e manter servidores com GPU e VRAM suficientes, além do custo operacional (energia, refrigeração, atualização de \textit{drivers}); (iii) o \textbf{ciclo de atualização} dos modelos passa a ser responsabilidade interna --- novas versões exigem repetir a avaliação sistemática.
+
+Uma característica mitigadora é que o LangChain, adotado neste trabalho, permite \textbf{trocar o modelo local por um de terceiros} (ou vice-versa) com alteração mínima no código de aplicação --- basta substituir o \textit{wrapper} \texttt{ChatOllama} por, por exemplo, \texttt{ChatOpenAI} ou \texttt{ChatAnthropic}. Essa portabilidade permite que a decisão local $\times$ nuvem seja \textbf{gerencial}, e não técnica, no futuro. Neste trabalho, essa mesma troca (\texttt{ChatOllama} $\to$ \texttt{ChatOpenAI}, apontado para o serviço Groq) foi empregada para obter um resultado paralelo, em nuvem, com modelos de maior porte, reportado à parte como referência no Capítulo~\ref{cap:resultados}.
+
+\subsection{Ollama e Modelos com Suporte a Tool Calling}
+
+O Ollama \cite{ollama2023} é uma plataforma de código aberto que simplifica a instalação, a execução e o gerenciamento de modelos de linguagem localmente, expondo uma API compatível com o padrão OpenAI --- o que facilita a integração com \textit{frameworks} como o LangChain. Internamente, o Ollama utiliza o \textit{backend} \texttt{llama.cpp} para inferência, com suporte aos formatos de quantização GGUF (\textit{GPT-Generated Unified Format}) \cite{gguf2023}, que permitem reduzir a precisão numérica dos pesos do modelo (tipicamente de 16 bits para 4 bits por peso) com impacto pequeno na qualidade das respostas \cite{frantar2022gptq}. No presente trabalho, foram adotadas quantizações de 4 bits --- Q4\_K\_M, considerada um bom equilíbrio entre compressão e qualidade, ou a quantização equivalente da \textit{build} publicada de cada modelo (as \textit{tags} exatas constam da Seção~\ref{sec:selecao-modelos}) ---, o que reduz o consumo de VRAM em cerca de quatro vezes em relação ao formato FP16. Como regra prática, modelos quantizados em Q4\_K\_M demandam aproximadamente 0,5~GB de VRAM por bilhão de parâmetros, viabilizando a execução de modelos de até cerca de 14B em GPUs de uso doméstico.
+
+A Tabela~\ref{tab:modelos_toolcalling} apresenta os principais modelos disponíveis no Ollama com suporte a \textit{Tool Calling}, entre os quais foram selecionados os modelos comparados neste trabalho (Seção~\ref{sec:selecao-modelos}). A coluna ``VRAM aprox. (Q4\_K\_M)'' serviu de referência para selecionar modelos compatíveis com a estação de testes especificada na Seção~\ref{sec:ambiente} do Capítulo~\ref{cap:metodologia}; modelos cuja VRAM exigida ultrapassa a disponível ainda podem ser executados com \textit{offload} parcial para CPU, ao custo de maior latência.
+
+\begin{table}[h]
+\centering
+\caption{Modelos com suporte a \textit{Tool Calling} disponíveis no Ollama (seleção)}
+\label{tab:modelos_toolcalling}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Modelo} & \textbf{Parâmetros} & \textbf{VRAM aprox. (Q4\_K\_M)} & \textbf{Organização} \\
+\hline
+Gemma 4 E2B          & 2B efet.      & $\sim$4 GB$^{a}$ & Google DeepMind \\
+Gemma 4 E4B          & 4B efet.      & $\sim$5{,}7 GB$^{a}$ & Google DeepMind \\
+Qwen3 (4B)           & 4B            & $\sim$2{,}5 GB & Alibaba Cloud \\
+Llama 3.2 (3B)       & 3B            & $\sim$2 GB     & Meta AI \\
+Qwen3 (8B)           & 8B            & $\sim$5 GB     & Alibaba Cloud \\
+Mistral Nemo (12B)   & 12B           & $\sim$7--8 GB  & Mistral AI \\
+Gemma 4 (26B MoE)    & 26B (4B ativ.)& $\sim$15--17 GB& Google DeepMind \\
+\hline
+\end{tabular}%
+}
+\fonte{Compilado pelo autor a partir de \citeauthoronline{ollama2023} (\citeyear{ollama2023}) e da documentação oficial dos modelos.}
+\nota{$^{a}$~Tamanho da \textit{build} com quantização consciente de treinamento (QAT, 4 bits) publicada no Ollama (\texttt{gemma4:e2b-it-qat} e \texttt{gemma4:e4b-it-qat}). ``Efet.'' indica parâmetros efetivos; o total armazenado é maior (4,6B no E2B, segundo o Ollama), o que explica, em parte, a VRAM acima da regra prática.}
+\end{table}
+
+% ---
+\section{Orquestração com LangChain}
+% ---
+
+O LangChain \cite{langchain2022} é um \textit{framework} de código aberto para o desenvolvimento de aplicações baseadas em LLMs, fornecendo abstrações para os componentes comuns de um \textit{pipeline}: \textit{wrappers} de modelos de linguagem, \textit{prompts}, \textit{chains} (sequências de operações), agentes, ferramentas e memória. Para o presente trabalho, o LangChain é utilizado para (a) gerenciar a integração com o Ollama via \texttt{ChatOllama}; (b) ligar ao modelo, pelo método \texttt{bind\_tools()}, a ferramenta de busca descrita por seu \textit{schema} JSON; (c) obter, em uma única chamada \texttt{invoke()}, as chamadas de ferramenta geradas pelo modelo e, no ciclo completo, devolver-lhe o resultado da busca para a resposta final; e (d) servir de interface única com os modelos no \textit{pipeline} de avaliação.
+
+O LangGraph \cite{langgraph2024}, extensão do LangChain que permite modelar fluxos de execução como grafos de estados, com ciclos e ramificações condicionais, é indicado quando o fluxo exige iteração explícita sobre resultados intermediários. Não foi o caso neste trabalho: a tradução da consulta se resolve em uma única decisão do modelo (chamar ou não a ferramenta, e com quais argumentos), e o ciclo completo é implementado explicitamente no módulo de \textit{pipeline}, sem necessidade de um grafo de estados, conforme detalhado na Seção~\ref{sec:desenvolvimento} do Capítulo~\ref{cap:aprimoramento}.
+
+% ---
+\section{Métricas de Avaliação}
+% ---
+
+Definir bem as métricas de avaliação importa por dois motivos práticos. Primeiro, elas permitem ao usuário final (a DSG e as OM subordinadas) tomar uma \textbf{decisão informada de qual modelo implantar} --- há um \textit{trade-off} entre qualidade de extração e latência, e diferentes contextos operacionais podem priorizar aspectos distintos. Segundo, elas viabilizam a \textbf{reavaliação periódica} da solução à medida que novos modelos surjam --- o \textit{pipeline} de avaliação (entregável do projeto, descrito na Seção~\ref{sec:desenvolvimento} do Capítulo~\ref{cap:aprimoramento}) foi projetado para ser rerodado com custo marginal baixo sobre qualquer LLM compatível com \textit{Tool Calling}.
+
+As métricas adotadas, todas oriundas da literatura de recuperação de informação \cite{manning2008introductionir}, devem ser lidas como \textbf{pontos de vista complementares sobre o mesmo resultado}: cada uma revela um aspecto (correção total, correção por campo, tempo de resposta) e as decisões operacionais nascem da análise conjunta, não do ranking de uma métrica isolada. Modelos diferentes podem vencer em métricas diferentes.
+
+\paragraph{Nota sobre o critério de comparação.} A comparação entre a resposta do modelo e o \textit{ground truth} é feita \textbf{campo a campo} sobre o objeto JSON estruturado, e não byte a byte: enums (\texttt{scale}, \texttt{productType}, \texttt{supplyArea}, \texttt{project}) e campos de ordenação (\texttt{sortField}, \texttt{sortDirection}) exigem correspondência exata; \textit{strings} livres (\texttt{keyword}, \texttt{state}, \texttt{city}) são normalizadas antes da comparação (\textit{lowercase}, remoção de acentos e pontuação); intervalos de data são expressos pelos limites \texttt{start} e \texttt{end} em ISO~8601 e exigem coincidência exata desses limites; e \texttt{limit} é comparado como inteiro. Quando a consulta admite mais de uma leitura legítima (por exemplo, ``últimos 3 meses'' como noventa dias ou como três meses de calendário), o gabarito lista explicitamente as leituras aceitas, e a resposta é considerada correta se coincidir com alguma delas; os critérios de anotação constam do Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:dataset}. Detalhes do protocolo constam do Capítulo~\ref{cap:metodologia}, Seção~\ref{sec:protocolo}.
+
+A \textbf{acurácia} mede a proporção de consultas para as quais o modelo extraiu corretamente \textit{todos} os parâmetros esperados, sem acrescentar parâmetros ausentes do gabarito, em relação ao total de consultas avaliadas; nas consultas cujo gabarito prevê que nenhuma ferramenta seja chamada, a resposta é correta quando o modelo não a chama:
+\[
+\text{Acurácia} = \frac{\text{Número de consultas completamente corretas}}{\text{Total de consultas}}.
+\]
+Esta é a métrica mais estrita, pois qualquer erro em qualquer parâmetro conta como uma consulta incorreta.
+
+Para a análise por parâmetro (campo a campo) do \textit{schema} de busca, utilizam-se as métricas clássicas de \textbf{precisão}, \textbf{recall} e \textbf{F1-\textit{score}}:
+\[
+\text{Precisão} = \frac{TP}{TP + FP}
+\qquad
+\text{Recall} = \frac{TP}{TP + FN}
+\qquad
+F_1 = 2 \cdot \frac{\text{Precisão} \times \text{Recall}}{\text{Precisão} + \text{Recall}},
+\]
+onde $TP$ (\textit{true positives}) são os parâmetros corretamente extraídos, $FP$ (\textit{false positives}) são parâmetros extraídos incorretamente, e $FN$ (\textit{false negatives}) são parâmetros esperados que não foram extraídos. O F1-\textit{score} é a média harmônica entre precisão e \textit{recall} e é especialmente útil quando ambas as métricas são igualmente importantes.
+
+A \textbf{latência} é o tempo de resposta do modelo para uma consulta. Na avaliação, mede-se o tempo da tradução --- do envio da consulta ao modelo até o recebimento da resposta com as chamadas de ferramenta ---, que é a etapa comparada entre os modelos. É uma métrica operacional importante para a viabilidade de uso em produção e é reportada por mínimo, mediana, média, percentil 95 e máximo sobre o conjunto de consultas avaliadas. Para diagnóstico, o tempo de execução da ferramenta (a consulta ao banco) é registrado à parte, quando a busca é executada, e não entra na comparação entre modelos.

@@ -1,0 +1,26 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por campo do \textit{schema} de busca, por modelo --- estação de referência (camadas P e N)}
+\label{tab:resultados_por_campo_estacao}
+\small
+\ajustartabela{%
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Campo} & \textbf{Ocorr.} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E2B} \\
+\hline
+\texttt{keyword} & 20 & 0,947 & 0,810 \\
+\texttt{scale} & 14 & 0,727 & 0,833 \\
+\texttt{productType} & 14 & 0,759 & 0,923 \\
+\texttt{state} & 15 & 0,759 & 0,786 \\
+\texttt{city} & 5 & 0,750 & 0,923 \\
+\texttt{supplyArea} & 11 & 0,900 & 1,000 \\
+\texttt{project} & 5 & 0,909 & 0,800 \\
+\texttt{publicationPeriod} & 14 & 0,593 & 0,526 \\
+\texttt{creationPeriod} & 2 & 0,500 & 0,000 \\
+\texttt{sortField} & 10 & 0,522 & 0,182 \\
+\texttt{sortDirection} & 10 & 0,522 & 0,462 \\
+\texttt{limit} & 6 & 0,556 & 0,750 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelo autor. Ocorr. = vezes que o campo aparece no gabarito.}
+\end{table}

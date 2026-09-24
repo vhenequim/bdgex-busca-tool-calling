@@ -1,0 +1,88 @@
+% ----------------------------------------------------------
+% Capítulo 1 — Introdução
+% ----------------------------------------------------------
+\chapter{Introdução}
+
+\section{Contextualização}
+
+A geoinformação ocupa papel estratégico nas atividades de defesa, planejamento territorial, gestão ambiental e tomada de decisão em diferentes esferas do Estado brasileiro. O Brasil dispõe de uma vasta infraestrutura de produção e disseminação de dados espaciais, cujo arcabouço normativo é definido pelo Decreto n.º 6.666/2008, que instituiu a Infraestrutura Nacional de Dados Espaciais (INDE) \cite{inde2010decreto}. A INDE tem por objetivo organizar, em âmbito federal, o acesso integrado a conjuntos de dados geoespaciais produzidos e mantidos pelos órgãos governamentais, promovendo a interoperabilidade e o compartilhamento dessas informações.
+
+No contexto do Exército Brasileiro, a Diretoria de Serviço Geográfico (DSG) tem por missão orientar, no âmbito do Exército, as atividades referentes a imagens e informações geográficas, visando à produção cartográfica nas suas mais diversas formas, ao estabelecimento de normas e instruções, ao suprimento e à manutenção do material a seu cargo e às atividades decorrentes de convênios com órgãos da Administração Pública \cite{dsg2024missao}. Para o cumprimento dessa missão, a DSG mantém o Banco de Dados Geográficos do Exército (BDGEx), que constitui o nó do Exército Brasileiro na INDE \cite{bdgex2024} e disponibiliza o acervo cartográfico oficial para consulta tanto pelo público militar quanto pela sociedade civil. A produção dos produtos cartográficos é realizada por cinco Centros de Geoinformação (CGEO) subordinados --- localizados em Porto Alegre, Brasília, Olinda, Manaus e Rio de Janeiro --- e segue as Especificações Técnicas para Produtos de Conjuntos de Dados Geoespaciais (ET-PCDG) \cite{etpcdg2016}, em conformidade com o Perfil de Metadados Geoespaciais do Brasil (Perfil MGB) \cite{perfilmgb2009}, cuja adesão é obrigatória para as Organizações Militares produtoras de dados geoespaciais.
+
+Esses produtos são indexados e disponibilizados por meio de catálogos de dados espaciais compatíveis com padrões internacionais estabelecidos pelo \textit{Open Geospatial Consortium} (OGC), em particular o protocolo \textit{Catalogue Service for the Web} (CSW) \cite{ogccsw2007}. Tal padronização garante interoperabilidade técnica, mas armazena os conteúdos de forma estruturada conforme um modelo de dados rígido; consequentemente, consultas formuladas sobre dados semiestruturados (texto livre, sinônimos, abreviações) requerem processamento adequado para serem traduzidas aos campos técnicos do catálogo. Esta característica torna a recuperação de dados um processo intrincado para usuários sem formação na área cartográfica.
+
+\section{Problema}
+
+A busca em catálogos de dados espaciais institucionais exige que o usuário conheça previamente as convenções técnicas que organizam o acervo. No caso do acervo da DSG, isso implica saber utilizar o Índice de Nomenclatura (INOM), o Mapa Índice (MI), identificar corretamente as escalas disponíveis (1:1.000, 1:2.000, 1:5.000, 1:10.000, 1:25.000, 1:50.000, 1:100.000, 1:250.000), conhecer os tipos de produto do Sistema Cartográfico Nacional (SCN) (e.g., ``SCN Carta Topográfica Matricial'', ``MDT --- RAM'', ``SCN Carta Ortoimagem Banda P Pol HH'') e compreender as denominações dos Centros de Geoinformação responsáveis pela produção de cada folha.
+
+Esta exigência constitui uma barreira de entrada considerável para usuários não especialistas --- analistas, gestores e tomadores de decisão que precisam de acesso ágil à informação geoespacial, mas que não possuem formação técnica em cartografia. A interface atual, baseada em \textbf{busca por texto simples} (\textit{full-text search}) contra os campos do banco, exige que o usuário conheça previamente os termos técnicos utilizados no acervo --- e não usa qualquer forma de compreensão de linguagem natural. Um exemplo ilustrativo desta distinção é apresentado na Tabela~\ref{tab:exemplo_consulta}.
+
+\begin{table}[h]
+\centering
+\caption{Comparativo entre consulta técnica e consulta em linguagem natural}
+\label{tab:exemplo_consulta}
+\begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+\hline
+\textbf{Modo atual (busca por texto simples)} & \textbf{Modo desejado (linguagem natural)} \\
+\hline
+O usuário precisa digitar termos técnicos exatos que combinem com os campos do banco: ``SCN Carta Topográfica Matricial 1:25.000 Rio de Janeiro 2023'' & \textit{``mapas do Rio de Janeiro em 25k publicados em 2023''} \\
+\hline
+\end{tabular}
+\fonte{Adaptado de \citeauthoronline{cgeo2025prototipo} (\citeyear{cgeo2025prototipo}).}
+\end{table}
+
+A barreira técnica imposta por esse modelo de interação resulta em subutilização do acervo disponível e restringe a capacidade de usuários não especialistas de acessar informações geoespaciais relevantes para suas atividades. Esta é uma limitação que afeta não apenas o acervo da DSG, mas catálogos de dados espaciais em geral, conforme discutido na literatura recente sobre o tema \cite{mai2023geospatialllm}.
+
+\section{Motivação}
+
+A Engenharia Cartográfica, enquanto disciplina, organiza-se em três eixos fundamentais: a \textbf{aquisição}, o \textbf{processamento} e a \textbf{disseminação} de dados geoespaciais. Embora boa parte do ensino e da pesquisa concentre-se nos dois primeiros eixos --- com foco em técnicas de levantamento, sensoriamento remoto e processamento digital ---, a disseminação é a etapa que efetivamente conecta o acervo produzido aos seus usuários finais. É justamente nesse terceiro eixo que se insere o presente trabalho: facilitar o acesso e a disseminação dos produtos cartográficos do acervo da DSG, reduzindo a barreira técnica imposta pelas nomenclaturas especializadas e tornando o catálogo efetivamente utilizável por públicos não especialistas. Esta é a relação direta entre o trabalho desenvolvido e a Engenharia Cartográfica: traduzir, por meio de tecnologias de Processamento de Linguagem Natural, a riqueza do acervo cartográfico nacional em uma forma de acesso compatível com a linguagem cotidiana dos seus potenciais usuários.
+
+Os Modelos de Linguagem de Grande Porte (LLMs, do inglês \textit{Large Language Models}) representam um avanço substancial no campo do Processamento de Linguagem Natural (NLP). Baseados na arquitetura \textit{Transformer} \cite{vaswani2017attention}, esses modelos demonstram capacidade notável de compreender e gerar texto em linguagem natural, incluindo a habilidade de interpretar intenções implícitas, normalizar variações linguísticas e traduzir descrições informais para estruturas formais \cite{brown2020gpt3, wei2022emergent}.
+
+Em particular, o mecanismo de \textit{Tool Calling} --- pelo qual um LLM pode decidir de forma autônoma quando e como invocar funções externas, estruturando os parâmetros necessários em formato JSON --- abre perspectivas promissoras para a automação de tarefas de recuperação de informação \cite{schick2023toolformer, qin2023toolllm}. Este mecanismo é distinto da abordagem de Saída Estruturada (\textit{Structured Output}), uma vez que o modelo não apenas formata uma resposta em esquema predefinido, mas decide ativamente quais ferramentas devem ser acionadas e com quais argumentos.
+
+Um fator adicional de motivação é a viabilidade de execução local desses modelos. Plataformas como o Ollama \cite{ollama2023} permitem executar modelos de linguagem de código aberto --- como os das famílias Qwen, Llama, Gemma e Mistral --- diretamente em \textit{hardware} local, sem dependência de serviços de nuvem. Isso é especialmente relevante para ambientes institucionais com restrições de privacidade, segurança da informação e custos operacionais, características típicas do contexto do Exército Brasileiro.
+
+No âmbito da DSG, o 1º Centro de Geoinformação (1º CGEO) desenvolveu um protótipo inicial \cite{cgeo2025prototipo}, utilizando o modelo Phi-4 14B via Ollama com Saída Estruturada, confirmando a viabilidade da abordagem para o domínio cartográfico nacional, mas revelando limitações que motivaram o presente projeto.
+
+\section{Lacuna Identificada}
+
+Apesar da viabilidade demonstrada pelo protótipo do 1º CGEO, foram identificadas seis limitações que precisavam ser endereçadas para que a solução amadurecesse em direção ao uso operacional. Cada uma delas motivou uma frente de aprimoramento neste trabalho:
+
+\begin{itemize}
+  \item \textbf{\textit{Backend} em Node.js.} As bibliotecas de integração com LLMs, como o LangChain, têm versões mais completas em Python, o que limita a evolução da camada de tradução no \textit{backend} original.
+  \item \textbf{Ausência de \textit{Tool Calling} real.} O protótipo utiliza \textit{Structured Output}, no qual o modelo é forçado a devolver, a cada consulta, um objeto no formato do \textit{schema} de saída, mesmo quando a consulta do usuário não contém informação para vários campos --- o que pode induzir alucinações estruturadas (valores plausíveis, mas incorretos). O \textit{Tool Calling}, ao contrário, delega ao modelo a decisão de quando invocar a ferramenta e quais argumentos preencher, o que pode ser mais adequado quando a consulta informa apenas parte dos campos.
+  \item \textbf{Uso de um único modelo (Phi-4 14B).} Sem comparação sistemática, não há evidência que sustente a escolha do modelo em relação a alternativas mais recentes, em um ecossistema de LLMs abertos que evolui rapidamente (e.g., Qwen 3 e Gemma 4).
+  \item \textbf{Pré-processamento manual com dicionário \textit{hardcoded}.} O protótipo depende de um dicionário fixo de normalizações (``25k'' $\to$ ``1:25.000'', ``primeiro cgeo'' $\to$ ``1º Centro de Geoinformação''). O dicionário só cobre variações previstas em tempo de desenvolvimento e exige manutenção manual sempre que aparece uma forma nova; a delegação da normalização ao LLM elimina essa dependência.
+  \item \textbf{\textit{Fallback} por expressões regulares.} Quando o modelo falha, o protótipo aciona um mecanismo que tenta extrair parâmetros com regras rígidas. O \textit{fallback} esconde as causas reais das falhas do modelo e não é passível de análise sistemática.
+  \item \textbf{Ausência de métricas formais de avaliação.} O protótipo dispõe apenas de 22 casos de teste, pontuados por pesos atribuídos \textit{ad hoc} aos campos esperados, sem penalizar campos preenchidos indevidamente. Sem um conjunto de referência (\textit{ground truth}) mais amplo, métricas padronizadas e protocolo de medição, não há como aferir objetivamente a qualidade da solução, nem sua evolução ao longo do tempo, à medida que novos modelos surjam.
+\end{itemize}
+
+O presente trabalho aprimorou o protótipo existente, endereçando diretamente cada uma dessas seis limitações.
+
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+
+Aprimorar a \textbf{camada de tradução linguística} da solução de busca em linguagem natural sobre o acervo cartográfico da DSG --- ou seja, a etapa em que uma consulta livre do usuário é convertida em parâmetros estruturados de busca --- partindo do protótipo desenvolvido pelo 1º CGEO, por meio da reimplementação do \textit{pipeline} com \textit{Tool Calling} nativo, da avaliação comparativa de modelos de LLM abertos executáveis localmente via Ollama e da definição de métricas quantitativas que permitam aferir e comparar objetivamente o desempenho da tradução. A lógica de consulta ao banco e de resolução geográfica foi portada do protótipo e não é objeto de avaliação neste trabalho.
+
+\subsection{Entregáveis do Projeto}
+
+O projeto resultou nos seguintes entregáveis:
+
+\begin{enumerate}
+  \item Uma nova arquitetura de \textit{backend} em Python (FastAPI + LangChain), que substitui o \textit{backend} Node.js do protótipo e implementa \textit{Tool Calling} nativo via Ollama;
+  \item Um \textit{dataset} de avaliação com 310 consultas de referência (\textit{ground truth}) representativas do domínio cartográfico da DSG, acompanhado de manual de anotação e de registro de auditoria do gabarito (Capítulo~\ref{cap:metodologia} e Apêndice~\ref{apendice:dataset});
+  \item Um \textit{pipeline} de avaliação automatizado e reprodutível, com cálculo das métricas de acurácia, precisão, \textit{recall}, F1-\textit{score} e latência;
+  \item Um relatório comparativo entre quatro modelos de LLM com suporte a \textit{Tool Calling} executáveis localmente via Ollama --- Qwen 3 4B, Gemma 4 E4B, Gemma 4 E2B e Mistral Nemo 12B ---, indicando o mais adequado para uso operacional no acervo da DSG, considerando o equilíbrio entre desempenho e requisitos de \textit{hardware}.
+\end{enumerate}
+
+Como referência, o mesmo protocolo foi aplicado a \res{groq}{geral}{nmodelos} modelos de maior porte servidos em nuvem pela plataforma Groq, cujos resultados são reportados à parte por não atenderem ao requisito de execução local.
+
+\section{Delimitação do Trabalho}
+
+O presente Projeto Final de Curso (PFC) tem como foco o aprimoramento do \textit{pipeline} de tradução de consultas em linguagem natural para parâmetros técnicos de busca, compreendendo o componente de LLM e sua integração com o banco de dados geoespacial. Explicitamente fora do escopo deste trabalho estão: o desenvolvimento de interface gráfica (\textit{frontend}) para o usuário final; a implantação em produção no sistema da DSG; a realização de pesquisa de opinião ou avaliação qualitativa com usuários; o treinamento ou ajuste fino (\textit{fine-tuning}) de modelos de linguagem; a busca por coordenadas geográficas sem referência nominal; e o suporte a idiomas além do português. A delimitação completa do escopo é detalhada no Capítulo~\ref{cap:metodologia}.
+
+\section{Estrutura do Trabalho}
+
+O presente trabalho está organizado em seis capítulos, dos quais este é o primeiro. O Capítulo~\ref{cap:referencial} apresenta o referencial teórico, cobrindo os fundamentos de catálogos de dados espaciais, o mecanismo de \textit{Tool Calling} e sua relação com a Saída Estruturada, os Modelos de Linguagem de Grande Porte e sua execução local com o Ollama, a orquestração com LangChain e as métricas de avaliação empregadas. O Capítulo~\ref{cap:metodologia} detalha a metodologia adotada: o escopo do trabalho (entregáveis e exclusões), os requisitos que o norteiam, a seleção dos modelos comparados, a construção e a auditoria do \textit{dataset} de avaliação e o protocolo de avaliação, incluindo os ambientes de execução e o cálculo das métricas. O Capítulo~\ref{cap:aprimoramento} descreve a execução do aprimoramento: a análise do protótipo de referência do 1º CGEO, a elicitação de requisitos, o planejamento da migração e o desenvolvimento da solução por camadas (API, orquestração, ferramenta de busca e persistência), além do \textit{pipeline} de avaliação. O Capítulo~\ref{cap:resultados} apresenta os resultados dos experimentos com os quatro modelos locais, a validação na estação de trabalho, o resultado de referência em nuvem e a discussão comparativa que fundamenta a recomendação de modelo. O Capítulo~\ref{cap:conclusao} sintetiza as conclusões do trabalho, apresenta suas limitações e propõe direções para trabalhos futuros. Por fim, o Apêndice~\ref{apendice:dataset} reúne o \textit{dataset} de avaliação, o manual de anotação e o registro da auditoria do gabarito; o Apêndice~\ref{apx:specs} especifica os ambientes de execução; e o Apêndice~\ref{apendice:codigo} descreve o repositório do código-fonte e os passos para a reprodução dos experimentos.
