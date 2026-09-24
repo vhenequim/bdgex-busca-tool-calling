@@ -47,9 +47,14 @@ def main() -> None:
                          if f.is_file() and "__pycache__" not in f.parts and f.suffix != ".pyc"]
     destino = RAIZ / "dist" / "pfc_busca_colab.zip"
     destino.parent.mkdir(exist_ok=True)
+    import subprocess
+    commit = subprocess.run(["git", "-C", str(RAIZ), "rev-parse", "--short", "HEAD"],
+                            capture_output=True, text=True, check=False).stdout.strip()
     with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted(arquivos):
             z.write(f, "pfc_busca/" + f.relative_to(RAIZ).as_posix())
+        if commit:
+            z.writestr("pfc_busca/VERSAO", commit + "\n")
     print(f"{destino.relative_to(RAIZ)}: {len(arquivos)} arquivos, {destino.stat().st_size // 1024} KB; "
           f"dataset {sha[:12]}")
 

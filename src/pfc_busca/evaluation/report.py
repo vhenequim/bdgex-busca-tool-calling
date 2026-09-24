@@ -177,7 +177,7 @@ def tab_comparativo(dados: dict[str, dict]) -> str:
                       f"{_f(g['precisao_ponderada'])} & {_f(g['recall_ponderado'])} & {_f(g['f1_ponderado'])} & "
                       f"{g['latencia_llm_ms'].get('mediana', 0):.0f} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}",
+               r"\fonte{Elaborado pelos autores. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -192,13 +192,13 @@ def tab_por_categoria(dados: dict[str, dict]) -> str:
               rf"\textbf{{Categoria}} & {cab} \\", r"\hline"]
     for cat in CATS_F1:
         vals = " & ".join(_f(d["resumo"]["geral"]["por_categoria"][cat]["f1_ponderado"]) for d in dados.values())
-        n = next(iter(dados.values()))["resumo"]["geral"]["por_categoria"][cat]["n"]
+        n = next(iter(dados.values()))["resumo"]["geral"]["por_categoria"][cat]["n_consultas"]
         linhas.append(f"{CATEGORIA_TABELA[cat]} (n={n}) & {vals} \\\\")
     linhas.append(r"\hline")
     vals = " & ".join(_f(d["resumo"]["geral"]["f1_ponderado"]) for d in dados.values())
     linhas.append(rf"\textbf{{Média ponderada}} & {vals} \\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}",
+               r"\fonte{Elaborado pelos autores. Uma consulta pode pertencer a mais de uma categoria; n = consultas distintas da categoria nas métricas principais (cada uma pontuada em todas as repetições). As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -216,7 +216,7 @@ def tab_por_campo(dados: dict[str, dict]) -> str:
         vals = " & ".join(_f(d["resumo"]["geral"]["por_campo"][campo]["f1"]) for d in dados.values())
         linhas.append(rf"\texttt{{{_tex(campo)}}} & {primeiro[campo]['ocorrencias']} & {vals} \\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Ocorr. = vezes que o campo aparece no gabarito.}",
+               r"\fonte{Elaborado pelos autores. Ocorr. = vezes que o campo aparece no gabarito.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -235,7 +235,7 @@ def tab_latencia(dados: dict[str, dict]) -> str:
         linhas.append(f"{_tex(rotulo(modelo))} & {lat['n']} & {lat['min']:.0f} & {lat['mediana']:.0f} & "
                       f"{lat['media']:.0f} & {lat['p95']:.0f} & {lat['max']:.0f} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               rf"\fonte{{Elaborado pelo autor. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{{tab:ambiente{SUFIXO}}}); execuções com erro de infraestrutura excluídas.}}",
+               rf"\fonte{{Elaborado pelos autores. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{{tab:ambiente{SUFIXO}}}); execuções com erro de infraestrutura excluídas.}}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -260,6 +260,28 @@ def _gpu_das_sessoes(manifesto: dict) -> tuple[str, str]:
     return na_gpu, livre
 
 
+def tab_por_origem(dados: dict[str, dict]) -> str:
+    """Acurácia por camada de origem das consultas (P: protótipo, N: autores, G: geradas)."""
+    cols = "|l|c|" + "c|" * len(dados)
+    cab = " & ".join(rf"\textbf{{{_tex(rotulo(m))}}}" for m in dados)
+    nomes = {"P": "Protótipo (P)", "N": "Autores (N)", "G": "Geradas (G)"}
+    linhas = [r"\begin{table}[htbp!]", r"\centering",
+              rf"\caption{{Acurácia por camada de origem das consultas{TITULO}}}",
+              rf"\label{{tab:resultados_por_origem{SUFIXO}}}", r"\small",
+              rf"\begin{{tabular}}{{{cols}}}", r"\hline",
+              rf"\textbf{{Camada}} & \textbf{{Consultas}} & {cab} \\", r"\hline"]
+    primeiro = next(iter(dados.values()))["resumo"]["geral"]["por_origem"]
+    for origem in ("P", "N", "G"):
+        if not primeiro.get(origem, {}).get("n_consultas"):
+            continue
+        vals = " & ".join(_pct(d["resumo"]["geral"]["por_origem"][origem]["acuracia"]) for d in dados.values())
+        linhas.append(f"{nomes[origem]} & {primeiro[origem]['n_consultas']} & {vals} \\\\")
+    linhas += [r"\hline", r"\end{tabular}",
+               r"\fonte{Elaborado pelos autores. Consultas distintas das métricas principais; acurácia sobre todas as repetições.}",
+               r"\end{table}"]
+    return "\n".join(linhas) + "\n"
+
+
 def tab_mcnemar(dados: dict[str, dict]) -> str:
     """Teste de McNemar exato entre cada par de modelos (mesmas consultas e repetições)."""
     correcoes = {m: correcao_por_consulta(d["linhas"]) for m, d in dados.items()}
@@ -276,7 +298,7 @@ def tab_mcnemar(dados: dict[str, dict]) -> str:
             linhas.append(f"{_tex(rotulo(modelos[i]))} & {_tex(rotulo(modelos[j]))} & {so_a} & {so_b} & "
                           f"{_f(mcnemar_exato(so_a, so_b), 4)} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Pares discordantes sobre as mesmas consultas e repetições das métricas principais; \textit{p}-valor bicaudal exato.}",
+               r"\fonte{Elaborado pelos autores. Pares discordantes sobre as mesmas consultas e repetições das métricas principais; \textit{p}-valor bicaudal exato.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -329,6 +351,8 @@ def cobertura(dados: dict[str, dict]) -> dict[str, str]:
     ids = set.intersection(*[{lin["id"] for lin in d["linhas"]} for d in dados.values()]) if dados else set()
     origem = Counter(por_id[i]["origem"] for i in ids)
     principais = sum(1 for i in ids if not por_id[i]["observacional"])
+    n_f = sum(1 for i in ids if "F" in por_id[i]["categorias"])
+    total_f = sum(1 for c in casos if "F" in c["categorias"])
     n_pn = origem.get("P", 0) + origem.get("N", 0)
     total_pn = sum(1 for c in casos if c["origem"] in "PN")
     total_g = sum(1 for c in casos if c["origem"] == "G")
@@ -346,7 +370,7 @@ def cobertura(dados: dict[str, dict]) -> dict[str, str]:
                 f"{origem.get('G', 0)} consultas; os resultados por categoria e por campo dessas rodadas refletem, "
                 f"sobretudo, as consultas redigidas por pessoas (camadas P e N).")
     return {"nexecutadas": str(len(ids)), "ntotal": str(len(casos)), "nprincipais": str(principais),
-            "itemlimitacao": item,
+            "itemlimitacao": item, "nF": str(n_f), "ntotalF": str(total_f),
             "nPN": str(n_pn), "nG": str(origem.get("G", 0)), "completa": "sim" if len(ids) == len(casos) else "não",
             "frasecobertura": frase}
 
@@ -400,7 +424,9 @@ def macros_latex(dados: dict[str, dict]) -> str:
             put(chave, f"n{origem}", str(v["n"]))
             put(chave, f"accorigem{origem}", _pct(v["acuracia"]))
         for cat, v in g["por_categoria"].items():
-            put(chave, f"ncat{cat}", str(v["n"]))
+            put(chave, f"ncat{cat}", str(v["n_consultas"]))
+        for origem, v in g["por_origem"].items():
+            put(chave, f"nconsultas{origem}", str(v["n_consultas"]))
         obs = g.get("observacionais") or {}
         if obs:
             put(chave, "obsn", str(obs.get("n", 0)))
@@ -412,7 +438,7 @@ def macros_latex(dados: dict[str, dict]) -> str:
             texto = (lin.get("texto_resposta") or "").lower()
             if "buscar_catalogo" in texto:
                 narrada += 1
-            elif "escopo" in texto:
+            elif "fora do escopo" in texto:
                 escopo += 1
             elif any(p in texto for p in ("especifi", "mais informa", "mais detalhes", "poderia", "qual ")):
                 esclarecimento += 1
@@ -492,7 +518,7 @@ def tab_concordancia_ambientes(linhas_c: list[dict], nome: str, rotulos: tuple[s
         linhas.append(f"{_tex(rotulo(c['modelo']))} & {c['n']} & {c['respostas_identicas']} & {c['mesma_pontuacao']} & "
                       f"{_pct(c['acuracia_principal'])} & {_pct(c['acuracia_outro'])} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Resposta idêntica: mesmos parâmetros emitidos (ou nenhuma chamada nos dois ambientes).}",
+               r"\fonte{Elaborado pelos autores. Resposta idêntica: mesmos parâmetros emitidos (ou nenhuma chamada nos dois ambientes).}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -521,7 +547,7 @@ def tab_ambiente(dados: dict[str, dict]) -> str:
     extra = ", ".join(f"{k.replace('_', '-')} {v}" for k, v in versoes.items()
                       if k.startswith("langchain") and v)
     linhas += [r"\hline", r"\end{tabular}",
-               rf"\fonte{{Elaborado pelo autor a partir de \texttt{{results/<modelo>/manifesto.json}}. Na GPU: parcela do modelo carregado (pesos e contexto) alocada na VRAM pelo Ollama, medida após o aquecimento; VRAM livre: no início da rodada, com os demais modelos descarregados. Data de referência: {data_ref}. Python {versoes.get('python', '---')}; {_tex(extra)}.}}",
+               rf"\fonte{{Elaborado pelos autores a partir de \texttt{{results/<modelo>/manifesto.json}}. Na GPU: parcela do modelo carregado (pesos e contexto) alocada na VRAM pelo Ollama, medida após o aquecimento; VRAM livre: no início da rodada, com os demais modelos descarregados. Data de referência: {data_ref}. Python {versoes.get('python', '---')}; {_tex(extra)}.}}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -782,6 +808,7 @@ def main(argv: list[str] | None = None) -> int:
         gravar(f"tab_latencia{SUFIXO}.tex", tab_latencia(dados))
         gravar(f"tab_ambiente{SUFIXO}.tex", tab_ambiente(dados))
         gravar(f"tab_mcnemar{SUFIXO}.tex", tab_mcnemar(dados))
+        gravar(f"tab_por_origem{SUFIXO}.tex", tab_por_origem(dados))
         gravar(f"numeros{SUFIXO}.tex", macros_latex(dados))
         produzidos.extend(saida / f"{nome}.pdf" for nome in figuras(dados, saida))
 

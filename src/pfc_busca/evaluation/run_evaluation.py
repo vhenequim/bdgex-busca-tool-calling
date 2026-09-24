@@ -163,6 +163,21 @@ def _descarregar_outros(base_url: str, modelo: str, espera_s: float = 15.0) -> l
     return outros
 
 
+def versao_codigo() -> str | None:
+    """Commit do código que executa a rodada: arquivo VERSAO (pacote do Colab) ou git."""
+    arquivo = RAIZ_REPO / "VERSAO"
+    if arquivo.exists():
+        return arquivo.read_text(encoding="utf-8").strip() or None
+    try:
+        rev = subprocess.run(["git", "-C", str(RAIZ_REPO), "rev-parse", "--short", "HEAD"],
+                             capture_output=True, text=True, timeout=10, check=False).stdout.strip()
+        sujo = subprocess.run(["git", "-C", str(RAIZ_REPO), "status", "--porcelain", "--", "src"],
+                              capture_output=True, text=True, timeout=10, check=False).stdout.strip()
+        return (rev + ("+alteracoes" if sujo else "")) if rev else None
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
 def hash_prompt() -> str:
     return hashlib.sha256(prompts._MODELO.encode("utf-8")).hexdigest()
 
@@ -215,6 +230,7 @@ def montar_manifesto(args, tradutor: agent.Tradutor, executar_sql: bool) -> dict
                     "sha256": _hash_arquivo(CAMINHO_DATASET)},
         "ferramenta_sha256": hash_ferramenta(),
         "prompt_sha256": hash_prompt(),
+        "codigo": versao_codigo(),
         "software": {
             "python": platform.python_version(),
             "ollama_servidor": None if nuvem else agent.versao_servidor(args.base_url),

@@ -229,7 +229,7 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
                f"\\textbf{{Total}} & \\textbf{{{len(casos)}}} & \\textbf{{{sum(c['observacional'] for c in casos)}}} & "
                f"\\textbf{{{sum(_tem_leitura_alternativa(c) for c in principais)}}} \\\\",
                r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborada pelo autor a partir de \texttt{dataset.json}.}", r"\end{table}"]
+               r"\fonte{Elaborada pelos autores a partir de \texttt{dataset.json}.}", r"\end{table}"]
     composicao = "\n".join(linhas) + "\n"
 
     linhas = [r"\begin{table}[htbp!]", r"\centering",
@@ -241,7 +241,7 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
         conta = {o: sum(1 for c in principais if cat in c["categorias"] and c["origem"] == o) for o in "PNG"}
         linhas.append(f"{NOMES_CATEGORIA[cat]} ({cat}) & {conta['P']} & {conta['N']} & {conta['G']} & "
                       f"{sum(conta.values())} \\\\")
-    linhas += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelo autor.}", r"\end{table}"]
+    linhas += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelos autores.}", r"\end{table}"]
     categorias = "\n".join(linhas) + "\n"
 
     freq = Counter(campo for c in principais for campo in c["esperado"])
@@ -253,7 +253,7 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
     metade = (len(schema.CAMPOS) + 1) // 2
     for a, b in zip(schema.CAMPOS[:metade], schema.CAMPOS[metade:], strict=False):
         linhas.append(f"\\texttt{{{a}}} & {freq.get(a, 0)} & \\texttt{{{b}}} & {freq.get(b, 0)} \\\\")
-    linhas += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelo autor.}", r"\end{table}"]
+    linhas += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelos autores.}", r"\end{table}"]
     campos = "\n".join(linhas) + "\n"
     return {"tab_dataset_composicao.tex": composicao, "tab_dataset_categorias.tex": categorias,
             "tab_dataset_campos.tex": campos}

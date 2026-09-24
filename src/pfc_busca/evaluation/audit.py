@@ -741,7 +741,7 @@ def tabelas_latex(r: dict) -> dict[str, str]:
         linhas.append(f"Revisão humana de amostra estratificada: gabarito confirmado & --- & "
                       f"{_pct(rev['concorda'], rev['n_revisadas'])} \\\\ \\hline")
     linhas += [r"\end{tabular}",
-               r"\fonte{Elaborada pelo autor a partir de \texttt{data/auditoria/}. (a) Sobre as consultas em que "
+               r"\fonte{Elaborada pelos autores a partir de \texttt{data/auditoria/}. (a) Sobre as consultas em que "
                r"gabarito e anotador pedem a chamada da ferramenta nas métricas principais. (b) Doze campos por consulta.}",
                r"\end{table}"]
     resumo = "\n".join(linhas) + "\n"
@@ -756,7 +756,7 @@ def tabelas_latex(r: dict) -> dict[str, str]:
         linhas.append(f"\\texttt{{{campo}}} & {v['gabarito']} & {v['anotador']} & {v['ambos']} & {_k(v['kappa_presenca'])} & "
                       f"{v['valor_igual']}/{v['valor_n']} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborada pelo autor. Gabarito, Anotador e Ambos: consultas em que o campo está na leitura preferencial de cada um. Kappa de Cohen sobre a presença do campo. Valor igual: entre as consultas em que ambos o anotam; períodos comparados pelos limites, textos livres após normalização.}",
+               r"\fonte{Elaborada pelos autores. Gabarito, Anotador e Ambos: consultas em que o campo está na leitura preferencial de cada um. Kappa de Cohen sobre a presença do campo. Valor igual: entre as consultas em que ambos o anotam; períodos comparados pelos limites, textos livres após normalização.}",
                r"\end{table}"]
     campos = "\n".join(linhas) + "\n"
 
@@ -774,7 +774,7 @@ def tabelas_latex(r: dict) -> dict[str, str]:
     for (etapa, div, dec, just), ids in grupos.items():
         linhas.append(f"{', '.join(ids)}" + r"\newline{\scriptsize\itshape " + etapa + "}" +
                       f" & {esc(div)} & {dec} & {esc(just)} " + r"\\ \hline")
-    linhas += [r"\end{tabular}", r"\fonte{Elaborado pelo autor a partir de \texttt{data/auditoria/adjudicacao.json}.}",
+    linhas += [r"\end{tabular}", r"\fonte{Elaborado pelos autores a partir de \texttt{data/auditoria/adjudicacao.json}.}",
                r"\end{quadro}"]
     adjud = "\n".join(linhas) + "\n"
     return {"tab_auditoria.tex": resumo, "tab_auditoria_campos.tex": campos, "quadro_adjudicacao.tex": adjud}

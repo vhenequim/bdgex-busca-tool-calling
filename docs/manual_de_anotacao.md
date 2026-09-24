@@ -89,9 +89,13 @@ domínio (P4) **não** são observacionais: o comportamento correto é determina
 ### `project`
 - Pelo nome ou pelos apelidos informados na ferramenta ("olimpiadas", "rio 2016" →
   `Olimpíadas Rio 2016`; "beca" → `NGA-BECA`), com ou sem acento.
-- Expressão que designa o projeto pelo termo distintivo do nome, sem ser o nome nem um
-  apelido informado ("cartografia sistemática" para `Mapeamento Sistemático`) →
-  `project` **opcional**: a consulta sustenta a leitura, mas a ferramenta não a informa.
+- Menção explícita a um projeto por um termo que o identifica sem ambiguidade no
+  enumerado também é nome: "projeto rondonia" e "BCD de Rondônia" (sigla de Base
+  Cartográfica Digital) → `Base Cartográfica Digital de Rondônia`.
+- Expressão que designa o projeto só pelo termo distintivo do nome, sem a palavra
+  "projeto", sem sigla do nome e sem apelido informado ("cartografia sistemática" para
+  `Mapeamento Sistemático`) → `project` **opcional**: a consulta sustenta a leitura, mas
+  a ferramenta não a informa.
 
 ### `publicationPeriod` e `creationPeriod`
 - **Qual campo.** Verbo de publicação ("publicad-", "lançad-") → `publicationPeriod`.

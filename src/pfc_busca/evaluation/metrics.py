@@ -311,12 +311,14 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
         peso = sum(sub_occ.values())
         f1_cat = (sum(precisao_recall_f1(sub_tp[c], sub_fp[c], sub_fn[c])[2] * sub_occ[c]
                       for c in schema.CAMPOS) / peso) if peso else 0.0
-        por_categoria[cat] = {"n": len(sub), "acuracia": _acuracia(sub), "f1_ponderado": f1_cat}
+        por_categoria[cat] = {"n": len(sub), "n_consultas": len({lin["id"] for lin, _ in sub}),
+                              "acuracia": _acuracia(sub), "f1_ponderado": f1_cat}
 
     por_origem = {}
     for origem in ["P", "N", "G"]:
         sub = [(lin, a) for lin, a in pares if lin["origem"] == origem]
-        por_origem[origem] = {"n": len(sub), "acuracia": _acuracia(sub)}
+        por_origem[origem] = {"n": len(sub), "n_consultas": len({lin["id"] for lin, _ in sub}),
+                              "acuracia": _acuracia(sub)}
 
     erros = [lin for lin in principais if erro_de_infra(lin)]
     erros_modelo = [lin for lin in principais if lin.get("erro") and not erro_de_infra(lin)]
