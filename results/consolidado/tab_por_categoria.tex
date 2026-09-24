@@ -1,0 +1,21 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por categoria de consulta e por modelo}
+\label{tab:resultados_por_categoria}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Categoria} & \textbf{Qwen 3 4B} & \textbf{Gemma 4 E4B} & \textbf{Gemma 4 E2B} & \textbf{Mistral Nemo 12B} \\
+\hline
+Simples (n=66) & 0,798 & 0,903 & 0,770 & 0,442 \\
+Compostas (n=132) & 0,705 & 0,690 & 0,721 & 0,392 \\
+Com código MI/INOM (n=45) & 0,872 & 0,721 & 0,910 & 0,232 \\
+Com referência temporal relativa (n=45) & 0,718 & 0,530 & 0,714 & 0,511 \\
+Com ordenação (n=30) & 0,740 & 0,510 & 0,566 & 0,464 \\
+Ambíguas / variações ortográficas (n=123) & 0,642 & 0,687 & 0,654 & 0,391 \\
+\hline
+\textbf{Média ponderada} & 0,716 & 0,713 & 0,722 & 0,406 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}
+\end{table}

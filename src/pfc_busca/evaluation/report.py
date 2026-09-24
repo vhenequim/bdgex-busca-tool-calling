@@ -26,7 +26,7 @@ import math
 import random
 import statistics
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from pfc_busca import schema
@@ -288,6 +288,67 @@ def _num(v: float, casas: int = 1) -> str:
     return f"{v:.{casas}f}".replace(".", ",")
 
 
+EXTENSO = {1: "um", 2: "dois", 3: "três", 4: "quatro", 5: "cinco", 6: "seis", 7: "sete"}
+EXTENSO_EN = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+
+
+def _lista(itens: list[str]) -> str:
+    return itens[0] if len(itens) == 1 else ", ".join(itens[:-1]) + " e " + itens[-1]
+
+
+def descricao_modelos(dados: dict[str, dict]) -> dict[str, str]:
+    """Quantos e quais modelos a rodada tem, e o esforço de raciocínio de cada um (nuvem)."""
+    modelos = list(dados)
+    n = len(modelos)
+    tags = [f"\\texttt{{{_tex(m)}}}" for m in modelos]
+    por_esforco: dict[str, list[str]] = defaultdict(list)
+    for m in modelos:
+        esforco = (dados[m].get("manifesto", {}).get("modelo_info") or {}).get("esforco_de_raciocinio")
+        if esforco:
+            por_esforco[esforco].append(f"o \\texttt{{{_tex(m)}}}")
+    esforcos = _lista([f"\\texttt{{{e}}} para {_lista(ms)}" for e, ms in por_esforco.items()]) if por_esforco else ""
+    return {"nmodelos": EXTENSO.get(n, str(n)), "nmodelosmaiusc": EXTENSO.get(n, str(n)).capitalize(),
+            "nmodelosen": EXTENSO_EN.get(n, str(n)),
+            "tags": _lista(tags) if tags else "", "nomes": _lista([_tex(rotulo(m)) for m in modelos]) if modelos else "",
+            "esforcos": esforcos}
+
+
+def cobertura(dados: dict[str, dict]) -> dict[str, str]:
+    """Consultas do dataset vigente cobertas pela rodada (as mesmas para todos os modelos consolidados).
+
+    Uma consulta executada com texto diferente do vigente é descartada na repontuação; quando isso
+    ocorre, a macro `frasecobertura` traz a frase que o texto precisa exibir. Com cobertura completa,
+    ela fica vazia.
+    """
+    from pfc_busca.evaluation.dataset_builder import carregar_dataset
+
+    casos = carregar_dataset()
+    por_id = {c["id"]: c for c in casos}
+    ids = set.intersection(*[{lin["id"] for lin in d["linhas"]} for d in dados.values()]) if dados else set()
+    origem = Counter(por_id[i]["origem"] for i in ids)
+    principais = sum(1 for i in ids if not por_id[i]["observacional"])
+    n_pn = origem.get("P", 0) + origem.get("N", 0)
+    total_pn = sum(1 for c in casos if c["origem"] in "PN")
+    total_g = sum(1 for c in casos if c["origem"] == "G")
+    frase = ""
+    if len(ids) < len(casos):
+        frase = (f"Nessas rodadas, a camada G foi executada a partir de uma versão anterior do gerador, cujas consultas "
+                 f"diferem em redação das do \\textit{{dataset}} final. As métricas das rodadas completas cobrem, "
+                 f"por isso, as {len(ids)} consultas cujo texto coincide com o do \\textit{{dataset}} final "
+                 f"--- {'todas as' if n_pn == total_pn else ''} {n_pn} das camadas P e N e {origem.get('G', 0)} das "
+                 f"{total_g} da camada G ---, das quais {principais} entram nas métricas principais.")
+    item = ""
+    if frase:
+        item = (f"\\item \\textbf{{Cobertura das rodadas completas}}: as métricas das rodadas completas cobrem "
+                f"{len(ids)} das {len(casos)} consultas do \\textit{{dataset}}, com a camada G representada por "
+                f"{origem.get('G', 0)} consultas; os resultados por categoria e por campo dessas rodadas refletem, "
+                f"sobretudo, as consultas redigidas por pessoas (camadas P e N).")
+    return {"nexecutadas": str(len(ids)), "ntotal": str(len(casos)), "nprincipais": str(principais),
+            "itemlimitacao": item,
+            "nPN": str(n_pn), "nG": str(origem.get("G", 0)), "completa": "sim" if len(ids) == len(casos) else "não",
+            "frasecobertura": frase}
+
+
 def macros_latex(dados: dict[str, dict]) -> str:
     """Valores citados na prosa do Cap. 5, como macros: \\res{rodada}{modelo}{medida}.
 
@@ -333,6 +394,46 @@ def macros_latex(dados: dict[str, dict]) -> str:
         na_gpu, livre = _gpu_das_sessoes(d.get("manifesto", {}))
         put(chave, "nagpu", na_gpu)
         put(chave, "vramlivre", livre)
+        for origem, v in g["por_origem"].items():
+            put(chave, f"n{origem}", str(v["n"]))
+            put(chave, f"accorigem{origem}", _pct(v["acuracia"]))
+        for cat, v in g["por_categoria"].items():
+            put(chave, f"ncat{cat}", str(v["n"]))
+        obs = g.get("observacionais") or {}
+        if obs:
+            put(chave, "obsn", str(obs.get("n", 0)))
+            put(chave, "obschamou", str(obs.get("chamou_sem_dever", 0)))
+        narrada = esclarecimento = escopo = 0
+        for lin in d["linhas"]:
+            if lin.get("observacional") or metrics.avaliar_linha(lin).tipo_erro != "nao_chamou":
+                continue
+            texto = (lin.get("texto_resposta") or "").lower()
+            if "buscar_catalogo" in texto:
+                narrada += 1
+            elif "escopo" in texto:
+                escopo += 1
+            elif any(p in texto for p in ("especifi", "mais informa", "mais detalhes", "poderia", "qual ")):
+                esclarecimento += 1
+        # estabilidade entre repetições: consultas com a mesma resposta em todas as repetições
+        por_id: dict[str, list] = defaultdict(list)
+        for lin in d["linhas"]:
+            if not lin.get("observacional"):
+                por_id[lin["id"]].append(json.dumps(lin.get("predito"), sort_keys=True, ensure_ascii=False))
+        multi = {i: v for i, v in por_id.items() if len(v) > 1}
+        if multi:
+            put(chave, "estaveis", str(sum(1 for v in multi.values() if len(set(v)) == 1)))
+            put(chave, "nestaveis", str(len(multi)))
+        put(chave, "naochamounarrada", str(narrada))
+        put(chave, "naochamouescopo", str(escopo))
+        put(chave, "naochamouesclarecimento", str(esclarecimento))
+        erros = g["diagnosticos"]
+        put(chave, "errosinfra", str(erros.get("chamadas_com_erro", 0)))
+        put(chave, "foradoschema", str(erros.get("respostas_fora_do_schema", 0)))
+    for medida, valor in descricao_modelos(dados).items():
+        put("geral", medida, valor)
+    # cobertura da rodada: quantas consultas do dataset vigente foram de fato executadas e pontuadas
+    for medida, valor in cobertura(dados).items():
+        put("geral", medida, valor)
     modelos = list(dados)
     for i in range(len(modelos)):
         for j in range(i + 1, len(modelos)):
@@ -341,7 +442,8 @@ def macros_latex(dados: dict[str, dict]) -> str:
             so_a, so_b = _discordantes(correcoes[a], correcoes[b])
             put(par, "soa", str(so_a))
             put(par, "sob", str(so_b))
-            put(par, "p", _f(mcnemar_exato(so_a, so_b), 3))
+            pv = mcnemar_exato(so_a, so_b)
+            put(par, "p", "inferior a 0,001" if pv < 0.001 else _f(pv, 3))
             la = (dados[a]["resumo"]["geral"]["latencia_llm_ms"] or {}).get("mediana")
             lb = (dados[b]["resumo"]["geral"]["latencia_llm_ms"] or {}).get("mediana")
             if la and lb:
@@ -627,6 +729,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--legenda-comparacao",
                    default="Mesmo modelo nas rodadas completas e na estação de referência (camadas P e N, primeira repetição)")
     p.add_argument("--so-comparacao", action="store_true", help="gera só a comparação (com --comparar-com)")
+    p.add_argument("--mesmas-consultas-de", type=Path, metavar="DIR_RESULTADOS",
+                   help="restringe a pontuação às consultas cobertas pelas rodadas deste diretório "
+                        "(comparação justa entre rodadas de cobertura diferente)")
+    p.add_argument("--modelos-referencia", help="modelos de --mesmas-consultas-de cuja cobertura vale (vírgula)")
     p.add_argument("--paper", type=Path, metavar="DIR",
                    help="copia tab_*.tex para DIR/tabelas e fig_*.pdf para DIR/figuras (o Cap. 5 os inclui)")
     args = p.parse_args(argv)
@@ -638,6 +744,18 @@ def main(argv: list[str] | None = None) -> int:
     if not dados:
         print("nenhum results/<modelo>/resumo.json encontrado", file=sys.stderr)
         return 1
+    if args.mesmas_consultas_de:
+        ref_modelos = [m.strip() for m in args.modelos_referencia.split(",")] if args.modelos_referencia else None
+        referencia = carregar_modelos(args.mesmas_consultas_de, ref_modelos)
+        if not referencia:
+            print("nenhuma rodada de referência encontrada", file=sys.stderr)
+            return 1
+        ids = set.intersection(*[{lin["id"] for lin in d["linhas"]} for d in referencia.values()])
+        for d in dados.values():
+            d["linhas"] = [lin for lin in d["linhas"] if lin["id"] in ids]
+            d["resumo"] = {**d["resumo"], "geral": metrics.agregar(d["linhas"]), "n_execucoes": len(d["linhas"]),
+                           "restrito_a": len(ids)}
+        print(f"pontuação restrita às {len(ids)} consultas cobertas por {args.mesmas_consultas_de}")
     saida = args.saida or (args.resultados / "consolidado")
     saida.mkdir(parents=True, exist_ok=True)
     produzidos: list[Path] = []   # só o que ESTA execução gerou vai para o texto (--paper)

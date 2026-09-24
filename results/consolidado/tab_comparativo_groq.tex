@@ -1,0 +1,15 @@
+\begin{table}[htbp!]
+\centering
+\caption{Comparativo de desempenho entre os modelos avaliados --- referência em nuvem (Groq)}
+\label{tab:resultados_comparativo_groq}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Lat. med. (ms)} \\
+\hline
+GPT-OSS 20B (Groq) & 89,2\% & 85,2\%--92,2\% & 0,959 & 0,945 & 0,946 & 530 \\
+GPT-OSS 120B (Groq) & 89,9\% & 86,0\%--92,8\% & 0,965 & 0,951 & 0,956 & 655 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}
+\end{table}

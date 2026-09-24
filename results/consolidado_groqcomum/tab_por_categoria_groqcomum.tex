@@ -1,0 +1,21 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por categoria de consulta e por modelo --- referência em nuvem, consultas das rodadas completas}
+\label{tab:resultados_por_categoria_groqcomum}
+\small
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Categoria} & \textbf{GPT-OSS 20B (Groq)} & \textbf{GPT-OSS 120B (Groq)} \\
+\hline
+Simples (n=22) & 0,953 & 0,939 \\
+Compostas (n=44) & 0,917 & 0,891 \\
+Com código MI/INOM (n=15) & 0,971 & 0,972 \\
+Com referência temporal relativa (n=15) & 0,959 & 0,915 \\
+Com ordenação (n=10) & 0,875 & 0,798 \\
+Ambíguas / variações ortográficas (n=41) & 0,888 & 0,856 \\
+\hline
+\textbf{Média ponderada} & 0,925 & 0,899 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}
+\end{table}

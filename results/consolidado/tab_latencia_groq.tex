@@ -1,0 +1,15 @@
+\begin{table}[htbp!]
+\centering
+\caption{Latência da tradução, em milissegundos, por modelo --- referência em nuvem (Groq)}
+\label{tab:latencia_groq}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{n} & \textbf{Mín.} & \textbf{Mediana} & \textbf{Média} & \textbf{p95} & \textbf{Máx.} \\
+\hline
+GPT-OSS 20B (Groq) & 306 & 276 & 530 & 679 & 1496 & 3418 \\
+GPT-OSS 120B (Groq) & 306 & 366 & 655 & 788 & 1611 & 2736 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{tab:ambiente_groq}); execuções com erro de infraestrutura excluídas.}
+\end{table}
