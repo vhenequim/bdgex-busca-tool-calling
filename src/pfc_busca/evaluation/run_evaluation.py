@@ -48,7 +48,7 @@ from rich.progress import (
 )
 from rich.text import Text
 
-from pfc_busca import agent, db, schema, tools
+from pfc_busca import agent, db, prompts, schema, tools
 from pfc_busca.evaluation import metrics
 from pfc_busca.evaluation.dataset_builder import CAMINHO_SAIDA as CAMINHO_DATASET
 from pfc_busca.evaluation.dataset_builder import carregar_dataset
@@ -99,6 +99,80 @@ def _gpu() -> str | None:
         return None
 
 
+def _vram() -> dict | None:
+    """Memória da GPU em uso/livre e utilização no início da sessão (a latência local depende disso)."""
+    try:
+        saida = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.used,memory.free,utilization.gpu", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=10, check=False,
+        )
+        usada, livre, uso = (int(x.strip()) for x in saida.stdout.strip().splitlines()[0].split(","))
+        return {"usada_mib": usada, "livre_mib": livre, "utilizacao_pct": uso}
+    except (OSError, subprocess.SubprocessError, ValueError, IndexError):
+        return None
+
+
+def _ollama_ps(base_url: str, modelo: str) -> dict | None:
+    """Tamanho do modelo carregado e parcela na VRAM (`/api/ps`), medidos depois do aquecimento."""
+    import httpx
+
+    try:
+        for m in httpx.get(f"{base_url}/api/ps", timeout=5).json().get("models", []):
+            if m.get("name") in (modelo, f"{modelo}:latest") or m.get("model") in (modelo, f"{modelo}:latest"):
+                total, vram = m.get("size") or 0, m.get("size_vram") or 0
+                return {"tamanho_bytes": total, "na_vram_bytes": vram,
+                        "fracao_na_gpu": round(vram / total, 3) if total else None,
+                        "contexto": m.get("context_length")}
+    except (httpx.HTTPError, ValueError):
+        return None
+    return None
+
+
+def _descarregar_outros(base_url: str, modelo: str, espera_s: float = 15.0) -> list[str]:
+    """Descarrega do Ollama todos os modelos residentes antes da rodada.
+
+    Sem isso, o modelo da rodada anterior (keep_alive) continua ocupando VRAM e o
+    modelo seguinte roda com menos camadas na GPU — a latência passaria a depender
+    da ordem das rodadas.
+    """
+    import httpx
+
+    try:
+        residentes = [m.get("name") or m.get("model") for m in
+                      httpx.get(f"{base_url}/api/ps", timeout=5).json().get("models", [])]
+    except (httpx.HTTPError, ValueError):
+        return []
+    # inclusive o próprio modelo avaliado: a divisão GPU/CPU é decidida no carregamento,
+    # então toda rodada começa a frio, com a VRAM que a máquina tem livre
+    outros = [m for m in residentes if m]
+    for m in outros:
+        try:
+            httpx.post(f"{base_url}/api/generate", json={"model": m, "keep_alive": 0}, timeout=30)
+        except httpx.HTTPError:
+            pass
+    limite = time.monotonic() + espera_s
+    while outros and time.monotonic() < limite:
+        try:
+            ainda = {x.get("name") or x.get("model") for x in
+                     httpx.get(f"{base_url}/api/ps", timeout=5).json().get("models", [])}
+        except (httpx.HTTPError, ValueError):
+            break
+        if not ainda & set(outros):
+            break
+        time.sleep(0.5)
+    return outros
+
+
+def hash_prompt() -> str:
+    return hashlib.sha256(prompts._MODELO.encode("utf-8")).hexdigest()
+
+
+def hash_ferramenta() -> str:
+    return hashlib.sha256(
+        json.dumps(schema.FERRAMENTA_BUSCAR_CATALOGO, ensure_ascii=False, sort_keys=True).encode()
+    ).hexdigest()
+
+
 def _info_modelo(modelo: str, base_url: str) -> dict:
     import ollama
 
@@ -139,9 +213,8 @@ def montar_manifesto(args, tradutor: agent.Tradutor, executar_sql: bool) -> dict
         "executar_sql": executar_sql,
         "dataset": {"caminho": str(CAMINHO_DATASET.relative_to(RAIZ_REPO)),
                     "sha256": _hash_arquivo(CAMINHO_DATASET)},
-        "ferramenta_sha256": hashlib.sha256(
-            json.dumps(schema.FERRAMENTA_BUSCAR_CATALOGO, ensure_ascii=False, sort_keys=True).encode()
-        ).hexdigest(),
+        "ferramenta_sha256": hash_ferramenta(),
+        "prompt_sha256": hash_prompt(),
         "software": {
             "python": platform.python_version(),
             "ollama_servidor": None if nuvem else agent.versao_servidor(args.base_url),
@@ -245,6 +318,26 @@ def rodar(args, console: Console) -> int:
     feitos = ja_executados(caminho_jsonl)
 
     manifesto = montar_manifesto(args, tradutor, executar_sql)
+    anterior = (json.loads((dir_saida / "manifesto.json").read_text(encoding="utf-8"))
+                if (dir_saida / "manifesto.json").exists() else None)
+    if anterior and feitos:
+        divergentes = [k for k in ("ferramenta_sha256", "prompt_sha256", "hoje", "provedor")
+                       if anterior.get(k) is not None and anterior.get(k) != manifesto.get(k)]
+        if divergentes and not args.forcar_retomada:
+            console.print(f"[red]a rodada existente em {dir_saida} foi feita com outro(s) {', '.join(divergentes)}; "
+                          "retomar misturaria condições. Use outra --saida (ou --forcar-retomada).[/red]")
+            return 3
+    sessoes = list((anterior or {}).get("sessoes") or [])
+    if anterior and not sessoes and feitos:  # manifesto antigo, sem histórico: preserva a sessão anterior
+        sessoes.append({k: anterior.get(k) for k in ("iniciado_em", "encerrado_em", "hardware") if anterior.get(k)})
+    descarregados = _descarregar_outros(args.base_url, args.modelo) if args.provedor == "ollama" else []
+    if descarregados:
+        console.print(f"descarregados do Ollama antes da rodada: {', '.join(descarregados)}")
+    sessao = {"iniciado_em": manifesto["iniciado_em"], "ja_feitas_no_inicio": len(feitos),
+              "descarregados": descarregados,
+              "vram_inicio": None if args.provedor != "ollama" else _vram()}
+    sessoes.append(sessao)
+    manifesto["sessoes"] = sessoes
     (dir_saida / "manifesto.json").write_text(json.dumps(manifesto, ensure_ascii=False, indent=2), encoding="utf-8")
 
     console.rule(f"[bold]{args.modelo}[/bold] · {args.provedor}")
@@ -258,6 +351,12 @@ def rodar(args, console: Console) -> int:
         console.print(f"aquecimento: {(time.perf_counter() - inicio) * 1000:.0f} ms"
                       + (f" [red](erro: {aquecimento.erro})[/red]" if aquecimento.erro else ""))
         manifesto["aquecimento_ms"] = aquecimento.latencia_llm_ms
+        sessao["aquecimento_ms"] = aquecimento.latencia_llm_ms
+        if args.provedor == "ollama":
+            sessao["ollama_ps"] = _ollama_ps(args.base_url, args.modelo)
+            if sessao["ollama_ps"]:
+                console.print(f"modelo na GPU: {100 * (sessao['ollama_ps']['fracao_na_gpu'] or 0):.0f}% · "
+                              f"VRAM livre no início: {(sessao['vram_inicio'] or {}).get('livre_mib', '?')} MiB")
         if aquecimento.classe_erro == "indisponivel":
             console.print(f"[red]{aquecimento.erro}[/red]")
             return 2
@@ -292,6 +391,8 @@ def rodar(args, console: Console) -> int:
                 break
 
     manifesto["encerrado_em"] = datetime.now().isoformat(timespec="seconds")
+    sessao["encerrado_em"] = manifesto["encerrado_em"]
+    sessao["executadas"] = len(ja_executados(caminho_jsonl)) - len(feitos)
     (dir_saida / "manifesto.json").write_text(json.dumps(manifesto, ensure_ascii=False, indent=2), encoding="utf-8")
     resumir(dir_saida, console)
     return 0
@@ -452,6 +553,8 @@ def analisar(argv: list[str] | None = None):
     p.add_argument("--base-url", default=agent.BASE_URL_PADRAO)
     p.add_argument("--dsn", default=db.DSN_PADRAO)
     p.add_argument("--so-resumir", action="store_true", help="recalcula resumo.json/md sem rodar nada")
+    p.add_argument("--forcar-retomada", action="store_true",
+                   help="retoma mesmo que prompt/ferramenta/data da rodada existente sejam outros (não recomendado)")
     return p.parse_args(argv)
 
 

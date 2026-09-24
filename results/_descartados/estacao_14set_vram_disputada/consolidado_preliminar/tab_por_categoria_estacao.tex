@@ -1,0 +1,21 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1-\textit{score} por categoria de consulta e por modelo}
+\label{tab:resultados_por_categoria_estacao}
+\small
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Categoria} & \textbf{Qwen 3 4B} \\
+\hline
+Simples (n=11) & 0,879 \\
+Compostas (n=43) & 0,709 \\
+Com código MI/INOM (n=15) & 0,856 \\
+Com referência temporal relativa (n=15) & 0,729 \\
+Com ordenação (n=10) & 0,749 \\
+Ambíguas / variações ortográficas (n=35) & 0,677 \\
+\hline
+\textbf{Média ponderada} & 0,724 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}
+\end{table}

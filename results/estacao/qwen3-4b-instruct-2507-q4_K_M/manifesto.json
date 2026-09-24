@@ -1,5 +1,7 @@
 {
   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+  "provedor": "ollama",
+  "execucao": "local (Ollama)",
   "modelo_info": {
     "details": {
       "parent_model": "",
@@ -32,24 +34,48 @@
   },
   "hoje": "2026-09-14",
   "repeticoes": 1,
-  "executar_sql": true,
+  "executar_sql": false,
   "dataset": {
     "caminho": "data\\dataset.json",
-    "sha256": "57ba4fee7639441f2f3c5f5c274b9eaa49dbc7f0156ca54734fd0cd5e18bb3d3"
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
   },
   "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "prompt_sha256": "7163a8817c2443a21b4da74fd72438245aa46e9f6e7f947e0ce6b3e950cdacef",
   "software": {
     "python": "3.14.4",
     "ollama_servidor": "0.34.0",
     "ollama_python": "0.6.2",
-    "langchain_core": "1.6.3",
+    "langchain_core": "1.6.4",
     "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
     "so": "Windows-11-10.0.26200-SP0"
   },
   "hardware": {
     "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 616.64",
     "maquina": "vhenequim"
   },
-  "iniciado_em": "2026-09-14T11:37:50",
-  "encerrado_em": "2026-09-14T11:38:22"
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-24T10:10:22",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-24T10:10:22",
+      "ja_feitas_no_inicio": 0,
+      "vram_inicio": {
+        "usada_mib": 895,
+        "livre_mib": 3068,
+        "utilizacao_pct": 0
+      },
+      "aquecimento_ms": 12335.300899998401,
+      "ollama_ps": {
+        "tamanho_bytes": 3525081824,
+        "na_vram_bytes": 2345297510,
+        "fracao_na_gpu": 0.665,
+        "contexto": 4096
+      },
+      "encerrado_em": "2026-09-24T10:13:39",
+      "executadas": 62
+    }
+  ],
+  "aquecimento_ms": 12335.300899998401,
+  "encerrado_em": "2026-09-24T10:13:39"
 }

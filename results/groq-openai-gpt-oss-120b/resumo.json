@@ -1,0 +1,500 @@
+{
+  "modelo": "openai/gpt-oss-120b",
+  "n_execucoes": 310,
+  "repeticoes": [
+    1
+  ],
+  "geral": {
+    "n_consultas": 306,
+    "acuracia": 0.8986928104575164,
+    "precisao_ponderada": 0.965177929698172,
+    "recall_ponderado": 0.9511306729837788,
+    "f1_ponderado": 0.9560189040630457,
+    "f1_macro": 0.9471208160249124,
+    "micro": {
+      "precisao": 0.9636015325670498,
+      "recall": 0.9508506616257089,
+      "f1": 0.9571836346336823,
+      "tp": 503,
+      "fp": 19,
+      "fn": 26
+    },
+    "por_campo": {
+      "keyword": {
+        "tp": 58,
+        "fp": 3,
+        "fn": 1,
+        "ocorrencias": 61,
+        "precisao": 0.9508196721311475,
+        "recall": 0.9830508474576272,
+        "f1": 0.9666666666666667
+      },
+      "scale": {
+        "tp": 78,
+        "fp": 2,
+        "fn": 4,
+        "ocorrencias": 84,
+        "precisao": 0.975,
+        "recall": 0.9512195121951219,
+        "f1": 0.9629629629629629
+      },
+      "productType": {
+        "tp": 43,
+        "fp": 1,
+        "fn": 1,
+        "ocorrencias": 44,
+        "precisao": 0.9772727272727273,
+        "recall": 0.9772727272727273,
+        "f1": 0.9772727272727273
+      },
+      "state": {
+        "tp": 127,
+        "fp": 7,
+        "fn": 3,
+        "ocorrencias": 130,
+        "precisao": 0.9477611940298507,
+        "recall": 0.9769230769230769,
+        "f1": 0.962121212121212
+      },
+      "city": {
+        "tp": 28,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 28,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "supplyArea": {
+        "tp": 40,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 40,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "project": {
+        "tp": 11,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 11,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "publicationPeriod": {
+        "tp": 47,
+        "fp": 6,
+        "fn": 1,
+        "ocorrencias": 51,
+        "precisao": 0.8867924528301887,
+        "recall": 0.9791666666666666,
+        "f1": 0.9306930693069307
+      },
+      "creationPeriod": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 3,
+        "ocorrencias": 10,
+        "precisao": 1.0,
+        "recall": 0.7,
+        "f1": 0.8235294117647058
+      },
+      "sortField": {
+        "tp": 23,
+        "fp": 0,
+        "fn": 6,
+        "ocorrencias": 29,
+        "precisao": 1.0,
+        "recall": 0.7931034482758621,
+        "f1": 0.8846153846153846
+      },
+      "sortDirection": {
+        "tp": 23,
+        "fp": 0,
+        "fn": 6,
+        "ocorrencias": 29,
+        "precisao": 1.0,
+        "recall": 0.7931034482758621,
+        "f1": 0.8846153846153846
+      },
+      "limit": {
+        "tp": 18,
+        "fp": 0,
+        "fn": 1,
+        "ocorrencias": 19,
+        "precisao": 1.0,
+        "recall": 0.9473684210526315,
+        "f1": 0.972972972972973
+      }
+    },
+    "por_categoria": {
+      "S": {
+        "n": 100,
+        "acuracia": 0.96,
+        "f1_ponderado": 0.9793686868686869
+      },
+      "C": {
+        "n": 180,
+        "acuracia": 0.8555555555555555,
+        "f1_ponderado": 0.9496855075978352
+      },
+      "M": {
+        "n": 57,
+        "acuracia": 0.9473684210526315,
+        "f1_ponderado": 0.9857357357357357
+      },
+      "T": {
+        "n": 60,
+        "acuracia": 0.8333333333333334,
+        "f1_ponderado": 0.9332941355896879
+      },
+      "O": {
+        "n": 29,
+        "acuracia": 0.7931034482758621,
+        "f1_ponderado": 0.9262117612117613
+      },
+      "A": {
+        "n": 197,
+        "acuracia": 0.868020304568528,
+        "f1_ponderado": 0.9508692857328288
+      }
+    },
+    "por_origem": {
+      "P": {
+        "n": 22,
+        "acuracia": 0.6818181818181818
+      },
+      "N": {
+        "n": 37,
+        "acuracia": 0.8108108108108109
+      },
+      "G": {
+        "n": 247,
+        "acuracia": 0.9311740890688259
+      }
+    },
+    "latencia_llm_ms": {
+      "n": 306,
+      "min": 366.0022999974899,
+      "max": 2736.4636000056635,
+      "media": 788.3722029408661,
+      "mediana": 655.2422000022489,
+      "desvio": 413.3775977717454,
+      "p95": 1610.9703999973135
+    },
+    "latencia_tool_ms": {},
+    "latencia_total_ms": {
+      "n": 306,
+      "min": 366.0022999974899,
+      "max": 2736.4636000056635,
+      "media": 788.3722029408661,
+      "mediana": 655.2422000022489,
+      "desvio": 413.3775977717454,
+      "p95": 1610.9703999973135
+    },
+    "diagnosticos": {
+      "tipos_erro": {
+        "campo_omitido": 6,
+        "valor_errado": 7,
+        "campo_inventado": 9,
+        "nao_chamou": 6,
+        "misto": 3
+      },
+      "campos_fora_do_schema": {},
+      "iou_periodos_medio": {
+        "publicationPeriod": 0.9448070065759007,
+        "creationPeriod": 1.0
+      },
+      "chamadas_com_erro": 0,
+      "classes_de_erro": {},
+      "respostas_fora_do_schema": 0,
+      "classes_fora_do_schema": {},
+      "nao_chamou_quando_devia": 6,
+      "acertos_em_leitura_alternativa": 1
+    },
+    "observacionais": {
+      "n": 4,
+      "acuracia": 0.25,
+      "chamou_sem_dever": 1,
+      "por_caso": [
+        {
+          "id": "N38",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": null
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "N40",
+          "correto": false,
+          "tipo_erro": "nao_chamou",
+          "predito": null
+        },
+        {
+          "id": "GF007",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "state": "Rio Grande do Sul"
+          }
+        }
+      ]
+    }
+  },
+  "por_repeticao": {
+    "1": {
+      "n_consultas": 306,
+      "acuracia": 0.8986928104575164,
+      "precisao_ponderada": 0.965177929698172,
+      "recall_ponderado": 0.9511306729837788,
+      "f1_ponderado": 0.9560189040630457,
+      "f1_macro": 0.9471208160249124,
+      "micro": {
+        "precisao": 0.9636015325670498,
+        "recall": 0.9508506616257089,
+        "f1": 0.9571836346336823,
+        "tp": 503,
+        "fp": 19,
+        "fn": 26
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 58,
+          "fp": 3,
+          "fn": 1,
+          "ocorrencias": 61,
+          "precisao": 0.9508196721311475,
+          "recall": 0.9830508474576272,
+          "f1": 0.9666666666666667
+        },
+        "scale": {
+          "tp": 78,
+          "fp": 2,
+          "fn": 4,
+          "ocorrencias": 84,
+          "precisao": 0.975,
+          "recall": 0.9512195121951219,
+          "f1": 0.9629629629629629
+        },
+        "productType": {
+          "tp": 43,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 44,
+          "precisao": 0.9772727272727273,
+          "recall": 0.9772727272727273,
+          "f1": 0.9772727272727273
+        },
+        "state": {
+          "tp": 127,
+          "fp": 7,
+          "fn": 3,
+          "ocorrencias": 130,
+          "precisao": 0.9477611940298507,
+          "recall": 0.9769230769230769,
+          "f1": 0.962121212121212
+        },
+        "city": {
+          "tp": 28,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 28,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "supplyArea": {
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 40,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "project": {
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 11,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "publicationPeriod": {
+          "tp": 47,
+          "fp": 6,
+          "fn": 1,
+          "ocorrencias": 51,
+          "precisao": 0.8867924528301887,
+          "recall": 0.9791666666666666,
+          "f1": 0.9306930693069307
+        },
+        "creationPeriod": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 3,
+          "ocorrencias": 10,
+          "precisao": 1.0,
+          "recall": 0.7,
+          "f1": 0.8235294117647058
+        },
+        "sortField": {
+          "tp": 23,
+          "fp": 0,
+          "fn": 6,
+          "ocorrencias": 29,
+          "precisao": 1.0,
+          "recall": 0.7931034482758621,
+          "f1": 0.8846153846153846
+        },
+        "sortDirection": {
+          "tp": 23,
+          "fp": 0,
+          "fn": 6,
+          "ocorrencias": 29,
+          "precisao": 1.0,
+          "recall": 0.7931034482758621,
+          "f1": 0.8846153846153846
+        },
+        "limit": {
+          "tp": 18,
+          "fp": 0,
+          "fn": 1,
+          "ocorrencias": 19,
+          "precisao": 1.0,
+          "recall": 0.9473684210526315,
+          "f1": 0.972972972972973
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 100,
+          "acuracia": 0.96,
+          "f1_ponderado": 0.9793686868686869
+        },
+        "C": {
+          "n": 180,
+          "acuracia": 0.8555555555555555,
+          "f1_ponderado": 0.9496855075978352
+        },
+        "M": {
+          "n": 57,
+          "acuracia": 0.9473684210526315,
+          "f1_ponderado": 0.9857357357357357
+        },
+        "T": {
+          "n": 60,
+          "acuracia": 0.8333333333333334,
+          "f1_ponderado": 0.9332941355896879
+        },
+        "O": {
+          "n": 29,
+          "acuracia": 0.7931034482758621,
+          "f1_ponderado": 0.9262117612117613
+        },
+        "A": {
+          "n": 197,
+          "acuracia": 0.868020304568528,
+          "f1_ponderado": 0.9508692857328288
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "acuracia": 0.6818181818181818
+        },
+        "N": {
+          "n": 37,
+          "acuracia": 0.8108108108108109
+        },
+        "G": {
+          "n": 247,
+          "acuracia": 0.9311740890688259
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 306,
+        "min": 366.0022999974899,
+        "max": 2736.4636000056635,
+        "media": 788.3722029408661,
+        "mediana": 655.2422000022489,
+        "desvio": 413.3775977717454,
+        "p95": 1610.9703999973135
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 306,
+        "min": 366.0022999974899,
+        "max": 2736.4636000056635,
+        "media": 788.3722029408661,
+        "mediana": 655.2422000022489,
+        "desvio": 413.3775977717454,
+        "p95": 1610.9703999973135
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "campo_omitido": 6,
+          "valor_errado": 7,
+          "campo_inventado": 9,
+          "nao_chamou": 6,
+          "misto": 3
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.9448070065759007,
+          "creationPeriod": 1.0
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 6,
+        "acertos_em_leitura_alternativa": 1
+      },
+      "observacionais": {
+        "n": 4,
+        "acuracia": 0.25,
+        "chamou_sem_dever": 1,
+        "por_caso": [
+          {
+            "id": "N38",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": null
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "N40",
+            "correto": false,
+            "tipo_erro": "nao_chamou",
+            "predito": null
+          },
+          {
+            "id": "GF007",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "state": "Rio Grande do Sul"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "gerado_em": "2026-09-24T10:05:07",
+  "dataset_sha256_na_pontuacao": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42",
+  "linhas_descartadas_texto_alterado": []
+}
