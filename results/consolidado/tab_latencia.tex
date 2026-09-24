@@ -3,6 +3,7 @@
 \caption{Latência da tradução, em milissegundos, por modelo}
 \label{tab:latencia}
 \small
+\ajustartabela{%
 \begin{tabular}{|l|c|c|c|c|c|c|}
 \hline
 \textbf{Modelo} & \textbf{n} & \textbf{Mín.} & \textbf{Mediana} & \textbf{Média} & \textbf{p95} & \textbf{Máx.} \\
@@ -12,6 +13,6 @@ Gemma 4 E4B & 213 & 420 & 820 & 1061 & 3504 & 4936 \\
 Gemma 4 E2B & 213 & 237 & 427 & 496 & 956 & 1284 \\
 Mistral Nemo 12B & 213 & 387 & 3191 & 3912 & 9662 & 20639 \\
 \hline
-\end{tabular}
+\end{tabular}}
 \fonte{Elaborado pelo autor. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{tab:ambiente}); execuções com erro de infraestrutura excluídas.}
 \end{table}

@@ -3,12 +3,13 @@
 \caption{Qwen 3 4B executado duas vezes na estação de referência, com os mesmos pesos, prompt, ferramenta e data de referência (camadas P e N)}
 \label{tab:concordancia-reexecucao}
 \small
+\ajustartabela{%
 \begin{tabular}{|l|c|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{2.2cm}|}
 \hline
 \textbf{Modelo} & \textbf{n} & \textbf{Resposta idêntica} & \textbf{Mesma pontuação} & \textbf{Acurácia (24/set)} & \textbf{Acurácia (14/set)} \\
 \hline
 Qwen 3 4B & 59 & 51 & 56 & 49,2\% & 47,5\% \\
 \hline
-\end{tabular}
+\end{tabular}}
 \fonte{Elaborado pelo autor. Resposta idêntica: mesmos parâmetros emitidos (ou nenhuma chamada nos dois ambientes).}
 \end{table}

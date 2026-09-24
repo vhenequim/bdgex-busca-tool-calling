@@ -1,6 +1,6 @@
 # mistral-nemo:12b — resumo da avaliação
 
-225 execuções · repetições [1, 2, 3] · gerado em 2026-09-24T10:52:13
+225 execuções · repetições [1, 2, 3] · gerado em 2026-09-24T11:04:05
 
 ## Geral (métricas principais)
 

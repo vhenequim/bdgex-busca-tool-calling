@@ -607,7 +607,7 @@ def dtcase(c: dict) -> str:
 
 def tabela_familia(casos: list[dict]) -> list[str]:
     """Todas as consultas da família, uma por linha (longtable)."""
-    out = [r"{\footnotesize", r"\begin{longtable}{|p{1.1cm}|p{1.3cm}|p{5.5cm}|p{6.4cm}|}", r"\hline",
+    out = [r"{\footnotesize", r"\begin{longtable}{|p{1.1cm}|p{1.3cm}|p{5.4cm}|p{6.3cm}|}", r"\hline",
            r"\textbf{ID} & \textbf{Cat.} & \textbf{Consulta} & \textbf{Leituras aceitas} \\ \hline",
            r"\endhead"]
     for c in casos:

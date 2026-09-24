@@ -93,3 +93,31 @@ def test_so_comparacao_nao_gera_tabelas_principais(tmp_path):
     assert not (a / "consolidado" / "tab_comparativo.tex").exists()
     macros = (paper / "tabelas" / "numeros_teste.tex").read_text(encoding="utf-8")
     assert r"res@teste@qwen@identicas\endcsname{0}" in macros
+
+
+def test_cobertura_parcial_gera_frase_e_item_de_limitacao(tmp_path):
+    res = tmp_path / "results"
+    _rodada_sintetica(res, "qwen3:4b-instruct-2507-q4_K_M")          # só as 22 consultas P
+    dados = report.carregar_modelos(res, None)
+    cob = report.cobertura(dados)
+    assert cob["nexecutadas"] == "22" and cob["ntotal"] == "310" and cob["completa"] == "não"
+    assert "22 consultas" in cob["frasecobertura"] and cob["itemlimitacao"].startswith(r"\item")
+
+
+def test_descricao_dos_modelos_da_rodada(tmp_path):
+    res = tmp_path / "results"
+    _rodada_sintetica(res, "qwen3:4b-instruct-2507-q4_K_M")
+    _rodada_sintetica(res, "gemma4:e2b-it-qat")
+    d = report.descricao_modelos(report.carregar_modelos(res, None))
+    assert d["nmodelos"] == "dois" and d["nmodelosen"] == "two"
+    assert d["tags"].count(r"\texttt") == 2 and " e " in d["tags"]
+
+
+def test_mesmas_consultas_restringe_a_pontuacao(tmp_path):
+    ref, nuvem, saida = tmp_path / "ref", tmp_path / "nuvem", tmp_path / "saida"
+    _rodada_sintetica(ref, "qwen3:4b-instruct-2507-q4_K_M")
+    _rodada_sintetica(nuvem, "gemma4:e2b-it-qat")
+    assert report.main(["--resultados", str(nuvem), "--sufixo", "_r", "--mesmas-consultas-de", str(ref),
+                        "--saida", str(saida)]) == 0
+    macros = (saida / "numeros_r.tex").read_text(encoding="utf-8")
+    assert r"res@r@geral@nexecutadas\endcsname{22}" in macros

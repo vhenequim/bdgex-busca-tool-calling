@@ -1,6 +1,6 @@
 # openai/gpt-oss-20b — resumo da avaliação
 
-310 execuções · repetições [1] · gerado em 2026-09-24T10:52:13
+310 execuções · repetições [1] · gerado em 2026-09-24T11:04:05
 
 ## Geral (métricas principais)
 

@@ -3,6 +3,7 @@
 \caption{Latência da tradução, em milissegundos, por modelo --- estação de referência (camadas P e N)}
 \label{tab:latencia_estacao}
 \small
+\ajustartabela{%
 \begin{tabular}{|l|c|c|c|c|c|c|}
 \hline
 \textbf{Modelo} & \textbf{n} & \textbf{Mín.} & \textbf{Mediana} & \textbf{Média} & \textbf{p95} & \textbf{Máx.} \\
@@ -10,6 +11,6 @@
 Qwen 3 4B & 59 & 1251 & 2596 & 2857 & 5702 & 8098 \\
 Gemma 4 E2B & 59 & 372 & 709 & 777 & 1198 & 1439 \\
 \hline
-\end{tabular}
+\end{tabular}}
 \fonte{Elaborado pelo autor. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{tab:ambiente_estacao}); execuções com erro de infraestrutura excluídas.}
 \end{table}

@@ -62,6 +62,8 @@ NOMES_CATEGORIA = {"S": "Simples", "C": "Compostas", "M": "Com código MI/INOM",
                    "A": "Ambíguas / variações ortográficas", "F": "Fora do domínio (recusa)"}
 CATEGORIA_CURTA = {"S": "Simples", "C": "Compostas", "M": "Código\nMI/INOM", "T": "Tempo\nrelativo",
                    "O": "Ordenação", "A": "Ambíguas /\ninformais", "F": "Fora do\ndomínio"}
+CATEGORIA_TABELA = {"S": "Simples", "C": "Compostas", "M": "Código MI/INOM", "T": "Tempo relativo",
+                    "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio"}
 # F1 não se aplica à categoria F (gabarito sem campos): ela aparece só nas visões de acurácia.
 CATS_F1 = ["S", "C", "M", "T", "O", "A"]
 CATS_ACC = ["S", "C", "M", "T", "O", "A", "F"]
@@ -154,6 +156,12 @@ def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[st
 # Tabelas LaTeX (mesmos rótulos/labels do cap05-resultados.tex)
 # ---------------------------------------------------------------------------
 
+def ajustar_largura(tex: str) -> str:
+    """Envolve cada tabular em \\ajustartabela{...}: reduz à largura do texto só se não couber."""
+    tex = tex.replace("\\begin{tabular}", "\\ajustartabela{%\n\\begin{tabular}")
+    return tex.replace("\\end{tabular}", "\\end{tabular}}")
+
+
 def tab_comparativo(dados: dict[str, dict]) -> str:
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               rf"\caption{{Comparativo de desempenho entre os modelos avaliados{TITULO}}}",
@@ -185,7 +193,7 @@ def tab_por_categoria(dados: dict[str, dict]) -> str:
     for cat in CATS_F1:
         vals = " & ".join(_f(d["resumo"]["geral"]["por_categoria"][cat]["f1_ponderado"]) for d in dados.values())
         n = next(iter(dados.values()))["resumo"]["geral"]["por_categoria"][cat]["n"]
-        linhas.append(f"{NOMES_CATEGORIA[cat]} (n={n}) & {vals} \\\\")
+        linhas.append(f"{CATEGORIA_TABELA[cat]} (n={n}) & {vals} \\\\")
     linhas.append(r"\hline")
     vals = " & ".join(_f(d["resumo"]["geral"]["f1_ponderado"]) for d in dados.values())
     linhas.append(rf"\textbf{{Média ponderada}} & {vals} \\")
@@ -237,13 +245,7 @@ def _gpu_curta(texto: str | None) -> str:
         return "---"
     partes = [x.strip() for x in texto.split(",")]
     nome = partes[0].replace("NVIDIA GeForce ", "").replace("NVIDIA ", "").replace(" GPU", "")
-    if len(partes) > 1:
-        try:
-            gb = round(int(partes[1].split()[0]) / 1024)
-            return f"{nome}, {gb} GB"
-        except ValueError:
-            return f"{nome}, {partes[1]}"
-    return nome
+    return f"{nome}, {partes[1]}" if len(partes) > 1 else nome   # memória como o nvidia-smi informa (MiB)
 
 
 def _gpu_das_sessoes(manifesto: dict) -> tuple[str, str]:
@@ -761,6 +763,8 @@ def main(argv: list[str] | None = None) -> int:
     produzidos: list[Path] = []   # só o que ESTA execução gerou vai para o texto (--paper)
 
     def gravar(nome: str, conteudo: str) -> None:
+        if nome.startswith("tab_"):
+            conteudo = ajustar_largura(conteudo)
         (saida / nome).write_text(conteudo, encoding="utf-8")
         produzidos.append(saida / nome)
 
