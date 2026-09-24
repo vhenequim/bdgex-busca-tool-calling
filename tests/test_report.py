@@ -30,3 +30,9 @@ def test_mcnemar_exato():
 def test_rotulo_conhecido_e_desconhecido():
     assert report.rotulo("qwen3:4b-instruct-2507-q4_K_M") == "Qwen 3 4B"
     assert report.rotulo("modelo-x:1b") == "modelo-x:1b"
+
+
+def test_relatorio_sem_pasta_de_resultados_avisa_em_vez_de_quebrar(tmp_path, capsys):
+    assert report.carregar_modelos(tmp_path / "nao_existe", None) == {}
+    assert report.main(["--resultados", str(tmp_path / "nao_existe")]) == 1
+    assert "nenhum" in capsys.readouterr().err

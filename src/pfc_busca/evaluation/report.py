@@ -105,6 +105,8 @@ def correcao_por_consulta(linhas: list[dict]) -> dict[tuple[str, int], bool]:
 def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[str, dict]:
     """{modelo: {"resumo": ..., "linhas": [...]}} para cada diretório com resumo.json."""
     saida = {}
+    if not dir_resultados.is_dir():
+        return saida
     for pasta in sorted(dir_resultados.iterdir()):
         resumo = pasta / "resumo.json"
         if not pasta.is_dir() or not resumo.exists():
