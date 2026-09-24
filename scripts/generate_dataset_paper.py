@@ -176,7 +176,7 @@ def caso(consulta: str, cats: list[str], esperado: dict, *, trocas=(), modelo: s
          notas: str = "", observacional: bool = False, espera_tool_call: bool = True) -> dict:
     return {
         "consulta": consulta,
-        "categorias": sorted(set(cats), key="SCMTOA".index),
+        "categorias": sorted(set(cats), key="SCMTOAF".index),
         "esperado": esperado,
         "trocas": [list(t) for t in trocas],
         "modelo": modelo,
@@ -485,19 +485,24 @@ def gen_multi_produto(g: Gerador) -> list[dict]:
 
 
 def gen_fronteira(g: Gerador) -> list[dict]:
-    """G-F: fronteira do domínio — observacionais (manual, P4/P6)."""
+    """G-F: fronteira do domínio (manual, P4 e P6).
+
+    As seis primeiras estão fora do domínio e têm gabarito determinado ("não chamar",
+    categoria F, métricas principais); a última tem valor impossível e é observacional.
+    """
     fixos = [
-        ("me ajuda", "sem intenção de busca"),
-        ("cartas de Marte", "fora da Terra"),
-        ("cartas da Argentina", "fora do território brasileiro"),
-        ("qual a previsão do tempo para amanhã em Manaus?", "outro assunto"),
-        ("quanto custa uma carta topográfica?", "pergunta de preço, não de busca"),
-        ("mapa do tesouro pirata", "ficção"),
-        ("cartas do estado 42", "valor impossível de representar"),
+        ("me ajuda", "sem intenção de busca", False),
+        ("cartas de Marte", "fora da Terra", False),
+        ("cartas da Argentina", "fora do território brasileiro", False),
+        ("qual a previsão do tempo para amanhã em Manaus?", "outro assunto", False),
+        ("quanto custa uma carta topográfica?", "pergunta de preço, não de busca", False),
+        ("mapa do tesouro pirata", "ficção", False),
+        ("cartas do estado 42", "observacional, P6: valor impossível de representar", True),
     ]
     out = []
-    for consulta, motivo in fixos:
-        c = caso(consulta, ["S"], {}, modelo="(fixo)", notas=motivo, observacional=True, espera_tool_call=False)
+    for consulta, motivo, obs in fixos:
+        c = caso(consulta, ["S"] if obs else ["F"], {}, modelo="(fixo)", notas=motivo,
+                 observacional=obs, espera_tool_call=False)
         assert g.registrar(c), c["consulta"]
         out.append(c)
     return out
@@ -534,7 +539,6 @@ def gerar(semente: int = SEMENTE) -> dict[str, list[dict]]:
 # ─────────────────────────────────────────────────────────────
 # Emissão LaTeX (Apêndice A)
 # ─────────────────────────────────────────────────────────────
-AMOSTRA_POR_FAMILIA = 6
 TEXTO_REGRA = {
     "ano_corrente": "ano corrente", "ano_anterior": "ano anterior, inteiro",
     "dois_anos_atras": "ano de dois anos antes", "mes_anterior": "mês anterior, inteiro",
@@ -573,6 +577,8 @@ def linhas_gabarito(c: dict) -> list[str]:
     linhas = [esc(f"{campo}: {fmt_valor(v)}") for campo, v in c["esperado"].items()]
     for origem, destino in c.get("trocas", []):
         linhas.append(esc(f"aceita-se também {destino} no lugar de {origem}"))
+    if c.get("observacional"):
+        linhas.append(esc("caso observacional (P6): executado e reportado, fora das métricas principais"))
     return linhas
 
 
@@ -599,18 +605,23 @@ def dtcase(c: dict) -> str:
     return f"\\dtcase{{{c['id']}}}{{{cats}}}{{{esc(c['consulta'])}}}{{{corpo}}}"
 
 
+def tabela_familia(casos: list[dict]) -> list[str]:
+    """Todas as consultas da família, uma por linha (longtable)."""
+    out = [r"{\footnotesize", r"\begin{longtable}{|p{1.1cm}|p{1.3cm}|p{5.5cm}|p{6.4cm}|}", r"\hline",
+           r"\textbf{ID} & \textbf{Cat.} & \textbf{Consulta} & \textbf{Leituras aceitas} \\ \hline",
+           r"\endhead"]
+    for c in casos:
+        out.append(f"{c['id']} & {' · '.join(c['categorias'])} & {esc(c['consulta'])} & "
+                   f"{'; '.join(linhas_gabarito(c))} " + r"\\ \hline")
+    out += [r"\end{longtable}", "}"]
+    return out
+
+
 def emit_section(titulo: str, casos: list[dict]) -> str:
-    out = [f"\\section{{{titulo}}}", ""]
-    total, amostra = len(casos), casos[:AMOSTRA_POR_FAMILIA]
-    resto = total - len(amostra)
-    if resto > 0:
-        out.append(f"Total desta fam\\'ilia: \\textbf{{{total} consultas}}. Reproduzem-se abaixo as "
-                   f"{len(amostra)} primeiras; as demais {resto} constam do arquivo \\texttt{{dataset.json}} "
-                   f"do reposit\\'orio, geradas por \\texttt{{generate\\_dataset.py}} (semente {SEMENTE}).")
-    else:
-        out.append(f"Total desta fam\\'ilia: \\textbf{{{total} consultas}}.")
-    out.append("")
-    out += [dtcase(c) for c in amostra]
+    out = [f"\\section{{{titulo}}}", "",
+           f"Total desta fam\\'ilia: \\textbf{{{len(casos)} consultas}}, listadas integralmente abaixo "
+           "(a fun\\c{c}\\~ao geradora e o modelo de frase de cada consulta constam de \\texttt{dataset.json}).", ""]
+    out += tabela_familia(casos)
     return "\n".join(out) + "\n"
 
 

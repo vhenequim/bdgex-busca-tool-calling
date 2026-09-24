@@ -53,11 +53,11 @@ N29;N;N;autores;três produtos mais antigos deste ano;False;"limit: 3 ; publicat
 N30;N;N;autores;cartas topo do primeiro cgeo;False;"productType: ""SCN Carta Topográfica Matricial"" ; supplyArea: ""1° Centro de Geoinformação""";0;"productType=['SCN Carta Topográfica Matricial'] ←'topo' ; supplyArea=['1° Centro de Geoinformação'] ←'primeiro cgeo'";;
 N31;N;N;autores;orto banda p;False;"productType: ""SCN Carta Ortoimagem Banda P Pol HH""";0;productType=['SCN Carta Ortoimagem Banda P Pol HH'] ←'banda p';;
 N32;N;N;autores;mapas do rio em cem k;False;"state: ""Rio de Janeiro"" ; scale: ""1:100.000""";1;"scale=['1:100.000'] ←'cem k' ; state|city=['Rio de Janeiro'] ←'rio'";;
-N33;N;N;autores;cartografia sistematica sp;False;"project: ""Mapeamento Sistemático"" ; state: ""São Paulo""";0;"project=['Mapeamento Sistemático'] ←'cartografia sistematica' ; state=['São Paulo'] ←'sp'";;
+N33;N;N;autores;cartografia sistematica sp;False;"project: ""Mapeamento Sistemático"" (opcional) ; state: ""São Paulo""";0;"project=['Mapeamento Sistemático'] ←'cartografia sistematica' ; state=['São Paulo'] ←'sp'";;
 N34;N;N;autores;ortos da amazonia legal;False;"productType: ""SCN Carta Ortoimagem""";0;"productType=['SCN Carta Ortoimagem'] ←'ortos' ; __regiao__=['amazonia legal'] ←'amazonia legal'";;
 N35;N;N;autores;sf22yd do dois cgeo;False;"keyword: ""SF-22-Y-D"" ; supplyArea: ""2° Centro de Geoinformação""";0;"keyword=['SF-22-Y-D'] ←'SF-22-Y-D' ; supplyArea=['2° Centro de Geoinformação'] ←'dois cgeo'";;
-N36;N;N;autores;cartas fora do brasil;True;não chamar;0;;;
-N37;N;N;autores;quero um mapa bonito;True;não chamar;0;;;
+N36;N;N;autores;cartas fora do brasil;False;não chamar;0;;;
+N37;N;N;autores;quero um mapa bonito;False;não chamar;0;;;
 N38;N;N;autores;escala 1:10.000.000;True;não chamar;0;;;
 N39;N;N;autores;cartas topo no oceano atlântico;True;"productType: ""SCN Carta Topográfica Matricial""";0;productType=['SCN Carta Topográfica Matricial'] ←'topo';;
 N40;N;N;autores;cartas do futuro (ano 2050);True;publicationPeriod: 2050-01-01 a 2050-12-31;1;publicationPeriod|creationPeriod=[{'start': '2050-01-01', 'end': '2050-12-31'}] ←'ano 2050';;
@@ -302,10 +302,10 @@ GP010;G;GP;"generate_dataset.py:gen_multi_produto · modelo ""todos os produtos 
 GP011;G;GP;"generate_dataset.py:gen_multi_produto · modelo ""cartas na escala {escala} {prep} {estado}"" · semente 42";cartas na escala 1:2.000 do Rio Grande do Norte;False;"scale: ""1:2.000"" ; state: ""Rio Grande do Norte""";0;"scale=['1:2.000'] ←'1:2.000' ; state=['Rio Grande do Norte'] ←'rio grande do norte'";;
 GP012;G;GP;"generate_dataset.py:gen_multi_produto · modelo ""cartas na escala {escala} {prep} {estado}"" · semente 42";cartas na escala 1:5.000 de Alagoas;False;"scale: ""1:5.000"" ; state: ""Alagoas""";0;"scale=['1:5.000'] ←'1:5.000' ; state=['Alagoas'] ←'alagoas'";;
 GP013;G;GP;"generate_dataset.py:gen_multi_produto · modelo ""cartas na escala {escala} {prep} {estado}"" · semente 42";cartas na escala 1:250.000 do Rio Grande do Sul;False;"scale: ""1:250.000"" ; state: ""Rio Grande do Sul""";0;"scale=['1:250.000'] ←'1:250.000' ; state=['Rio Grande do Sul'] ←'rio grande do sul'";;
-GF001;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";me ajuda;True;não chamar;0;;;
-GF002;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas de Marte;True;não chamar;0;;;
-GF003;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas da Argentina;True;não chamar;0;;;
-GF004;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";qual a previsão do tempo para amanhã em Manaus?;True;não chamar;0;"state=['Pará'] ←'para' ; city=['Manaus'] ←'manaus'";;
-GF005;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";quanto custa uma carta topográfica?;True;não chamar;0;productType=['SCN Carta Topográfica Matricial'] ←'topografic';;
-GF006;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";mapa do tesouro pirata;True;não chamar;0;;;
-GF007;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas do estado 42;True;não chamar;0;;;
+GF001;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";me ajuda;False;não chamar;0;;;
+GF002;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas de Marte;False;não chamar;0;;;
+GF003;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas da Argentina;False;não chamar;0;;;
+GF004;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";qual a previsão do tempo para amanhã em Manaus?;False;não chamar;0;"state=['Pará'] ←'para' ; city=['Manaus'] ←'manaus'";;
+GF005;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";quanto custa uma carta topográfica?;False;não chamar;0;productType=['SCN Carta Topográfica Matricial'] ←'topografic';;
+GF006;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";mapa do tesouro pirata;False;não chamar;0;;;
+GF007;G;GF;"generate_dataset.py:gen_fronteira · modelo ""(fixo)"" · semente 42";cartas do estado 42;True;não chamar;0;;;chamar_ferramenta: gabarito=False anotador=True

@@ -1,13 +1,13 @@
 # qwen3:4b-instruct-2507-q4_K_M — resumo da avaliação
 
-62 execuções · repetições [1] · gerado em 2026-09-24T09:10:24
+62 execuções · repetições [1] · gerado em 2026-09-24T09:43:18
 
 ## Geral (métricas principais)
 
 | Métrica | Valor |
 |---|---|
-| Consultas | 57 |
-| Acurácia por consulta | 45.6% |
+| Consultas | 59 |
+| Acurácia por consulta | 47.5% |
 | Precisão ponderada | 0.724 |
 | Recall ponderado | 0.761 |
 | F1 ponderado | 0.724 |
@@ -18,7 +18,7 @@
 
 | n | mín | mediana | média | p95 | máx | desvio |
 |---|---|---|---|---|---|---|
-| 57 | 1439 | 3024 | 3389 | 5962 | 10955 | 1618 |
+| 59 | 1439 | 3019 | 3348 | 5962 | 10955 | 1607 |
 
 Latência da ferramenta (SQL): mediana 41.2 ms, máx 62.4 ms.
 
@@ -49,13 +49,14 @@ Latência da ferramenta (SQL): mediana 41.2 ms, máx 62.4 ms.
 | Tempo relativo | 15 | 33.3% | 0.729 |
 | Ordenação | 10 | 20.0% | 0.749 |
 | Ambíguas/informais | 35 | 34.3% | 0.677 |
+| Fora do domínio | 2 | 100.0% | 0.000 |
 
 ## Por origem
 
 | Origem | n | Acurácia |
 |---|---|---|
 | P | 22 | 45.5% |
-| N | 35 | 45.7% |
+| N | 37 | 48.6% |
 | G | 0 | — |
 
 ## Diagnósticos
@@ -69,4 +70,4 @@ Latência da ferramenta (SQL): mediana 41.2 ms, máx 62.4 ms.
 
 ## Observacionais (fora das métricas principais)
 
-5 casos · acurácia 60.0% · chamou sem dever: 0
+3 casos · acurácia 33.3% · chamou sem dever: 0

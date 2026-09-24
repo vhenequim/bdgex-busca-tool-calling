@@ -150,7 +150,12 @@ def test_agregar_exemplo_a_mao():
 
 # --- leituras múltiplas (manual de anotação, P3) ---------------------------
 
-from pfc_busca.evaluation.gabarito import expandir_trocas, opcional, resolver_gabarito, um_de  # noqa: E402
+from pfc_busca.evaluation.gabarito import (  # noqa: E402
+    expandir_trocas,
+    opcional,
+    resolver_gabarito,
+    um_de,
+)
 
 
 def test_valor_alternativo_aceita_qualquer_um():

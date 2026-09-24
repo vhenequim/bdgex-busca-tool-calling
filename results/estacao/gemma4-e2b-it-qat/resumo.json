@@ -5,8 +5,8 @@
     1
   ],
   "geral": {
-    "n_consultas": 8,
-    "acuracia": 0.375,
+    "n_consultas": 9,
+    "acuracia": 0.4444444444444444,
     "precisao_ponderada": 0.8695652173913043,
     "recall_ponderado": 0.7391304347826086,
     "f1_ponderado": 0.7884057971014492,
@@ -159,6 +159,11 @@
         "n": 5,
         "acuracia": 0.4,
         "f1_ponderado": 0.7380952380952381
+      },
+      "F": {
+        "n": 1,
+        "acuracia": 1.0,
+        "f1_ponderado": 0.0
       }
     },
     "por_origem": {
@@ -167,8 +172,8 @@
         "acuracia": 0.4
       },
       "N": {
-        "n": 3,
-        "acuracia": 0.3333333333333333
+        "n": 4,
+        "acuracia": 0.5
       },
       "G": {
         "n": 0,
@@ -176,12 +181,12 @@
       }
     },
     "latencia_llm_ms": {
-      "n": 8,
+      "n": 9,
       "min": 888.3748999996897,
       "max": 12483.318300000064,
-      "media": 6411.095862499792,
-      "mediana": 7195.212949999586,
-      "desvio": 4274.669387304837,
+      "media": 6516.625911110876,
+      "mediana": 7360.866299999543,
+      "desvio": 4041.234980789338,
       "p95": 12483.318300000064
     },
     "latencia_tool_ms": {
@@ -194,12 +199,12 @@
       "p95": 51.37470000045141
     },
     "latencia_total_ms": {
-      "n": 8,
+      "n": 9,
       "min": 933.1471999994392,
       "max": 12529.722299999776,
-      "media": 6448.431124999843,
-      "mediana": 7214.102399999774,
-      "desvio": 4274.288233269288,
+      "media": 6549.812811110921,
+      "mediana": 7360.866299999543,
+      "desvio": 4040.0268555293114,
       "p95": 12529.722299999776
     },
     "diagnosticos": {
@@ -220,23 +225,16 @@
       "acertos_em_leitura_alternativa": 0
     },
     "observacionais": {
-      "n": 1,
-      "acuracia": 1.0,
+      "n": 0,
+      "acuracia": null,
       "chamou_sem_dever": 0,
-      "por_caso": [
-        {
-          "id": "N36",
-          "correto": true,
-          "tipo_erro": null,
-          "predito": null
-        }
-      ]
+      "por_caso": []
     }
   },
   "por_repeticao": {
     "1": {
-      "n_consultas": 8,
-      "acuracia": 0.375,
+      "n_consultas": 9,
+      "acuracia": 0.4444444444444444,
       "precisao_ponderada": 0.8695652173913043,
       "recall_ponderado": 0.7391304347826086,
       "f1_ponderado": 0.7884057971014492,
@@ -389,6 +387,11 @@
           "n": 5,
           "acuracia": 0.4,
           "f1_ponderado": 0.7380952380952381
+        },
+        "F": {
+          "n": 1,
+          "acuracia": 1.0,
+          "f1_ponderado": 0.0
         }
       },
       "por_origem": {
@@ -397,8 +400,8 @@
           "acuracia": 0.4
         },
         "N": {
-          "n": 3,
-          "acuracia": 0.3333333333333333
+          "n": 4,
+          "acuracia": 0.5
         },
         "G": {
           "n": 0,
@@ -406,12 +409,12 @@
         }
       },
       "latencia_llm_ms": {
-        "n": 8,
+        "n": 9,
         "min": 888.3748999996897,
         "max": 12483.318300000064,
-        "media": 6411.095862499792,
-        "mediana": 7195.212949999586,
-        "desvio": 4274.669387304837,
+        "media": 6516.625911110876,
+        "mediana": 7360.866299999543,
+        "desvio": 4041.234980789338,
         "p95": 12483.318300000064
       },
       "latencia_tool_ms": {
@@ -424,12 +427,12 @@
         "p95": 51.37470000045141
       },
       "latencia_total_ms": {
-        "n": 8,
+        "n": 9,
         "min": 933.1471999994392,
         "max": 12529.722299999776,
-        "media": 6448.431124999843,
-        "mediana": 7214.102399999774,
-        "desvio": 4274.288233269288,
+        "media": 6549.812811110921,
+        "mediana": 7360.866299999543,
+        "desvio": 4040.0268555293114,
         "p95": 12529.722299999776
       },
       "diagnosticos": {
@@ -450,22 +453,15 @@
         "acertos_em_leitura_alternativa": 0
       },
       "observacionais": {
-        "n": 1,
-        "acuracia": 1.0,
+        "n": 0,
+        "acuracia": null,
         "chamou_sem_dever": 0,
-        "por_caso": [
-          {
-            "id": "N36",
-            "correto": true,
-            "tipo_erro": null,
-            "predito": null
-          }
-        ]
+        "por_caso": []
       }
     }
   },
-  "gerado_em": "2026-09-24T09:10:25",
-  "dataset_sha256_na_pontuacao": "c2a9e293f818c20b629ffd34769ae45e7ea12a32a9e3b667e2c5e79e047c03cd",
+  "gerado_em": "2026-09-24T09:43:18",
+  "dataset_sha256_na_pontuacao": "f602dc6c9056bd60928a275587ba79bd106d7c818735ca36ead85aad5f674b76",
   "linhas_descartadas_texto_alterado": [
     "GA010",
     "GC001",

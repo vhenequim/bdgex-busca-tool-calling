@@ -5,8 +5,8 @@
     1
   ],
   "geral": {
-    "n_consultas": 57,
-    "acuracia": 0.45614035087719296,
+    "n_consultas": 59,
+    "acuracia": 0.4745762711864407,
     "precisao_ponderada": 0.723916593177982,
     "recall_ponderado": 0.761297852474323,
     "f1_ponderado": 0.7236903173393262,
@@ -159,6 +159,11 @@
         "n": 35,
         "acuracia": 0.34285714285714286,
         "f1_ponderado": 0.6770012395012395
+      },
+      "F": {
+        "n": 2,
+        "acuracia": 1.0,
+        "f1_ponderado": 0.0
       }
     },
     "por_origem": {
@@ -167,8 +172,8 @@
         "acuracia": 0.45454545454545453
       },
       "N": {
-        "n": 35,
-        "acuracia": 0.45714285714285713
+        "n": 37,
+        "acuracia": 0.4864864864864865
       },
       "G": {
         "n": 0,
@@ -176,12 +181,12 @@
       }
     },
     "latencia_llm_ms": {
-      "n": 57,
+      "n": 59,
       "min": 1438.6397000002944,
       "max": 10955.219699999816,
-      "media": 3389.3875912280428,
-      "mediana": 3023.5924999997223,
-      "desvio": 1618.2915796580983,
+      "media": 3348.1075745762455,
+      "mediana": 3019.3920000001526,
+      "desvio": 1607.0681305703154,
       "p95": 5961.859000000004
     },
     "latencia_tool_ms": {
@@ -194,12 +199,12 @@
       "p95": 55.11399999977584
     },
     "latencia_total_ms": {
-      "n": 57,
+      "n": 59,
       "min": 1475.1011000003018,
       "max": 11010.070999999698,
-      "media": 3427.0790315789013,
-      "mediana": 3063.063399999919,
-      "desvio": 1619.0053589828333,
+      "media": 3384.5213389830074,
+      "mediana": 3062.803000000258,
+      "desvio": 1608.7116612890575,
       "p95": 5999.111199999788
     },
     "diagnosticos": {
@@ -223,22 +228,10 @@
       "acertos_em_leitura_alternativa": 0
     },
     "observacionais": {
-      "n": 5,
-      "acuracia": 0.6,
+      "n": 3,
+      "acuracia": 0.3333333333333333,
       "chamou_sem_dever": 0,
       "por_caso": [
-        {
-          "id": "N36",
-          "correto": true,
-          "tipo_erro": null,
-          "predito": null
-        },
-        {
-          "id": "N37",
-          "correto": true,
-          "tipo_erro": null,
-          "predito": null
-        },
         {
           "id": "N38",
           "correto": true,
@@ -262,8 +255,8 @@
   },
   "por_repeticao": {
     "1": {
-      "n_consultas": 57,
-      "acuracia": 0.45614035087719296,
+      "n_consultas": 59,
+      "acuracia": 0.4745762711864407,
       "precisao_ponderada": 0.723916593177982,
       "recall_ponderado": 0.761297852474323,
       "f1_ponderado": 0.7236903173393262,
@@ -416,6 +409,11 @@
           "n": 35,
           "acuracia": 0.34285714285714286,
           "f1_ponderado": 0.6770012395012395
+        },
+        "F": {
+          "n": 2,
+          "acuracia": 1.0,
+          "f1_ponderado": 0.0
         }
       },
       "por_origem": {
@@ -424,8 +422,8 @@
           "acuracia": 0.45454545454545453
         },
         "N": {
-          "n": 35,
-          "acuracia": 0.45714285714285713
+          "n": 37,
+          "acuracia": 0.4864864864864865
         },
         "G": {
           "n": 0,
@@ -433,12 +431,12 @@
         }
       },
       "latencia_llm_ms": {
-        "n": 57,
+        "n": 59,
         "min": 1438.6397000002944,
         "max": 10955.219699999816,
-        "media": 3389.3875912280428,
-        "mediana": 3023.5924999997223,
-        "desvio": 1618.2915796580983,
+        "media": 3348.1075745762455,
+        "mediana": 3019.3920000001526,
+        "desvio": 1607.0681305703154,
         "p95": 5961.859000000004
       },
       "latencia_tool_ms": {
@@ -451,12 +449,12 @@
         "p95": 55.11399999977584
       },
       "latencia_total_ms": {
-        "n": 57,
+        "n": 59,
         "min": 1475.1011000003018,
         "max": 11010.070999999698,
-        "media": 3427.0790315789013,
-        "mediana": 3063.063399999919,
-        "desvio": 1619.0053589828333,
+        "media": 3384.5213389830074,
+        "mediana": 3062.803000000258,
+        "desvio": 1608.7116612890575,
         "p95": 5999.111199999788
       },
       "diagnosticos": {
@@ -480,22 +478,10 @@
         "acertos_em_leitura_alternativa": 0
       },
       "observacionais": {
-        "n": 5,
-        "acuracia": 0.6,
+        "n": 3,
+        "acuracia": 0.3333333333333333,
         "chamou_sem_dever": 0,
         "por_caso": [
-          {
-            "id": "N36",
-            "correto": true,
-            "tipo_erro": null,
-            "predito": null
-          },
-          {
-            "id": "N37",
-            "correto": true,
-            "tipo_erro": null,
-            "predito": null
-          },
           {
             "id": "N38",
             "correto": true,
@@ -518,8 +504,8 @@
       }
     }
   },
-  "gerado_em": "2026-09-24T09:10:24",
-  "dataset_sha256_na_pontuacao": "c2a9e293f818c20b629ffd34769ae45e7ea12a32a9e3b667e2c5e79e047c03cd",
+  "gerado_em": "2026-09-24T09:43:18",
+  "dataset_sha256_na_pontuacao": "f602dc6c9056bd60928a275587ba79bd106d7c818735ca36ead85aad5f674b76",
   "linhas_descartadas_texto_alterado": [
     "GA010",
     "GC001",

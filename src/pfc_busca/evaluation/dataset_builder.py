@@ -36,7 +36,7 @@ RAIZ_REPO = Path(__file__).resolve().parents[3]
 CAMINHO_GERADOR = RAIZ_REPO / "scripts" / "generate_dataset_paper.py"
 CAMINHO_SAIDA = RAIZ_REPO / "data" / "dataset.json"
 CAMINHO_RESUMO = RAIZ_REPO / "data" / "dataset_resumo.md"
-CATEGORIAS_VALIDAS = {"S", "C", "M", "T", "O", "A"}
+CATEGORIAS_VALIDAS = {"S", "C", "M", "T", "O", "A", "F"}
 
 
 def normalizar_consulta(texto: str) -> str:
@@ -139,8 +139,12 @@ def validar(casos: list[dict]) -> list[str]:
                 problemas.append(f"{rotulo}: troca {origem}->{destino} sem o campo de origem")
         if c["espera_tool_call"] and not c["esperado"]:
             problemas.append(f"{rotulo}: espera tool call mas gabarito vazio")
-        if not c["espera_tool_call"] and (c["esperado"] or not c["observacional"]):
-            problemas.append(f"{rotulo}: 'não chamar' deve ter gabarito vazio e ser observacional")
+        if not c["espera_tool_call"] and c["esperado"]:
+            problemas.append(f"{rotulo}: 'não chamar' deve ter gabarito vazio")
+        if ("F" in c["categorias"]) != (not c["espera_tool_call"] and not c["observacional"]):
+            problemas.append(f"{rotulo}: categoria F é exatamente 'não chamar' fora dos observacionais")
+        if "F" in c["categorias"] and len(c["categorias"]) > 1:
+            problemas.append(f"{rotulo}: categoria F não se combina com outras")
         for hoje in (date(2026, 1, 1), date(2026, 9, 24), date(2028, 2, 29)):
             for leitura in gabarito.resolver_leituras(c, hoje):
                 for campo in schema.CAMPOS_PERIODO:
@@ -178,7 +182,7 @@ def resumo_markdown(casos: list[dict]) -> str:
                       f"{sum(c in com_alternativa for c in sub)} |")
     linhas += ["", "## Categorias × origem (métricas principais; uma consulta pode ter várias)", "",
                "| Categoria | P | N | G | Total |", "|---|---|---|---|---|"]
-    for cat in "SCMTOA":
+    for cat in "SCMTOAF":
         conta = {o: sum(1 for c in principais if cat in c["categorias"] and c["origem"] == o) for o in "PNG"}
         linhas.append(f"| {cat} | {conta['P']} | {conta['N']} | {conta['G']} | {sum(conta.values())} |")
     freq = Counter(campo for c in principais for campo in c["esperado"])
@@ -197,7 +201,7 @@ NOMES_FAMILIA = {"P": "Protótipo do 1º CGEO (P)", "N": "Autores (N)", "GS": "G
                  "GA": "Geradas --- informais (G-A)", "GP": "Geradas --- amplas (G-P)",
                  "GF": "Geradas --- fronteira (G-F)"}
 NOMES_CATEGORIA = {"S": "Simples", "C": "Compostas", "M": "Código MI/INOM", "T": "Tempo relativo",
-                   "O": "Ordenação", "A": "Ambíguas/informais"}
+                   "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio"}
 
 
 def _tem_leitura_alternativa(c: dict) -> bool:
@@ -214,8 +218,8 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               r"\caption{Composição do \textit{dataset} de avaliação por origem e família}",
               r"\label{tab:dataset-composicao}", r"\small",
-              r"\begin{tabular}{|l|c|c|c|}", r"\hline",
-              r"\textbf{Origem / família} & \textbf{Consultas} & \textbf{Observacionais} & \textbf{Com leitura alternativa} \\",
+              r"\begin{tabular}{|l|>{\centering\arraybackslash}p{1.9cm}|>{\centering\arraybackslash}p{2.3cm}|>{\centering\arraybackslash}p{2.9cm}|}", r"\hline",
+              r"\textbf{Origem / família} & \textbf{Consultas} & \textbf{Observa\-cionais} & \textbf{Com mais de uma leitura aceita} \\",
               r"\hline"]
     for fam in ["P", "N", "GS", "GC", "GM", "GT", "GO", "GA", "GP", "GF"]:
         sub = [c for c in casos if c["familia"] == fam]
@@ -233,7 +237,7 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
               r"\label{tab:dataset-categorias}", r"\small",
               r"\begin{tabular}{|l|c|c|c|c|}", r"\hline",
               r"\textbf{Categoria} & \textbf{P} & \textbf{N} & \textbf{G} & \textbf{Total} \\", r"\hline"]
-    for cat in "SCMTOA":
+    for cat in "SCMTOAF":
         conta = {o: sum(1 for c in principais if cat in c["categorias"] and c["origem"] == o) for o in "PNG"}
         linhas.append(f"{NOMES_CATEGORIA[cat]} ({cat}) & {conta['P']} & {conta['N']} & {conta['G']} & "
                       f"{sum(conta.values())} \\\\")
@@ -286,7 +290,7 @@ def escrever_dataset(casos: list[dict], destino: Path = CAMINHO_SAIDA) -> str:
         "casos": casos,
     }
     texto = json.dumps(corpo, ensure_ascii=False, indent=2)
-    destino.write_text(texto, encoding="utf-8")
+    destino.write_text(texto, encoding="utf-8", newline="\n")  # LF em qualquer SO: mesmo hash no Windows e no Linux
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
 
 

@@ -34,8 +34,17 @@ def test_nenhuma_consulta_repetida(casos):
 
 def test_observacionais(casos):
     obs = sorted(c["id"] for c in casos if c["observacional"])
-    assert obs == ["GF001", "GF002", "GF003", "GF004", "GF005", "GF006", "GF007",
-                   "N36", "N37", "N38", "N39", "N40"]
+    assert obs == ["GF007", "N38", "N39", "N40"]
+
+
+def test_fora_do_dominio_nas_metricas_principais(casos):
+    """P4: fora do domínio tem gabarito determinado ('não chamar') e entra nas métricas (categoria F)."""
+    fora = sorted(c["id"] for c in casos if "F" in c["categorias"])
+    assert fora == ["GF001", "GF002", "GF003", "GF004", "GF005", "GF006", "N36", "N37"]
+    for c in casos:
+        if "F" in c["categorias"]:
+            assert c["categorias"] == ["F"] and not c["espera_tool_call"] and not c["observacional"]
+            assert c["esperado"] == {}
 
 
 def test_rastreabilidade(casos):

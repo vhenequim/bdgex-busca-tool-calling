@@ -1,5 +1,5 @@
 {
- "dataset_sha256": "c2a9e293f818c20b629ffd34769ae45e7ea12a32a9e3b667e2c5e79e047c03cd",
+ "dataset_sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42",
  "estrutura": [],
  "consistencia": [
   {
@@ -731,7 +731,7 @@
    "fonte": "autores",
    "consulta": "cartografia sistematica sp",
    "observacional": false,
-   "gabarito": "project: \"Mapeamento Sistemático\" ; state: \"São Paulo\"",
+   "gabarito": "project: \"Mapeamento Sistemático\" (opcional) ; state: \"São Paulo\"",
    "leituras_alternativas": 0,
    "evidencias": "project=['Mapeamento Sistemático'] ←'cartografia sistematica' ; state=['São Paulo'] ←'sp'",
    "apontamentos": [],
@@ -769,7 +769,7 @@
    "familia": "N",
    "fonte": "autores",
    "consulta": "cartas fora do brasil",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -782,7 +782,7 @@
    "familia": "N",
    "fonte": "autores",
    "consulta": "quero um mapa bonito",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -3967,7 +3967,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "me ajuda",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -3980,7 +3980,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "cartas de Marte",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -3993,7 +3993,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "cartas da Argentina",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -4006,7 +4006,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "qual a previsão do tempo para amanhã em Manaus?",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "state=['Pará'] ←'para' ; city=['Manaus'] ←'manaus'",
@@ -4019,7 +4019,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "quanto custa uma carta topográfica?",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "productType=['SCN Carta Topográfica Matricial'] ←'topografic'",
@@ -4032,7 +4032,7 @@
    "familia": "GF",
    "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
    "consulta": "mapa do tesouro pirata",
-   "observacional": true,
+   "observacional": false,
    "gabarito": "não chamar",
    "leituras_alternativas": 0,
    "evidencias": "",
@@ -4050,8 +4050,467 @@
    "leituras_alternativas": 0,
    "evidencias": "",
    "apontamentos": [],
-   "divergencias_anotacao": []
+   "divergencias_anotacao": [
+    "chamar_ferramenta: gabarito=False anotador=True"
+   ]
   }
  ],
- "anotacao_independente": false
+ "anotacao_independente": true,
+ "adjudicacao": [
+  {
+   "id": "N36",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "N37",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "A"
+    ]
+   }
+  },
+  {
+   "id": "GF001",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "GF002",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "GF003",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "GF004",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "GF005",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "GF006",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito classificava a consulta como observacional; o anotador a tratou como fora do domínio, com gabarito determinado 'não chamar'",
+   "decisao": "corrigido",
+   "justificativa": "P4 e §3 do manual: consulta sem intenção de busca no acervo brasileiro tem comportamento correto determinado (não chamar); P6 reserva 'observacional' às consultas cujo comportamento correto não é determinável. A consulta passa às métricas principais, na categoria F (fora do domínio).",
+   "gabarito_original": {
+    "esperado": {},
+    "alternativas": [],
+    "observacional": true,
+    "espera_tool_call": false,
+    "categorias": [
+     "S"
+    ]
+   }
+  },
+  {
+   "id": "N33",
+   "etapa": "anotação independente",
+   "divergencia": "o gabarito exigia project = Mapeamento Sistemático; o anotador anotou só state = São Paulo e listou project como leitura alternativa, pois 'cartografia sistemática' não é nome nem apelido informado na ferramenta",
+   "decisao": "ampliado",
+   "justificativa": "As duas leituras são razoáveis (P3): a expressão designa o programa pelo termo distintivo do nome, mas não consta da descrição da ferramenta. project passa a campo opcional; a regra de project do manual passa a registrar o caso.",
+   "gabarito_original": {
+    "esperado": {
+     "project": "Mapeamento Sistemático",
+     "state": "São Paulo"
+    },
+    "alternativas": [],
+    "observacional": false,
+    "espera_tool_call": true,
+    "categorias": [
+     "A",
+     "C"
+    ]
+   }
+  },
+  {
+   "id": "GF007",
+   "etapa": "anotação independente",
+   "divergencia": "ambos classificam a consulta como observacional; o gabarito indica 'não chamar' e o anotador, 'chamar sem parâmetros'",
+   "decisao": "mantido",
+   "justificativa": "Consulta observacional (P6, valor impossível de representar): o comportamento é reportado, mas não pontuado, de modo que a divergência não afeta nenhuma métrica. Mantém-se a indicação 'não chamar', coerente com N38 (escala 1:10.000.000).",
+   "gabarito_original": null
+  },
+  {
+   "id": "P14",
+   "etapa": "consistência",
+   "divergencia": "'detalhado' é anotado como 1:25.000 em todo o dataset, mas P14 aceita 1:25.000 ou 1:50.000",
+   "decisao": "mantido",
+   "justificativa": "As escalas explícitas '(25k ou 50k)' prevalecem sobre o qualificativo 'detalhado' (regra de scale: duas escalas explícitas, aceita-se qualquer uma).",
+   "gabarito_original": null
+  },
+  {
+   "id": "P13",
+   "etapa": "anotação independente (medida estrita)",
+   "divergencia": "leitura preferencial diferente dentro do conjunto aceito: scale 1:25.000 no gabarito, 1:50.000 no anotador (ambas aceitas por 'maior que 100k')",
+   "decisao": "mantido",
+   "justificativa": "Na camada P, a anotação original da equipe do 1º CGEO é mantida como leitura preferencial (manual, §4); a escolha da preferencial não afeta a pontuação.",
+   "gabarito_original": null
+  },
+  {
+   "id": "P21",
+   "etapa": "anotação independente (medida estrita)",
+   "divergencia": "leitura preferencial diferente dentro do conjunto aceito: sortField creationDate no gabarito, publicationDate no anotador (ambos aceitos, sem pista ligada à ordenação)",
+   "decisao": "mantido",
+   "justificativa": "Na camada P, a anotação original da equipe do 1º CGEO é mantida como leitura preferencial (manual, §4); a escolha da preferencial não afeta a pontuação.",
+   "gabarito_original": null
+  },
+  {
+   "id": "P22",
+   "etapa": "anotação independente (medida estrita)",
+   "divergencia": "leitura preferencial diferente dentro do conjunto aceito: sortField creationDate no gabarito, publicationDate no anotador (ambos aceitos, sem pista ligada à ordenação)",
+   "decisao": "mantido",
+   "justificativa": "Na camada P, a anotação original da equipe do 1º CGEO é mantida como leitura preferencial (manual, §4); a escolha da preferencial não afeta a pontuação.",
+   "gabarito_original": null
+  },
+  {
+   "id": "GO016",
+   "etapa": "anotação independente (medida estrita)",
+   "divergencia": "o gabarito aceita sortField publicationDate ou creationDate; o anotador aceitou só publicationDate",
+   "decisao": "mantido",
+   "justificativa": "Em 'as cartas mais recentes publicadas entre 2022 e 2023', o verbo qualifica o filtro de período, não a ordenação; sem pista ligada à ordenação, aceitam-se os dois campos (regra de ordenação). É o mesmo raciocínio do anotador em P22.",
+   "gabarito_original": null
+  }
+ ],
+ "rastreabilidade_p": "22/22",
+ "revisao_humana": null,
+ "concordancia": {
+  "n": 310,
+  "decisao_concorda": 310,
+  "decisao_kappa": 1.0,
+  "compativeis": 309,
+  "n_ambos_chamam": 298,
+  "preferencial_identica": 294,
+  "presenca_campos_concorda": 3575,
+  "presenca_campos_n": 3576,
+  "presenca_campos_kappa": 0.9989052127303921,
+  "valores_iguais": 534,
+  "valores_n": 537,
+  "ambiguidade_concorda": 297,
+  "ambiguidade_kappa": 0.9903215329652483,
+  "ambiguidade_gabarito": 67,
+  "ambiguidade_anotador": 66,
+  "por_campo": {
+   "keyword": {
+    "gabarito": 62,
+    "anotador": 62,
+    "ambos": 62,
+    "kappa_presenca": 1.0,
+    "valor_igual": 62,
+    "valor_n": 62
+   },
+   "scale": {
+    "gabarito": 84,
+    "anotador": 84,
+    "ambos": 84,
+    "kappa_presenca": 1.0,
+    "valor_igual": 83,
+    "valor_n": 84
+   },
+   "productType": {
+    "gabarito": 44,
+    "anotador": 44,
+    "ambos": 44,
+    "kappa_presenca": 1.0,
+    "valor_igual": 44,
+    "valor_n": 44
+   },
+   "state": {
+    "gabarito": 130,
+    "anotador": 130,
+    "ambos": 130,
+    "kappa_presenca": 1.0,
+    "valor_igual": 130,
+    "valor_n": 130
+   },
+   "city": {
+    "gabarito": 27,
+    "anotador": 27,
+    "ambos": 27,
+    "kappa_presenca": 1.0,
+    "valor_igual": 27,
+    "valor_n": 27
+   },
+   "supplyArea": {
+    "gabarito": 40,
+    "anotador": 40,
+    "ambos": 40,
+    "kappa_presenca": 1.0,
+    "valor_igual": 40,
+    "valor_n": 40
+   },
+   "project": {
+    "gabarito": 11,
+    "anotador": 10,
+    "ambos": 10,
+    "kappa_presenca": 0.95064590924147,
+    "valor_igual": 10,
+    "valor_n": 10
+   },
+   "publicationPeriod": {
+    "gabarito": 51,
+    "anotador": 51,
+    "ambos": 51,
+    "kappa_presenca": 1.0,
+    "valor_igual": 51,
+    "valor_n": 51
+   },
+   "creationPeriod": {
+    "gabarito": 10,
+    "anotador": 10,
+    "ambos": 10,
+    "kappa_presenca": 1.0,
+    "valor_igual": 10,
+    "valor_n": 10
+   },
+   "sortField": {
+    "gabarito": 29,
+    "anotador": 29,
+    "ambos": 29,
+    "kappa_presenca": 1.0,
+    "valor_igual": 27,
+    "valor_n": 29
+   },
+   "sortDirection": {
+    "gabarito": 29,
+    "anotador": 29,
+    "ambos": 29,
+    "kappa_presenca": 1.0,
+    "valor_igual": 29,
+    "valor_n": 29
+   },
+   "limit": {
+    "gabarito": 21,
+    "anotador": 21,
+    "ambos": 21,
+    "kappa_presenca": 1.0,
+    "valor_igual": 21,
+    "valor_n": 21
+   }
+  },
+  "ids_divergentes": [
+   "GF007",
+   "GO016",
+   "N33",
+   "P13",
+   "P21",
+   "P22"
+  ]
+ },
+ "concordancia_antes": {
+  "n": 310,
+  "decisao_concorda": 302,
+  "decisao_kappa": 0.6578366445916118,
+  "compativeis": 300,
+  "n_ambos_chamam": 298,
+  "preferencial_identica": 294,
+  "presenca_campos_concorda": 3575,
+  "presenca_campos_n": 3576,
+  "presenca_campos_kappa": 0.9989052127303921,
+  "valores_iguais": 534,
+  "valores_n": 537,
+  "ambiguidade_concorda": 296,
+  "ambiguidade_kappa": 0.9805381400208987,
+  "ambiguidade_gabarito": 66,
+  "ambiguidade_anotador": 66,
+  "por_campo": {
+   "keyword": {
+    "gabarito": 62,
+    "anotador": 62,
+    "ambos": 62,
+    "kappa_presenca": 1.0,
+    "valor_igual": 62,
+    "valor_n": 62
+   },
+   "scale": {
+    "gabarito": 84,
+    "anotador": 84,
+    "ambos": 84,
+    "kappa_presenca": 1.0,
+    "valor_igual": 83,
+    "valor_n": 84
+   },
+   "productType": {
+    "gabarito": 44,
+    "anotador": 44,
+    "ambos": 44,
+    "kappa_presenca": 1.0,
+    "valor_igual": 44,
+    "valor_n": 44
+   },
+   "state": {
+    "gabarito": 130,
+    "anotador": 130,
+    "ambos": 130,
+    "kappa_presenca": 1.0,
+    "valor_igual": 130,
+    "valor_n": 130
+   },
+   "city": {
+    "gabarito": 27,
+    "anotador": 27,
+    "ambos": 27,
+    "kappa_presenca": 1.0,
+    "valor_igual": 27,
+    "valor_n": 27
+   },
+   "supplyArea": {
+    "gabarito": 40,
+    "anotador": 40,
+    "ambos": 40,
+    "kappa_presenca": 1.0,
+    "valor_igual": 40,
+    "valor_n": 40
+   },
+   "project": {
+    "gabarito": 11,
+    "anotador": 10,
+    "ambos": 10,
+    "kappa_presenca": 0.95064590924147,
+    "valor_igual": 10,
+    "valor_n": 10
+   },
+   "publicationPeriod": {
+    "gabarito": 51,
+    "anotador": 51,
+    "ambos": 51,
+    "kappa_presenca": 1.0,
+    "valor_igual": 51,
+    "valor_n": 51
+   },
+   "creationPeriod": {
+    "gabarito": 10,
+    "anotador": 10,
+    "ambos": 10,
+    "kappa_presenca": 1.0,
+    "valor_igual": 10,
+    "valor_n": 10
+   },
+   "sortField": {
+    "gabarito": 29,
+    "anotador": 29,
+    "ambos": 29,
+    "kappa_presenca": 1.0,
+    "valor_igual": 27,
+    "valor_n": 29
+   },
+   "sortDirection": {
+    "gabarito": 29,
+    "anotador": 29,
+    "ambos": 29,
+    "kappa_presenca": 1.0,
+    "valor_igual": 29,
+    "valor_n": 29
+   },
+   "limit": {
+    "gabarito": 21,
+    "anotador": 21,
+    "ambos": 21,
+    "kappa_presenca": 1.0,
+    "valor_igual": 21,
+    "valor_n": 21
+   }
+  },
+  "ids_divergentes": [
+   "GF001",
+   "GF002",
+   "GF003",
+   "GF004",
+   "GF005",
+   "GF006",
+   "GF007",
+   "GO016",
+   "N33",
+   "N36",
+   "N37",
+   "P13",
+   "P21",
+   "P22"
+  ]
+ },
+ "divergencias_antes": 14,
+ "divergencias_sem_decisao": 0,
+ "ids_sem_decisao": []
 }

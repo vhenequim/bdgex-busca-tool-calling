@@ -30,7 +30,13 @@ from pathlib import Path
 
 from pfc_busca import schema
 from pfc_busca.evaluation import metrics
-from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, carregar_execucoes, repontuar, slug
+from pfc_busca.evaluation.run_evaluation import (
+    DIR_RESULTADOS,
+    carregar_execucoes,
+    repontuar,
+    resumir,
+    slug,
+)
 
 ROTULOS = {
     "qwen3:4b-instruct-2507-q4_K_M": "Qwen 3 4B",
@@ -46,7 +52,10 @@ SUFIXO = ""   # ex.: "_groq" — distingue rótulos e arquivos do resultado para
 TITULO = ""   # ex.: " --- resultado paralelo em nuvem (Groq)"
 NOMES_CATEGORIA = {"S": "Simples", "C": "Compostas", "M": "Com código MI/INOM",
                    "T": "Com referência temporal relativa", "O": "Com ordenação",
-                   "A": "Ambíguas / variações ortográficas"}
+                   "A": "Ambíguas / variações ortográficas", "F": "Fora do domínio (recusa)"}
+# F1 não se aplica à categoria F (gabarito sem campos): ela aparece só nas visões de acurácia.
+CATS_F1 = ["S", "C", "M", "T", "O", "A"]
+CATS_ACC = ["S", "C", "M", "T", "O", "A", "F"]
 
 
 def rotulo(modelo: str) -> str:
@@ -59,7 +68,7 @@ def _tex(texto: str) -> str:
 
 
 def _pct(v: float | None) -> str:
-    return "---" if v is None else f"{100 * v:.1f}\\%"
+    return "---" if v is None else f"{100 * v:.1f}".replace(".", ",") + "\\%"
 
 
 def _pct_md(v: float | None) -> str:
@@ -67,7 +76,7 @@ def _pct_md(v: float | None) -> str:
 
 
 def _f(v: float | None, casas: int = 3) -> str:
-    return "---" if v is None else f"{v:.{casas}f}"
+    return "---" if v is None else f"{v:.{casas}f}".replace(".", ",")
 
 
 # ---------------------------------------------------------------------------
@@ -107,15 +116,20 @@ def correcao_por_consulta(linhas: list[dict]) -> dict[tuple[str, int], bool]:
 # ---------------------------------------------------------------------------
 
 def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[str, dict]:
-    """{modelo: {"resumo": ..., "linhas": [...]}} para cada diretório com resumo.json."""
+    """{modelo: {"resumo": ..., "linhas": [...]}} para cada diretório com execucoes.jsonl.
+
+    O resumo é SEMPRE recalculado (`resumir`) contra o gabarito vigente, e não lido
+    de um resumo.json possivelmente anterior a uma correção do gabarito.
+    """
     saida = {}
     if not dir_resultados.is_dir():
         return saida
     for pasta in sorted(dir_resultados.iterdir()):
-        resumo = pasta / "resumo.json"
-        if not pasta.is_dir() or not resumo.exists():
+        if not pasta.is_dir() or not (pasta / "execucoes.jsonl").exists():
             continue
-        r = json.loads(resumo.read_text(encoding="utf-8"))
+        r = resumir(pasta)
+        if not r:
+            continue
         modelo = r["modelo"]
         if modelos and modelo not in modelos:
             continue
@@ -135,16 +149,18 @@ def tab_comparativo(dados: dict[str, dict]) -> str:
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               rf"\caption{{Comparativo de desempenho entre os modelos avaliados{TITULO}}}",
               rf"\label{{tab:resultados_comparativo{SUFIXO}}}", r"\small",
-              r"\begin{tabular}{|l|c|c|c|c|c|}", r"\hline",
-              r"\textbf{Modelo} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Latência med. (ms)} \\",
+              r"\begin{tabular}{|l|c|c|c|c|c|c|}", r"\hline",
+              r"\textbf{Modelo} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Lat. med. (ms)} \\",
               r"\hline"]
     for modelo, d in dados.items():
         g = d["resumo"]["geral"]
-        linhas.append(f"{_tex(rotulo(modelo))} & {_pct(g['acuracia'])} & {_f(g['precisao_ponderada'])} & "
-                      f"{_f(g['recall_ponderado'])} & {_f(g['f1_ponderado'])} & "
+        corr = correcao_por_consulta(d["linhas"])
+        lo, hi = wilson(sum(corr.values()), len(corr))
+        linhas.append(f"{_tex(rotulo(modelo))} & {_pct(g['acuracia'])} & {_pct(lo)}--{_pct(hi)} & "
+                      f"{_f(g['precisao_ponderada'])} & {_f(g['recall_ponderado'])} & {_f(g['f1_ponderado'])} & "
                       f"{g['latencia_llm_ms'].get('mediana', 0):.0f} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito; latência do LLM na tradução.}",
+               r"\fonte{Elaborado pelo autor. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -157,7 +173,7 @@ def tab_por_categoria(dados: dict[str, dict]) -> str:
               rf"\label{{tab:resultados_por_categoria{SUFIXO}}}", r"\small",
               rf"\begin{{tabular}}{{{cols}}}", r"\hline",
               rf"\textbf{{Categoria}} & {cab} \\", r"\hline"]
-    for cat in ["S", "C", "M", "T", "O", "A"]:
+    for cat in CATS_F1:
         vals = " & ".join(_f(d["resumo"]["geral"]["por_categoria"][cat]["f1_ponderado"]) for d in dados.values())
         n = next(iter(dados.values()))["resumo"]["geral"]["por_categoria"][cat]["n"]
         linhas.append(f"{NOMES_CATEGORIA[cat]} (n={n}) & {vals} \\\\")
@@ -165,7 +181,7 @@ def tab_por_categoria(dados: dict[str, dict]) -> str:
     vals = " & ".join(_f(d["resumo"]["geral"]["f1_ponderado"]) for d in dados.values())
     linhas.append(rf"\textbf{{Média ponderada}} & {vals} \\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais.}",
+               r"\fonte{Elaborado pelo autor. Uma consulta pode pertencer a mais de uma categoria; n = consultas da categoria nas métricas principais. As consultas fora do domínio (categoria F), cujo gabarito é não chamar a ferramenta, não têm campos e aparecem na Figura de acurácia por categoria.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -202,7 +218,41 @@ def tab_latencia(dados: dict[str, dict]) -> str:
         linhas.append(f"{_tex(rotulo(modelo))} & {lat['n']} & {lat['min']:.0f} & {lat['mediana']:.0f} & "
                       f"{lat['media']:.0f} & {lat['p95']:.0f} & {lat['max']:.0f} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelo autor. Medido em volta da chamada ao Ollama, na estação da Seção~\ref{sec:ambiente}.}",
+               rf"\fonte{{Elaborado pelo autor. Tempo da chamada de tradução, medido no ambiente de cada rodada (Tabela~\ref{{tab:ambiente{SUFIXO}}}); execuções com erro de infraestrutura excluídas.}}",
+               r"\end{table}"]
+    return "\n".join(linhas) + "\n"
+
+
+def _gpu_curta(texto: str | None) -> str:
+    if not texto:
+        return "---"
+    partes = [x.strip() for x in texto.split(",")]
+    nome = partes[0].replace("NVIDIA GeForce ", "").replace("NVIDIA ", "")
+    return f"{nome}, {partes[1]}" if len(partes) > 1 else nome
+
+
+def tab_ambiente(dados: dict[str, dict]) -> str:
+    """Ambiente de cada rodada, transcrito dos manifestos (nada digitado à mão)."""
+    linhas = [r"\begin{table}[htbp!]", r"\centering",
+              rf"\caption{{Ambiente de execução de cada rodada{TITULO}}}",
+              rf"\label{{tab:ambiente{SUFIXO}}}", r"\small",
+              r"\begin{tabular}{|l|l|l|c|c|c|}", r"\hline",
+              r"\textbf{Modelo} & \textbf{GPU / máquina} & \textbf{Servidor} & \textbf{Data ref.} & \textbf{Rep.} & \textbf{Execuções} \\",
+              r"\hline"]
+    for modelo, d in dados.items():
+        m, r = d.get("manifesto", {}), d["resumo"]
+        hw = m.get("hardware", {})
+        gpu = _gpu_curta(hw.get("gpu")) if hw.get("gpu") else (hw.get("maquina") or "---")
+        sw = m.get("software", {})
+        servidor = (f"Ollama {sw['ollama_servidor']}" if sw.get("ollama_servidor")
+                    else ("Groq (API)" if m.get("provedor") == "groq" else "---"))
+        linhas.append(f"{_tex(rotulo(modelo))} & {_tex(gpu)} & {_tex(servidor)} & {m.get('hoje', '---')} & "
+                      f"{len(r.get('repeticoes', []))} & {r.get('n_execucoes', 0)} \\\\")
+    versoes = next((d["manifesto"].get("software", {}) for d in dados.values() if d.get("manifesto")), {})
+    extra = ", ".join(f"{k.replace('_', '-')} {v}" for k, v in versoes.items()
+                      if k.startswith("langchain") and v)
+    linhas += [r"\hline", r"\end{tabular}",
+               rf"\fonte{{Elaborado pelo autor a partir de \texttt{{results/<modelo>/manifesto.json}}. Python {versoes.get('python', '---')}; {_tex(extra)}.}}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -257,7 +307,7 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     gerados.append(f"fig_f1_por_campo{SUFIXO}")
 
     # 3) acurácia por categoria
-    cats = ["S", "C", "M", "T", "O", "A"]
+    cats = CATS_ACC
     fig, ax = plt.subplots(figsize=(8, 3.6))
     for i, m in enumerate(modelos):
         acc = [dados[m]["resumo"]["geral"]["por_categoria"][c]["acuracia"] or 0 for c in cats]
@@ -295,12 +345,12 @@ def comparativo_markdown(dados: dict[str, dict]) -> str:
     out += ["", "## F1 ponderado por categoria", "",
             "| Categoria | " + " | ".join(rotulo(m) for m in dados) + " |",
             "|---|" + "---|" * len(dados)]
-    for cat in ["S", "C", "M", "T", "O", "A"]:
+    for cat in CATS_F1:
         out.append(f"| {NOMES_CATEGORIA[cat]} | " + " | ".join(
             f"{d['resumo']['geral']['por_categoria'][cat]['f1_ponderado']:.3f}" for d in dados.values()) + " |")
     out += ["", "## Acurácia por categoria", "",
             "| Categoria | " + " | ".join(rotulo(m) for m in dados) + " |", "|---|" + "---|" * len(dados)]
-    for cat in ["S", "C", "M", "T", "O", "A"]:
+    for cat in CATS_ACC:
         out.append(f"| {NOMES_CATEGORIA[cat]} | " + " | ".join(
             _pct_md(d['resumo']['geral']['por_categoria'][cat]['acuracia']) for d in dados.values()) + " |")
     out += ["", "## F1 por campo", "",
@@ -414,6 +464,7 @@ def main(argv: list[str] | None = None) -> int:
     (saida / f"tab_por_categoria{SUFIXO}.tex").write_text(tab_por_categoria(dados), encoding="utf-8")
     (saida / f"tab_por_campo{SUFIXO}.tex").write_text(tab_por_campo(dados), encoding="utf-8")
     (saida / f"tab_latencia{SUFIXO}.tex").write_text(tab_latencia(dados), encoding="utf-8")
+    (saida / f"tab_ambiente{SUFIXO}.tex").write_text(tab_ambiente(dados), encoding="utf-8")
     figs = figuras(dados, saida)
     if args.paper:
         import shutil
@@ -425,7 +476,7 @@ def main(argv: list[str] | None = None) -> int:
             shutil.copy2(f, args.paper / "figuras" / f.name)
         print(f"tabelas e figuras copiadas para {args.paper}")
     print(f"consolidado {len(dados)} modelo(s) em {saida}: comparativo.md, estatistica.md, "
-          f"erros_representativos.md, 4 tabelas .tex, figuras {figs}")
+          f"erros_representativos.md, 5 tabelas .tex, figuras {figs}")
     for m in dados:
         print(f"  - {m} ({slug(m)}) → {rotulo(m)}")
     return 0

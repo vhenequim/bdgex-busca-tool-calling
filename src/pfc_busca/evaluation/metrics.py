@@ -300,7 +300,7 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
 
     pares = list(zip(principais, avaliacoes, strict=True))
     por_categoria = {}
-    for cat in ["S", "C", "M", "T", "O", "A"]:
+    for cat in ["S", "C", "M", "T", "O", "A", "F"]:
         sub = [(lin, a) for lin, a in pares if cat in lin["categorias"]]
         sub_tp, sub_fp, sub_fn, sub_occ = Counter(), Counter(), Counter(), Counter()
         for _lin, a in sub:

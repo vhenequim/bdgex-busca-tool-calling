@@ -402,7 +402,7 @@ def resumo_markdown(resumo: dict) -> str:
                    f"{_f(c['precisao'])} | {_f(c['recall'])} | {_f(c['f1'])} |")
     out += ["", "## Por categoria", "", "| Categoria | n | Acurácia | F1 ponderado |", "|---|---|---|---|"]
     nomes = {"S": "Simples", "C": "Compostas", "M": "Código MI/INOM", "T": "Tempo relativo",
-             "O": "Ordenação", "A": "Ambíguas/informais"}
+             "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio"}
     for cat, v in g["por_categoria"].items():
         out.append(f"| {nomes[cat]} | {v['n']} | {_pct(v['acuracia'])} | {_f(v['f1_ponderado'])} |")
     out += ["", "## Por origem", "", "| Origem | n | Acurácia |", "|---|---|---|"]

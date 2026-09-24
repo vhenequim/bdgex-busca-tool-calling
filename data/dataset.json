@@ -1387,14 +1387,16 @@
       ],
       "consulta": "cartografia sistematica sp",
       "esperado": {
-        "project": "Mapeamento Sistemático",
+        "project": {
+          "$opcional": "Mapeamento Sistemático"
+        },
         "state": "São Paulo"
       },
       "trocas": [],
       "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "",
+      "notas": "'cartografia sistemática' designa o programa pelo termo distintivo do nome, sem ser nome nem apelido informado na ferramenta: project é opcional (regra de project; adjudicação)",
       "alternativas": []
     },
     {
@@ -1442,15 +1444,15 @@
       "origem": "N",
       "familia": "N",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "cartas fora do brasil",
       "esperado": {},
       "trocas": [],
       "fonte": "autores",
       "espera_tool_call": false,
-      "observacional": true,
-      "notas": "fora do território brasileiro",
+      "observacional": false,
+      "notas": "fora do território brasileiro, P4",
       "alternativas": []
     },
     {
@@ -1458,15 +1460,15 @@
       "origem": "N",
       "familia": "N",
       "categorias": [
-        "A"
+        "F"
       ],
       "consulta": "quero um mapa bonito",
       "esperado": {},
       "trocas": [],
       "fonte": "autores",
       "espera_tool_call": false,
-      "observacional": true,
-      "notas": "sem critério de busca",
+      "observacional": false,
+      "notas": "sem critério de busca, P4",
       "alternativas": []
     },
     {
@@ -1483,7 +1485,7 @@
       "fonte": "autores",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "escala fora do enumerado: qualquer scale emitido é falso positivo",
+      "notas": "observacional, P6: escala fora do enumerado da ferramenta",
       "alternativas": []
     },
     {
@@ -6507,14 +6509,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "me ajuda",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "sem intenção de busca",
       "alternativas": []
     },
@@ -6523,14 +6525,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "cartas de Marte",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "fora da Terra",
       "alternativas": []
     },
@@ -6539,14 +6541,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "cartas da Argentina",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "fora do território brasileiro",
       "alternativas": []
     },
@@ -6555,14 +6557,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "qual a previsão do tempo para amanhã em Manaus?",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "outro assunto",
       "alternativas": []
     },
@@ -6571,14 +6573,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "quanto custa uma carta topográfica?",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "pergunta de preço, não de busca",
       "alternativas": []
     },
@@ -6587,14 +6589,14 @@
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S"
+        "F"
       ],
       "consulta": "mapa do tesouro pirata",
       "esperado": {},
       "trocas": [],
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
-      "observacional": true,
+      "observacional": false,
       "notas": "ficção",
       "alternativas": []
     },
@@ -6611,7 +6613,7 @@
       "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "valor impossível de representar",
+      "notas": "observacional, P6: valor impossível de representar",
       "alternativas": []
     }
   ]

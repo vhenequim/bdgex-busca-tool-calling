@@ -518,13 +518,13 @@ def _leituras_do_anotador(a: dict) -> list[dict]:
 def comparar_anotacao(caso: dict, a: dict) -> list[str]:
     """Divergências entre gabarito e anotação independente (lista vazia = concordam)."""
     div: list[str] = []
+    if bool(a.get("observacional")) != bool(caso["observacional"]):
+        div.append(f"observacional: gabarito={caso['observacional']} anotador={a.get('observacional')}")
     if bool(a.get("chamar_ferramenta")) != bool(caso["espera_tool_call"]):
         div.append(f"chamar_ferramenta: gabarito={caso['espera_tool_call']} anotador={a.get('chamar_ferramenta')}")
         return div
     if not caso["espera_tool_call"]:
         return div
-    if bool(a.get("observacional")) != bool(caso["observacional"]):
-        div.append(f"observacional: gabarito={caso['observacional']} anotador={a.get('observacional')}")
     leituras_gab = gabarito.resolver_leituras(caso, DATA_REFERENCIA)
     leituras_anot = _leituras_do_anotador(a)
     # 1) a leitura preferencial do anotador é aceita pelo gabarito?
@@ -540,6 +540,244 @@ def comparar_anotacao(caso: dict, a: dict) -> list[str]:
         div.append(f"leitura do gabarito não aceita pelo anotador (FP {sorted(aval2.fp)}, FN {sorted(aval2.fn)}): "
                    f"{a.get('justificativa', '')}")
     return div
+
+
+# ---------------------------------------------------------------------------
+# Estatísticas de concordância (etapa 2) e adjudicação (etapa 3)
+# ---------------------------------------------------------------------------
+
+ARQUIVO_ADJUDICACAO = DIR_AUDITORIA / "adjudicacao.json"
+ARQUIVO_REVISAO_HUMANA = DIR_AUDITORIA / "revisao_humana_amostra.csv"
+TAMANHO_AMOSTRA = {"P": 6, "N": 10, "G": 24}   # 40 consultas, estratificadas por origem
+CAMPOS_REVISAO = ["id", "origem", "consulta", "leituras_aceitas", "concorda (S/N)", "comentario"]
+
+
+def kappa_cohen(pares: list[tuple[Any, Any]]) -> float | None:
+    """Kappa de Cohen para dois anotadores (rótulos categóricos)."""
+    n = len(pares)
+    if not n:
+        return None
+    po = sum(a == b for a, b in pares) / n
+    ca, cb = Counter(a for a, _ in pares), Counter(b for _, b in pares)
+    pe = sum(ca[k] * cb[k] for k in set(ca) | set(cb)) / n ** 2
+    return 1.0 if pe == 1 else (po - pe) / (1 - pe)
+
+
+def _decisao(chamar: bool, observacional: bool) -> str:
+    return "observacional" if observacional else ("chamar" if chamar else "não chamar")
+
+
+def _preferencial_gabarito(caso: dict) -> tuple[dict, list[dict]]:
+    leituras = gabarito.resolver_leituras(caso, DATA_REFERENCIA)
+    return {k: gabarito.valor_preferencial(v) for k, v in leituras[0].items()}, leituras
+
+
+def _ambiguo_gabarito(leituras: list[dict]) -> bool:
+    return len(leituras) > 1 or any(gabarito.eh_um_de(v) or gabarito.eh_opcional(v) for v in leituras[0].values())
+
+
+def _ambiguo_anotador(a: dict) -> bool:
+    return bool(a.get("valores_alternativos") or a.get("leituras_estruturais") or a.get("campos_opcionais"))
+
+
+def _leituras_identicas(x: dict, y: dict) -> bool:
+    return set(x) == set(y) and all(metrics.campo_igual(c, x[c], y[c]) for c in x)
+
+
+def concordancia(casos: list[dict], anotacao: dict[str, dict]) -> dict:
+    """Concordância gabarito × anotação independente, em medidas de rigor crescente.
+
+    - decisão (chamar / não chamar / observacional), com kappa de Cohen;
+    - leituras compatíveis nos dois sentidos (a medida usada na adjudicação);
+    - leitura preferencial idêntica (mesmos campos, mesmos valores);
+    - por campo: presença na leitura preferencial (kappa) e igualdade do valor;
+    - detecção de ambiguidade (a consulta admite mais de uma leitura?), com kappa.
+    """
+    anotados = [c for c in casos if c["id"] in anotacao]
+    decisoes = [(_decisao(c["espera_tool_call"], c["observacional"]),
+                 _decisao(bool(anotacao[c["id"]].get("chamar_ferramenta")), bool(anotacao[c["id"]].get("observacional"))))
+                for c in anotados]
+    ids_incompativeis = [c["id"] for c in anotados if comparar_anotacao(c, anotacao[c["id"]])]
+    compativeis = len(anotados) - len(ids_incompativeis)
+    # consultas em que ambos pedem chamada nas métricas principais
+    ambos = [c for c in anotados if c["espera_tool_call"] and not c["observacional"]
+             and anotacao[c["id"]].get("chamar_ferramenta") and not anotacao[c["id"]].get("observacional")]
+    identicas, amb_pares = 0, []
+    ids_nao_identicas, ids_ambiguidade = [], []
+    presenca: dict[str, list[tuple[bool, bool]]] = {campo: [] for campo in schema.CAMPOS}
+    valores: dict[str, list[bool]] = {campo: [] for campo in schema.CAMPOS}
+    for c in ambos:
+        a = anotacao[c["id"]]
+        pref_gab, leituras = _preferencial_gabarito(c)
+        pref_anot = dict(a.get("parametros") or {})
+        if _leituras_identicas(pref_gab, pref_anot):
+            identicas += 1
+        else:
+            ids_nao_identicas.append(c["id"])
+        amb_pares.append((_ambiguo_gabarito(leituras), _ambiguo_anotador(a)))
+        if amb_pares[-1][0] != amb_pares[-1][1]:
+            ids_ambiguidade.append(c["id"])
+        for campo in schema.CAMPOS:
+            presenca[campo].append((campo in pref_gab, campo in pref_anot))
+            if campo in pref_gab and campo in pref_anot:
+                valores[campo].append(metrics.campo_igual(campo, pref_gab[campo], pref_anot[campo]))
+    por_campo = {campo: {"gabarito": sum(g for g, _ in presenca[campo]), "anotador": sum(x for _, x in presenca[campo]),
+                         "ambos": sum(g and x for g, x in presenca[campo]),
+                         "kappa_presenca": kappa_cohen(presenca[campo]) if any(g or x for g, x in presenca[campo]) else None,
+                         "valor_igual": sum(valores[campo]), "valor_n": len(valores[campo])}
+                 for campo in schema.CAMPOS}
+    todos_presenca = [par for campo in schema.CAMPOS for par in presenca[campo]]
+    return {
+        "n": len(anotados),
+        "decisao_concorda": sum(g == x for g, x in decisoes), "decisao_kappa": kappa_cohen(decisoes),
+        "compativeis": compativeis,
+        "n_ambos_chamam": len(ambos), "preferencial_identica": identicas,
+        "presenca_campos_concorda": sum(g == x for g, x in todos_presenca), "presenca_campos_n": len(todos_presenca),
+        "presenca_campos_kappa": kappa_cohen(todos_presenca),
+        "valores_iguais": sum(sum(v) for v in valores.values()), "valores_n": sum(len(v) for v in valores.values()),
+        "ambiguidade_concorda": sum(g == x for g, x in amb_pares), "ambiguidade_kappa": kappa_cohen(amb_pares),
+        "ambiguidade_gabarito": sum(g for g, _ in amb_pares), "ambiguidade_anotador": sum(x for _, x in amb_pares),
+        "por_campo": por_campo,
+        # consultas com divergência em QUALQUER medida (todas precisam de decisão registrada)
+        "ids_divergentes": sorted(set(ids_incompativeis) | set(ids_nao_identicas) | set(ids_ambiguidade)),
+    }
+
+
+def carregar_adjudicacao(caminho: Path = ARQUIVO_ADJUDICACAO) -> list[dict]:
+    if not caminho.exists():
+        return []
+    return json.loads(caminho.read_text(encoding="utf-8"))["decisoes"]
+
+
+def gabarito_antes_da_adjudicacao(casos: list[dict], decisoes: list[dict]) -> list[dict]:
+    """Reconstrói o dataset como estava antes das decisões (campo `gabarito_original`)."""
+    originais = {d["id"]: d["gabarito_original"] for d in decisoes if d.get("gabarito_original")}
+    return [{**c, **originais[c["id"]]} if c["id"] in originais else c for c in casos]
+
+
+def amostra_revisao_humana(casos: list[dict], semente: int = 42) -> list[dict]:
+    """Amostra estratificada por origem (semente fixa) para revisão humana do gabarito."""
+    import random
+    rng = random.Random(semente)
+    amostra = []
+    for origem, k in TAMANHO_AMOSTRA.items():
+        amostra += rng.sample([c for c in casos if c["origem"] == origem], k)
+    return amostra
+
+
+def escrever_amostra(casos: list[dict], destino: Path) -> None:
+    """Planilha para a revisão humana. Não sobrescreve uma planilha já preenchida."""
+    if destino.exists():
+        return
+    with destino.open("w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f, delimiter=";")
+        w.writerow(CAMPOS_REVISAO)
+        for c in amostra_revisao_humana(casos):
+            if not c["espera_tool_call"]:
+                leituras = "não chamar a ferramenta" + (" (observacional)" if c["observacional"] else "")
+            else:
+                leituras = " || ".join("; ".join(gabarito.formatar_leitura(lei))
+                                       for lei in [c["esperado"]] + c["alternativas"])
+                if c["observacional"]:
+                    leituras += " (observacional)"
+            w.writerow([c["id"], c["origem"], c["consulta"], leituras, "", ""])
+
+
+def ler_revisao_humana(caminho: Path = ARQUIVO_REVISAO_HUMANA) -> dict | None:
+    """Resultado da revisão humana, se a planilha estiver preenchida (coluna 'concorda (S/N)')."""
+    if not caminho.exists():
+        return None
+    with caminho.open(encoding="utf-8-sig", newline="") as f:
+        linhas = list(csv.DictReader(f, delimiter=";"))
+    marcadas = [lin for lin in linhas if (lin.get("concorda (S/N)") or "").strip().upper()[:1] in ("S", "N")]
+    if not marcadas:
+        return None
+    discordancias = [{"id": lin["id"], "comentario": lin.get("comentario", "")} for lin in marcadas
+                     if lin["concorda (S/N)"].strip().upper().startswith("N")]
+    return {"n_amostra": len(linhas), "n_revisadas": len(marcadas),
+            "concorda": len(marcadas) - len(discordancias), "discordancias": discordancias}
+
+
+def _pct(x: int, n: int) -> str:
+    return f"{x}/{n} ({100 * x / n:.1f}\\%)".replace(".", ",") if n else "---"
+
+
+def _k(v: float | None) -> str:
+    return "---" if v is None else f"{v:.3f}".replace(".", ",")
+
+
+def tabelas_latex(r: dict) -> dict[str, str]:
+    """Tabela-resumo da auditoria (Cap. 3) e tabelas do Apêndice (por campo; adjudicação)."""
+    antes, depois = r["concordancia_antes"], r["concordancia"]
+    pend = sum(1 for g in r["consistencia"] if not g["resolvido"])
+    n_ap = sum(len(c["apontamentos"]) for c in r["casos"])
+    rev = r.get("revisao_humana")
+    linhas = [r"\begin{table}[htbp!]", r"\centering",
+              r"\caption{Resultados da auditoria do \textit{dataset}}", r"\label{tab:auditoria}", r"\small",
+              r"\begin{tabular}{|p{7.3cm}|c|c|}", r"\hline",
+              r"\textbf{Verificação} & \textbf{Antes da adjudicação} & \textbf{Após} \\", r"\hline",
+              r"\multicolumn{3}{|l|}{\textit{Checagens automáticas}} \\ \hline",
+              f"Problemas estruturais (ids, duplicatas, enumerados, datas) & --- & {len(r['estrutura'])} \\\\ \\hline",
+              f"Consultas da camada P conferidas na linha de origem & --- & {r['rastreabilidade_p']} \\\\ \\hline",
+              f"Apontamentos do anotador por regras sem resolução & --- & {n_ap} \\\\ \\hline",
+              f"Expressões com anotação inconsistente sem justificativa & --- & {pend} \\\\ \\hline",
+              r"\multicolumn{3}{|l|}{\textit{Anotação independente às cegas (" + str(depois["n"]) + r" consultas)}} \\ \hline",
+              f"Decisão (chamar / não chamar / observacional) & {_pct(antes['decisao_concorda'], antes['n'])} & "
+              f"{_pct(depois['decisao_concorda'], depois['n'])} \\\\",
+              f"\\quad kappa de Cohen & {_k(antes['decisao_kappa'])} & {_k(depois['decisao_kappa'])} \\\\ \\hline",
+              f"Leituras compatíveis nos dois sentidos & {_pct(antes['compativeis'], antes['n'])} & "
+              f"{_pct(depois['compativeis'], depois['n'])} \\\\ \\hline",
+              f"Leitura preferencial idêntica$^{{a}}$ & {_pct(antes['preferencial_identica'], antes['n_ambos_chamam'])} & "
+              f"{_pct(depois['preferencial_identica'], depois['n_ambos_chamam'])} \\\\ \\hline",
+              f"Presença de cada campo na leitura preferencial$^{{a,b}}$ (kappa) & {_k(antes['presenca_campos_kappa'])} & "
+              f"{_k(depois['presenca_campos_kappa'])} \\\\ \\hline",
+              f"Valor do campo, quando ambos o anotam$^{{a}}$ & {_pct(antes['valores_iguais'], antes['valores_n'])} & "
+              f"{_pct(depois['valores_iguais'], depois['valores_n'])} \\\\ \\hline",
+              f"Consulta com mais de uma leitura aceita$^{{a}}$ & {_pct(antes['ambiguidade_concorda'], antes['n_ambos_chamam'])} & "
+              f"{_pct(depois['ambiguidade_concorda'], depois['n_ambos_chamam'])} \\\\",
+              f"\\quad kappa de Cohen & {_k(antes['ambiguidade_kappa'])} & {_k(depois['ambiguidade_kappa'])} \\\\ \\hline",
+              f"Consultas com divergência em alguma medida, sem decisão registrada & {r['divergencias_antes']} & {r['divergencias_sem_decisao']} \\\\ \\hline"]
+    if rev:
+        linhas.append(f"Revisão humana de amostra estratificada: gabarito confirmado & --- & "
+                      f"{_pct(rev['concorda'], rev['n_revisadas'])} \\\\ \\hline")
+    linhas += [r"\end{tabular}",
+               r"\fonte{Elaborada pelo autor a partir de \texttt{data/auditoria/}. (a) Sobre as consultas em que "
+               r"gabarito e anotador pedem a chamada da ferramenta nas métricas principais. (b) Doze campos por consulta.}",
+               r"\end{table}"]
+    resumo = "\n".join(linhas) + "\n"
+
+    linhas = [r"\begin{table}[htbp!]", r"\centering",
+              r"\caption{Concordância por campo entre o gabarito e a anotação independente (leitura preferencial, após a adjudicação)}",
+              r"\label{tab:auditoria-campos}", r"\small",
+              r"\begin{tabular}{|l|c|c|c|c|c|}", r"\hline",
+              r"\textbf{Campo} & \textbf{Gabarito} & \textbf{Anotador} & \textbf{Ambos} & \textbf{Kappa} & \textbf{Valor igual} \\",
+              r"\hline"]
+    for campo, v in depois["por_campo"].items():
+        linhas.append(f"\\texttt{{{campo}}} & {v['gabarito']} & {v['anotador']} & {v['ambos']} & {_k(v['kappa_presenca'])} & "
+                      f"{v['valor_igual']}/{v['valor_n']} \\\\")
+    linhas += [r"\hline", r"\end{tabular}",
+               r"\fonte{Elaborada pelo autor. Gabarito, Anotador e Ambos: consultas em que o campo está na leitura preferencial de cada um. Kappa de Cohen sobre a presença do campo. Valor igual: entre as consultas em que ambos o anotam; períodos comparados pelos limites, textos livres após normalização.}",
+               r"\end{table}"]
+    campos = "\n".join(linhas) + "\n"
+
+    def esc(t: str) -> str:
+        return (t.replace("\\", "\\textbackslash{}").replace("&", "\\&").replace("%", "\\%")
+                .replace("_", "\\_").replace("#", "\\#"))
+
+    grupos: dict[tuple[str, str, str, str], list[str]] = defaultdict(list)
+    for d in r["adjudicacao"]:
+        grupos[(d["etapa"], d["divergencia"], d["decisao"], d["justificativa"])].append(d["id"])
+    linhas = [r"\begin{quadro}[htbp!]", r"\centering",
+              r"\caption{Decisões de adjudicação da auditoria do \textit{dataset}}", r"\label{quadro:adjudicacao}",
+              r"\footnotesize", r"\begin{tabular}{|p{2.3cm}|p{4.9cm}|p{1.5cm}|p{5.3cm}|}", r"\hline",
+              r"\textbf{Consultas} & \textbf{Divergência} & \textbf{Decisão} & \textbf{Justificativa} \\", r"\hline"]
+    for (etapa, div, dec, just), ids in grupos.items():
+        linhas.append(f"{', '.join(ids)}" + r"\newline{\scriptsize\itshape " + etapa + "}" +
+                      f" & {esc(div)} & {dec} & {esc(just)} " + r"\\ \hline")
+    linhas += [r"\end{tabular}", r"\fonte{Elaborado pelo autor a partir de \texttt{data/auditoria/adjudicacao.json}.}",
+               r"\end{quadro}"]
+    adjud = "\n".join(linhas) + "\n"
+    return {"tab_auditoria.tex": resumo, "tab_auditoria_campos.tex": campos, "quadro_adjudicacao.tex": adjud}
 
 
 # ---------------------------------------------------------------------------
@@ -565,13 +803,27 @@ def auditar(casos: list[dict], anotacao: dict[str, dict] | None = None) -> dict:
             "apontamentos": aps,
             "divergencias_anotacao": divergencias,
         })
-    return {
+    decisoes = carregar_adjudicacao()
+    r = {
         "dataset_sha256": __import__("hashlib").sha256(CAMINHO_SAIDA.read_bytes()).hexdigest(),
         "estrutura": validar(casos),
         "consistencia": consistencia(casos),
         "casos": por_caso,
         "anotacao_independente": anotacao is not None,
+        "adjudicacao": decisoes,
+        "rastreabilidade_p": (f"{sum(1 for c in casos if c['origem'] == 'P' and not conferir_fonte(c, linhas_p))}"
+                              f"/{sum(1 for c in casos if c['origem'] == 'P')}") if linhas_p else "---",
+        "revisao_humana": ler_revisao_humana(),
     }
+    if anotacao:
+        antes = gabarito_antes_da_adjudicacao(casos, decisoes)
+        r["concordancia"] = concordancia(casos, anotacao)
+        r["concordancia_antes"] = concordancia(antes, anotacao)
+        decididos = {d["id"] for d in decisoes}
+        r["divergencias_antes"] = len(r["concordancia_antes"]["ids_divergentes"])
+        r["divergencias_sem_decisao"] = len(set(r["concordancia"]["ids_divergentes"]) - decididos)
+        r["ids_sem_decisao"] = sorted(set(r["concordancia"]["ids_divergentes"]) - decididos)
+    return r
 
 
 def relatorio_markdown(r: dict) -> str:
@@ -605,6 +857,42 @@ def relatorio_markdown(r: dict) -> str:
                 "| ID | Consulta | Gabarito | Divergência |", "|---|---|---|---|"]
         for c in div:
             out.append(f"| {c['id']} | {c['consulta']} | {c['gabarito']} | {'<br>'.join(c['divergencias_anotacao'])} |")
+        a, d = r["concordancia_antes"], r["concordancia"]
+
+        def pct(x: int, n: int) -> str:
+            return f"{x}/{n} ({100 * x / n:.1f}%)" if n else "—"
+
+        def kp(v: float | None) -> str:
+            return "—" if v is None else f"{v:.3f}"
+
+        out += ["", "### Concordância (antes → após a adjudicação)", "",
+                "| Medida | Antes | Após |", "|---|---|---|",
+                f"| Decisão (chamar / não chamar / observacional) | {pct(a['decisao_concorda'], a['n'])} | {pct(d['decisao_concorda'], d['n'])} |",
+                f"| — kappa de Cohen | {kp(a['decisao_kappa'])} | {kp(d['decisao_kappa'])} |",
+                f"| Leituras compatíveis nos dois sentidos | {pct(a['compativeis'], a['n'])} | {pct(d['compativeis'], d['n'])} |",
+                f"| Leitura preferencial idêntica | {pct(a['preferencial_identica'], a['n_ambos_chamam'])} | {pct(d['preferencial_identica'], d['n_ambos_chamam'])} |",
+                f"| Presença de campo (kappa, 12 campos) | {kp(a['presenca_campos_kappa'])} | {kp(d['presenca_campos_kappa'])} |",
+                f"| Valor igual quando ambos anotam | {pct(a['valores_iguais'], a['valores_n'])} | {pct(d['valores_iguais'], d['valores_n'])} |",
+                f"| Mais de uma leitura aceita | {pct(a['ambiguidade_concorda'], a['n_ambos_chamam'])} | {pct(d['ambiguidade_concorda'], d['n_ambos_chamam'])} |",
+                f"| — kappa de Cohen | {kp(a['ambiguidade_kappa'])} | {kp(d['ambiguidade_kappa'])} |",
+                f"| Consultas com divergência em alguma medida, sem decisão | {r['divergencias_antes']} | {r['divergencias_sem_decisao']} |",
+                "", "### Por campo (após)", "", "| Campo | Gabarito | Anotador | Ambos | Kappa | Valor igual |",
+                "|---|---|---|---|---|---|"]
+        for campo, v in d["por_campo"].items():
+            out.append(f"| `{campo}` | {v['gabarito']} | {v['anotador']} | {v['ambos']} | {kp(v['kappa_presenca'])} | "
+                       f"{v['valor_igual']}/{v['valor_n']} |")
+    if r["adjudicacao"]:
+        out += ["", "## 5. Adjudicação", "", "| ID | Etapa | Divergência | Decisão | Justificativa |", "|---|---|---|---|---|"]
+        for dd in r["adjudicacao"]:
+            out.append(f"| {dd['id']} | {dd['etapa']} | {dd['divergencia']} | {dd['decisao']} | {dd['justificativa']} |")
+    rev = r.get("revisao_humana")
+    out += ["", "## 6. Revisão humana de amostra", ""]
+    if rev:
+        out.append(f"{rev['n_revisadas']} de {rev['n_amostra']} consultas revisadas; gabarito confirmado em "
+                   f"{rev['concorda']}. Discordâncias: " + (", ".join(x["id"] for x in rev["discordancias"]) or "nenhuma") + ".")
+    else:
+        out.append(f"Pendente: preencher a coluna 'concorda (S/N)' de `{ARQUIVO_REVISAO_HUMANA.name}` "
+                   f"(amostra estratificada de {sum(TAMANHO_AMOSTRA.values())} consultas, semente 42).")
     return "\n".join(out) + "\n"
 
 
@@ -626,6 +914,8 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Auditoria automática do dataset.")
     p.add_argument("--anotacao-independente", type=Path, help="JSON {id: anotação} da anotação às cegas")
     p.add_argument("--saida", type=Path, default=DIR_AUDITORIA)
+    p.add_argument("--paper", type=Path, metavar="DIR_DO_TEXTO",
+                   help="escreve as tabelas LaTeX da auditoria em DIR_DO_TEXTO/tabelas/")
     args = p.parse_args(argv)
     anot = None
     if args.anotacao_independente:
@@ -635,6 +925,12 @@ def main(argv: list[str] | None = None) -> int:
     (args.saida / "auditoria.json").write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding="utf-8")
     (args.saida / "relatorio_auditoria.md").write_text(relatorio_markdown(r), encoding="utf-8")
     escrever_csv(r, args.saida / "auditoria_casos.csv")
+    escrever_amostra(carregar_dataset(), args.saida / ARQUIVO_REVISAO_HUMANA.name)
+    if args.paper and anot:
+        (args.paper / "tabelas").mkdir(parents=True, exist_ok=True)
+        for nome, conteudo in tabelas_latex(r).items():
+            (args.paper / "tabelas" / nome).write_text(conteudo, encoding="utf-8")
+        print(f"→ tabelas da auditoria em {args.paper / 'tabelas'}")
     tipos = Counter(a["tipo"] for c in r["casos"] for a in c["apontamentos"])
     pendentes = sum(1 for g in r["consistencia"] if not g["resolvido"])
     print(f"estrutura: {len(r['estrutura'])} problema(s) · consistência: {pendentes} grupo(s) pendente(s) "
@@ -642,7 +938,11 @@ def main(argv: list[str] | None = None) -> int:
           f"apontamentos: {sum(tipos.values())} em {sum(1 for c in r['casos'] if c['apontamentos'])} casos {dict(tipos)}")
     if anot:
         div = sum(1 for c in r["casos"] if c["divergencias_anotacao"])
-        print(f"anotação independente: {len(r['casos']) - div}/{len(r['casos'])} concordam")
+        c = r["concordancia"]
+        print(f"anotação independente: {len(r['casos']) - div}/{len(r['casos'])} concordam "
+              f"(antes da adjudicação: {r['concordancia_antes']['compativeis']}); preferencial idêntica "
+              f"{c['preferencial_identica']}/{c['n_ambos_chamam']}; kappa decisão {c['decisao_kappa']:.3f}, "
+              f"ambiguidade {c['ambiguidade_kappa']:.3f}; divergências sem decisão: {r['divergencias_sem_decisao']}")
     print(f"→ {args.saida / 'relatorio_auditoria.md'}")
     return 0
 

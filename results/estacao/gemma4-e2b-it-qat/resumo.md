@@ -1,13 +1,13 @@
 # gemma4:e2b-it-qat — resumo da avaliação
 
-9 execuções · repetições [1] · gerado em 2026-09-24T09:10:25
+9 execuções · repetições [1] · gerado em 2026-09-24T09:43:18
 
 ## Geral (métricas principais)
 
 | Métrica | Valor |
 |---|---|
-| Consultas | 8 |
-| Acurácia por consulta | 37.5% |
+| Consultas | 9 |
+| Acurácia por consulta | 44.4% |
 | Precisão ponderada | 0.870 |
 | Recall ponderado | 0.739 |
 | F1 ponderado | 0.788 |
@@ -18,7 +18,7 @@
 
 | n | mín | mediana | média | p95 | máx | desvio |
 |---|---|---|---|---|---|---|
-| 8 | 888 | 7195 | 6411 | 12483 | 12483 | 4275 |
+| 9 | 888 | 7361 | 6517 | 12483 | 12483 | 4041 |
 
 Latência da ferramenta (SQL): mediana 39.6 ms, máx 51.4 ms.
 
@@ -49,13 +49,14 @@ Latência da ferramenta (SQL): mediana 39.6 ms, máx 51.4 ms.
 | Tempo relativo | 4 | 0.0% | 0.695 |
 | Ordenação | 2 | 0.0% | 0.778 |
 | Ambíguas/informais | 5 | 40.0% | 0.738 |
+| Fora do domínio | 1 | 100.0% | 0.000 |
 
 ## Por origem
 
 | Origem | n | Acurácia |
 |---|---|---|
 | P | 5 | 40.0% |
-| N | 3 | 33.3% |
+| N | 4 | 50.0% |
 | G | 0 | — |
 
 ## Diagnósticos
@@ -69,4 +70,4 @@ Latência da ferramenta (SQL): mediana 39.6 ms, máx 51.4 ms.
 
 ## Observacionais (fora das métricas principais)
 
-1 casos · acurácia 100.0% · chamou sem dever: 0
+0 casos · acurácia — · chamou sem dever: 0

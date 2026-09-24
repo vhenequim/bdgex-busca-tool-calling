@@ -36,8 +36,9 @@ brasileiro têm gabarito "não chamar a ferramenta".
 A auditoria automática verifica isso.
 
 **P6 — Casos observacionais.** Consultas cujo comportamento correto não é determinável
-a partir do texto (fronteira do domínio, valor inválido) são executadas e reportadas,
-mas ficam fora das métricas principais.
+a partir do texto (valor impossível de representar, comportamento esperado discutível)
+são executadas e reportadas, mas ficam fora das métricas principais. Consultas fora do
+domínio (P4) **não** são observacionais: o comportamento correto é determinado.
 
 ## 2. Regras por campo
 
@@ -88,6 +89,9 @@ mas ficam fora das métricas principais.
 ### `project`
 - Pelo nome ou pelos apelidos informados na ferramenta ("olimpiadas", "rio 2016" →
   `Olimpíadas Rio 2016`; "beca" → `NGA-BECA`), com ou sem acento.
+- Expressão que designa o projeto pelo termo distintivo do nome, sem ser o nome nem um
+  apelido informado ("cartografia sistemática" para `Mapeamento Sistemático`) →
+  `project` **opcional**: a consulta sustenta a leitura, mas a ferramenta não a informa.
 
 ### `publicationPeriod` e `creationPeriod`
 - **Qual campo.** Verbo de publicação ("publicad-", "lançad-") → `publicationPeriod`.
@@ -140,9 +144,12 @@ mas ficam fora das métricas principais.
 
 Não chamar a ferramenta quando a consulta: trata de outro assunto (clima, preço,
 ficção); pede território fora do Brasil ou fora da Terra; não tem intenção de busca
-("me ajuda", "quero um mapa bonito"). Consultas com valor impossível de representar
-("escala 1:10.000.000", "estado 42") ou cujo comportamento esperado é discutível
-("cartas do futuro", "cartas topo no oceano atlântico") são observacionais (P6).
+("me ajuda", "quero um mapa bonito"). Essas consultas formam a categoria **F** e entram
+nas métricas principais: a resposta é correta quando a ferramenta não é chamada.
+
+Consultas com valor impossível de representar ("escala 1:10.000.000", "estado 42") ou
+cujo comportamento esperado é discutível ("cartas do futuro", "cartas topo no oceano
+atlântico") são observacionais (P6).
 
 ## 4. Rastreabilidade
 
@@ -163,8 +170,17 @@ Cada caso registra a origem:
    consulta o trecho que justifica cada campo e aponta (a) campo anotado sem evidência,
    (b) evidência sem campo anotado, (c) valor divergente.
 2. **Anotação independente às cegas**: cada consulta é anotada novamente, sem acesso ao
-   gabarito, a partir apenas deste manual; toda divergência com o gabarito é listada.
-3. **Adjudicação**: cada divergência (das etapas 1 e 2) recebe uma decisão registrada —
-   gabarito mantido, corrigido ou ampliado com leitura alternativa — com justificativa
-   por referência a este manual.
+   gabarito, a partir apenas deste manual e da definição da ferramenta; toda divergência
+   com o gabarito é listada. A concordância é medida em rigor crescente: decisão
+   (chamar / não chamar / observacional, com kappa de Cohen); leituras compatíveis nos
+   dois sentidos; leitura preferencial idêntica; presença e valor de cada campo; e
+   detecção de ambiguidade (a consulta admite mais de uma leitura? kappa de Cohen).
+3. **Adjudicação** (`data/auditoria/adjudicacao.json`): cada consulta com divergência em
+   qualquer das medidas recebe uma decisão registrada — gabarito mantido, corrigido ou
+   ampliado com leitura alternativa — com justificativa por referência a este manual.
+   O gabarito anterior à decisão fica registrado, e a concordância anterior à
+   adjudicação é recalculada a partir dele.
 4. O processo se repete até não restar divergência sem decisão.
+5. **Revisão humana de amostra**: uma amostra estratificada por origem (40 consultas,
+   semente 42; `data/auditoria/revisao_humana_amostra.csv`) é conferida por uma pessoa,
+   que marca se concorda com as leituras aceitas.
