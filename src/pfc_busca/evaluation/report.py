@@ -30,7 +30,7 @@ from pathlib import Path
 
 from pfc_busca import schema
 from pfc_busca.evaluation import metrics
-from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, carregar_execucoes, slug
+from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, carregar_execucoes, repontuar, slug
 
 ROTULOS = {
     "qwen3:4b-instruct-2507-q4_K_M": "Qwen 3 4B",
@@ -38,7 +38,12 @@ ROTULOS = {
     "gemma4:e4b-it-qat": "Gemma 4 E4B",
     "gemma4:e2b-it-qat": "Gemma 4 E2B",
     "mistral-nemo:12b": "Mistral Nemo 12B",
+    "qwen/qwen3.8-27b": "Qwen 3.8 27B (Groq)",
+    "openai/gpt-oss-20b": "GPT-OSS 20B (Groq)",
+    "openai/gpt-oss-120b": "GPT-OSS 120B (Groq)",
 }
+SUFIXO = ""   # ex.: "_groq" — distingue rótulos e arquivos do resultado paralelo
+TITULO = ""   # ex.: " --- resultado paralelo em nuvem (Groq)"
 NOMES_CATEGORIA = {"S": "Simples", "C": "Compostas", "M": "Com código MI/INOM",
                    "T": "Com referência temporal relativa", "O": "Com ordenação",
                    "A": "Ambíguas / variações ortográficas"}
@@ -92,8 +97,7 @@ def mcnemar_exato(b: int, c: int) -> float:
 
 def correcao_por_consulta(linhas: list[dict]) -> dict[tuple[str, int], bool]:
     return {
-        (lin["id"], lin["repeticao"]): metrics.avaliar_caso(
-            lin["esperado_resolvido"], lin["predito"], lin["espera_tool_call"]).correto
+        (lin["id"], lin["repeticao"]): metrics.avaliar_linha(lin).correto
         for lin in linhas if not lin.get("observacional")
     }
 
@@ -115,7 +119,7 @@ def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[st
         modelo = r["modelo"]
         if modelos and modelo not in modelos:
             continue
-        saida[modelo] = {"resumo": r, "linhas": carregar_execucoes(pasta),
+        saida[modelo] = {"resumo": r, "linhas": repontuar(carregar_execucoes(pasta))[0],
                          "manifesto": json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
                          if (pasta / "manifesto.json").exists() else {}}
     if modelos:  # preserva a ordem pedida
@@ -129,8 +133,8 @@ def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[st
 
 def tab_comparativo(dados: dict[str, dict]) -> str:
     linhas = [r"\begin{table}[htbp!]", r"\centering",
-              r"\caption{Comparativo de desempenho entre os modelos avaliados}",
-              r"\label{tab:resultados_comparativo}", r"\small",
+              rf"\caption{{Comparativo de desempenho entre os modelos avaliados{TITULO}}}",
+              rf"\label{{tab:resultados_comparativo{SUFIXO}}}", r"\small",
               r"\begin{tabular}{|l|c|c|c|c|c|}", r"\hline",
               r"\textbf{Modelo} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1} & \textbf{Latência med. (ms)} \\",
               r"\hline"]
@@ -150,7 +154,7 @@ def tab_por_categoria(dados: dict[str, dict]) -> str:
     cab = " & ".join(rf"\textbf{{{_tex(rotulo(m))}}}" for m in dados)
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               r"\caption{F1-\textit{score} por categoria de consulta e por modelo}",
-              r"\label{tab:resultados_por_categoria}", r"\small",
+              rf"\label{{tab:resultados_por_categoria{SUFIXO}}}", r"\small",
               rf"\begin{{tabular}}{{{cols}}}", r"\hline",
               rf"\textbf{{Categoria}} & {cab} \\", r"\hline"]
     for cat in ["S", "C", "M", "T", "O", "A"]:
@@ -171,7 +175,7 @@ def tab_por_campo(dados: dict[str, dict]) -> str:
     cab = " & ".join(rf"\textbf{{{_tex(rotulo(m))}}}" for m in dados)
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               r"\caption{F1-\textit{score} por campo do \textit{schema} de busca --- comparativo entre modelos}",
-              r"\label{tab:resultados_por_campo}", r"\small",
+              rf"\label{{tab:resultados_por_campo{SUFIXO}}}", r"\small",
               rf"\begin{{tabular}}{{{cols}}}", r"\hline",
               rf"\textbf{{Campo}} & \textbf{{Ocorr.}} & {cab} \\", r"\hline"]
     primeiro = next(iter(dados.values()))["resumo"]["geral"]["por_campo"]
@@ -187,7 +191,7 @@ def tab_por_campo(dados: dict[str, dict]) -> str:
 def tab_latencia(dados: dict[str, dict]) -> str:
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               r"\caption{Latência da tradução (LLM), em milissegundos, por modelo}",
-              r"\label{tab:latencia}", r"\small",
+              rf"\label{{tab:latencia{SUFIXO}}}", r"\small",
               r"\begin{tabular}{|l|c|c|c|c|c|c|}", r"\hline",
               r"\textbf{Modelo} & \textbf{n} & \textbf{Mín.} & \textbf{Mediana} & \textbf{Média} & \textbf{p95} & \textbf{Máx.} \\",
               r"\hline"]
@@ -229,9 +233,9 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     for ext in ("pdf", "png"):
-        fig.savefig(saida / f"fig_latencia_boxplot.{ext}", dpi=200)
+        fig.savefig(saida / f"fig_latencia_boxplot{SUFIXO}.{ext}", dpi=200)
     plt.close(fig)
-    gerados.append("fig_latencia_boxplot")
+    gerados.append(f"fig_latencia_boxplot{SUFIXO}")
 
     # 2) F1 por campo, barras agrupadas
     fig, ax = plt.subplots(figsize=(9, 3.8))
@@ -248,9 +252,9 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     for ext in ("pdf", "png"):
-        fig.savefig(saida / f"fig_f1_por_campo.{ext}", dpi=200)
+        fig.savefig(saida / f"fig_f1_por_campo{SUFIXO}.{ext}", dpi=200)
     plt.close(fig)
-    gerados.append("fig_f1_por_campo")
+    gerados.append(f"fig_f1_por_campo{SUFIXO}")
 
     # 3) acurácia por categoria
     cats = ["S", "C", "M", "T", "O", "A"]
@@ -266,9 +270,9 @@ def figuras(dados: dict[str, dict], saida: Path) -> list[str]:
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     for ext in ("pdf", "png"):
-        fig.savefig(saida / f"fig_acuracia_por_categoria.{ext}", dpi=200)
+        fig.savefig(saida / f"fig_acuracia_por_categoria{SUFIXO}.{ext}", dpi=200)
     plt.close(fig)
-    gerados.append("fig_acuracia_por_categoria")
+    gerados.append(f"fig_acuracia_por_categoria{SUFIXO}")
     return gerados
 
 
@@ -361,7 +365,7 @@ def erros_markdown(dados: dict[str, dict], por_tipo: int = 4, semente: int = 42)
         for lin in d["linhas"]:
             if lin.get("observacional") or lin["repeticao"] != min(x["repeticao"] for x in d["linhas"]):
                 continue
-            aval = metrics.avaliar_caso(lin["esperado_resolvido"], lin["predito"], lin["espera_tool_call"])
+            aval = metrics.avaliar_linha(lin)
             if not aval.correto:
                 grupos[aval.tipo_erro or "outro"].append((lin, aval))
         for tipo, itens in sorted(grupos.items(), key=lambda kv: -len(kv[1])):
@@ -387,10 +391,14 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--resultados", type=Path, default=DIR_RESULTADOS)
     p.add_argument("--modelos", help="tags separadas por vírgula, na ordem das tabelas")
     p.add_argument("--saida", type=Path, default=None)
+    p.add_argument("--sufixo", default="", help="sufixo de arquivos e rótulos (ex.: _groq)")
+    p.add_argument("--titulo", default="", help="complemento do título das tabelas")
     p.add_argument("--paper", type=Path, metavar="DIR",
                    help="copia tab_*.tex para DIR/tabelas e fig_*.pdf para DIR/figuras (o Cap. 5 os inclui)")
     args = p.parse_args(argv)
 
+    global SUFIXO, TITULO
+    SUFIXO, TITULO = args.sufixo, args.titulo
     modelos = [m.strip() for m in args.modelos.split(",")] if args.modelos else None
     dados = carregar_modelos(args.resultados, modelos)
     if not dados:
@@ -399,13 +407,13 @@ def main(argv: list[str] | None = None) -> int:
     saida = args.saida or (args.resultados / "consolidado")
     saida.mkdir(parents=True, exist_ok=True)
 
-    (saida / "comparativo.md").write_text(comparativo_markdown(dados), encoding="utf-8")
-    (saida / "estatistica.md").write_text(estatistica_markdown(dados), encoding="utf-8")
-    (saida / "erros_representativos.md").write_text(erros_markdown(dados), encoding="utf-8")
-    (saida / "tab_comparativo.tex").write_text(tab_comparativo(dados), encoding="utf-8")
-    (saida / "tab_por_categoria.tex").write_text(tab_por_categoria(dados), encoding="utf-8")
-    (saida / "tab_por_campo.tex").write_text(tab_por_campo(dados), encoding="utf-8")
-    (saida / "tab_latencia.tex").write_text(tab_latencia(dados), encoding="utf-8")
+    (saida / f"comparativo{SUFIXO}.md").write_text(comparativo_markdown(dados), encoding="utf-8")
+    (saida / f"estatistica{SUFIXO}.md").write_text(estatistica_markdown(dados), encoding="utf-8")
+    (saida / f"erros_representativos{SUFIXO}.md").write_text(erros_markdown(dados), encoding="utf-8")
+    (saida / f"tab_comparativo{SUFIXO}.tex").write_text(tab_comparativo(dados), encoding="utf-8")
+    (saida / f"tab_por_categoria{SUFIXO}.tex").write_text(tab_por_categoria(dados), encoding="utf-8")
+    (saida / f"tab_por_campo{SUFIXO}.tex").write_text(tab_por_campo(dados), encoding="utf-8")
+    (saida / f"tab_latencia{SUFIXO}.tex").write_text(tab_latencia(dados), encoding="utf-8")
     figs = figuras(dados, saida)
     if args.paper:
         import shutil

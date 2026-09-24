@@ -1,4 +1,4 @@
-"""Invariantes do dataset construído — falham se alguém mexer no gerador sem querer."""
+"""Invariantes do dataset construído — falham se alguém mexer no gerador ou no gabarito sem querer."""
 
 from collections import Counter
 from datetime import date
@@ -7,7 +7,7 @@ import pytest
 
 from pfc_busca import schema
 from pfc_busca.evaluation import dataset_builder as db_
-from pfc_busca.evaluation.relative_time import resolver_gabarito
+from pfc_busca.evaluation import gabarito
 
 
 @pytest.fixture(scope="module")
@@ -19,44 +19,50 @@ def casos():
 def test_total_e_composicao(casos):
     assert len(casos) == 310
     assert Counter(c["origem"] for c in casos) == {"P": 22, "N": 40, "G": 248}
-    familias = Counter(c["familia"] for c in casos)
-    assert familias == {"P": 22, "N": 40, "GS": 61, "GC": 55, "GM": 28, "GT": 41,
-                        "GO": 19, "GA": 24, "GP": 13, "GF": 7}
+    assert Counter(c["familia"] for c in casos) == {"P": 22, "N": 40, "GS": 61, "GC": 55, "GM": 28, "GT": 41,
+                                                   "GO": 19, "GA": 24, "GP": 13, "GF": 7}
 
 
-def test_sem_problemas_de_validacao(casos):
+def test_validacao_sem_problemas(casos):
     assert db_.validar(casos) == []
 
 
-def test_observacionais_sao_os_esperados(casos):
+def test_nenhuma_consulta_repetida(casos):
+    textos = Counter(db_.normalizar_consulta(c["consulta"]) for c in casos)
+    assert [t for t, n in textos.items() if n > 1] == []
+
+
+def test_observacionais(casos):
     obs = sorted(c["id"] for c in casos if c["observacional"])
     assert obs == ["GF001", "GF002", "GF003", "GF004", "GF005", "GF006", "GF007",
-                   "N34", "N36", "N37", "N38", "N39", "N40"]
+                   "N36", "N37", "N38", "N39", "N40"]
 
 
-def test_todo_gabarito_resolve_em_qualquer_data(casos):
-    for hoje in (date(2026, 9, 14), date(2026, 1, 1), date(2028, 2, 29)):
-        for c in casos:
-            r = resolver_gabarito(c["esperado"], hoje)
-            for campo in schema.CAMPOS_PERIODO:
-                if campo in r:
-                    assert set(r[campo]) <= {"start", "end"} and r[campo], (c["id"], r[campo])
+def test_rastreabilidade(casos):
+    for c in casos:
+        assert c["fonte"], c["id"]
+    p01 = next(c for c in casos if c["id"] == "P01")
+    assert p01["fonte"].endswith("test-cases.ts:6")
 
 
-def test_amostras_do_apendice(casos):
+def test_convencoes_do_manual(casos):
     por_id = {c["id"]: c for c in casos}
-    assert por_id["GS001"]["consulta"] == "cartas de AC" and por_id["GS001"]["esperado"] == {"state": "Acre"}
-    assert por_id["GC001"]["esperado"] == {"state": "Rio Grande do Norte", "scale": "1:25.000"}
-    assert por_id["GT001"]["esperado"] == {"publicationPeriod": {"rel": "ano_corrente"}}
-    assert por_id["P05"]["esperado"]["publicationPeriod"] == {"rel": "ano_corrente"}
-    assert por_id["N36"]["espera_tool_call"] is False
+    # estado x capital
+    assert por_id["N01"]["alternativas"] == [{"city": "São Paulo"}]
+    # região não vira estado
+    assert por_id["N34"]["esperado"] == {"productType": "SCN Carta Ortoimagem"}
+    # ordenação sem pista aceita as duas datas; singular deixa limit opcional
+    assert gabarito.eh_um_de(por_id["N24"]["esperado"]["sortField"])
+    assert gabarito.eh_opcional(por_id["P19"]["esperado"]["limit"])
+    # verbo decide o período; sem verbo, as duas leituras
+    assert por_id["P15"]["alternativas"] == []
+    assert por_id["N18"]["alternativas"] == [{"state": "Roraima", "creationPeriod": {"rel": "ano_anterior"}}]
 
 
-def test_gabaritos_corrigidos_na_camada_g(casos):
-    """Goiânia/Belém eram anotados como estado no gerador original; 'depois de 2022' segue P21."""
-    por_consulta = {c["consulta"]: c for c in casos if c["familia"] == "GA"}
-    assert por_consulta["cartas de Goiania"]["esperado"] == {"city": "Goiânia"}
-    assert por_consulta["cartas de Belem"]["esperado"] == {"city": "Belém"}
-    depois = [c for c in casos if "depois de 2022" in c["consulta"]]
-    assert depois and all(
-        c["esperado"]["publicationPeriod"] == {"rel": "desde_2022"} for c in depois)
+def test_todo_gabarito_resolve_em_datas_diversas(casos):
+    for hoje in (date(2026, 9, 24), date(2026, 1, 1), date(2028, 2, 29)):
+        for c in casos:
+            for leitura in gabarito.resolver_leituras(c, hoje):
+                for campo in schema.CAMPOS_PERIODO:
+                    for p in gabarito.valores_aceitos(leitura.get(campo, {"start": "x"})):
+                        assert set(p) <= {"start", "end"} and p, (c["id"], p)

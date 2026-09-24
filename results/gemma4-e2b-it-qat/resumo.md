@@ -1,54 +1,54 @@
 # gemma4:e2b-it-qat — resumo da avaliação
 
-14 execuções · repetições [1] · gerado em 2026-09-14T11:56:07
+9 execuções · repetições [1] · gerado em 2026-09-24T09:10:25
 
 ## Geral (métricas principais)
 
 | Métrica | Valor |
 |---|---|
-| Consultas | 13 |
-| Acurácia por consulta | 38.5% |
-| Precisão ponderada | 0.725 |
-| Recall ponderado | 0.656 |
-| F1 ponderado | 0.672 |
-| F1 macro | 0.693 |
-| Micro P / R / F1 | 0.840 / 0.724 / 0.778 |
+| Consultas | 8 |
+| Acurácia por consulta | 37.5% |
+| Precisão ponderada | 0.870 |
+| Recall ponderado | 0.739 |
+| F1 ponderado | 0.788 |
+| F1 macro | 0.772 |
+| Micro P / R / F1 | 0.944 / 0.773 / 0.850 |
 
 ## Latência do LLM (ms)
 
 | n | mín | mediana | média | p95 | máx | desvio |
 |---|---|---|---|---|---|---|
-| 13 | 888 | 5037 | 5793 | 11540 | 12483 | 3704 |
+| 8 | 888 | 7195 | 6411 | 12483 | 12483 | 4275 |
 
-Latência da ferramenta (SQL): mediana 46.1 ms, máx 57.0 ms.
+Latência da ferramenta (SQL): mediana 39.6 ms, máx 51.4 ms.
 
 ## Por campo
 
 | Campo | Ocorr. | TP | FP | FN | Precisão | Recall | F1 |
 |---|---|---|---|---|---|---|---|
-| keyword | 4 | 4 | 1 | 0 | 0.800 | 1.000 | 0.889 |
-| scale | 2 | 2 | 0 | 0 | 1.000 | 1.000 | 1.000 |
+| keyword | 3 | 3 | 0 | 0 | 1.000 | 1.000 | 1.000 |
+| scale | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | productType | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
-| state | 7 | 6 | 0 | 1 | 1.000 | 0.857 | 0.923 |
+| state | 3 | 2 | 0 | 1 | 1.000 | 0.667 | 0.800 |
 | city | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | supplyArea | 3 | 3 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 | project | 1 | 1 | 0 | 0 | 1.000 | 1.000 | 1.000 |
-| publicationPeriod | 4 | 0 | 2 | 2 | 0.000 | 0.000 | 0.000 |
+| publicationPeriod | 3 | 2 | 0 | 1 | 1.000 | 0.667 | 0.800 |
 | creationPeriod | 1 | 0 | 1 | 0 | 0.000 | 0.000 | 0.000 |
-| sortField | 3 | 0 | 0 | 3 | 0.000 | 0.000 | 0.000 |
-| sortDirection | 3 | 1 | 0 | 2 | 1.000 | 0.333 | 0.500 |
+| sortField | 2 | 0 | 0 | 2 | 0.000 | 0.000 | 0.000 |
+| sortDirection | 2 | 1 | 0 | 1 | 1.000 | 0.500 | 0.667 |
 | limit | 2 | 2 | 0 | 0 | 1.000 | 1.000 | 1.000 |
 
 ## Por categoria
 
 | Categoria | n | Acurácia | F1 ponderado |
 |---|---|---|---|
-| Simples | 2 | 100.0% | 1.000 |
-| Compostas | 9 | 33.3% | 0.696 |
-| Código MI/INOM | 4 | 75.0% | 0.815 |
-| Tempo relativo | 5 | 0.0% | 0.489 |
-| Ordenação | 3 | 0.0% | 0.633 |
-| Ambíguas/informais | 9 | 44.4% | 0.664 |
+| Simples | 1 | 100.0% | 1.000 |
+| Compostas | 6 | 33.3% | 0.794 |
+| Código MI/INOM | 3 | 66.7% | 0.857 |
+| Tempo relativo | 4 | 0.0% | 0.695 |
+| Ordenação | 2 | 0.0% | 0.778 |
+| Ambíguas/informais | 5 | 40.0% | 0.738 |
 
 ## Por origem
 
@@ -56,16 +56,16 @@ Latência da ferramenta (SQL): mediana 46.1 ms, máx 57.0 ms.
 |---|---|---|
 | P | 5 | 40.0% |
 | N | 3 | 33.3% |
-| G | 5 | 40.0% |
+| G | 0 | — |
 
 ## Diagnósticos
 
-- Tipos de erro: {'misto': 2, 'valor_errado': 1, 'nao_chamou': 2, 'campo_omitido': 2, 'campo_inventado': 1}
+- Tipos de erro: {'campo_omitido': 3, 'valor_errado': 1, 'nao_chamou': 1}
 - Campos fora do schema: {}
-- IoU médio de períodos: {'publicationPeriod': 0.704}
+- IoU médio de períodos: {'publicationPeriod': 1.0}
 - Chamadas com erro de infraestrutura: 0 {}
 - Respostas do modelo fora do schema da ferramenta: 0 {}
-- Não chamou a ferramenta quando devia: 2
+- Não chamou a ferramenta quando devia: 1
 
 ## Observacionais (fora das métricas principais)
 

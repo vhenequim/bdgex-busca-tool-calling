@@ -17,6 +17,11 @@ Definições, na letra do texto:
   gabarito do conjunto avaliado.
 - **Latência**: mín, máx, média, mediana, desvio-padrão (e p95), decomposta
   em tempo do LLM e tempo da ferramenta.
+- **Leituras múltiplas** (manual de anotação, P3): um campo pode aceitar mais de um
+  valor (`$um_de`), pode ser opcional (`$opcional`) e o caso pode ter leituras
+  estruturais alternativas. A resposta é comparada com cada leitura aceita e avaliada
+  contra a de melhor casamento: correta se coincidir com alguma. Campos opcionais
+  ausentes não contam como FN.
 
 Diagnósticos adicionais (fora das tabelas principais, úteis na análise de
 erros): IoU de períodos, taxa de campos inventados fora do schema, taxa de
@@ -32,6 +37,7 @@ from datetime import date
 from typing import Any
 
 from pfc_busca import schema
+from pfc_busca.evaluation.gabarito import eh_opcional, valores_aceitos
 
 CAMPO_FORA_DO_SCHEMA = "__fora_do_schema__"
 
@@ -87,6 +93,17 @@ def iou_periodo(esperado: Any, predito: Any) -> float | None:
     return max(0, inter) / uniao
 
 
+def valor_aceito(campo: str, esperado: Any, predito: Any) -> bool:
+    """`predito` coincide com algum valor aceito do campo (desembrulha $um_de/$opcional)."""
+    return any(campo_igual(campo, e, predito) for e in valores_aceitos(esperado))
+
+
+def melhor_iou(esperado: Any, predito: Any) -> float | None:
+    valores = [iou_periodo(e, predito) for e in valores_aceitos(esperado)]
+    valores = [v for v in valores if v is not None]
+    return max(valores) if valores else None
+
+
 @dataclass
 class AvaliacaoCaso:
     correto: bool
@@ -95,13 +112,73 @@ class AvaliacaoCaso:
     fn: set[str] = field(default_factory=set)
     fora_do_schema: set[str] = field(default_factory=set)
     iou_periodos: dict[str, float] = field(default_factory=dict)
+    # campos que contam como ocorrência no gabarito (obrigatórios + opcionais emitidos)
+    ocorrencias: set[str] = field(default_factory=set)
+    # índice da leitura aceita contra a qual a resposta foi avaliada (0 = preferencial)
+    leitura: int = 0
     # rótulo curto para a análise de erros
     tipo_erro: str | None = None
 
 
+def _tipo_erro(aval: AvaliacaoCaso, esperado: dict[str, Any]) -> str | None:
+    if aval.correto:
+        return None
+    if aval.fora_do_schema:
+        return "campo_fora_do_schema"
+    if aval.fp and aval.fn:
+        return "misto"
+    if aval.fp and aval.fp - set(esperado):
+        return "campo_inventado"
+    if aval.fp:
+        return "valor_errado"
+    return "campo_omitido"
+
+
+def avaliar_leitura(esperado: dict[str, Any], predito: dict[str, Any]) -> AvaliacaoCaso:
+    """Avalia uma resposta (houve tool call) contra UMA leitura do gabarito."""
+    aval = AvaliacaoCaso(correto=True)
+    for campo in set(esperado) | set(predito):
+        if campo not in schema.CAMPOS:
+            if campo in predito:
+                aval.fora_do_schema.add(campo)
+                aval.correto = False
+            continue
+        esp = esperado.get(campo)
+        if campo in esperado and campo in predito:
+            aval.ocorrencias.add(campo)
+            if valor_aceito(campo, esp, predito[campo]):
+                aval.tp.add(campo)
+            else:
+                aval.fp.add(campo)
+                aval.correto = False
+            if campo in schema.CAMPOS_PERIODO:
+                iou = melhor_iou(esp, predito[campo])
+                if iou is not None:
+                    aval.iou_periodos[campo] = iou
+        elif campo in predito:
+            aval.fp.add(campo)
+            aval.correto = False
+        elif not eh_opcional(esp):
+            aval.ocorrencias.add(campo)
+            aval.fn.add(campo)
+            aval.correto = False
+    aval.tipo_erro = _tipo_erro(aval, esperado)
+    return aval
+
+
+def _obrigatorios(esperado: dict[str, Any]) -> set[str]:
+    return {c for c, v in esperado.items() if not eh_opcional(v)}
+
+
 def avaliar_caso(esperado: dict[str, Any], predito: dict[str, Any] | None,
-                 espera_tool_call: bool = True) -> AvaliacaoCaso:
-    """Avalia UMA execução. `predito=None` significa que não houve tool call."""
+                 espera_tool_call: bool = True,
+                 alternativas: list[dict[str, Any]] | None = None) -> AvaliacaoCaso:
+    """Avalia UMA execução contra todas as leituras aceitas do gabarito.
+
+    `predito=None` significa que não houve tool call. Entre as leituras aceitas
+    vale a de melhor casamento: primeiro a que torna a resposta correta; depois a
+    de maior (TP - FP - FN); empate, a preferencial.
+    """
     chamou = predito is not None
 
     # Gabarito "não chamar ferramenta"
@@ -114,44 +191,27 @@ def avaliar_caso(esperado: dict[str, Any], predito: dict[str, Any] | None,
         return aval
 
     if not chamou:
-        return AvaliacaoCaso(correto=False, fn=set(esperado), tipo_erro="nao_chamou")
+        obrig = _obrigatorios(esperado)
+        return AvaliacaoCaso(correto=False, fn=set(obrig), ocorrencias=set(obrig),
+                             tipo_erro="nao_chamou")
 
-    aval = AvaliacaoCaso(correto=True)
-    for campo in set(esperado) | set(predito):
-        if campo not in schema.CAMPOS:
-            aval.fora_do_schema.add(campo)
-            aval.correto = False
-            continue
-        esp, pred = esperado.get(campo), predito.get(campo)
-        if campo in esperado and campo in predito:
-            if campo_igual(campo, esp, pred):
-                aval.tp.add(campo)
-            else:
-                aval.fp.add(campo)
-                aval.correto = False
-            if campo in schema.CAMPOS_PERIODO:
-                iou = iou_periodo(esp, pred)
-                if iou is not None:
-                    aval.iou_periodos[campo] = iou
-        elif campo in predito:
-            aval.fp.add(campo)
-            aval.correto = False
-        else:
-            aval.fn.add(campo)
-            aval.correto = False
+    leituras = [esperado] + list(alternativas or [])
+    melhor: AvaliacaoCaso | None = None
+    melhor_chave: tuple | None = None
+    for indice, leitura in enumerate(leituras):
+        aval = avaliar_leitura(leitura, predito)
+        aval.leitura = indice
+        chave = (aval.correto, len(aval.tp) - len(aval.fp) - len(aval.fn) - len(aval.fora_do_schema))
+        if melhor_chave is None or chave > melhor_chave:
+            melhor, melhor_chave = aval, chave
+    assert melhor is not None
+    return melhor
 
-    if not aval.correto:
-        if aval.fora_do_schema:
-            aval.tipo_erro = "campo_fora_do_schema"
-        elif aval.fp and aval.fn:
-            aval.tipo_erro = "misto"
-        elif aval.fp and aval.fp - set(esperado):
-            aval.tipo_erro = "campo_inventado"
-        elif aval.fp:
-            aval.tipo_erro = "valor_errado"
-        else:
-            aval.tipo_erro = "campo_omitido"
-    return aval
+
+def avaliar_linha(linha: dict[str, Any]) -> AvaliacaoCaso:
+    """Atalho para uma linha de `execucoes.jsonl` (usa as leituras resolvidas da linha)."""
+    return avaliar_caso(linha["esperado_resolvido"], linha["predito"], linha["espera_tool_call"],
+                        linha.get("alternativas_resolvidas"))
 
 
 # ---------------------------------------------------------------------------
@@ -192,22 +252,21 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
     principais = [lin for lin in linhas if not lin.get("observacional")]
     observacionais = [lin for lin in linhas if lin.get("observacional")]
 
-    avaliacoes = [avaliar_caso(lin["esperado_resolvido"], lin["predito"], lin["espera_tool_call"])
-                  for lin in principais]
+    avaliacoes = [avaliar_linha(lin) for lin in principais]
 
     tp, fp, fn = Counter(), Counter(), Counter()
     ocorrencias = Counter()
     ious: dict[str, list[float]] = defaultdict(list)
     tipos_erro = Counter()
     fora_schema = Counter()
-    for linha, aval in zip(principais, avaliacoes, strict=True):
+    for _linha, aval in zip(principais, avaliacoes, strict=True):
         for c in aval.tp:
             tp[c] += 1
         for c in aval.fp:
             fp[c] += 1
         for c in aval.fn:
             fn[c] += 1
-        for c in linha["esperado_resolvido"]:
+        for c in aval.ocorrencias:
             ocorrencias[c] += 1
         for c, v in aval.iou_periodos.items():
             ious[c].append(v)
@@ -244,11 +303,11 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
     for cat in ["S", "C", "M", "T", "O", "A"]:
         sub = [(lin, a) for lin, a in pares if cat in lin["categorias"]]
         sub_tp, sub_fp, sub_fn, sub_occ = Counter(), Counter(), Counter(), Counter()
-        for lin, a in sub:
+        for _lin, a in sub:
             sub_tp.update(a.tp)
             sub_fp.update(a.fp)
             sub_fn.update(a.fn)
-            sub_occ.update(lin["esperado_resolvido"].keys())
+            sub_occ.update(a.ocorrencias)
         peso = sum(sub_occ.values())
         f1_cat = (sum(precisao_recall_f1(sub_tp[c], sub_fp[c], sub_fn[c])[2] * sub_occ[c]
                       for c in schema.CAMPOS) / peso) if peso else 0.0
@@ -265,8 +324,7 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
     lat_tool = [lin["latencia_tool_ms"] for lin in principais if lin.get("latencia_tool_ms") is not None and not erro_de_infra(lin)]
     lat_total = [lin["latencia_total_ms"] for lin in principais if lin.get("latencia_total_ms") is not None and not erro_de_infra(lin)]
 
-    aval_obs = [(lin, avaliar_caso(lin["esperado_resolvido"], lin["predito"], lin["espera_tool_call"]))
-                for lin in observacionais]
+    aval_obs = [(lin, avaliar_linha(lin)) for lin in observacionais]
 
     return {
         "n_consultas": len(principais),
@@ -292,6 +350,7 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
             "respostas_fora_do_schema": len(erros_modelo),
             "classes_fora_do_schema": dict(Counter(lin.get("classe_erro") for lin in erros_modelo)),
             "nao_chamou_quando_devia": sum(1 for lin, a in pares if a.tipo_erro == "nao_chamou"),
+            "acertos_em_leitura_alternativa": sum(1 for lin, a in pares if a.correto and a.leitura > 0),
         },
         "observacionais": {
             "n": len(observacionais),

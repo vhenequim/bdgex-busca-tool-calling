@@ -5,6 +5,12 @@
     pfc-avaliar --modelo qwen3:4b --ids P01,N04,GT001
     pfc-avaliar --modelo qwen3:4b --origem P,N --limite 20   # rodada-fumaça
     pfc-avaliar --modelo qwen3:4b --sem-sql          # só tradução (sem PostGIS)
+    pfc-avaliar --provedor groq --modelo qwen/qwen3.8-27b   # resultado paralelo em nuvem
+
+Os resultados de cada provedor ficam separados: `results/<modelo>/` (Ollama, local)
+e `results/groq-<modelo>/` (Groq, nuvem). O resumo é SEMPRE recalculado contra o
+gabarito vigente em `data/dataset.json`: uma correção de gabarito não exige rodar
+os modelos de novo; uma consulta cujo texto mudou é descartada do resumo.
 
 Saída em `results/<modelo>/`:
     execucoes.jsonl   uma linha por (consulta × repetição); append; retomável
@@ -46,7 +52,7 @@ from pfc_busca import agent, db, schema, tools
 from pfc_busca.evaluation import metrics
 from pfc_busca.evaluation.dataset_builder import CAMINHO_SAIDA as CAMINHO_DATASET
 from pfc_busca.evaluation.dataset_builder import carregar_dataset
-from pfc_busca.evaluation.relative_time import resolver_gabarito
+from pfc_busca.evaluation.gabarito import resolver_gabarito, resolver_leituras
 
 RAIZ_REPO = Path(__file__).resolve().parents[3]
 DIR_RESULTADOS = RAIZ_REPO / "results"
@@ -54,8 +60,24 @@ FALHAS_INFRA_PARA_ABORTAR = 3
 CONSULTA_AQUECIMENTO = "cartas de São Paulo"
 
 
-def slug(modelo: str) -> str:
-    return modelo.replace("/", "-").replace(":", "-")
+def slug(modelo: str, provedor: str = "ollama") -> str:
+    base = modelo.replace("/", "-").replace(":", "-")
+    return base if provedor == "ollama" else f"{provedor}-{base}"
+
+
+def _carregar_env() -> None:
+    from dotenv import load_dotenv
+
+    load_dotenv(RAIZ_REPO / ".env")
+    load_dotenv(RAIZ_REPO.parent / "demo_vc" / ".env")  # chave do Groq usada na demonstração
+
+
+def criar_tradutor(args, registrar=print):
+    if args.provedor == "groq":
+        from pfc_busca.agent_groq import TradutorGroq
+
+        return TradutorGroq(args.modelo, registrar=registrar)
+    return agent.Tradutor(args.modelo, base_url=args.base_url)
 
 
 # ---------------------------------------------------------------------------
@@ -101,9 +123,13 @@ def _info_modelo(modelo: str, base_url: str) -> dict:
 
 
 def montar_manifesto(args, tradutor: agent.Tradutor, executar_sql: bool) -> dict:
+    nuvem = args.provedor != "ollama"
     return {
         "modelo": args.modelo,
-        "modelo_info": _info_modelo(args.modelo, args.base_url),
+        "provedor": args.provedor,
+        "execucao": "nuvem (resultado paralelo, fora do requisito RNF1)" if nuvem else "local (Ollama)",
+        "modelo_info": ({"base_url": tradutor.base_url, "esforco_de_raciocinio": getattr(tradutor, "esforco", None)}
+                        if nuvem else _info_modelo(args.modelo, args.base_url)),
         "thinking_desativado": tradutor.thinking_desativado,
         "configuracao": {"temperature": 0, "num_predict": agent.MAX_TOKENS_SAIDA,
                          "timeout_s": agent.TIMEOUT_S, "keep_alive": agent.KEEP_ALIVE,
@@ -118,13 +144,16 @@ def montar_manifesto(args, tradutor: agent.Tradutor, executar_sql: bool) -> dict
         ).hexdigest(),
         "software": {
             "python": platform.python_version(),
-            "ollama_servidor": agent.versao_servidor(args.base_url),
+            "ollama_servidor": None if nuvem else agent.versao_servidor(args.base_url),
             "ollama_python": versao_pacote("ollama"),
             "langchain_core": versao_pacote("langchain-core"),
             "langchain_ollama": versao_pacote("langchain-ollama"),
+            "langchain_openai": versao_pacote("langchain-openai") if nuvem else None,
             "so": platform.platform(),
         },
-        "hardware": {"gpu": _gpu(), "maquina": platform.node()},
+        "hardware": ({"gpu": None, "maquina": "servidores do provedor"} if nuvem
+                     else {"gpu": _gpu(), "maquina": platform.node()}),
+        "intervalo_entre_chamadas_s": args.intervalo,
         "iniciado_em": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -178,6 +207,8 @@ def executar_caso(tradutor: agent.Tradutor, caso: dict, repeticao: int, hoje: da
         "modelo": tradutor.modelo, "repeticao": repeticao, "hoje": hoje.isoformat(),
         "esperado": caso["esperado"],
         "esperado_resolvido": resolver_gabarito(caso["esperado"], hoje),
+        "alternativas": caso.get("alternativas", []),
+        "alternativas_resolvidas": resolver_leituras(caso, hoje)[1:],
         "predito": traducao.predito, "chamou_ferramenta": traducao.chamou_ferramenta,
         "tool_calls": traducao.tool_calls, "texto_resposta": traducao.texto_resposta,
         "latencia_llm_ms": traducao.latencia_llm_ms, "latencia_tool_ms": latencia_tool,
@@ -193,7 +224,7 @@ def executar_caso(tradutor: agent.Tradutor, caso: dict, repeticao: int, hoje: da
 def _glifo(linha: dict) -> Text:
     if metrics.erro_de_infra(linha):
         return Text("×", style="red")
-    aval = metrics.avaliar_caso(linha["esperado_resolvido"], linha["predito"], linha["espera_tool_call"])
+    aval = metrics.avaliar_linha(linha)
     return Text("✓", style="green") if aval.correto else Text("·", style="yellow")
 
 
@@ -203,12 +234,12 @@ def rodar(args, console: Console) -> int:
         console.print("[yellow]nenhuma consulta selecionada[/yellow]")
         return 1
 
-    tradutor = agent.Tradutor(args.modelo, base_url=args.base_url)
+    tradutor = criar_tradutor(args, registrar=console.print)
     executar_sql = not args.sem_sql and db.disponivel(args.dsn)
     if not args.sem_sql and not executar_sql:
         console.print("[yellow]banco indisponível — rodando só a tradução (SQL não executada)[/yellow]")
 
-    dir_saida = args.saida / slug(args.modelo)
+    dir_saida = args.saida / slug(args.modelo, args.provedor)
     dir_saida.mkdir(parents=True, exist_ok=True)
     caminho_jsonl = dir_saida / "execucoes.jsonl"
     feitos = ja_executados(caminho_jsonl)
@@ -216,7 +247,7 @@ def rodar(args, console: Console) -> int:
     manifesto = montar_manifesto(args, tradutor, executar_sql)
     (dir_saida / "manifesto.json").write_text(json.dumps(manifesto, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    console.rule(f"[bold]{args.modelo}[/bold]")
+    console.rule(f"[bold]{args.modelo}[/bold] · {args.provedor}")
     console.print(f"consultas: {len(casos)} × {args.repeticoes} repetição(ões) · já feitas: {len(feitos)} · "
                   f"hoje={args.hoje} · thinking {'desativado' if tradutor.thinking_desativado else 'n/a'} · "
                   f"SQL {'sim' if executar_sql else 'não'}")
@@ -238,7 +269,9 @@ def rodar(args, console: Console) -> int:
         TimeElapsedColumn(), TimeRemainingColumn(), console=console,
     ) as progresso:
         tarefa = progresso.add_task("avaliando", total=len(pendentes))
-        for caso, repeticao in pendentes:
+        for i, (caso, repeticao) in enumerate(pendentes):
+            if i and args.intervalo:
+                time.sleep(args.intervalo)
             linha = executar_caso(tradutor, caso, repeticao, args.hoje, executar_sql, args.dsn)
             arquivo.write(json.dumps(linha, ensure_ascii=False) + "\n")
             arquivo.flush()
@@ -275,8 +308,33 @@ def carregar_execucoes(dir_saida: Path) -> list[dict]:
     return [json.loads(lin) for lin in caminho.read_text(encoding="utf-8").splitlines() if lin.strip()]
 
 
+def repontuar(linhas: list[dict]) -> tuple[list[dict], list[str]]:
+    """Reaplica o gabarito VIGENTE de `data/dataset.json` a execuções já feitas.
+
+    Cada linha mantém o que o modelo respondeu (`predito`) e a data de referência
+    da execução (`hoje`); gabarito, leituras alternativas, categorias e condição de
+    observacional vêm do dataset atual. Linhas cujo id não existe mais, ou cujo texto
+    de consulta mudou, são descartadas (e listadas).
+    """
+    atuais = {c["id"]: c for c in carregar_dataset()}
+    validas, descartadas = [], []
+    for lin in linhas:
+        caso = atuais.get(lin["id"])
+        if caso is None or caso["consulta"] != lin["consulta"]:
+            descartadas.append(lin["id"])
+            continue
+        hoje = date.fromisoformat(lin["hoje"])
+        leituras = resolver_leituras(caso, hoje)
+        validas.append({**lin,
+                        "esperado": caso["esperado"], "alternativas": caso["alternativas"],
+                        "esperado_resolvido": leituras[0], "alternativas_resolvidas": leituras[1:],
+                        "espera_tool_call": caso["espera_tool_call"], "observacional": caso["observacional"],
+                        "categorias": caso["categorias"], "origem": caso["origem"], "familia": caso["familia"]})
+    return validas, descartadas
+
+
 def resumir(dir_saida: Path, console: Console | None = None) -> dict:
-    linhas = carregar_execucoes(dir_saida)
+    linhas, descartadas = repontuar(carregar_execucoes(dir_saida))
     if not linhas:
         return {}
     repeticoes = sorted({lin["repeticao"] for lin in linhas})
@@ -287,6 +345,8 @@ def resumir(dir_saida: Path, console: Console | None = None) -> dict:
         "geral": metrics.agregar(linhas),
         "por_repeticao": {str(r): metrics.agregar([lin for lin in linhas if lin["repeticao"] == r]) for r in repeticoes},
         "gerado_em": datetime.now().isoformat(timespec="seconds"),
+        "dataset_sha256_na_pontuacao": _hash_arquivo(CAMINHO_DATASET),
+        "linhas_descartadas_texto_alterado": sorted(set(descartadas)),
     }
     (dir_saida / "resumo.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=2), encoding="utf-8")
     (dir_saida / "resumo.md").write_text(resumo_markdown(resumo), encoding="utf-8")
@@ -374,7 +434,11 @@ def resumo_markdown(resumo: dict) -> str:
 
 def analisar(argv: list[str] | None = None):
     p = argparse.ArgumentParser(description="Avalia um modelo sobre o dataset do PFC.")
-    p.add_argument("--modelo", required=True, help="tag do Ollama, ex.: qwen3:4b")
+    p.add_argument("--modelo", required=True, help="tag do Ollama (ex.: qwen3:4b) ou id do Groq")
+    p.add_argument("--provedor", choices=["ollama", "groq"], default="ollama",
+                   help="ollama = local (configuração avaliada); groq = nuvem (resultado paralelo)")
+    p.add_argument("--intervalo", type=float, default=None,
+                   help="segundos entre chamadas (padrão: 0 no Ollama, 11 no Groq por causa do limite por minuto)")
     p.add_argument("--repeticoes", type=int, default=1)
     p.add_argument("--hoje", type=date.fromisoformat, default=date.today(),
                    help="data de referência (ISO) injetada no prompt e usada no gabarito")
@@ -395,9 +459,14 @@ def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     args = analisar(argv)
+    if args.intervalo is None:
+        args.intervalo = 11.0 if args.provedor == "groq" else 0.0
+    if args.provedor == "groq":
+        args.sem_sql = True  # a nuvem só traduz; a demonstração ponta a ponta é local
+    _carregar_env()
     console = Console(highlight=False)
     if args.so_resumir:
-        resumir(args.saida / slug(args.modelo), console)
+        resumir(args.saida / slug(args.modelo, args.provedor), console)
         return 0
     try:
         return rodar(args, console)

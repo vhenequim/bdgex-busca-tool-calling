@@ -1,6 +1,6 @@
 {
-  "gerado_em": "2026-09-14T11:30:30",
-  "fonte": "Apêndice A do PFC (P01-P22, N01-N40) + generate_dataset.py seed=42 (G*)",
+  "fonte": "manual_cases.py (P01-P22, N01-N40) + generate_dataset.py semente 42 (G*)",
+  "manual": "docs/manual_de_anotacao.md",
   "total": 310,
   "por_origem": {
     "G": 248,
@@ -35,9 +35,12 @@
         "keyword": "2965-2-NE",
         "supplyArea": "2° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:6",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P02",
@@ -52,9 +55,12 @@
         "keyword": "2866-3",
         "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:16",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P03",
@@ -70,9 +76,12 @@
         "keyword": "2901",
         "project": "Olimpíadas Rio 2016"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:26",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P04",
@@ -88,9 +97,12 @@
         "keyword": "530",
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:36",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P05",
@@ -109,9 +121,12 @@
           "rel": "ano_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:48",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P06",
@@ -127,9 +142,12 @@
         "keyword": "SF-22-Y-D",
         "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:62",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P07",
@@ -145,9 +163,12 @@
         "keyword": "SF-22-Y-D-II-4-SE",
         "supplyArea": "1° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:72",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P08",
@@ -162,9 +183,12 @@
         "scale": "1:25.000",
         "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:84",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P09",
@@ -181,9 +205,25 @@
           "end": "2024-12-31"
         }
       },
+      "trocas": [
+        [
+          "keyword",
+          "city"
+        ]
+      ],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:95",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "nome de carta coincide com município: aceita-se também city",
+      "alternativas": [
+        {
+          "publicationPeriod": {
+            "start": "2024-01-01",
+            "end": "2024-12-31"
+          },
+          "city": "Porto Velho"
+        }
+      ]
     },
     {
       "id": "P10",
@@ -198,9 +238,12 @@
         "keyword": "Vale do Guaporé",
         "project": "Base Cartográfica Digital de Rondônia"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:108",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P11",
@@ -213,13 +256,29 @@
       ],
       "consulta": "MI 2965-2-NE e SF-22-Y-D do terceiro cgeo em grande escala",
       "esperado": {
-        "keyword": "2965-2-NE",
+        "keyword": {
+          "$um_de": [
+            "2965-2-NE",
+            "SF-22-Y-D"
+          ]
+        },
         "supplyArea": "3° Centro de Geoinformação",
-        "scale": "1:25.000"
+        "scale": {
+          "$um_de": [
+            "1:25.000",
+            "1:10.000",
+            "1:5.000",
+            "1:2.000",
+            "1:1.000"
+          ]
+        }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:120",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito herdado do protótipo: dois códigos, fica o primeiro; 'grande escala' → 1:25.000"
+      "notas": "dois códigos (o schema comporta um): aceita-se qualquer um; 'grande escala' aceita as escalas grandes",
+      "alternativas": []
     },
     {
       "id": "P12",
@@ -233,15 +292,23 @@
       ],
       "consulta": "cartas do tipo topo com MI 530 ou SF-22 publicadas esse ano",
       "esperado": {
-        "keyword": "530",
+        "keyword": {
+          "$um_de": [
+            "530",
+            "SF-22"
+          ]
+        },
         "productType": "SCN Carta Topográfica Matricial",
         "publicationPeriod": {
           "rel": "ano_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:131",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito herdado do protótipo: dois códigos, fica o primeiro"
+      "notas": "dois códigos: aceita-se qualquer um",
+      "alternativas": []
     },
     {
       "id": "P13",
@@ -254,11 +321,23 @@
       "consulta": "todas as cartas em escala maior que 100k do rio grande do sul",
       "esperado": {
         "state": "Rio Grande do Sul",
-        "scale": "1:25.000"
+        "scale": {
+          "$um_de": [
+            "1:25.000",
+            "1:50.000",
+            "1:10.000",
+            "1:5.000",
+            "1:2.000",
+            "1:1.000"
+          ]
+        }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:147",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito herdado do protótipo: 'maior que 100k' → 1:25.000"
+      "notas": "'maior que 100k' aceita qualquer escala maior que 1:100.000",
+      "alternativas": []
     },
     {
       "id": "P14",
@@ -270,12 +349,20 @@
       ],
       "consulta": "mapeamento detalhado (25k ou 50k) de brasilia",
       "esperado": {
-        "scale": "1:25.000",
+        "scale": {
+          "$um_de": [
+            "1:25.000",
+            "1:50.000"
+          ]
+        },
         "city": "Brasília"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:156",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito herdado do protótipo: duas escalas, fica a mais detalhada"
+      "notas": "duas escalas explícitas: aceita-se qualquer uma",
+      "alternativas": []
     },
     {
       "id": "P15",
@@ -293,9 +380,12 @@
           "rel": "ultimo_trimestre_ano_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:167",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P16",
@@ -313,9 +403,24 @@
           "rel": "semana_passada"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:179",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "supplyArea": "3° Centro de Geoinformação",
+          "creationPeriod": {
+            "rel": "semana_passada"
+          }
+        }
+      ]
     },
     {
       "id": "P17",
@@ -330,9 +435,12 @@
         "project": "Mapeamento Sistemático",
         "state": "Goiás"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:193",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P18",
@@ -347,9 +455,12 @@
         "project": "Copa das Confederações",
         "city": "Fortaleza"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:202",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "P19",
@@ -364,11 +475,17 @@
       "esperado": {
         "city": "Cuiabá",
         "sortField": "creationDate",
-        "sortDirection": "ASC"
+        "sortDirection": "ASC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:213",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "singular sem número: limit 1 opcional",
+      "alternativas": []
     },
     {
       "id": "P20",
@@ -383,11 +500,17 @@
       "esperado": {
         "state": "Pará",
         "sortField": "creationDate",
-        "sortDirection": "DESC"
+        "sortDirection": "DESC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:223",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "singular sem número: limit 1 opcional",
+      "alternativas": []
     },
     {
       "id": "P21",
@@ -407,14 +530,22 @@
         "supplyArea": "3° Centro de Geoinformação",
         "state": "Pernambuco",
         "publicationPeriod": {
-          "rel": "desde_2020"
+          "rel": "depois_de_2020"
         },
-        "sortField": "creationDate",
+        "sortField": {
+          "$um_de": [
+            "creationDate",
+            "publicationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:235",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'mais antigas' sem pista ligada à ordenação: aceita-se publicationDate além do creationDate original",
+      "alternativas": []
     },
     {
       "id": "P22",
@@ -428,19 +559,32 @@
       ],
       "consulta": "MI 2901 ou SF-22 do quarto cgeo no sudeste em pequena escala criado entre 2022 e 2023 ordem cronologica",
       "esperado": {
-        "keyword": "2901",
+        "keyword": {
+          "$um_de": [
+            "2901",
+            "SF-22"
+          ]
+        },
         "supplyArea": "4° Centro de Geoinformação",
         "scale": "1:250.000",
         "creationPeriod": {
           "start": "2022-01-01",
           "end": "2023-12-31"
         },
-        "sortField": "creationDate",
+        "sortField": {
+          "$um_de": [
+            "creationDate",
+            "publicationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "prototipo_busca_llm-main/backend/evaluation/test-cases.ts:253",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito herdado do protótipo: 'sudeste' não vira parâmetro"
+      "notas": "dois códigos; 'sudeste' é região (nada a anotar); ordem cronológica sem pista ligada",
+      "alternativas": []
     },
     {
       "id": "N01",
@@ -453,9 +597,21 @@
       "esperado": {
         "state": "São Paulo"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'São Paulo' sem qualificador: estado ou capital",
+      "alternativas": [
+        {
+          "city": "São Paulo"
+        }
+      ]
     },
     {
       "id": "N02",
@@ -468,9 +624,12 @@
       "esperado": {
         "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N03",
@@ -483,9 +642,12 @@
       "esperado": {
         "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N04",
@@ -499,9 +661,12 @@
       "esperado": {
         "state": "Rio de Janeiro"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N05",
@@ -515,9 +680,12 @@
       "esperado": {
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N06",
@@ -530,9 +698,12 @@
       "esperado": {
         "keyword": "SF-22-Y-D"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N07",
@@ -546,9 +717,12 @@
       "esperado": {
         "productType": "MDT — RAM"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N08",
@@ -562,9 +736,12 @@
       "esperado": {
         "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N09",
@@ -577,9 +754,12 @@
       "esperado": {
         "state": "Amazonas"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N10",
@@ -593,9 +773,12 @@
       "esperado": {
         "keyword": "2901"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N11",
@@ -609,9 +792,12 @@
         "supplyArea": "1° Centro de Geoinformação",
         "state": "Minas Gerais"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N12",
@@ -626,9 +812,12 @@
         "city": "Manaus",
         "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N13",
@@ -644,9 +833,12 @@
         "state": "Pará",
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N14",
@@ -661,9 +853,12 @@
         "keyword": "2965-2",
         "state": "Rio Grande do Sul"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N15",
@@ -677,9 +872,12 @@
       "esperado": {
         "keyword": "SG-22-X-A"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N16",
@@ -698,9 +896,12 @@
           "end": "2023-12-31"
         }
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N17",
@@ -713,12 +914,15 @@
       "consulta": "produtos publicados nos últimos 3 meses",
       "esperado": {
         "publicationPeriod": {
-          "rel": "ultimos_90_dias"
+          "rel": "ultimos_3_meses"
         }
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N18",
@@ -735,9 +939,24 @@
           "rel": "ano_anterior"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "state": "Roraima",
+          "creationPeriod": {
+            "rel": "ano_anterior"
+          }
+        }
+      ]
     },
     {
       "id": "N19",
@@ -753,9 +972,23 @@
           "rel": "mes_corrente"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "creationPeriod": {
+            "rel": "mes_corrente"
+          }
+        }
+      ]
     },
     {
       "id": "N20",
@@ -773,9 +1006,24 @@
           "rel": "ultimos_5_anos"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "scale": "1:100.000",
+          "creationPeriod": {
+            "rel": "ultimos_5_anos"
+          }
+        }
+      ]
     },
     {
       "id": "N21",
@@ -791,9 +1039,23 @@
           "rel": "hoje"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "creationPeriod": {
+            "rel": "hoje"
+          }
+        }
+      ]
     },
     {
       "id": "N22",
@@ -811,9 +1073,24 @@
           "rel": "dois_anos_atras"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "productType": "SCN Carta Ortoimagem",
+          "creationPeriod": {
+            "rel": "dois_anos_atras"
+          }
+        }
+      ]
     },
     {
       "id": "N23",
@@ -827,13 +1104,28 @@
       "consulta": "produtos do trimestre passado do 4º CGEO",
       "esperado": {
         "supplyArea": "4° Centro de Geoinformação",
-        "creationPeriod": {
+        "publicationPeriod": {
           "rel": "trimestre_anterior"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida publicação ou criação",
+      "alternativas": [
+        {
+          "supplyArea": "4° Centro de Geoinformação",
+          "creationPeriod": {
+            "rel": "trimestre_anterior"
+          }
+        }
+      ]
     },
     {
       "id": "N24",
@@ -847,12 +1139,20 @@
       "esperado": {
         "city": "Curitiba",
         "limit": 3,
-        "sortField": "publicationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito harmonizado com a camada G: 'mais recente(s)/antiga(s)' → publicationDate; 'feito/criado' → creationDate"
+      "notas": "'mais recentes' sem pista: aceita-se publicationDate ou creationDate",
+      "alternativas": []
     },
     {
       "id": "N25",
@@ -866,12 +1166,20 @@
       "esperado": {
         "productType": "SCN Carta Ortoimagem",
         "limit": 10,
-        "sortField": "creationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "'Nordeste' não mapeia a um único estado; gabarito não inclui state"
+      "notas": "'Nordeste' é região (nada a anotar); 'primeiras' sem pista",
+      "alternativas": []
     },
     {
       "id": "N26",
@@ -885,12 +1193,20 @@
       "consulta": "mais antigas em rondonia",
       "esperado": {
         "state": "Rondônia",
-        "sortField": "publicationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "gabarito harmonizado com a camada G (ver N24)"
+      "notas": "'mais antigas' sem pista",
+      "alternativas": []
     },
     {
       "id": "N27",
@@ -906,9 +1222,12 @@
         "sortField": "publicationDate",
         "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N28",
@@ -922,13 +1241,23 @@
       "consulta": "carta MI 2901 mais recente",
       "esperado": {
         "keyword": "2901",
-        "sortField": "publicationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "DESC",
-        "limit": 1
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "singular sem número: limit 1 opcional; 'mais recente' sem pista",
+      "alternativas": []
     },
     {
       "id": "N29",
@@ -945,12 +1274,39 @@
         "publicationPeriod": {
           "rel": "ano_corrente"
         },
-        "sortField": "publicationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "sem verbo que decida o período; 'mais antigos' sem pista",
+      "alternativas": [
+        {
+          "limit": 3,
+          "sortField": {
+            "$um_de": [
+              "publicationDate",
+              "creationDate"
+            ]
+          },
+          "sortDirection": "ASC",
+          "creationPeriod": {
+            "rel": "ano_corrente"
+          }
+        }
+      ]
     },
     {
       "id": "N30",
@@ -965,9 +1321,12 @@
         "productType": "SCN Carta Topográfica Matricial",
         "supplyArea": "1° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N31",
@@ -981,9 +1340,12 @@
       "esperado": {
         "productType": "SCN Carta Ortoimagem Banda P Pol HH"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N32",
@@ -998,9 +1360,22 @@
         "state": "Rio de Janeiro",
         "scale": "1:100.000"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'rio' é ambíguo entre o estado e a capital",
+      "alternativas": [
+        {
+          "scale": "1:100.000",
+          "city": "Rio de Janeiro"
+        }
+      ]
     },
     {
       "id": "N33",
@@ -1015,9 +1390,12 @@
         "project": "Mapeamento Sistemático",
         "state": "São Paulo"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N34",
@@ -1029,12 +1407,14 @@
       ],
       "consulta": "ortos da amazonia legal",
       "esperado": {
-        "productType": "SCN Carta Ortoimagem",
-        "state": "Amazonas"
+        "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
-      "observacional": true,
-      "notas": "gabarito incerto: 'Amazônia Legal' abrange nove estados, não só o Amazonas"
+      "observacional": false,
+      "notas": "'Amazônia Legal' é região (nove estados), não estado: nada a anotar para ela",
+      "alternativas": []
     },
     {
       "id": "N35",
@@ -1050,9 +1430,12 @@
         "keyword": "SF-22-Y-D",
         "supplyArea": "2° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "N36",
@@ -1063,9 +1446,12 @@
       ],
       "consulta": "cartas fora do brasil",
       "esperado": {},
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "fora do domínio: nenhum parâmetro extraível"
+      "notas": "fora do território brasileiro",
+      "alternativas": []
     },
     {
       "id": "N37",
@@ -1076,9 +1462,12 @@
       ],
       "consulta": "quero um mapa bonito",
       "esperado": {},
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "subespecífico: nenhum parâmetro extraível"
+      "notas": "sem critério de busca",
+      "alternativas": []
     },
     {
       "id": "N38",
@@ -1090,9 +1479,12 @@
       ],
       "consulta": "escala 1:10.000.000",
       "esperado": {},
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "valor fora do enum de escalas; qualquer scale emitido é falso positivo"
+      "notas": "escala fora do enumerado: qualquer scale emitido é falso positivo",
+      "alternativas": []
     },
     {
       "id": "N39",
@@ -1106,9 +1498,12 @@
       "esperado": {
         "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": true,
-      "notas": "área não terrestre: state/city emitidos são falso positivo"
+      "notas": "área não terrestre: comportamento esperado discutível",
+      "alternativas": []
     },
     {
       "id": "N40",
@@ -1125,25 +1520,42 @@
           "end": "2050-12-31"
         }
       },
+      "trocas": [
+        [
+          "publicationPeriod",
+          "creationPeriod"
+        ]
+      ],
+      "fonte": "autores",
       "espera_tool_call": true,
       "observacional": true,
-      "notas": "gabarito determinístico; SQL válida com zero registros esperados"
+      "notas": "data futura: comportamento esperado discutível",
+      "alternativas": [
+        {
+          "creationPeriod": {
+            "start": "2050-01-01",
+            "end": "2050-12-31"
+          }
+        }
+      ]
     },
     {
       "id": "GS001",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S",
-        "A"
+        "S"
       ],
-      "consulta": "cartas de AC",
+      "consulta": "cartas do Acre",
       "esperado": {
         "state": "Acre"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS002",
@@ -1157,9 +1569,12 @@
       "esperado": {
         "state": "Alagoas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS003",
@@ -1169,13 +1584,16 @@
         "S",
         "A"
       ],
-      "consulta": "cartas de Amapa",
+      "consulta": "cartas do AP",
       "esperado": {
         "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS004",
@@ -1184,28 +1602,35 @@
       "categorias": [
         "S"
       ],
-      "consulta": "cartas de amazonas",
+      "consulta": "cartas do Amazonas",
       "esperado": {
         "state": "Amazonas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS005",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de bahia",
+      "consulta": "cartas da bahia",
       "esperado": {
         "state": "Bahia"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS006",
@@ -1215,13 +1640,16 @@
         "S",
         "A"
       ],
-      "consulta": "cartas de ceara",
+      "consulta": "cartas do CE",
       "esperado": {
         "state": "Ceará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS007",
@@ -1231,13 +1659,16 @@
         "S",
         "A"
       ],
-      "consulta": "cartas de DF",
+      "consulta": "cartas do DF",
       "esperado": {
         "state": "Distrito Federal"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS008",
@@ -1247,13 +1678,16 @@
         "S",
         "A"
       ],
-      "consulta": "cartas de ES",
+      "consulta": "cartas do ES",
       "esperado": {
         "state": "Espírito Santo"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS009",
@@ -1266,56 +1700,67 @@
       "esperado": {
         "state": "Goiás"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS010",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de maranhão",
+      "consulta": "cartas do MA",
       "esperado": {
         "state": "Maranhão"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS011",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S",
-        "A"
+        "S"
       ],
-      "consulta": "cartas de MT",
+      "consulta": "cartas de Mato Grosso",
       "esperado": {
         "state": "Mato Grosso"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS012",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S",
-        "A"
+        "S"
       ],
-      "consulta": "cartas de MS",
+      "consulta": "cartas de Mato Grosso do Sul",
       "esperado": {
         "state": "Mato Grosso do Sul"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS013",
@@ -1329,25 +1774,30 @@
       "esperado": {
         "state": "Minas Gerais"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS014",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S",
-        "A"
+        "S"
       ],
-      "consulta": "cartas de para",
+      "consulta": "cartas do Pará",
       "esperado": {
         "state": "Pará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS015",
@@ -1357,13 +1807,16 @@
         "S",
         "A"
       ],
-      "consulta": "cartas de paraiba",
+      "consulta": "cartas da paraíba",
       "esperado": {
         "state": "Paraíba"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS016",
@@ -1373,28 +1826,35 @@
         "S",
         "A"
       ],
-      "consulta": "produtos em escala 1k",
+      "consulta": "produtos na escala 1:1000",
       "esperado": {
         "scale": "1:1.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS017",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "produtos em escala 1:2.000",
+      "consulta": "produtos na escala 1:2000",
       "esperado": {
         "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS018",
@@ -1404,43 +1864,54 @@
         "S",
         "A"
       ],
-      "consulta": "produtos em escala 5k",
+      "consulta": "produtos na escala 1:5000",
       "esperado": {
         "scale": "1:5.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS019",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "produtos em escala 1:10.000",
+      "consulta": "produtos na escala 1:10000",
       "esperado": {
         "scale": "1:10.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS020",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "produtos em escala 1:25.000",
+      "consulta": "produtos na escala 1:25000",
       "esperado": {
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS021",
@@ -1450,28 +1921,35 @@
         "S",
         "A"
       ],
-      "consulta": "produtos em escala 50k",
+      "consulta": "produtos na escala de 50 mil",
       "esperado": {
         "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS022",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "produtos em escala 1:100.000",
+      "consulta": "produtos na escala de 100 mil",
       "esperado": {
         "scale": "1:100.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS023",
@@ -1481,13 +1959,16 @@
         "S",
         "A"
       ],
-      "consulta": "produtos em escala pequena escala",
+      "consulta": "produtos em 250k",
       "esperado": {
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS024",
@@ -1497,13 +1978,16 @@
         "S",
         "A"
       ],
-      "consulta": "topo",
+      "consulta": "cartas topográficas disponíveis",
       "esperado": {
         "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS025",
@@ -1513,28 +1997,35 @@
         "S",
         "A"
       ],
-      "consulta": "vetorial",
+      "consulta": "cartas vetoriais disponíveis",
       "esperado": {
         "productType": "SCN Carta Topográfica Vetorial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS026",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "SCN Carta Ortoimagem",
+      "consulta": "ortoimagens disponíveis",
       "esperado": {
         "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS027",
@@ -1544,13 +2035,16 @@
         "S",
         "A"
       ],
-      "consulta": "orto banda P",
+      "consulta": "ortoimagens banda P HH disponíveis",
       "esperado": {
         "productType": "SCN Carta Ortoimagem Banda P Pol HH"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS028",
@@ -1560,13 +2054,16 @@
         "S",
         "A"
       ],
-      "consulta": "orto banda X",
+      "consulta": "ortoimagens banda X HH disponíveis",
       "esperado": {
         "productType": "SCN Carta Ortoimagem Banda X Pol HH"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS029",
@@ -1576,13 +2073,16 @@
         "S",
         "A"
       ],
-      "consulta": "mdt",
+      "consulta": "MDTs disponíveis",
       "esperado": {
         "productType": "MDT — RAM"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS030",
@@ -1592,28 +2092,35 @@
         "S",
         "A"
       ],
-      "consulta": "mds",
+      "consulta": "MDSs disponíveis",
       "esperado": {
         "productType": "MDS — RAM"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS031",
       "origem": "G",
       "familia": "GS",
       "categorias": [
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "circ",
+      "consulta": "cartas CIRC disponíveis",
       "esperado": {
         "productType": "CIRC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS032",
@@ -1623,13 +2130,16 @@
         "S",
         "A"
       ],
-      "consulta": "carta temática",
+      "consulta": "mapas temáticos disponíveis",
       "esperado": {
         "productType": "Cartas Temáticas Não SCN"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"{tipo} disponíveis\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS033",
@@ -1639,13 +2149,16 @@
         "S",
         "A"
       ],
-      "consulta": "produtos do 1o CGEO",
+      "consulta": "produtos do primeiro cgeo",
       "esperado": {
         "supplyArea": "1° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS034",
@@ -1655,13 +2168,16 @@
         "S",
         "A"
       ],
-      "consulta": "produtos do segundo cgeo",
+      "consulta": "produtos do 2o cgeo",
       "esperado": {
         "supplyArea": "2° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS035",
@@ -1671,13 +2187,16 @@
         "S",
         "A"
       ],
-      "consulta": "produtos do 3o CGEO",
+      "consulta": "produtos do 3o cgeo",
       "esperado": {
         "supplyArea": "3° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS036",
@@ -1691,9 +2210,12 @@
       "esperado": {
         "supplyArea": "4° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS037",
@@ -1703,46 +2225,19 @@
         "S",
         "A"
       ],
-      "consulta": "produtos do quinto cgeo",
+      "consulta": "produtos do 5º CGEO",
       "esperado": {
         "supplyArea": "5° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS038",
-      "origem": "G",
-      "familia": "GS",
-      "categorias": [
-        "S"
-      ],
-      "consulta": "cartas de Rio de Janeiro",
-      "esperado": {
-        "city": "Rio de Janeiro"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GS039",
-      "origem": "G",
-      "familia": "GS",
-      "categorias": [
-        "S"
-      ],
-      "consulta": "cartas de São Paulo",
-      "esperado": {
-        "city": "São Paulo"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GS040",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1752,12 +2247,15 @@
       "esperado": {
         "city": "Brasília"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS041",
+      "id": "GS039",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1767,12 +2265,15 @@
       "esperado": {
         "city": "Manaus"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS042",
+      "id": "GS040",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1782,12 +2283,15 @@
       "esperado": {
         "city": "Porto Velho"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS043",
+      "id": "GS041",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1797,12 +2301,15 @@
       "esperado": {
         "city": "Cuiabá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS044",
+      "id": "GS042",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1812,12 +2319,15 @@
       "esperado": {
         "city": "Fortaleza"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS045",
+      "id": "GS043",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1827,12 +2337,15 @@
       "esperado": {
         "city": "Salvador"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS046",
+      "id": "GS044",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1842,12 +2355,15 @@
       "esperado": {
         "city": "Belo Horizonte"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
-      "id": "GS047",
+      "id": "GS045",
       "origem": "G",
       "familia": "GS",
       "categorias": [
@@ -1857,9 +2373,48 @@
       "esperado": {
         "city": "Curitiba"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GS046",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Porto Alegre",
+      "esperado": {
+        "city": "Porto Alegre"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GS047",
+      "origem": "G",
+      "familia": "GS",
+      "categorias": [
+        "S"
+      ],
+      "consulta": "cartas de Recife",
+      "esperado": {
+        "city": "Recife"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"cartas de {município}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS048",
@@ -1869,13 +2424,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2965-2-NE",
+      "consulta": "carta MI 2965-2-NE",
       "esperado": {
         "keyword": "2965-2-NE"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS049",
@@ -1885,13 +2443,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2866-3",
+      "consulta": "carta MI 2866-3",
       "esperado": {
         "keyword": "2866-3"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS050",
@@ -1901,13 +2462,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2901",
+      "consulta": "carta MI 2901",
       "esperado": {
         "keyword": "2901"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS051",
@@ -1917,13 +2481,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 530",
+      "consulta": "carta MI 530",
       "esperado": {
         "keyword": "530"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS052",
@@ -1933,13 +2500,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 3010",
+      "consulta": "carta MI 3010",
       "esperado": {
         "keyword": "3010"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS053",
@@ -1949,13 +2519,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2965",
+      "consulta": "carta MI 2965",
       "esperado": {
         "keyword": "2965"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS054",
@@ -1965,13 +2538,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2866-2-SO",
+      "consulta": "carta MI 2866-2-SO",
       "esperado": {
         "keyword": "2866-2-SO"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS055",
@@ -1981,13 +2557,16 @@
         "S",
         "M"
       ],
-      "consulta": "MI 2901-4-NE",
+      "consulta": "carta MI 2901-4-NE",
       "esperado": {
         "keyword": "2901-4-NE"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"carta MI {mi}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS056",
@@ -1997,13 +2576,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SF-22-Y-D",
+      "consulta": "folha INOM SF-22-Y-D",
       "esperado": {
         "keyword": "SF-22-Y-D"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS057",
@@ -2013,13 +2595,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SF-22-Y-D-II",
+      "consulta": "folha INOM SF-22-Y-D-II",
       "esperado": {
         "keyword": "SF-22-Y-D-II"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS058",
@@ -2029,13 +2614,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SF-22-Y-D-II-4",
+      "consulta": "folha INOM SF-22-Y-D-II-4",
       "esperado": {
         "keyword": "SF-22-Y-D-II-4"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS059",
@@ -2045,13 +2633,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SF-22-Y-D-II-4-SE",
+      "consulta": "folha INOM SF-22-Y-D-II-4-SE",
       "esperado": {
         "keyword": "SF-22-Y-D-II-4-SE"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS060",
@@ -2061,13 +2652,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SG-22-X-A",
+      "consulta": "folha INOM SG-22-X-A",
       "esperado": {
         "keyword": "SG-22-X-A"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GS061",
@@ -2077,13 +2671,16 @@
         "S",
         "M"
       ],
-      "consulta": "INOM SF-23-V-C",
+      "consulta": "folha INOM SF-23-V-C",
       "esperado": {
         "keyword": "SF-23-V-C"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_simples · modelo \"folha INOM {inom}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC001",
@@ -2093,14 +2690,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Rio Grande do Norte em detalhada",
+      "consulta": "cartas do amapá na escala 1:2.000",
       "esperado": {
-        "state": "Rio Grande do Norte",
-        "scale": "1:25.000"
+        "state": "Amapá",
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC002",
@@ -2110,14 +2710,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de SE em 1:1.000",
+      "consulta": "cartas de Mato Grosso do Sul em 25k",
       "esperado": {
-        "state": "Sergipe",
-        "scale": "1:1.000"
+        "state": "Mato Grosso do Sul",
+        "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC003",
@@ -2127,14 +2730,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de santa catarina em 1:250.000",
+      "consulta": "cartas de santa catarina na escala 1:2.000",
       "esperado": {
         "state": "Santa Catarina",
-        "scale": "1:250.000"
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC004",
@@ -2144,14 +2750,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de PI em 1:2000",
+      "consulta": "cartas do Amapá na escala de 25 mil",
       "esperado": {
-        "state": "Piauí",
-        "scale": "1:2.000"
+        "state": "Amapá",
+        "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC005",
@@ -2161,218 +2770,20 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de minas gerais em 2k",
+      "consulta": "cartas do RJ na escala 1:2000",
       "esperado": {
-        "state": "Minas Gerais",
+        "state": "Rio de Janeiro",
         "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC006",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de Piauí em detalhada",
-      "esperado": {
-        "state": "Piauí",
-        "scale": "1:25.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC007",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C"
-      ],
-      "consulta": "cartas de Tocantins em 1:50.000",
-      "esperado": {
-        "state": "Tocantins",
-        "scale": "1:50.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC008",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C"
-      ],
-      "consulta": "cartas de Rio de Janeiro em 1:10.000",
-      "esperado": {
-        "state": "Rio de Janeiro",
-        "scale": "1:10.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC009",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de roraima em 1:2000",
-      "esperado": {
-        "state": "Roraima",
-        "scale": "1:2.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC010",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de AL em 10k",
-      "esperado": {
-        "state": "Alagoas",
-        "scale": "1:10.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC011",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de São Paulo em 25k",
-      "esperado": {
-        "state": "São Paulo",
-        "scale": "1:25.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC012",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de AP em 10k",
-      "esperado": {
-        "state": "Amapá",
-        "scale": "1:10.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC013",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de AM em 1:100000",
-      "esperado": {
-        "state": "Amazonas",
-        "scale": "1:100.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC014",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de Goiás em 250k",
-      "esperado": {
-        "state": "Goiás",
-        "scale": "1:250.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC015",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de Rio Grande do Sul em 1:50000",
-      "esperado": {
-        "state": "Rio Grande do Sul",
-        "scale": "1:50.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC016",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C"
-      ],
-      "consulta": "cartas de Ceará em 1:50.000",
-      "esperado": {
-        "state": "Ceará",
-        "scale": "1:50.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC017",
-      "origem": "G",
-      "familia": "GC",
-      "categorias": [
-        "C",
-        "A"
-      ],
-      "consulta": "cartas de MTdoSul em 1:10.000",
-      "esperado": {
-        "state": "Mato Grosso do Sul",
-        "scale": "1:10.000"
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GC018",
       "origem": "G",
       "familia": "GC",
       "categorias": [
@@ -2384,25 +2795,282 @@
         "state": "Rondônia",
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC007",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do ES na escala 1:100000",
+      "esperado": {
+        "state": "Espírito Santo",
+        "scale": "1:100.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC008",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas da Paraíba em 50k",
+      "esperado": {
+        "state": "Paraíba",
+        "scale": "1:50.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC009",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de mato grosso do sul na escala de 10 mil",
+      "esperado": {
+        "state": "Mato Grosso do Sul",
+        "scale": "1:10.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC010",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de Goiás na escala 1:2000",
+      "esperado": {
+        "state": "Goiás",
+        "scale": "1:2.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC011",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do Piauí na escala 1:10000",
+      "esperado": {
+        "state": "Piauí",
+        "scale": "1:10.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC012",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas da paraíba na escala 1:25000",
+      "esperado": {
+        "state": "Paraíba",
+        "scale": "1:25.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC013",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de rondônia na escala 1:1000",
+      "esperado": {
+        "state": "Rondônia",
+        "scale": "1:1.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC014",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do TO na escala 1:50000",
+      "esperado": {
+        "state": "Tocantins",
+        "scale": "1:50.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC015",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de GO na escala de 10 mil",
+      "esperado": {
+        "state": "Goiás",
+        "scale": "1:10.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC016",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas de roraima na escala de 10 mil",
+      "esperado": {
+        "state": "Roraima",
+        "scale": "1:10.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC017",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do paraná na escala 1:250000",
+      "esperado": {
+        "state": "Paraná",
+        "scale": "1:250.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GC018",
+      "origem": "G",
+      "familia": "GC",
+      "categorias": [
+        "C",
+        "A"
+      ],
+      "consulta": "cartas do Piauí em escala detalhada",
+      "esperado": {
+        "state": "Piauí",
+        "scale": "1:25.000"
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC019",
       "origem": "G",
       "familia": "GC",
       "categorias": [
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "cartas de Roraima em 1:2.000",
+      "consulta": "cartas do rio de janeiro em 50k",
       "esperado": {
-        "state": "Roraima",
-        "scale": "1:2.000"
+        "state": "Rio de Janeiro",
+        "scale": "1:50.000"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": [
+        {
+          "scale": "1:50.000",
+          "city": "Rio de Janeiro"
+        }
+      ]
     },
     {
       "id": "GC020",
@@ -2412,14 +3080,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de rio grande do norte em 1:5.000",
+      "consulta": "cartas da Bahia em 250k",
       "esperado": {
-        "state": "Rio Grande do Norte",
-        "scale": "1:5.000"
+        "state": "Bahia",
+        "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC021",
@@ -2429,14 +3100,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de piaui em 10k",
+      "consulta": "cartas de SP na escala 1:2000",
       "esperado": {
-        "state": "Piauí",
-        "scale": "1:10.000"
+        "state": "São Paulo",
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC022",
@@ -2446,14 +3120,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Ceara em 1:250.000",
+      "consulta": "cartas do RS na escala de 100 mil",
       "esperado": {
-        "state": "Ceará",
-        "scale": "1:250.000"
+        "state": "Rio Grande do Sul",
+        "scale": "1:100.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC023",
@@ -2463,14 +3140,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de minas gerais em 1:25.000",
+      "consulta": "cartas do amapá na escala de 100 mil",
       "esperado": {
-        "state": "Minas Gerais",
-        "scale": "1:25.000"
+        "state": "Amapá",
+        "scale": "1:100.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC024",
@@ -2480,31 +3160,36 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de RS em 1:10.000",
+      "consulta": "cartas da Paraíba em 25k",
       "esperado": {
-        "state": "Rio Grande do Sul",
-        "scale": "1:10.000"
+        "state": "Paraíba",
+        "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC025",
       "origem": "G",
       "familia": "GC",
       "categorias": [
-        "C",
-        "A"
+        "C"
       ],
-      "consulta": "cartas de Rondônia em 1:50000",
+      "consulta": "cartas de Rondônia na escala 1:2.000",
       "esperado": {
         "state": "Rondônia",
-        "scale": "1:50.000"
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC026",
@@ -2514,14 +3199,27 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Tocantins em 1:1000",
+      "consulta": "cartas de São Paulo em 50k",
       "esperado": {
-        "state": "Tocantins",
-        "scale": "1:1.000"
+        "state": "São Paulo",
+        "scale": "1:50.000"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": [
+        {
+          "scale": "1:50.000",
+          "city": "São Paulo"
+        }
+      ]
     },
     {
       "id": "GC027",
@@ -2531,14 +3229,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Espírito Santo em 1k",
+      "consulta": "cartas do maranhão na escala 1:5.000",
       "esperado": {
-        "state": "Espírito Santo",
-        "scale": "1:1.000"
+        "state": "Maranhão",
+        "scale": "1:5.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC028",
@@ -2548,14 +3249,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Sergipe em 1:50000",
+      "consulta": "cartas do Acre na escala 1:25000",
       "esperado": {
-        "state": "Sergipe",
-        "scale": "1:50.000"
+        "state": "Acre",
+        "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC029",
@@ -2565,14 +3269,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de minas gerais em 1:25000",
+      "consulta": "cartas de PE na escala 1:25000",
       "esperado": {
-        "state": "Minas Gerais",
+        "state": "Pernambuco",
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC030",
@@ -2582,14 +3289,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas de Amapa em 10k",
+      "consulta": "cartas da bahia na escala 1:5000",
       "esperado": {
-        "state": "Amapá",
-        "scale": "1:10.000"
+        "state": "Bahia",
+        "scale": "1:5.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas {prep} {estado} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC031",
@@ -2599,31 +3309,36 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Belo Horizonte em 1:2000",
+      "consulta": "mapas de Recife na escala 1:50000",
       "esperado": {
-        "city": "Belo Horizonte",
-        "scale": "1:2.000"
+        "city": "Recife",
+        "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC032",
       "origem": "G",
       "familia": "GC",
       "categorias": [
-        "C",
-        "A"
+        "C"
       ],
-      "consulta": "mapas de Goiânia em 1:25000",
+      "consulta": "mapas de Brasília na escala 1:2.000",
       "esperado": {
-        "city": "Goiânia",
-        "scale": "1:25.000"
+        "city": "Brasília",
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC033",
@@ -2633,14 +3348,17 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Belém em 1:1000",
+      "consulta": "mapas de Fortaleza na escala 1:10000",
       "esperado": {
-        "city": "Belém",
-        "scale": "1:1.000"
+        "city": "Fortaleza",
+        "scale": "1:10.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC034",
@@ -2650,14 +3368,17 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Rio de Janeiro em 2k",
+      "consulta": "mapas de Cuiabá na escala 1:2000",
       "esperado": {
-        "city": "Rio de Janeiro",
+        "city": "Cuiabá",
         "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC035",
@@ -2667,14 +3388,17 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Curitiba em 250k",
+      "consulta": "mapas de Belém em 250k",
       "esperado": {
-        "city": "Curitiba",
+        "city": "Belém",
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC036",
@@ -2684,14 +3408,17 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Cuiabá em 5k",
+      "consulta": "mapas de Porto Alegre na escala 1:5000",
       "esperado": {
-        "city": "Cuiabá",
+        "city": "Porto Alegre",
         "scale": "1:5.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC037",
@@ -2701,30 +3428,37 @@
         "C",
         "A"
       ],
-      "consulta": "mapas de Salvador em 1:250000",
+      "consulta": "mapas de Goiânia na escala 1:250000",
       "esperado": {
-        "city": "Salvador",
+        "city": "Goiânia",
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC038",
       "origem": "G",
       "familia": "GC",
       "categorias": [
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "mapas de Porto Alegre em 1:25.000",
+      "consulta": "mapas de Fortaleza em 100k",
       "esperado": {
-        "city": "Porto Alegre",
-        "scale": "1:25.000"
+        "city": "Fortaleza",
+        "scale": "1:100.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"mapas de {município} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC039",
@@ -2734,14 +3468,27 @@
         "C",
         "A"
       ],
-      "consulta": "SCN Carta Ortoimagem Banda P Pol HH de paraiba",
+      "consulta": "cartas temáticas de São Paulo",
       "esperado": {
-        "productType": "SCN Carta Ortoimagem Banda P Pol HH",
-        "state": "Paraíba"
+        "productType": "Cartas Temáticas Não SCN",
+        "state": "São Paulo"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": [
+        {
+          "productType": "Cartas Temáticas Não SCN",
+          "city": "São Paulo"
+        }
+      ]
     },
     {
       "id": "GC040",
@@ -2751,14 +3498,17 @@
         "C",
         "A"
       ],
-      "consulta": "temática de AM",
+      "consulta": "ortoimagens banda X HH de minas",
       "esperado": {
-        "productType": "Cartas Temáticas Não SCN",
-        "state": "Amazonas"
+        "productType": "SCN Carta Ortoimagem Banda X Pol HH",
+        "state": "Minas Gerais"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC041",
@@ -2768,14 +3518,17 @@
         "C",
         "A"
       ],
-      "consulta": "modelo digital de terreno de AP",
+      "consulta": "cartas temáticas da PB",
       "esperado": {
-        "productType": "MDT — RAM",
-        "state": "Amapá"
+        "productType": "Cartas Temáticas Não SCN",
+        "state": "Paraíba"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC042",
@@ -2785,30 +3538,37 @@
         "C",
         "A"
       ],
-      "consulta": "ortoimg de rio de janeiro",
+      "consulta": "ortoimagens banda P HH do amapá",
       "esperado": {
-        "productType": "SCN Carta Ortoimagem",
-        "state": "Rio de Janeiro"
+        "productType": "SCN Carta Ortoimagem Banda P Pol HH",
+        "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC043",
       "origem": "G",
       "familia": "GC",
       "categorias": [
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "CIRC de Acre",
+      "consulta": "cartas temáticas do Espírito Santo",
       "esperado": {
-        "productType": "CIRC",
-        "state": "Acre"
+        "productType": "Cartas Temáticas Não SCN",
+        "state": "Espírito Santo"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC044",
@@ -2818,14 +3578,17 @@
         "C",
         "A"
       ],
-      "consulta": "MDS de rio grande do sul",
+      "consulta": "cartas topográficas do Amapá",
       "esperado": {
-        "productType": "MDS — RAM",
-        "state": "Rio Grande do Sul"
+        "productType": "SCN Carta Topográfica Matricial",
+        "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"{tipo} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC045",
@@ -2835,14 +3598,17 @@
         "C",
         "A"
       ],
-      "consulta": "produtos do projeto Olimpíadas Rio 2016 em goias",
+      "consulta": "produtos do projeto copa das confederacoes no AP",
       "esperado": {
-        "project": "Olimpíadas Rio 2016",
-        "state": "Goiás"
+        "project": "Copa das Confederações",
+        "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC046",
@@ -2852,14 +3618,17 @@
         "C",
         "A"
       ],
-      "consulta": "produtos do projeto mapeamento sistematico em Piauí",
+      "consulta": "produtos do projeto olimpiadas em PE",
       "esperado": {
-        "project": "Mapeamento Sistemático",
-        "state": "Piauí"
+        "project": "Olimpíadas Rio 2016",
+        "state": "Pernambuco"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC047",
@@ -2868,14 +3637,17 @@
       "categorias": [
         "C"
       ],
-      "consulta": "produtos do projeto Base Cartográfica Digital do Amapá em Rio de Janeiro",
+      "consulta": "produtos do projeto NGA-BECA no Distrito Federal",
       "esperado": {
-        "project": "Base Cartográfica Digital do Amapá",
-        "state": "Rio de Janeiro"
+        "project": "NGA-BECA",
+        "state": "Distrito Federal"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC048",
@@ -2885,14 +3657,17 @@
         "C",
         "A"
       ],
-      "consulta": "produtos do projeto copa do mundo em espirito santo",
+      "consulta": "produtos do projeto beca no espírito santo",
       "esperado": {
-        "project": "Copa do Mundo 2014",
+        "project": "NGA-BECA",
         "state": "Espírito Santo"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC049",
@@ -2902,14 +3677,17 @@
         "C",
         "A"
       ],
-      "consulta": "produtos do projeto NGA-BECA em DF",
+      "consulta": "produtos do projeto copa das confederacoes no AM",
       "esperado": {
-        "project": "NGA-BECA",
-        "state": "Distrito Federal"
+        "project": "Copa das Confederações",
+        "state": "Amazonas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC050",
@@ -2919,14 +3697,17 @@
         "C",
         "A"
       ],
-      "consulta": "produtos do projeto aman em rondonia",
+      "consulta": "produtos do projeto BCD de Rondônia no pará",
       "esperado": {
-        "project": "AMAN",
-        "state": "Rondônia"
+        "project": "Base Cartográfica Digital de Rondônia",
+        "state": "Pará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"produtos do projeto {projeto} {em} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC051",
@@ -2936,14 +3717,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas do 1º cgeo em 1:100.000",
+      "consulta": "cartas do 1º CGEO na escala 1:2.000",
       "esperado": {
         "supplyArea": "1° Centro de Geoinformação",
-        "scale": "1:100.000"
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas do {cgeo} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC052",
@@ -2953,14 +3737,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas do 2 CGEO em 1k",
+      "consulta": "cartas do 3o cgeo na escala 1:2000",
       "esperado": {
-        "supplyArea": "2° Centro de Geoinformação",
-        "scale": "1:1.000"
+        "supplyArea": "3° Centro de Geoinformação",
+        "scale": "1:2.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas do {cgeo} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC053",
@@ -2970,14 +3757,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas do terceiro cgeo em 1 mil",
+      "consulta": "cartas do 2o cgeo em pequena escala",
       "esperado": {
-        "supplyArea": "3° Centro de Geoinformação",
-        "scale": "1:1.000"
+        "supplyArea": "2° Centro de Geoinformação",
+        "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas do {cgeo} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC054",
@@ -2987,14 +3777,17 @@
         "C",
         "A"
       ],
-      "consulta": "cartas do 4o CGEO em 2k",
+      "consulta": "cartas do 2 CGEO na escala 1:25000",
       "esperado": {
-        "supplyArea": "4° Centro de Geoinformação",
-        "scale": "1:2.000"
+        "supplyArea": "2° Centro de Geoinformação",
+        "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas do {cgeo} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GC055",
@@ -3004,511 +3797,602 @@
         "C",
         "A"
       ],
-      "consulta": "cartas do 5 CGEO em 1:10000",
+      "consulta": "cartas do 1º CGEO em 250k",
       "esperado": {
-        "supplyArea": "5° Centro de Geoinformação",
-        "scale": "1:10.000"
+        "supplyArea": "1° Centro de Geoinformação",
+        "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_compostas · modelo \"cartas do {cgeo} {frase de escala}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM001",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
-        "A"
+        "M"
       ],
-      "consulta": "folha MI 2965-2-NE de bahia",
+      "consulta": "folha MI 2965-2-NE do Rio Grande do Sul",
       "esperado": {
         "keyword": "2965-2-NE",
-        "state": "Bahia"
+        "state": "Rio Grande do Sul"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM002",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "folha MI 2866-3 de Ceara",
+      "consulta": "folha MI 2866-3 do TO",
       "esperado": {
         "keyword": "2866-3",
-        "state": "Ceará"
+        "state": "Tocantins"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM003",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "folha MI 2901 de PB",
+      "consulta": "folha MI 2901 do AP",
       "esperado": {
         "keyword": "2901",
-        "state": "Paraíba"
+        "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM004",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "folha MI 530 de Amapá",
+      "consulta": "folha MI 530 do ceará",
       "esperado": {
         "keyword": "530",
-        "state": "Amapá"
+        "state": "Ceará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM005",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "folha MI 3010 de Sergipe",
+      "consulta": "folha MI 3010 do paraná",
       "esperado": {
         "keyword": "3010",
-        "state": "Sergipe"
+        "state": "Paraná"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM006",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "folha MI 2965 de AM",
+      "consulta": "folha MI 2965 do distrito federal",
       "esperado": {
         "keyword": "2965",
-        "state": "Amazonas"
+        "state": "Distrito Federal"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM007",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "folha MI 2866-2-SO de RS",
+      "consulta": "folha MI 2866-2-SO de AL",
       "esperado": {
         "keyword": "2866-2-SO",
-        "state": "Rio Grande do Sul"
+        "state": "Alagoas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM008",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "folha MI 2901-4-NE de amapa",
+      "consulta": "folha MI 2901-4-NE de MG",
       "esperado": {
         "keyword": "2901-4-NE",
-        "state": "Amapá"
+        "state": "Minas Gerais"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM009",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "folha MI 531-1-NE de Ceará",
+      "consulta": "folha MI 531-1-NE de minas",
       "esperado": {
         "keyword": "531-1-NE",
-        "state": "Ceará"
+        "state": "Minas Gerais"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM010",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
-        "A"
+        "M"
       ],
-      "consulta": "folha MI 2965-3 de parana",
+      "consulta": "folha MI 2965-3 de Sergipe",
       "esperado": {
         "keyword": "2965-3",
-        "state": "Paraná"
+        "state": "Sergipe"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM011",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "folha MI 2866-3-NO de Distrito Federal",
+      "consulta": "folha MI 2866-3-NO do maranhão",
       "esperado": {
         "keyword": "2866-3-NO",
-        "state": "Distrito Federal"
+        "state": "Maranhão"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM012",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
-        "A"
+        "M"
       ],
-      "consulta": "folha MI 3010-2-SE de AL",
+      "consulta": "folha MI 3010-2-SE de Roraima",
       "esperado": {
         "keyword": "3010-2-SE",
-        "state": "Alagoas"
+        "state": "Roraima"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"folha MI {mi} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM013",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SF-22-Y-D do tipo MDS",
+      "consulta": "INOM SF-22-Y-D do tipo temática",
       "esperado": {
         "keyword": "SF-22-Y-D",
-        "productType": "MDS — RAM"
+        "productType": "Cartas Temáticas Não SCN"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM014",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SF-22-Y-D-II do tipo modelo digital de superficie",
+      "consulta": "INOM SF-22-Y-D-II do tipo ortoimagem",
       "esperado": {
         "keyword": "SF-22-Y-D-II",
-        "productType": "MDS — RAM"
+        "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM015",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "INOM SF-22-Y-D-II-4 do tipo circ",
+      "consulta": "INOM SF-22-Y-D-II-4 do tipo banda X HH",
       "esperado": {
         "keyword": "SF-22-Y-D-II-4",
-        "productType": "CIRC"
+        "productType": "SCN Carta Ortoimagem Banda X Pol HH"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM016",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "INOM SF-22-Y-D-II-4-SE do tipo MDS — RAM",
+      "consulta": "INOM SF-22-Y-D-II-4-SE do tipo topográfica",
       "esperado": {
         "keyword": "SF-22-Y-D-II-4-SE",
-        "productType": "MDS — RAM"
+        "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM017",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SG-22-X-A do tipo ortoimg",
+      "consulta": "INOM SG-22-X-A do tipo MDT",
       "esperado": {
         "keyword": "SG-22-X-A",
-        "productType": "SCN Carta Ortoimagem"
+        "productType": "MDT — RAM"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM018",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SF-23-V-C do tipo banda X HH",
+      "consulta": "INOM SF-23-V-C do tipo topo",
       "esperado": {
         "keyword": "SF-23-V-C",
-        "productType": "SCN Carta Ortoimagem Banda X Pol HH"
+        "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM019",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SG-21-Z-B do tipo topo",
+      "consulta": "INOM SG-21-Z-B do tipo temática",
       "esperado": {
         "keyword": "SG-21-Z-B",
-        "productType": "SCN Carta Topográfica Matricial"
+        "productType": "Cartas Temáticas Não SCN"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM020",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SH-22-W-A-III-1-NE do tipo MDT",
+      "consulta": "INOM SH-22-W-A-III-1-NE do tipo topográfica",
       "esperado": {
         "keyword": "SH-22-W-A-III-1-NE",
-        "productType": "MDT — RAM"
+        "productType": "SCN Carta Topográfica Matricial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM021",
       "origem": "G",
       "familia": "GM",
       "categorias": [
+        "C",
         "M",
-        "C"
+        "A"
       ],
-      "consulta": "INOM SG-22-Z-D-II-3 do tipo SCN Carta Topográfica Matricial",
+      "consulta": "INOM SG-22-Z-D-II-3 do tipo ortoimagem",
       "esperado": {
         "keyword": "SG-22-Z-D-II-3",
-        "productType": "SCN Carta Topográfica Matricial"
+        "productType": "SCN Carta Ortoimagem"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM022",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "INOM SF-24-Y-A do tipo temática",
+      "consulta": "INOM SF-24-Y-A do tipo vetorial",
       "esperado": {
         "keyword": "SF-24-Y-A",
-        "productType": "Cartas Temáticas Não SCN"
+        "productType": "SCN Carta Topográfica Vetorial"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"INOM {inom} do tipo {tipo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM023",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 2965-2-NE produzido pelo primeiro cgeo",
+      "consulta": "MI 2866-2-SO produzido pelo 1 CGEO",
       "esperado": {
-        "keyword": "2965-2-NE",
+        "keyword": "2866-2-SO",
         "supplyArea": "1° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM024",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 531-1-NE produzido pelo 4o CGEO",
+      "consulta": "MI 2866-3 produzido pelo quinto cgeo",
       "esperado": {
-        "keyword": "531-1-NE",
-        "supplyArea": "4° Centro de Geoinformação"
+        "keyword": "2866-3",
+        "supplyArea": "5° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM025",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 2866-3 produzido pelo 5o CGEO",
+      "consulta": "MI 2965-3 produzido pelo 3o cgeo",
       "esperado": {
-        "keyword": "2866-3",
-        "supplyArea": "5° Centro de Geoinformação"
+        "keyword": "2965-3",
+        "supplyArea": "3° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM026",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 2901 produzido pelo 5 CGEO",
+      "consulta": "MI 530 produzido pelo 3o cgeo",
       "esperado": {
-        "keyword": "2901",
-        "supplyArea": "5° Centro de Geoinformação"
+        "keyword": "530",
+        "supplyArea": "3° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM027",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 2965-3 produzido pelo 1o CGEO",
+      "consulta": "MI 2965-2-NE produzido pelo 3 CGEO",
       "esperado": {
-        "keyword": "2965-3",
-        "supplyArea": "1° Centro de Geoinformação"
+        "keyword": "2965-2-NE",
+        "supplyArea": "3° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GM028",
       "origem": "G",
       "familia": "GM",
       "categorias": [
-        "M",
         "C",
+        "M",
         "A"
       ],
-      "consulta": "MI 3010 produzido pelo 4 CGEO",
+      "consulta": "MI 3010 produzido pelo segundo cgeo",
       "esperado": {
         "keyword": "3010",
-        "supplyArea": "4° Centro de Geoinformação"
+        "supplyArea": "2° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_micodes · modelo \"MI {mi} produzido pelo {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT001",
@@ -3517,15 +4401,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados esse ano",
+      "consulta": "cartas publicadas esse ano",
       "esperado": {
         "publicationPeriod": {
           "rel": "ano_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT002",
@@ -3534,15 +4421,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados ano passado",
+      "consulta": "cartas publicadas no ano passado",
       "esperado": {
         "publicationPeriod": {
           "rel": "ano_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT003",
@@ -3551,15 +4441,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados mês passado",
+      "consulta": "cartas publicadas no mês passado",
       "esperado": {
         "publicationPeriod": {
           "rel": "mes_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT004",
@@ -3568,15 +4461,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados semana passada",
+      "consulta": "cartas publicadas na semana passada",
       "esperado": {
         "publicationPeriod": {
           "rel": "semana_passada"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT005",
@@ -3585,15 +4481,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados últimos 3 meses",
+      "consulta": "cartas publicadas nos últimos 3 meses",
       "esperado": {
         "publicationPeriod": {
-          "rel": "ultimos_90_dias"
+          "rel": "ultimos_3_meses"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT006",
@@ -3602,15 +4501,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados últimos 6 meses",
+      "consulta": "cartas publicadas nos últimos 6 meses",
       "esperado": {
         "publicationPeriod": {
-          "rel": "ultimos_180_dias"
+          "rel": "ultimos_6_meses"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT007",
@@ -3619,15 +4521,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados últimos 5 anos",
+      "consulta": "cartas publicadas nos últimos 5 anos",
       "esperado": {
         "publicationPeriod": {
           "rel": "ultimos_5_anos"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT008",
@@ -3636,15 +4541,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados desde 2020",
+      "consulta": "cartas publicadas desde 2020",
       "esperado": {
         "publicationPeriod": {
           "rel": "desde_2020"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT009",
@@ -3653,15 +4561,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados depois de 2022",
+      "consulta": "cartas publicadas depois de 2022",
       "esperado": {
         "publicationPeriod": {
-          "rel": "desde_2022"
+          "rel": "depois_de_2022"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT010",
@@ -3670,15 +4581,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados antes de 2020",
+      "consulta": "cartas publicadas antes de 2020",
       "esperado": {
         "publicationPeriod": {
           "rel": "antes_de_2020"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT011",
@@ -3687,16 +4601,19 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados entre 2022 e 2023",
+      "consulta": "cartas publicadas entre 2022 e 2023",
       "esperado": {
         "publicationPeriod": {
           "start": "2022-01-01",
           "end": "2023-12-31"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT012",
@@ -3705,15 +4622,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados no primeiro trimestre",
+      "consulta": "cartas publicadas no primeiro trimestre deste ano",
       "esperado": {
         "publicationPeriod": {
           "rel": "primeiro_trimestre_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT013",
@@ -3722,15 +4642,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados segundo semestre passado",
+      "consulta": "cartas publicadas no segundo semestre do ano passado",
       "esperado": {
         "publicationPeriod": {
           "rel": "segundo_semestre_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT014",
@@ -3739,15 +4662,18 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados desta semana",
+      "consulta": "cartas publicadas nesta semana",
       "esperado": {
         "publicationPeriod": {
           "rel": "semana_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT015",
@@ -3756,1454 +4682,1768 @@
       "categorias": [
         "T"
       ],
-      "consulta": "produtos publicados de hoje",
+      "consulta": "cartas publicadas hoje",
       "esperado": {
         "publicationPeriod": {
           "rel": "hoje"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas publicadas {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT016",
       "origem": "G",
       "familia": "GT",
       "categorias": [
+        "C",
         "T",
-        "C"
+        "A"
       ],
-      "consulta": "cartas de Bahia antes de 2020",
+      "consulta": "cartas de pernambuco publicadas desde 2020",
       "esperado": {
-        "state": "Bahia",
+        "state": "Pernambuco",
         "publicationPeriod": {
-          "rel": "antes_de_2020"
+          "rel": "desde_2020"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT017",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas de gauchos de hoje",
+      "consulta": "cartas da bahia publicadas nos últimos 6 meses",
       "esperado": {
-        "state": "Rio Grande do Sul",
+        "state": "Bahia",
         "publicationPeriod": {
-          "rel": "hoje"
+          "rel": "ultimos_6_meses"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT018",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas de paraiba depois de 2022",
+      "consulta": "cartas do AP produzidas no segundo semestre do ano passado",
       "esperado": {
-        "state": "Paraíba",
-        "publicationPeriod": {
-          "rel": "desde_2022"
+        "state": "Amapá",
+        "creationPeriod": {
+          "rel": "segundo_semestre_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT019",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas de SP últimos 6 meses",
+      "consulta": "cartas do MA publicadas no ano passado",
       "esperado": {
-        "state": "São Paulo",
+        "state": "Maranhão",
         "publicationPeriod": {
-          "rel": "ultimos_180_dias"
+          "rel": "ano_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT020",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
-        "A"
+        "T"
       ],
-      "consulta": "cartas de acre últimos 3 meses",
+      "consulta": "cartas da Paraíba publicadas esse ano",
       "esperado": {
-        "state": "Acre",
+        "state": "Paraíba",
         "publicationPeriod": {
-          "rel": "ultimos_90_dias"
+          "rel": "ano_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT021",
       "origem": "G",
       "familia": "GT",
       "categorias": [
+        "C",
         "T",
-        "C"
+        "A"
       ],
-      "consulta": "cartas de Rio Grande do Norte semana passada",
+      "consulta": "cartas de roraima elaboradas hoje",
       "esperado": {
-        "state": "Rio Grande do Norte",
-        "publicationPeriod": {
-          "rel": "semana_passada"
+        "state": "Roraima",
+        "creationPeriod": {
+          "rel": "hoje"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT022",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas de AM no primeiro trimestre",
+      "consulta": "cartas de sergipe publicadas no primeiro trimestre deste ano",
       "esperado": {
-        "state": "Amazonas",
+        "state": "Sergipe",
         "publicationPeriod": {
           "rel": "primeiro_trimestre_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT023",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
-        "A"
+        "T"
       ],
-      "consulta": "cartas de PI desta semana",
+      "consulta": "cartas de Rondônia publicadas depois de 2022",
       "esperado": {
-        "state": "Piauí",
+        "state": "Rondônia",
         "publicationPeriod": {
-          "rel": "semana_corrente"
+          "rel": "depois_de_2022"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT024",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
-        "A"
+        "T"
       ],
-      "consulta": "cartas de pernambuco mês passado",
+      "consulta": "cartas do Maranhão criadas nos últimos 3 meses",
       "esperado": {
-        "state": "Pernambuco",
-        "publicationPeriod": {
-          "rel": "mes_anterior"
+        "state": "Maranhão",
+        "creationPeriod": {
+          "rel": "ultimos_3_meses"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT025",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas de bahia desde 2020",
+      "consulta": "cartas da bahia publicadas antes de 2020",
       "esperado": {
         "state": "Bahia",
         "publicationPeriod": {
-          "rel": "desde_2020"
+          "rel": "antes_de_2020"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {prep} {estado} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT026",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do 5 CGEO de hoje",
+      "consulta": "produtos do 3o cgeo publicados no ano passado",
       "esperado": {
-        "supplyArea": "5° Centro de Geoinformação",
+        "supplyArea": "3° Centro de Geoinformação",
         "publicationPeriod": {
-          "rel": "hoje"
+          "rel": "ano_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT027",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do 5o CGEO ano passado",
+      "consulta": "produtos do 3 CGEO publicados hoje",
       "esperado": {
-        "supplyArea": "5° Centro de Geoinformação",
+        "supplyArea": "3° Centro de Geoinformação",
         "publicationPeriod": {
-          "rel": "ano_anterior"
+          "rel": "hoje"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT028",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do quinto cgeo semana passada",
+      "consulta": "produtos do 3º CGEO criados no primeiro trimestre deste ano",
       "esperado": {
-        "supplyArea": "5° Centro de Geoinformação",
-        "publicationPeriod": {
-          "rel": "semana_passada"
+        "supplyArea": "3° Centro de Geoinformação",
+        "creationPeriod": {
+          "rel": "primeiro_trimestre_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT029",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do primeiro cgeo últimos 6 meses",
+      "consulta": "produtos do quarto cgeo publicados depois de 2022",
       "esperado": {
-        "supplyArea": "1° Centro de Geoinformação",
+        "supplyArea": "4° Centro de Geoinformação",
         "publicationPeriod": {
-          "rel": "ultimos_180_dias"
+          "rel": "depois_de_2022"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT030",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do 3o CGEO últimos 3 meses",
-      "esperado": {
-        "supplyArea": "3° Centro de Geoinformação",
-        "publicationPeriod": {
-          "rel": "ultimos_90_dias"
-        }
-      },
-      "espera_tool_call": true,
-      "observacional": false,
-      "notas": ""
-    },
-    {
-      "id": "GT031",
-      "origem": "G",
-      "familia": "GT",
-      "categorias": [
-        "T",
-        "C",
-        "A"
-      ],
-      "consulta": "produtos do primeiro cgeo mês passado",
+      "consulta": "produtos do 1º CGEO publicados no mês passado",
       "esperado": {
         "supplyArea": "1° Centro de Geoinformação",
         "publicationPeriod": {
           "rel": "mes_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
+    },
+    {
+      "id": "GT031",
+      "origem": "G",
+      "familia": "GT",
+      "categorias": [
+        "C",
+        "T",
+        "A"
+      ],
+      "consulta": "produtos do terceiro cgeo criados nos últimos 3 meses",
+      "esperado": {
+        "supplyArea": "3° Centro de Geoinformação",
+        "creationPeriod": {
+          "rel": "ultimos_3_meses"
+        }
+      },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
+      "espera_tool_call": true,
+      "observacional": false,
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT032",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do terceiro cgeo desde 2020",
+      "consulta": "produtos do 2 CGEO publicados antes de 2020",
       "esperado": {
-        "supplyArea": "3° Centro de Geoinformação",
+        "supplyArea": "2° Centro de Geoinformação",
         "publicationPeriod": {
-          "rel": "desde_2020"
+          "rel": "antes_de_2020"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT033",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "produtos do 5o CGEO entre 2022 e 2023",
+      "consulta": "produtos do 5 CGEO publicados na semana passada",
       "esperado": {
         "supplyArea": "5° Centro de Geoinformação",
         "publicationPeriod": {
-          "start": "2022-01-01",
-          "end": "2023-12-31"
+          "rel": "semana_passada"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"produtos do {cgeo} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT034",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
-        "A"
+        "T"
       ],
-      "consulta": "cartas em 25k no primeiro trimestre",
+      "consulta": "cartas na escala 1:5.000 publicadas depois de 2022",
       "esperado": {
-        "scale": "1:25.000",
+        "scale": "1:5.000",
         "publicationPeriod": {
-          "rel": "primeiro_trimestre_corrente"
+          "rel": "depois_de_2022"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT035",
       "origem": "G",
       "familia": "GT",
       "categorias": [
+        "C",
         "T",
-        "C"
+        "A"
       ],
-      "consulta": "cartas em 1:2.000 últimos 6 meses",
+      "consulta": "cartas na escala 1:5000 publicadas esse ano",
       "esperado": {
-        "scale": "1:2.000",
+        "scale": "1:5.000",
         "publicationPeriod": {
-          "rel": "ultimos_180_dias"
+          "rel": "ano_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT036",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas em cem k semana passada",
+      "consulta": "cartas na escala de 25 mil criadas no ano passado",
       "esperado": {
-        "scale": "1:100.000",
-        "publicationPeriod": {
-          "rel": "semana_passada"
+        "scale": "1:25.000",
+        "creationPeriod": {
+          "rel": "ano_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT037",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas em 1k entre 2022 e 2023",
+      "consulta": "cartas em 50k publicadas no segundo semestre do ano passado",
       "esperado": {
-        "scale": "1:1.000",
+        "scale": "1:50.000",
         "publicationPeriod": {
-          "start": "2022-01-01",
-          "end": "2023-12-31"
+          "rel": "segundo_semestre_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT038",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas em 50k de hoje",
+      "consulta": "cartas na escala de 10 mil publicadas no mês passado",
       "esperado": {
-        "scale": "1:50.000",
+        "scale": "1:10.000",
         "publicationPeriod": {
-          "rel": "hoje"
+          "rel": "mes_anterior"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT039",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
-        "A"
+        "T"
       ],
-      "consulta": "cartas em 1:25000 últimos 3 meses",
+      "consulta": "cartas na escala 1:2.000 elaboradas hoje",
       "esperado": {
-        "scale": "1:25.000",
-        "publicationPeriod": {
-          "rel": "ultimos_90_dias"
+        "scale": "1:2.000",
+        "creationPeriod": {
+          "rel": "hoje"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT040",
       "origem": "G",
       "familia": "GT",
       "categorias": [
+        "C",
         "T",
-        "C"
+        "A"
       ],
-      "consulta": "cartas em 1:250.000 depois de 2022",
+      "consulta": "cartas na escala de 100 mil publicadas nesta semana",
       "esperado": {
-        "scale": "1:250.000",
+        "scale": "1:100.000",
         "publicationPeriod": {
-          "rel": "desde_2022"
+          "rel": "semana_corrente"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GT041",
       "origem": "G",
       "familia": "GT",
       "categorias": [
-        "T",
         "C",
+        "T",
         "A"
       ],
-      "consulta": "cartas em 1k desde 2020",
+      "consulta": "cartas na escala 1:5000 publicadas nos últimos 6 meses",
       "esperado": {
-        "scale": "1:1.000",
+        "scale": "1:5.000",
         "publicationPeriod": {
-          "rel": "desde_2020"
+          "rel": "ultimos_6_meses"
         }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_tempo · modelo \"cartas {frase de escala} {verbo} {tempo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO001",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "Mais recente carta de amapa",
+      "consulta": "a carta mais recente do CE",
       "esperado": {
-        "state": "Amapá",
-        "sortField": "publicationDate",
-        "sortDirection": "DESC"
+        "state": "Ceará",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
+        "sortDirection": "DESC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a carta mais recente {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO002",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "Mais antiga carta de PI",
+      "consulta": "a carta mais antiga do PA",
       "esperado": {
-        "state": "Piauí",
-        "sortField": "publicationDate",
-        "sortDirection": "ASC"
+        "state": "Pará",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
+        "sortDirection": "ASC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a carta mais antiga {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO003",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
-        "A"
+        "O"
       ],
-      "consulta": "Mais recentes carta de tocantins",
+      "consulta": "as cartas mais recentes do Ceará",
       "esperado": {
-        "state": "Tocantins",
-        "sortField": "publicationDate",
+        "state": "Ceará",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as cartas mais recentes {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO004",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "Mais antigas carta de rio de janeiro",
+      "consulta": "as cartas mais antigas de mato grosso",
       "esperado": {
-        "state": "Rio de Janeiro",
-        "sortField": "publicationDate",
+        "state": "Mato Grosso",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as cartas mais antigas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO005",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "Primeira carta de para",
+      "consulta": "a primeira carta produzida de sergipe",
       "esperado": {
-        "state": "Pará",
+        "state": "Sergipe",
         "sortField": "creationDate",
         "sortDirection": "ASC",
-        "limit": 1
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a primeira carta produzida {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO006",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "Última carta de alagoas",
+      "consulta": "a última carta publicada de GO",
       "esperado": {
-        "state": "Alagoas",
-        "sortField": "creationDate",
+        "state": "Goiás",
+        "sortField": "publicationDate",
         "sortDirection": "DESC",
-        "limit": 1
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a última carta publicada {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO007",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "3 mais antigas carta de MS",
+      "consulta": "as 3 cartas mais antigas de sergipe",
       "esperado": {
-        "state": "Mato Grosso do Sul",
-        "sortField": "creationDate",
+        "state": "Sergipe",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC",
         "limit": 3
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as 3 cartas mais antigas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO008",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "5 mais antigas carta de mato grosso do sul",
+      "consulta": "as 5 publicações mais recentes de MG",
       "esperado": {
-        "state": "Mato Grosso do Sul",
-        "sortField": "creationDate",
-        "sortDirection": "ASC",
+        "state": "Minas Gerais",
+        "sortField": "publicationDate",
+        "sortDirection": "DESC",
         "limit": 5
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as 5 publicações mais recentes {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO009",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "10 mais recentes carta de RO",
+      "consulta": "as 10 cartas criadas mais recentemente do PR",
       "esperado": {
-        "state": "Rondônia",
+        "state": "Paraná",
         "sortField": "creationDate",
         "sortDirection": "DESC",
         "limit": 10
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as 10 cartas criadas mais recentemente {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO010",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
+        "O",
         "A"
       ],
-      "consulta": "ortoimg mais antiga",
+      "consulta": "cartas do distrito federal em ordem cronológica de publicação",
       "esperado": {
-        "productType": "SCN Carta Ortoimagem",
+        "state": "Distrito Federal",
         "sortField": "publicationDate",
         "sortDirection": "ASC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"cartas {prep} {estado} em ordem cronológica de publicação\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO011",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
-        "A"
+        "O"
       ],
-      "consulta": "ortoimg última",
+      "consulta": "as cartas temáticas mais recentes",
       "esperado": {
-        "productType": "SCN Carta Ortoimagem",
-        "sortField": "creationDate",
-        "sortDirection": "DESC",
-        "limit": 1
+        "productType": "Cartas Temáticas Não SCN",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
+        "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as {pl} mais recentes\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO012",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
-        "A"
+        "O"
       ],
-      "consulta": "MDS 3 mais antigas",
+      "consulta": "as 3 cartas CIRC mais antigas",
       "esperado": {
-        "productType": "MDS — RAM",
-        "sortField": "creationDate",
+        "productType": "CIRC",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "ASC",
         "limit": 3
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as 3 {pl} mais antigas\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO013",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
-        "A"
+        "O"
       ],
-      "consulta": "orto primeira",
+      "consulta": "a última ortoimagem publicada",
       "esperado": {
         "productType": "SCN Carta Ortoimagem",
-        "sortField": "creationDate",
-        "sortDirection": "ASC",
-        "limit": 1
+        "sortField": "publicationDate",
+        "sortDirection": "DESC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a última {sg} publicada\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO014",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
         "C",
-        "A"
+        "O"
       ],
-      "consulta": "mds mais antigas",
+      "consulta": "a primeira carta topográfica vetorial elaborada",
       "esperado": {
-        "productType": "MDS — RAM",
-        "sortField": "publicationDate",
-        "sortDirection": "ASC"
+        "productType": "SCN Carta Topográfica Vetorial",
+        "sortField": "creationDate",
+        "sortDirection": "ASC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a primeira {sg} elaborada\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO015",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
-        "T",
-        "A"
+        "C",
+        "O"
       ],
-      "consulta": "Primeira carta publicada últimos 5 anos",
+      "consulta": "cartas topográficas da mais nova para a mais antiga",
       "esperado": {
-        "publicationPeriod": {
-          "rel": "ultimos_5_anos"
+        "productType": "SCN Carta Topográfica Matricial",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
         },
-        "sortField": "creationDate",
-        "sortDirection": "ASC",
-        "limit": 1
+        "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"{pl} da mais nova para a mais antiga\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO016",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
+        "C",
         "T",
-        "A"
+        "O"
       ],
-      "consulta": "Mais recentes carta publicada desta semana",
+      "consulta": "as cartas mais recentes publicadas entre 2022 e 2023",
       "esperado": {
         "publicationPeriod": {
-          "rel": "semana_corrente"
+          "start": "2022-01-01",
+          "end": "2023-12-31"
         },
-        "sortField": "publicationDate",
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
         "sortDirection": "DESC"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as cartas mais recentes publicadas {t}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO017",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
+        "C",
         "T",
-        "A"
+        "O"
       ],
-      "consulta": "3 mais antigas carta publicada esse ano",
+      "consulta": "a primeira carta criada na semana passada",
       "esperado": {
-        "publicationPeriod": {
-          "rel": "ano_corrente"
+        "creationPeriod": {
+          "rel": "semana_passada"
         },
         "sortField": "creationDate",
         "sortDirection": "ASC",
-        "limit": 3
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a primeira carta criada {t}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO018",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
+        "C",
         "T",
-        "A"
+        "O"
       ],
-      "consulta": "Última carta publicada desta semana",
+      "consulta": "as 5 cartas mais antigas publicadas nos últimos 5 anos",
       "esperado": {
         "publicationPeriod": {
-          "rel": "semana_corrente"
+          "rel": "ultimos_5_anos"
         },
-        "sortField": "creationDate",
-        "sortDirection": "DESC",
-        "limit": 1
+        "sortField": {
+          "$um_de": [
+            "publicationDate",
+            "creationDate"
+          ]
+        },
+        "sortDirection": "ASC",
+        "limit": 5
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"as 5 cartas mais antigas publicadas {t}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GO019",
       "origem": "G",
       "familia": "GO",
       "categorias": [
-        "O",
+        "C",
         "T",
-        "A"
+        "O"
       ],
-      "consulta": "Mais recente carta publicada desde 2020",
+      "consulta": "a última carta publicada nos últimos 6 meses",
       "esperado": {
         "publicationPeriod": {
-          "rel": "desde_2020"
+          "rel": "ultimos_6_meses"
         },
         "sortField": "publicationDate",
-        "sortDirection": "DESC"
+        "sortDirection": "DESC",
+        "limit": {
+          "$opcional": 1
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ordenacao · modelo \"a última carta publicada {t}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA001",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do rj",
+      "consulta": "mapas de pe",
       "esperado": {
-        "state": "Rio de Janeiro"
+        "state": "Pernambuco"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA002",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do sp",
+      "consulta": "mapas do pr",
       "esperado": {
-        "state": "São Paulo"
+        "state": "Paraná"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA003",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do mg",
+      "consulta": "mapas de sc",
       "esperado": {
-        "state": "Minas Gerais"
+        "state": "Santa Catarina"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA004",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do ba",
+      "consulta": "mapas de go",
       "esperado": {
-        "state": "Bahia"
+        "state": "Goiás"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA005",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do rs",
+      "consulta": "mapas do ce",
       "esperado": {
-        "state": "Rio Grande do Sul"
+        "state": "Ceará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA006",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "mapas do df",
+      "consulta": "mapas do pa",
       "esperado": {
-        "state": "Distrito Federal"
+        "state": "Pará"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {sigla}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA007",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Sao Paulo",
+      "consulta": "mapas de goias",
       "esperado": {
-        "state": "São Paulo"
+        "state": "Goiás"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA008",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Goias",
+      "consulta": "mapas de rondonia",
       "esperado": {
-        "state": "Goiás"
+        "state": "Rondônia"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA009",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Para",
+      "consulta": "mapas do piaui",
       "esperado": {
-        "state": "Pará"
+        "state": "Piauí"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA010",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Rondonia",
+      "consulta": "mapas do amapa",
       "esperado": {
-        "state": "Rondônia"
+        "state": "Amapá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA011",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Piaui",
+      "consulta": "mapas do maranhao",
       "esperado": {
-        "state": "Piauí"
+        "state": "Maranhão"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA012",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Ceara",
+      "consulta": "mapas da paraiba",
       "esperado": {
-        "state": "Ceará"
+        "state": "Paraíba"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas {prep} {estado sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA013",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Amapa",
+      "consulta": "mapas de cuiaba",
       "esperado": {
-        "state": "Amapá"
+        "city": "Cuiabá"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas de {município sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA014",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Maranhao",
+      "consulta": "mapas de goiania",
       "esperado": {
-        "state": "Maranhão"
+        "city": "Goiânia"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas de {município sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA015",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Cuiaba",
+      "consulta": "mapas de belem",
       "esperado": {
-        "city": "Cuiabá"
+        "city": "Belém"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas de {município sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA016",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
-      "consulta": "cartas de Goiania",
+      "consulta": "mapas de brasilia",
       "esperado": {
-        "city": "Goiânia"
+        "city": "Brasília"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"mapas de {município sem acento}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA017",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "C",
+        "A"
       ],
-      "consulta": "cartas de Belem",
+      "consulta": "cartas do rio em 50k",
       "esperado": {
-        "city": "Belém"
+        "state": "Rio de Janeiro",
+        "scale": "1:50.000"
       },
+      "trocas": [
+        [
+          "state",
+          "city"
+        ]
+      ],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'rio' é ambíguo entre o estado e a capital",
+      "alternativas": [
+        {
+          "scale": "1:50.000",
+          "city": "Rio de Janeiro"
+        }
+      ]
     },
     {
       "id": "GA018",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "C",
+        "A"
       ],
       "consulta": "mapas detalhados do Amazonas",
       "esperado": {
         "scale": "1:25.000",
         "state": "Amazonas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'detalhada' → 1:25.000 é informado na descrição da ferramenta",
+      "alternativas": []
     },
     {
       "id": "GA019",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "S",
+        "A"
       ],
       "consulta": "cartas em pequena escala do sul",
       "esperado": {
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'sul' é região, não estado: nada a anotar",
+      "alternativas": []
     },
     {
       "id": "GA020",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "S"
+        "S",
+        "A"
       ],
       "consulta": "produtos em média escala",
       "esperado": {
-        "scale": "1:50.000"
+        "scale": {
+          "$um_de": [
+            "1:50.000",
+            "1:100.000"
+          ]
+        }
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "'média escala' aceita as escalas médias do SCN",
+      "alternativas": []
     },
     {
       "id": "GA021",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "cartas do Espírito Santo em 25k",
+      "consulta": "cartas de Goiás em 25k",
       "esperado": {
-        "state": "Espírito Santo",
+        "state": "Goiás",
         "scale": "1:25.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"cartas {prep} {estado} em {k}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA022",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "cartas do Distrito Federal em 50k",
+      "consulta": "cartas do Tocantins em 50k",
       "esperado": {
-        "state": "Distrito Federal",
+        "state": "Tocantins",
         "scale": "1:50.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"cartas {prep} {estado} em {k}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA023",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "cartas do Tocantins em 100k",
+      "consulta": "cartas de Mato Grosso do Sul em 100k",
       "esperado": {
-        "state": "Tocantins",
+        "state": "Mato Grosso do Sul",
         "scale": "1:100.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"cartas {prep} {estado} em {k}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GA024",
       "origem": "G",
       "familia": "GA",
       "categorias": [
-        "A",
-        "C"
+        "C",
+        "A"
       ],
-      "consulta": "cartas do Paraíba em 250k",
+      "consulta": "cartas de Pernambuco em 250k",
       "esperado": {
-        "state": "Paraíba",
+        "state": "Pernambuco",
         "scale": "1:250.000"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_ambiguas_extras · modelo \"cartas {prep} {estado} em {k}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": ""
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP001",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
-      "consulta": "todas as cartas de Mato Grosso do Sul",
+      "consulta": "todas as cartas de Rondônia",
       "esperado": {
-        "state": "Mato Grosso do Sul"
+        "state": "Rondônia"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todas as cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP002",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
-      "consulta": "todas as cartas de Maranhão",
+      "consulta": "todas as cartas do Tocantins",
       "esperado": {
-        "state": "Maranhão"
+        "state": "Tocantins"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todas as cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP003",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
-      "consulta": "todas as cartas de Tocantins",
+      "consulta": "todas as cartas do Piauí",
       "esperado": {
-        "state": "Tocantins"
+        "state": "Piauí"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todas as cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP004",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
-      "consulta": "todas as cartas de Sergipe",
+      "consulta": "todas as cartas de Mato Grosso",
       "esperado": {
-        "state": "Sergipe"
+        "state": "Mato Grosso"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todas as cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP005",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
-      "consulta": "todas as cartas de Espírito Santo",
+      "consulta": "todas as cartas do Acre",
       "esperado": {
-        "state": "Espírito Santo"
+        "state": "Acre"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todas as cartas {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as cartas cuja bbox intersecta a UF (contagem esperada varia com o dump)"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP006",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
       "consulta": "todos os produtos do 1° Centro de Geoinformação",
       "esperado": {
         "supplyArea": "1° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todos os produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todos os produtos daquele CGEO"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP007",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
       "consulta": "todos os produtos do 2° Centro de Geoinformação",
       "esperado": {
         "supplyArea": "2° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todos os produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todos os produtos daquele CGEO"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP008",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
       "consulta": "todos os produtos do 3° Centro de Geoinformação",
       "esperado": {
         "supplyArea": "3° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todos os produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todos os produtos daquele CGEO"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP009",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
       "consulta": "todos os produtos do 4° Centro de Geoinformação",
       "esperado": {
         "supplyArea": "4° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todos os produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todos os produtos daquele CGEO"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP010",
       "origem": "G",
       "familia": "GP",
       "categorias": [
-        "C"
+        "S"
       ],
       "consulta": "todos os produtos do 5° Centro de Geoinformação",
       "esperado": {
         "supplyArea": "5° Centro de Geoinformação"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"todos os produtos do {cgeo}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todos os produtos daquele CGEO"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP011",
@@ -5212,14 +6452,17 @@
       "categorias": [
         "C"
       ],
-      "consulta": "cartas em 1:10.000 do Distrito Federal",
+      "consulta": "cartas na escala 1:2.000 do Rio Grande do Norte",
       "esperado": {
-        "scale": "1:10.000",
-        "state": "Distrito Federal"
+        "scale": "1:2.000",
+        "state": "Rio Grande do Norte"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"cartas na escala {escala} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as folhas naquela escala e UF"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP012",
@@ -5228,14 +6471,17 @@
       "categorias": [
         "C"
       ],
-      "consulta": "cartas em 1:1.000 do Minas Gerais",
+      "consulta": "cartas na escala 1:5.000 de Alagoas",
       "esperado": {
-        "scale": "1:1.000",
-        "state": "Minas Gerais"
+        "scale": "1:5.000",
+        "state": "Alagoas"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"cartas na escala {escala} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as folhas naquela escala e UF"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GP013",
@@ -5244,14 +6490,17 @@
       "categorias": [
         "C"
       ],
-      "consulta": "cartas em 1:50.000 do Mato Grosso",
+      "consulta": "cartas na escala 1:250.000 do Rio Grande do Sul",
       "esperado": {
-        "scale": "1:50.000",
-        "state": "Mato Grosso"
+        "scale": "1:250.000",
+        "state": "Rio Grande do Sul"
       },
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_multi_produto · modelo \"cartas na escala {escala} {prep} {estado}\" · semente 42",
       "espera_tool_call": true,
       "observacional": false,
-      "notas": "retorna todas as folhas naquela escala e UF"
+      "notas": "",
+      "alternativas": []
     },
     {
       "id": "GF001",
@@ -5260,11 +6509,14 @@
       "categorias": [
         "S"
       ],
-      "consulta": "cartas fora do brasil",
+      "consulta": "me ajuda",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "nenhum parâmetro extraível (fora do domínio)"
+      "notas": "sem intenção de busca",
+      "alternativas": []
     },
     {
       "id": "GF002",
@@ -5273,57 +6525,62 @@
       "categorias": [
         "S"
       ],
-      "consulta": "me ajuda",
+      "consulta": "cartas de Marte",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "nenhum parâmetro extraível (sem intenção clara)"
+      "notas": "fora da Terra",
+      "alternativas": []
     },
     {
       "id": "GF003",
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "A"
+        "S"
       ],
-      "consulta": "quero um mapa bonito",
+      "consulta": "cartas da Argentina",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "nenhum parâmetro extraível (subespecífico)"
+      "notas": "fora do território brasileiro",
+      "alternativas": []
     },
     {
       "id": "GF004",
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "S",
-        "A"
+        "S"
       ],
-      "consulta": "escala 1:10.000.000",
+      "consulta": "qual a previsão do tempo para amanhã em Manaus?",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "escala fora do enum (erro esperado)"
+      "notas": "outro assunto",
+      "alternativas": []
     },
     {
       "id": "GF005",
       "origem": "G",
       "familia": "GF",
       "categorias": [
-        "C",
-        "T"
+        "S"
       ],
-      "consulta": "cartas do futuro (ano 2050)",
-      "esperado": {
-        "publicationPeriod": {
-          "start": "2050-01-01",
-          "end": "2050-12-31"
-        }
-      },
-      "espera_tool_call": true,
+      "consulta": "quanto custa uma carta topográfica?",
+      "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
+      "espera_tool_call": false,
       "observacional": true,
-      "notas": "SQL válida com resultado esperado zero registros"
+      "notas": "pergunta de preço, não de busca",
+      "alternativas": []
     },
     {
       "id": "GF006",
@@ -5332,11 +6589,14 @@
       "categorias": [
         "S"
       ],
-      "consulta": "cartas de Marte",
+      "consulta": "mapa do tesouro pirata",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "nenhum estado brasileiro; deve devolver zero ou pedir esclarecimento"
+      "notas": "ficção",
+      "alternativas": []
     },
     {
       "id": "GF007",
@@ -5347,9 +6607,12 @@
       ],
       "consulta": "cartas do estado 42",
       "esperado": {},
+      "trocas": [],
+      "fonte": "generate_dataset.py:gen_fronteira · modelo \"(fixo)\" · semente 42",
       "espera_tool_call": false,
       "observacional": true,
-      "notas": "state inválido; erro de normalização detectável"
+      "notas": "valor impossível de representar",
+      "alternativas": []
     }
   ]
 }

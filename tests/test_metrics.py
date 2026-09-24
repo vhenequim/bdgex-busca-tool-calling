@@ -146,3 +146,58 @@ def test_agregar_exemplo_a_mao():
     assert r["latencia_llm_ms"]["mediana"] == 200 and r["latencia_llm_ms"]["min"] == 100
     assert r["diagnosticos"]["tipos_erro"] == {"campo_omitido": 1, "campo_inventado": 1}
     assert r["observacionais"]["n"] == 1 and r["observacionais"]["acuracia"] == 1.0
+
+
+# --- leituras múltiplas (manual de anotação, P3) ---------------------------
+
+from pfc_busca.evaluation.gabarito import expandir_trocas, opcional, resolver_gabarito, um_de  # noqa: E402
+
+
+def test_valor_alternativo_aceita_qualquer_um():
+    esperado = {"state": "Ceará", "sortField": um_de("publicationDate", "creationDate"), "sortDirection": "DESC"}
+    for campo in ("publicationDate", "creationDate"):
+        aval = m.avaliar_caso(esperado, {"state": "Ceará", "sortField": campo, "sortDirection": "DESC"})
+        assert aval.correto and aval.tp == {"state", "sortField", "sortDirection"}
+    aval = m.avaliar_caso(esperado, {"state": "Ceará", "sortField": "nome", "sortDirection": "DESC"})
+    assert not aval.correto and aval.fp == {"sortField"}
+
+
+def test_campo_opcional():
+    esperado = {"city": "Cuiabá", "sortField": "creationDate", "sortDirection": "ASC", "limit": opcional(1)}
+    sem_limite = {"city": "Cuiabá", "sortField": "creationDate", "sortDirection": "ASC"}
+    aval = m.avaliar_caso(esperado, sem_limite)
+    assert aval.correto and "limit" not in aval.ocorrencias and not aval.fn
+    aval = m.avaliar_caso(esperado, {**sem_limite, "limit": 1})
+    assert aval.correto and "limit" in aval.tp and "limit" in aval.ocorrencias
+    aval = m.avaliar_caso(esperado, {**sem_limite, "limit": 5})
+    assert not aval.correto and aval.fp == {"limit"}
+
+
+def test_leitura_estrutural_alternativa():
+    esperado = {"state": "São Paulo"}
+    alternativas = expandir_trocas(esperado, [("state", "city")])
+    assert alternativas == [{"city": "São Paulo"}]
+    aval = m.avaliar_caso(esperado, {"city": "Sao Paulo"}, alternativas=alternativas)
+    assert aval.correto and aval.leitura == 1 and aval.tp == {"city"}
+    # emitir as duas coisas não é uma leitura aceita
+    aval = m.avaliar_caso(esperado, {"city": "São Paulo", "state": "São Paulo"}, alternativas=alternativas)
+    assert not aval.correto
+
+
+def test_periodo_relativo_com_leituras():
+    from datetime import date
+    esperado = resolver_gabarito({"publicationPeriod": {"rel": "ano_corrente"}}, date(2026, 9, 24))
+    for pred in ({"start": "2026-01-01", "end": "2026-12-31"}, {"start": "2026-01-01", "end": "2026-09-24"}):
+        assert m.avaliar_caso(esperado, {"publicationPeriod": pred}).correto
+    assert not m.avaliar_caso(esperado, {"publicationPeriod": {"start": "2025-09-24", "end": "2026-09-24"}}).correto
+
+
+def test_nao_chamou_com_opcional_so_conta_obrigatorios():
+    aval = m.avaliar_caso({"state": "Pará", "limit": opcional(1)}, None)
+    assert aval.fn == {"state"} and aval.ocorrencias == {"state"}
+
+
+def test_expandir_duas_trocas_gera_tres_alternativas():
+    esperado = {"state": "Rio de Janeiro", "publicationPeriod": {"rel": "hoje"}}
+    alts = expandir_trocas(esperado, [("state", "city"), ("publicationPeriod", "creationPeriod")])
+    assert len(alts) == 3

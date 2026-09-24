@@ -1,0 +1,42 @@
+{
+  "modelo": "openai/gpt-oss-120b",
+  "provedor": "groq",
+  "execucao": "nuvem (resultado paralelo, fora do requisito RNF1)",
+  "modelo_info": {
+    "base_url": "https://api.groq.com/openai/v1",
+    "esforco_de_raciocinio": "low"
+  },
+  "thinking_desativado": false,
+  "configuracao": {
+    "temperature": 0,
+    "num_predict": 1024,
+    "timeout_s": 180.0,
+    "keep_alive": "15m",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false
+  },
+  "hoje": "2026-09-24",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data\\dataset.json",
+    "sha256": "34efdd4f7ea31f1cc61aba1c63f38cf91db2faeff5a2d47e56fa76e9de4992c3"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "software": {
+    "python": "3.14.4",
+    "ollama_servidor": null,
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.4",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": "1.6.6",
+    "so": "Windows-11-10.0.26200-SP0"
+  },
+  "hardware": {
+    "gpu": null,
+    "maquina": "servidores do provedor"
+  },
+  "intervalo_entre_chamadas_s": 11.0,
+  "iniciado_em": "2026-09-24T09:04:19"
+}

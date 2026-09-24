@@ -15,6 +15,7 @@ authors = [
 dependencies = [
   "langchain-core>=1.6,<2",
   "langchain-ollama>=1.1,<2",
+  "langchain-openai>=1.0,<2",
   "ollama>=0.6,<1",
   "fastapi>=0.115",
   "uvicorn>=0.30",
@@ -36,6 +37,7 @@ dev = [
 pfc-avaliar = "pfc_busca.evaluation.run_evaluation:main"
 pfc-dataset = "pfc_busca.evaluation.dataset_builder:main"
 pfc-relatorio = "pfc_busca.evaluation.report:main"
+pfc-auditar = "pfc_busca.evaluation.audit:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
