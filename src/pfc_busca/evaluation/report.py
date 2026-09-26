@@ -216,7 +216,7 @@ def tab_por_campo(dados: dict[str, dict]) -> str:
         vals = " & ".join(_f(d["resumo"]["geral"]["por_campo"][campo]["f1"]) for d in dados.values())
         linhas.append(rf"\texttt{{{_tex(campo)}}} & {primeiro[campo]['ocorrencias']} & {vals} \\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelos autores. Ocorr. = vezes que o campo aparece no gabarito.}",
+               r"\fonte{Elaborado pelos autores. Ocorr. = ocorrências do campo no gabarito das execuções pontuadas (consultas $\times$ repetições).}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -312,8 +312,9 @@ def _num(v: float, casas: int = 1) -> str:
     return f"{v:.{casas}f}".replace(".", ",")
 
 
-EXTENSO = {1: "um", 2: "dois", 3: "três", 4: "quatro", 5: "cinco", 6: "seis", 7: "sete"}
-EXTENSO_EN = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+EXTENSO = {1: "um", 2: "dois", 3: "três", 4: "quatro", 5: "cinco", 6: "seis", 7: "sete", 8: "oito", 9: "nove", 10: "dez"}
+EXTENSO_F = {1: "uma", 2: "duas"}  # feminino (consultas)
+EXTENSO_EN = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
 
 
 def _lista(itens: list[str]) -> str:
@@ -358,7 +359,7 @@ def cobertura(dados: dict[str, dict]) -> dict[str, str]:
     total_g = sum(1 for c in casos if c["origem"] == "G")
     frase = ""
     if len(ids) < len(casos):
-        frase = (f"Nessas rodadas, a camada G foi executada a partir de uma versão anterior do gerador, cujas consultas "
+        frase = (f"Nas rodadas completas, a camada G foi executada a partir de uma versão anterior do gerador, cujas consultas "
                  f"diferem em redação das do \\textit{{dataset}} final. As métricas das rodadas completas cobrem, "
                  f"por isso, as {len(ids)} consultas cujo texto coincide com o do \\textit{{dataset}} final "
                  f"--- {'todas as' if n_pn == total_pn else ''} {n_pn} das camadas P e N e {origem.get('G', 0)} das "
@@ -371,6 +372,9 @@ def cobertura(dados: dict[str, dict]) -> dict[str, str]:
                 f"sobretudo, as consultas redigidas por pessoas (camadas P e N).")
     return {"nexecutadas": str(len(ids)), "ntotal": str(len(casos)), "nprincipais": str(principais),
             "itemlimitacao": item, "nF": str(n_f), "ntotalF": str(total_f),
+            "nFextenso": EXTENSO_F.get(n_f, EXTENSO.get(n_f, str(n_f))),
+            "ntotalFextenso": EXTENSO_F.get(total_f, EXTENSO.get(total_f, str(total_f))),
+            "nFen": EXTENSO_EN.get(n_f, str(n_f)), "ntotalFen": EXTENSO_EN.get(total_f, str(total_f)),
             "nPN": str(n_pn), "nG": str(origem.get("G", 0)), "completa": "sim" if len(ids) == len(casos) else "não",
             "frasecobertura": frase}
 

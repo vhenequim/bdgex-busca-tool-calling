@@ -6,9 +6,9 @@
 \chapter{Dataset de Avaliação}
 \label{apendice:dataset}
 
-Este apêndice documenta integralmente o \textit{dataset} de avaliação descrito na Seção~\ref{sec:dataset}: o manual de anotação que define o gabarito, as 310 consultas com as respectivas leituras aceitas, o mapeamento das consultas aos requisitos funcionais e o registro da auditoria. As mesmas informações estão, em formato legível por máquina, no arquivo \texttt{data/dataset.json} do repositório (Apêndice~\ref{apendice:codigo}). As listagens deste apêndice são geradas a partir desse arquivo pelo comando \texttt{pfc-dataset --apendice}, sem transcrição manual.
+Este apêndice documenta integralmente o \textit{dataset} de avaliação descrito na Seção~\ref{sec:dataset}: o manual de anotação que define o gabarito, as 310 consultas com as respectivas leituras aceitas, o mapeamento das consultas aos requisitos funcionais e o registro da auditoria. As mesmas informações estão, em formato legível por máquina, no arquivo \texttt{data/dataset.json} do repositório (Apêndice~\ref{apendice:codigo}). As listagens deste apêndice são geradas pelo comando \texttt{pfc-dataset --apendice <diretório-do-texto>}, a partir das mesmas fontes que produzem esse arquivo (\texttt{manual\_cases.py} e o gerador da camada G), sem transcrição manual.
 
-\paragraph{Como ler as entradas.} Cada consulta traz o identificador, as categorias (Seção~\ref{sec:dataset}), o texto exatamente como é enviado ao modelo e as \textbf{leituras aceitas} do gabarito, na forma canônica da ferramenta. A notação segue o princípio P3 do manual: ``\texttt{A} ou \texttt{B}'' indica valor alternativo; ``(opcional)'' indica campo que pode faltar sem erro, mas que, se presente, precisa ter o valor indicado; ``aceita-se também \texttt{city} no lugar de \texttt{state}'' indica leitura estrutural alternativa. Expressões de tempo relativo aparecem pelo nome da regra (``ano corrente'', ``semana passada'') e são resolvidas na data de referência da execução, segundo o Quadro~\ref{quadro:tempo-relativo}. Nas camadas P e N, uma nota registra a linha de origem no arquivo do protótipo e a justificativa das leituras alternativas.
+\paragraph{Como ler as entradas.} Cada consulta traz o identificador, as categorias (Seção~\ref{sec:dataset}), o texto exatamente como é enviado ao modelo e as \textbf{leituras aceitas} do gabarito, na forma canônica da ferramenta. A notação segue o princípio P3 do manual: ``\texttt{A} ou \texttt{B}'' indica valor alternativo; ``(opcional)'' indica campo que pode faltar sem erro, mas que, se presente, precisa ter o valor indicado; ``aceita-se também \texttt{city} no lugar de \texttt{state}'' indica leitura estrutural alternativa. Expressões de tempo relativo aparecem pelo nome da regra (``ano corrente'', ``semana passada'') e são resolvidas na data de referência da execução, segundo o Quadro~\ref{quadro:tempo-relativo}. Na camada P, uma nota registra a linha de origem no arquivo do protótipo; nas camadas P e N, a nota registra também, quando há, a justificativa das leituras alternativas.
 
 \paragraph{Escopo do gabarito.} O gabarito descreve os \textbf{parâmetros} que a consulta deve produzir, e não o conjunto de produtos que a busca resultante devolveria. A avaliação de recuperação em nível de produto está fora do escopo do trabalho (Seção~\ref{sec:exclusoes-avaliacao}).
 
@@ -46,21 +46,21 @@ Este apêndice documenta integralmente o \textit{dataset} de avaliação descrit
 \section{Consultas do protótipo (P01--P22)}
 \label{apx:dataset-p}
 
-As 22 consultas do arquivo de testes do protótipo do 1º CGEO (\texttt{backend/\allowbreak evaluation/\allowbreak test-cases.ts}), na ordem do arquivo. A anotação original da equipe do 1º CGEO é mantida como leitura preferencial; as leituras alternativas acrescentadas seguem o manual. Os períodos relativos, que no arquivo original estavam fixados em datas de 2025, são expressos pelas regras nomeadas do Quadro~\ref{quadro:tempo-relativo}.
+As 22 consultas do arquivo de testes do protótipo do 1º CGEO (\texttt{backend/\allowbreak evaluation/\allowbreak test-cases.ts}), na ordem do arquivo. A anotação original da equipe do 1º CGEO é mantida como leitura preferencial; as leituras alternativas acrescentadas seguem o manual. Os períodos relativos, que no arquivo original estavam fixados em datas calculadas para o início de 2025 (por exemplo, 2024-10-01 a 2024-12-31 para o ``último trimestre do ano passado'' de P15), são expressos pelas regras nomeadas do Quadro~\ref{quadro:tempo-relativo}.
 
 \input{apendice_dataset_P}
 
 \section{Consultas redigidas pelos autores (N01--N40)}
 \label{apx:dataset-n}
 
-Consultas redigidas para preencher lacunas de distribuição --- em especial a categoria Simples, ausente na camada P ---, exercitar as ambiguidades previstas no manual (estado ou capital, ordenação sem pista, regiões, expressões qualitativas de escala) e cobrir a fronteira do domínio: N36 e N37 estão fora do domínio (categoria F), e N38 a N40 são observacionais.
+Consultas redigidas para preencher lacunas de distribuição --- em especial a categoria Simples, ausente na camada P ---, exercitar as ambiguidades previstas no manual (estado ou capital, ordenação sem pista, regiões e grafias informais de escala, como ``25k'' e ``cem k'') e cobrir a fronteira do domínio: N36 e N37 estão fora do domínio (categoria F), e N38 a N40 são observacionais.
 
 \input{apendice_dataset_N}
 
 \section{Geração programática da camada G}
 \label{sec:dataset-gerado}
 
-As 248 consultas da camada G são produzidas pelo \textit{script} \texttt{generate\_dataset.py} do repositório, a partir de catálogos fechados do domínio: as 27 unidades da federação (com sigla, preposição e grafias usuais), 12 municípios de referência sem homônimo entre as UFs, as 8 escalas do SCN (com apelidos como ``25k'', ``25 mil'' e as convenções ``detalhada'' e ``pequena escala''), os 9 tipos de produto das ET-PCDG, os 5 CGEOs, os 9 projetos institucionais, 12 códigos MI e 10 códigos INOM, 15 expressões de tempo relativo e os padrões de ordenação. Oito funções geradoras, uma por família, combinam esses catálogos em modelos de frase do português corrente.
+As 248 consultas da camada G são produzidas pelo \textit{script} \texttt{scripts/\allowbreak generate\_dataset\_paper.py} do repositório (Apêndice~\ref{apendice:codigo}), a partir de catálogos fechados do domínio: as 27 unidades da federação (com preposição, grafias usuais e, exceto para Sergipe, sigla), 12 municípios de referência sem homônimo entre as UFs, as 8 escalas do SCN (com apelidos como ``25k'', ``25 mil'' e as convenções ``detalhada'' e ``pequena escala''), os 9 tipos de produto das ET-PCDG, os 5 CGEOs, os 9 projetos institucionais, 12 códigos MI e 10 códigos INOM, 15 expressões de tempo (14 relativas e o intervalo absoluto ``entre 2022 e 2023'') e os padrões de ordenação (ajustar igualmente o Cap. 3, item da camada G). Oito funções geradoras, uma por família, combinam esses catálogos em modelos de frase do português corrente.
 
 Três propriedades tornam a camada auditável. A geração é \textbf{determinística}: um único gerador pseudoaleatório, com semente 42, consumido em ordem fixa, de modo que a mesma versão do \textit{script} produz sempre as mesmas consultas. O gabarito é conhecido \textbf{por construção}: a frase é montada a partir dos parâmetros que deve produzir, e cada consulta registra no \textit{dataset} a função geradora e o modelo de frase que a originaram. E \textbf{nenhuma consulta se repete}: a comparação é feita após normalização de caixa, acentos e pontuação, dentro da camada e em relação às camadas P e N. As convenções de anotação são as mesmas do manual; em particular, ``São Paulo'' e ``Rio de Janeiro'' por extenso recebem as leituras estado ou município, e frases sem verbo de publicação ou criação aceitam os dois campos de período.
 
@@ -71,7 +71,7 @@ As seções seguintes listam as 248 consultas por família. Os identificadores s
 \section{Requisitos exercitados pelas consultas}
 \label{apx:dataset-requisitos}
 
-O Quadro~\ref{quadro:requisitos-por-consulta} relaciona os grupos de consultas aos requisitos funcionais da Seção~\ref{sec:requisitos}. Todas as consultas exercitam a tradução (RF2), a seleção do modelo por configuração (RF4) e o registro dos traços de execução (RF5), pois cada rodada do \textit{pipeline} de avaliação escolhe o modelo por parâmetro e grava um registro por consulta. O recebimento pela rota REST (RF1) e a execução da busca no banco (RF3) são exercitados pela API e pela demonstração ponta a ponta descritas no Capítulo~\ref{cap:aprimoramento}, e não entram nas métricas, que avaliam a camada de tradução.
+O Quadro~\ref{quadro:requisitos-por-consulta} relaciona os grupos de consultas aos requisitos funcionais da Seção~\ref{sec:requisitos}. Todas as consultas exercitam a tradução (RF2) e o registro dos traços de execução (RF5), pois cada rodada do \textit{pipeline} de avaliação grava um registro por consulta; a troca do modelo entre rodadas, por parâmetro do \textit{pipeline}, exercita ainda a substituibilidade de modelo por configuração (RNF6). O recebimento pela rota REST (RF1), a execução da busca no banco (RF3) e a seleção do modelo por requisição (RF4) são exercitados pela API e pela demonstração ponta a ponta descritas no Capítulo~\ref{cap:aprimoramento}, e não entram nas métricas, que avaliam a camada de tradução. O recebimento pela rota REST (RF1) e a execução da busca no banco (RF3) são exercitados pela API e pela demonstração ponta a ponta descritas no Capítulo~\ref{cap:aprimoramento}, e não entram nas métricas, que avaliam a camada de tradução.
 
 \begin{quadro}[htbp!]
 \centering
@@ -82,7 +82,7 @@ O Quadro~\ref{quadro:requisitos-por-consulta} relaciona os grupos de consultas a
 \hline
 \textbf{Grupo de consultas} & \textbf{O que exige do modelo} & \textbf{Requisitos} \\
 \hline
-Todas (310) & Preencher os campos da ferramenta sustentados pela consulta, na forma canônica, sem acrescentar campos & RF2, RF4, RF5 \\
+Todas (310) & Preencher os campos da ferramenta sustentados pela consulta, na forma canônica, sem acrescentar campos & RF2, RF5, RNF6 \\
 \hline
 Com código MI/INOM (M) & Preservar o código em \texttt{keyword}, normalizando grafias compactadas do INOM & RF2 \\
 \hline
@@ -97,13 +97,13 @@ Fora do domínio (F) & Reconhecer que o catálogo não atende ao pedido e não c
 Observacionais (4) & Comportamento diante de valores impossíveis ou de pedidos de resposta discutível (reportado, não pontuado) & RF2, RF5 \\
 \hline
 \end{tabular}
-\fonte{Elaborado pelo autor. As contagens por categoria estão na Tabela~\ref{tab:dataset-categorias}.}
+\fonte{Elaborado pelos autores. As contagens por categoria estão na Tabela~\ref{tab:dataset-categorias}.}
 \end{quadro}
 
 \section{Auditoria do \textit{dataset}}
 \label{apx:auditoria}
 
-A auditoria segue o procedimento da Seção~5 do manual e é reproduzível a partir do repositório. Seus artefatos ficam em \texttt{data/auditoria/}:
+A auditoria segue o procedimento descrito no manual de anotação (Seção~\ref{apx:manual}, subseção ``Procedimento de auditoria'') e é reproduzível a partir do repositório. Seus artefatos ficam em \texttt{data/auditoria/}:
 
 \begin{itemize}
   \item \texttt{relatorio\_auditoria.md} e \texttt{auditoria.json}: resultado das checagens automáticas (estrutura, rastreabilidade, anotador por regras e consistência), das medidas de concordância e da adjudicação;
@@ -113,7 +113,7 @@ A auditoria segue o procedimento da Seção~5 do manual e é reproduzível a par
   \item \texttt{revisao\_humana\_amostra.csv}: amostra estratificada por origem (40 consultas, semente 42) para conferência manual do gabarito.
 \end{itemize}
 
-O comando que refaz a auditoria e regenera as tabelas deste trabalho é:
+O comando que refaz a auditoria e regenera as tabelas correspondentes (Tabelas~\ref{tab:auditoria} e~\ref{tab:auditoria-campos} e Quadro~\ref{quadro:adjudicacao}) é:
 
 {\footnotesize
 \begin{verbatim}
@@ -122,7 +122,7 @@ pfc-auditar --anotacao-independente data/auditoria/anotacao_independente.json \
 \end{verbatim}
 }
 
-A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a leitura preferencial do gabarito e a da anotação independente, e o Quadro~\ref{quadro:adjudicacao} lista todas as decisões de adjudicação. As divergências de leitura preferencial nas consultas P13, P21 e P22 decorrem da regra que mantém, na camada P, a anotação original da equipe do 1º CGEO como preferencial; em todas elas a leitura do anotador está entre as leituras aceitas.
+A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a leitura preferencial do gabarito e a da anotação independente, e o Quadro~\ref{quadro:adjudicacao} lista todas as decisões de adjudicação. Das quatro consultas com leitura preferencial divergente (Tabela~\ref{tab:auditoria}), três --- P13, P21 e P22 --- decorrem da regra que mantém, na camada P, a anotação original da equipe do 1º CGEO como preferencial; na quarta, N33, o gabarito inclui na leitura preferencial o campo opcional \texttt{project}, que o anotador deixou de fora. Em todas, a leitura do anotador está entre as leituras aceitas.
 
 \input{tabelas/tab_auditoria_campos}
 
@@ -139,7 +139,7 @@ Este apêndice documenta o \textit{hardware} e o \textit{software} dos ambientes
 \section{Estação de referência}
 \label{apx:specs-estacao}
 
-Os dados da estação foram coletados executando-se, no próprio equipamento, os comandos PowerShell da Seção~\ref{apx:specs-comandos}; a saída é transcrita na Seção~\ref{apx:specs-resultado}.
+Os dados da estação foram coletados executando-se, no próprio equipamento, os comandos PowerShell da Seção~\ref{apx:specs-comandos}, em setembro de 2026, com o \textit{driver} NVIDIA usado nas rodadas da estação; a saída é transcrita, de forma condensada, na Seção~\ref{apx:specs-resultado}. O banco usado na demonstração ponta a ponta roda num contêiner Docker com a imagem \texttt{postgis/postgis:16-3.4} (PostgreSQL 16 com PostGIS 3.4), definida no \texttt{docker-compose.yml} do repositório; o \texttt{psql} listado é o cliente instalado na estação.
 
 \subsection{Comandos PowerShell de coleta}
 \label{apx:specs-comandos}
@@ -174,6 +174,7 @@ Get-PhysicalDisk | Select-Object FriendlyName, MediaType, Size, BusType
 python --version
 ollama --version
 psql --version
+docker --version
 \end{verbatim}
 }
 
@@ -193,14 +194,14 @@ Pente 2: Kingston, 16 GB DDR4, 3200 MHz (Controller1-ChannelA-DIMM0)
 
 # GPU
 Name: NVIDIA GeForce RTX 3050 Laptop GPU
-  AdapterRAM 4 293 918 720; DriverVersion 32.0.15.6607
+  AdapterRAM 4 293 918 720; DriverVersion 32.0.16.1664
   VideoProcessor NVIDIA GeForce RTX 3050 Laptop GPU
 Name: Intel(R) Iris(R) Xe Graphics
   AdapterRAM 2 147 479 552; DriverVersion 32.0.101.6790
   VideoProcessor Intel(R) Iris(R) Xe Graphics Family
 
 # nvidia-smi
-NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 566.07
+NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 616.64
 
 # Sistema operacional
 Microsoft Windows 11 Pro, versao 10.0.26200, Build 26200, 64 bits
@@ -210,15 +211,16 @@ INTEL SSDPEKNU512GZ, SSD NVMe, 512 GB
 
 # Software
 Python 3.14.4
-Ollama 0.34.0 (cliente e servidor)
-PostgreSQL 16.4 + PostGIS 3.4 em conteiner Docker 29.6.1
+ollama version is 0.34.0
+psql (PostgreSQL) 18.3
+Docker version 29.6.1, build 8900f1d
 \end{verbatim}
 }
 
 \section{Rodadas completas em GPU de nuvem}
 \label{apx:specs-colab}
 
-As rodadas completas dos quatro modelos locais foram executadas numa máquina virtual do Google Colab com GPU NVIDIA T4 de 16~GB de VRAM (Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial, baixa os modelos pelas mesmas \textit{tags} usadas na estação de referência (\texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b}), instala o pacote do projeto a partir do repositório e executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas. Nenhum serviço de LLM em nuvem é usado nesse ambiente: o Ollama executa dentro da máquina virtual, com os pesos baixados nela; somente a GPU é provida pela nuvem.
+As rodadas completas dos quatro modelos locais foram executadas numa máquina virtual do Google Colab com GPU NVIDIA T4 (16~GB nominais de VRAM, dos quais o \texttt{nvidia-smi} informa 15.360~MiB; Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial, baixa os modelos pelas \textit{tags} do Ollama \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b} --- para o Qwen 3 4B e o Gemma 4 E2B, as mesmas da validação na estação de referência, com o mesmo \textit{digest} registrado nos manifestos ---, instala o pacote do projeto a partir do repositório e executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas. \res{principal}{geral}{frasecobertura} Nenhum serviço de LLM em nuvem é usado nesse ambiente: o Ollama executa dentro da máquina virtual, com os pesos baixados nela; somente a GPU é provida pela nuvem.
 
 \section{Referência em nuvem (Groq)}
 \label{apx:specs-groq}
@@ -269,7 +271,7 @@ Os passos para reproduzir os resultados, a partir de um ambiente com Python 3.12
 
 {\footnotesize
 \begin{verbatim}
-pip install -e .                  # instala o pacote e os comandos pfc-*
+pip install -e ".[dev]"           # instala o pacote, os comandos pfc-* e o pytest
 pfc-dataset                       # reconstroi data/dataset.json (mesmo hash)
 pfc-auditar --anotacao-independente data/auditoria/anotacao_independente.json
 ollama pull qwen3:4b-instruct-2507-q4_K_M

@@ -8,7 +8,7 @@
 \section{Síntese do Trabalho}
 % ---
 
-Este Projeto Final de Curso aprimorou a camada de tradução linguística da solução de busca em linguagem natural sobre o acervo cartográfico da Diretoria de Serviço Geográfico (DSG), partindo do protótipo desenvolvido pelo 1º Centro de Geoinformação (1º CGEO). O protótipo demonstrou a viabilidade da abordagem, mas apresentava limitações documentadas pelo próprio cliente: \textit{backend} em Node.js, Saída Estruturada via Instructor e Zod, um único modelo (Phi-4 14B), dicionário de normalização fixo no código e ausência de um protocolo de avaliação.
+Este Projeto Final de Curso aprimorou a camada de tradução linguística da solução de busca em linguagem natural sobre o acervo cartográfico da Diretoria de Serviço Geográfico (DSG), partindo do protótipo desenvolvido pelo 1º Centro de Geoinformação (1º CGEO). O protótipo demonstrou a viabilidade da abordagem, mas apresentava limitações documentadas pelo próprio cliente: \textit{backend} em Node.js, Saída Estruturada via Instructor e Zod, um único modelo (Phi-4 14B), dicionário de normalização fixo no código, \textit{fallback} por expressões regulares e ausência de um protocolo de avaliação.
 
 A partir da análise crítica do protótipo, o trabalho entregou:
 
@@ -28,7 +28,7 @@ O objetivo geral --- aprimorar a camada de tradução linguística por meio do \
 
 \begin{itemize}
   \item \textbf{Nova arquitetura de \textit{backend}}: descrita no Capítulo~\ref{cap:aprimoramento}, com as camadas de API, orquestração, persistência e avaliação, e com a lógica de consulta ao banco portada do protótipo;
-  \item \textbf{\textit{Dataset} de avaliação}: 310 consultas com manual de anotação e registro de auditoria (Capítulo~\ref{cap:metodologia} e Apêndice~\ref{apendice:dataset}); a auditoria mostrou concordância quase perfeita entre o gabarito e uma anotação independente feita às cegas, e cada divergência recebeu decisão registrada;
+  \item \textbf{\textit{Dataset} de avaliação}: 310 consultas com manual de anotação e registro de auditoria (Capítulo~\ref{cap:metodologia} e Apêndice~\ref{apendice:dataset}); a auditoria mostrou, entre o gabarito e uma anotação independente feita às cegas, concordância quase perfeita nos campos e na detecção de ambiguidade e concordância substancial na decisão de chamar ou não a ferramenta, esta por causa de oito consultas fora do domínio que o gabarito tratava como observacionais, erro corrigido na adjudicação; cada divergência recebeu decisão registrada;
   \item \textbf{\textit{Pipeline} de avaliação}: implementado nos comandos \texttt{pfc-dataset}, \texttt{pfc-auditar}, \texttt{pfc-avaliar} e \texttt{pfc-relatorio}, cobertos por testes automatizados (Capítulo~\ref{cap:aprimoramento});
   \item \textbf{Relatório comparativo e recomendação}: apresentados no Capítulo~\ref{cap:resultados}, com a recomendação de modelo para uso operacional na Seção~\ref{sec:discussao}.
 \end{itemize}
@@ -41,11 +41,11 @@ Os resultados do Capítulo~\ref{cap:resultados} permitem responder às perguntas
 
 \begin{itemize}
   \item \textbf{Qualidade dos modelos locais}: três dos quatro modelos --- Gemma 4 E4B, Qwen 3 4B e Gemma 4 E2B --- tiveram acurácias estatisticamente indistinguíveis, de \res{principal}{e4b}{acuracia}, \res{principal}{qwen}{acuracia} e \res{principal}{e2b}{acuracia}, com F1 ponderado entre \res{principal}{e4b}{f1} e \res{principal}{e2b}{f1}. O Mistral Nemo 12B, o maior dos quatro, ficou em \res{principal}{mistral}{acuracia}, porque em grande parte das consultas descreveu a chamada da ferramenta em texto, em vez de emiti-la; o porte do modelo, portanto, não determinou o desempenho.
-  \item \textbf{O que o \textit{Tool Calling} entregou}: todos os modelos recusaram corretamente as consultas fora do domínio, a normalização de nomes, siglas e escalas foi feita sem dicionário, e cada falha foi registrada e classificada, sem \textit{fallback} que a mascarasse.
-  \item \textbf{O que continua difícil}: datas relativas, ordenação e consultas com vários campos foram as categorias de menor acurácia para todos os modelos locais. Os modos de falha dominantes foram deixar de chamar a ferramenta em consultas amplas --- por recusa indevida, no Qwen 3 4B, ou por pedido de esclarecimento, nos modelos Gemma --- e acrescentar ordenação ou limite não pedidos.
-  \item \textbf{\textit{Hardware}}: a qualidade praticamente não mudou entre a estação de referência e a GPU de nuvem; a latência, sim. Na estação de 4~GB, o Gemma 4 E2B teve latência mediana de \res{estacao}{e2b}{latmeds}~s, contra \res{estacao}{qwen}{latmeds}~s do Qwen 3 4B, com a mesma acurácia.
-  \item \textbf{Referência em nuvem}: nas mesmas consultas, os modelos servidos pelo Groq acertaram \res{groqcomum}{gptoss120}{acuracia} (GPT-OSS 120B) e \res{groqcomum}{gptoss20}{acuracia} (GPT-OSS 20B), o que mostra que a tarefa é resolvível com o mesmo protocolo e indica a margem de melhoria disponível para os modelos locais.
-  \item \textbf{Recomendação}: para uso operacional em estações com GPU modesta, recomenda-se o Gemma 4 E2B, pela qualidade equivalente à dos melhores modelos e pela menor latência nos dois ambientes; o Qwen 3 4B é a alternativa quando predominarem consultas com códigos MI/INOM.
+  \item \textbf{O que o \textit{Tool Calling} entregou}: os modelos passaram a poder recusar --- os locais recusaram as \res{principal}{geral}{nFextenso} consultas fora do domínio pontuadas nas rodadas completas, e os de nuvem, todas as \res{groq}{geral}{nFextenso} do \textit{dataset} ---, a normalização de nomes, siglas e escalas foi feita sem dicionário, e cada falha foi registrada e classificada, sem \textit{fallback} que a mascarasse.
+  \item \textbf{O que continua difícil}: datas relativas e ordenação estiveram entre as categorias de menor acurácia para todos os modelos locais, e as consultas compostas, que exigem vários campos corretos ao mesmo tempo, não passaram de \res{principal}{e4b}{accC} em nenhum deles. Os modos de falha dominantes foram deixar de chamar a ferramenta --- por descrição da chamada em texto, no Mistral Nemo 12B; por recusa indevida, no Qwen 3 4B; e por pedido de esclarecimento, nos modelos Gemma, em consultas amplas e, no Gemma 4 E4B, também em consultas com datas relativas e com vários critérios --- e, sobretudo no Qwen 3 4B, acrescentar ordenação ou limite não pedidos.
+  \item \textbf{\textit{Hardware}}: a qualidade praticamente não mudou entre a estação de referência e a GPU de nuvem; a latência, sim. Na estação de 4~GB, o Gemma 4 E2B teve latência mediana de \res{estacao}{e2b}{latmeds}~s, contra \res{estacao}{qwen}{latmeds}~s do Qwen 3 4B, com acurácia estatisticamente indistinguível (\res{estacao}{e2b}{acuracia} e \res{estacao}{qwen}{acuracia}).
+  \item \textbf{Referência em nuvem}: nas mesmas consultas, os modelos servidos pelo Groq acertaram \res{groqcomum}{gptoss120}{acuracia} (GPT-OSS 120B) e \res{groqcomum}{gptoss20}{acuracia} (GPT-OSS 20B), o que mostra que a tarefa, com a mesma ferramenta, o mesmo \textit{prompt} e o mesmo gabarito, é resolvível por modelos de maior porte, executados com o menor esforço de raciocínio que aceitam; a distância, que mistura porte e raciocínio, indica a margem de melhoria disponível para os modelos locais.
+  \item \textbf{Recomendação}: para uso operacional em estações com GPU modesta, recomenda-se o Gemma 4 E2B, pela acurácia estatisticamente indistinguível da dos outros dois melhores modelos locais e pela menor latência nos dois ambientes; o Qwen 3 4B é a alternativa quando predominarem consultas com códigos MI/INOM.
 \end{itemize}
 
 % ---
@@ -55,13 +55,13 @@ Os resultados do Capítulo~\ref{cap:resultados} permitem responder às perguntas
 Os resultados devem ser interpretados à luz das seguintes limitações:
 
 \begin{itemize}
-  \item \textbf{Regularidade da camada gerada}: 248 das 310 consultas foram geradas por modelos de frase. A geração garante cobertura sistemática e volume para os testes estatísticos, mas essas consultas são linguisticamente mais regulares que as de usuários reais, o que pode favorecer os modelos; por isso os resultados são reportados também por camada.
+  \item \textbf{Regularidade da camada gerada}: 248 das 310 consultas foram geradas por modelos de frase. A geração garante cobertura sistemática das combinações dos catálogos do domínio, mas essas consultas são linguisticamente mais regulares que as de usuários reais, o que pode favorecer os modelos; por isso os resultados são reportados também por camada (Tabela~\ref{tab:resultados_por_origem}). Na referência em nuvem, que cobre todo o \textit{dataset}, a acurácia na camada G (\res{groq}{gptoss20}{accorigemG} no GPT-OSS 20B e \res{groq}{gptoss120}{accorigemG} no GPT-OSS 120B) superou a das camadas P e N; nas rodadas completas dos modelos locais, a camada G tem pouco peso nas métricas.
   \item \textbf{Consultas não coletadas de usuários}: nenhuma consulta do \textit{dataset} foi coletada do uso real do catálogo; as camadas P e N foram redigidas pela equipe do protótipo e pelos autores.
   \item \textbf{Alcance da auditoria}: a anotação independente às cegas foi feita por um modelo de linguagem de propósito geral, e não por anotadores humanos; ela verifica a consistência do gabarito com o manual, mas não substitui uma anotação dupla por especialistas do domínio.
   \item \textbf{Ambientes de execução}: as rodadas completas foram executadas em GPU de nuvem, e a estação de referência executou as camadas P e N. A latência depende fortemente do \textit{hardware} e é reportada por ambiente; valores obtidos em outras GPUs, com outra quantidade de VRAM, podem diferir.
-  \item \textbf{Configuração dos modelos}: todos os modelos foram avaliados sem modo de raciocínio, com temperatura zero e sem exemplos no \textit{prompt}. O desempenho com raciocínio ativado, com \textit{few-shot} ou com \textit{prompts} ajustados a cada modelo não foi medido.
+  \item \textbf{Configuração dos modelos}: os modelos locais foram avaliados sem modo de raciocínio, e os modelos em nuvem, que não permitem desligá-lo, com o menor esforço de raciocínio que aceitam (\res{groq}{geral}{esforcos}); todos com temperatura zero e sem exemplos no \textit{prompt}. O desempenho dos modelos locais com raciocínio ativado, e o de todos com \textit{few-shot} ou com \textit{prompts} ajustados a cada modelo, não foi medido.
   \res{principal}{geral}{itemlimitacao}
-  \item \textbf{Referência em nuvem}: os modelos do Groq executaram uma repetição, sob os limites de taxa do plano gratuito, e servem apenas como referência de porte; não atendem ao requisito de execução local.
+  \item \textbf{Referência em nuvem}: os modelos do Groq executaram uma repetição, sob os limites de taxa do plano gratuito, e servem apenas como referência de modelos de maior porte, executados com raciocínio; não atendem ao requisito de execução local.
   \item \textbf{Versões dos modelos}: os resultados valem para as versões registradas nos manifestos; o ecossistema de LLMs abertos evolui rapidamente, e o \textit{pipeline} foi construído para que a avaliação possa ser refeita com novos modelos.
 \end{itemize}
 
@@ -69,7 +69,7 @@ Os resultados devem ser interpretados à luz das seguintes limitações:
 \section{Trabalhos Futuros}
 % ---
 
-Os resultados e a experiência adquirida apontam as seguintes direções. As três primeiras decorrem diretamente das exclusões de escopo declaradas no Capítulo~\ref{cap:metodologia}.
+Os resultados e a experiência adquirida apontam as seguintes direções. As duas primeiras, assim como as de interface e implantação, ajuste fino e estudo com usuários, decorrem das exclusões de escopo declaradas no Capítulo~\ref{cap:metodologia}.
 
 \begin{enumerate}
   \item \textbf{Avaliação da recuperação em nível de produto}: medir a fidelidade do conjunto de produtos retornado pela busca (precisão, \textit{recall} e F1 sobre os códigos das folhas), o que exige um gabarito de quais folhas cada consulta deveria devolver.

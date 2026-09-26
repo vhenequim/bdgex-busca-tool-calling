@@ -35,7 +35,9 @@ def selecionar(origem: Path) -> list[Path]:
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--origem", type=Path, default=RAIZ.parent / "paper_revisado")
+    p.add_argument("--destino", type=Path, default=DESTINO, help="pasta da cópia (padrão: texto/ do repositório)")
     args = p.parse_args()
+    destino = args.destino.resolve()
     origem = args.origem.resolve()
     if not (origem / "main.tex").exists():
         raise SystemExit(f"{origem} não parece ser a pasta do texto (sem main.tex)")
@@ -43,18 +45,18 @@ def main() -> None:
     relativos = {f.relative_to(origem) for f in selecionados}
     copiados = 0
     for f in selecionados:
-        alvo = DESTINO / f.relative_to(origem)
+        alvo = destino / f.relative_to(origem)
         alvo.parent.mkdir(parents=True, exist_ok=True)
         if not alvo.exists() or alvo.read_bytes() != f.read_bytes():
             shutil.copy2(f, alvo)
             copiados += 1
     removidos = 0
-    if DESTINO.exists():
-        for f in DESTINO.rglob("*"):
-            if f.is_file() and f.relative_to(DESTINO) not in relativos:
+    if destino.exists():
+        for f in destino.rglob("*"):
+            if f.is_file() and f.relative_to(destino) not in relativos:
                 f.unlink()
                 removidos += 1
-    print(f"texto/: {len(selecionados)} arquivos ({copiados} atualizados, {removidos} removidos) a partir de {origem}")
+    print(f"{destino.name}/: {len(selecionados)} arquivos ({copiados} atualizados, {removidos} removidos) a partir de {origem}")
 
 
 if __name__ == "__main__":

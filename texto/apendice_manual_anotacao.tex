@@ -26,7 +26,7 @@ O gabarito de cada consulta foi construído segundo as regras abaixo. Elas são 
   \item[\texttt{productType}] Sinônimos informados na ferramenta (``topo'' e ``topográfica''; ``orto'' e ``ortoimg''; ``mdt'') e demais tipos pelo nome. ``Cartas'', ``mapas'', ``produtos'' e ``folhas'' sozinhos não definem tipo.
   \item[\texttt{state}, \texttt{city}] Siglas e grafias sem acento são normalizadas. ``Rio de Janeiro'', ``São Paulo'' e ``rio'' sem qualificador admitem as leituras estado ou município; siglas são sempre estado. Regiões (``sul'', ``Nordeste'', ``Amazônia Legal'') não são estados e não são anotadas, pois o \textit{schema} não tem campo de região.
   \item[\texttt{supplyArea}] Qualquer menção ao Centro de Geoinformação (``1º CGEO'', ``1o cgeo'', ``primeiro cgeo'', ``dois cgeo'').
-  \item[\texttt{project}] Pelo nome ou pelos apelidos informados na ferramenta, com ou sem acento. Expressão que designa o projeto pelo termo distintivo do nome, sem ser o nome nem um apelido informado (``cartografia sistemática'' para \texttt{Mapeamento Sistemático}), torna o campo opcional: a consulta sustenta a leitura, mas a ferramenta não a informa.
+  \item[\texttt{project}] Pelo nome ou pelos apelidos informados na ferramenta, com ou sem acento. A menção explícita a um projeto por um termo que o identifica sem ambiguidade no enumerado também vale como nome (``projeto rondonia'' e ``BCD de Rondônia'', sigla de Base Cartográfica Digital, para \texttt{Base Cartográfica Digital de Rondônia}). Expressão que designa o projeto só pelo termo distintivo do nome, sem a palavra ``projeto'', sem sigla do nome e sem apelido informado (``cartografia sistemática'' para \texttt{Mapeamento Sistemático}), torna o campo opcional: a consulta sustenta a leitura, mas a ferramenta não a informa.
   \item[Períodos] Verbo de publicação (``publicad-'') decide \texttt{publicationPeriod}; verbo de criação (``criad-'', ``feit-'', ``elaborad-'', ``produzid-'') decide \texttt{creationPeriod}; sem verbo que desempate, a leitura preferencial é \texttt{publicationPeriod} e \texttt{creationPeriod} é leitura estrutural alternativa, com o mesmo intervalo. O intervalo é resolvido com a data de referência da execução --- a mesma informada ao modelo --- segundo o Quadro~\ref{quadro:tempo-relativo}.
   \item[Ordenação] ``Mais recente(s)'', ``último(s)'' $\to$ \texttt{DESC}; ``mais antiga(s)'', ``primeiro(s)'', ``ordem cronológica'' $\to$ \texttt{ASC}. Pista de criação ligada à ordenação (``primeiro mapeamento feito'', ``última atualização'', ``criadas mais recentemente'') $\to$ \texttt{creationDate}; pista de publicação (``últimas publicações'', ``última carta publicada'') $\to$ \texttt{publicationDate}; sem pista, aceita-se qualquer dos dois campos. Número explícito $\to$ \texttt{limit}; singular sem número (``a carta mais recente'') $\to$ \texttt{limit = 1} opcional; plural sem número $\to$ sem \texttt{limit}. Ordenação nunca é anotada por padrão.
 \end{description}
@@ -58,9 +58,23 @@ segundo semestre do ano passado & julho a dezembro do ano anterior \\ \hline
 último trimestre do ano passado & outubro a dezembro do ano anterior \\ \hline
 trimestre passado & trimestre-calendário anterior ao de D \\ \hline
 \end{tabular}
-\fonte{Elaborado pelo autor. Implementação: \texttt{relative\_time.py} do repositório.}
+\fonte{Elaborado pelos autores. Implementação: \texttt{relative\_time.py} do repositório.}
 \end{quadro}
 
 \subsection*{Consultas fora do domínio}
 
 A ferramenta não deve ser chamada quando a consulta trata de outro assunto (clima, preço, ficção), pede território fora do Brasil ou fora da Terra, ou não tem intenção de busca. Essas consultas formam a categoria F (fora do domínio) e entram nas métricas principais: a resposta é correta quando a ferramenta não é chamada. Consultas com valor impossível de representar (``escala 1:10.000.000'', ``estado 42'') ou cujo comportamento esperado é discutível (``cartas do futuro'', ``cartas topo no oceano atlântico'') são observacionais.
+
+\subsection*{Rastreabilidade}
+
+Cada caso registra a origem. Na camada P, a fonte é o arquivo de testes do protótipo (\texttt{backend/evaluation/test-cases.ts}), com a linha da consulta; a anotação original da equipe do 1º CGEO é mantida como leitura preferencial, e as leituras alternativas acrescentadas seguem este manual. Na camada N, a consulta foi redigida pelos autores, e a justificativa de cada leitura alternativa fica registrada em nota. Na camada G, a consulta foi gerada pelo \textit{script} gerador (semente 42), que registra a função geradora e o modelo de frase; o gabarito é conhecido por construção.
+
+\subsection*{Procedimento de auditoria}
+
+\begin{enumerate}
+  \item \textbf{Checagens automáticas} (\texttt{pfc-auditar}): consultas duplicadas ou contraditórias; validade de enumerados e campos; resolução de todas as expressões de tempo em datas diversas; e um anotador baseado em regras, independente do gabarito, que localiza na consulta o trecho que justifica cada campo e aponta campo anotado sem evidência, evidência sem campo anotado e valor divergente.
+  \item \textbf{Anotação independente às cegas}: cada consulta é anotada novamente, sem acesso ao gabarito, a partir apenas deste manual e da definição da ferramenta. A concordância é medida em rigor crescente: decisão (chamar, não chamar ou observacional, com kappa de Cohen); leituras compatíveis nos dois sentidos; leitura preferencial idêntica; presença e valor de cada campo; e detecção de ambiguidade, também com kappa de Cohen.
+  \item \textbf{Adjudicação}: cada consulta com divergência em qualquer das medidas recebe uma decisão registrada --- gabarito mantido, corrigido ou ampliado com leitura alternativa ---, com justificativa por referência a este manual e com o gabarito anterior à decisão, a partir do qual a concordância anterior à adjudicação é recalculada.
+  \item O processo se repete até não restar divergência sem decisão.
+  \item \textbf{Revisão humana de amostra}: uma amostra estratificada por origem (40 consultas, semente 42) é conferida por uma pessoa, que marca se concorda com as leituras aceitas.
+\end{enumerate}

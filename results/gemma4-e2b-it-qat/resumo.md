@@ -1,6 +1,6 @@
 # gemma4:e2b-it-qat — resumo da avaliação
 
-225 execuções · repetições [1, 2, 3] · gerado em 2026-09-24T11:35:26
+225 execuções · repetições [1, 2, 3] · gerado em 2026-09-26T14:38:56
 
 ## Geral (métricas principais)
 
