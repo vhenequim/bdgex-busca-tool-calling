@@ -1,53 +1,53 @@
 # gemma4:e2b-it-qat — resumo da avaliação
 
-225 execuções · repetições [1, 2, 3] · gerado em 2026-09-26T14:38:56
+930 execuções · repetições [1, 2, 3] · gerado em 2026-09-26T14:50:40
 
 ## Geral (métricas principais)
 
 | Métrica | Valor |
 |---|---|
-| Consultas | 213 |
-| Acurácia por consulta | 50.7% |
-| Precisão ponderada | 0.801 |
-| Recall ponderado | 0.730 |
-| F1 ponderado | 0.722 |
-| F1 macro | 0.696 |
-| Micro P / R / F1 | 0.775 / 0.732 / 0.753 |
+| Consultas | 918 |
+| Acurácia por consulta | 56.5% |
+| Precisão ponderada | 0.821 |
+| Recall ponderado | 0.760 |
+| F1 ponderado | 0.765 |
+| F1 macro | 0.744 |
+| Micro P / R / F1 | 0.786 / 0.764 / 0.775 |
 
 ## Latência do LLM (ms)
 
 | n | mín | mediana | média | p95 | máx | desvio |
 |---|---|---|---|---|---|---|
-| 213 | 237 | 427 | 496 | 956 | 1284 | 214 |
+| 918 | 224 | 397 | 420 | 703 | 1242 | 147 |
 
 ## Por campo
 
 | Campo | Ocorr. | TP | FP | FN | Precisão | Recall | F1 |
 |---|---|---|---|---|---|---|---|
-| keyword | 57 | 51 | 36 | 0 | 0.586 | 1.000 | 0.739 |
-| scale | 51 | 36 | 6 | 9 | 0.857 | 0.800 | 0.828 |
-| productType | 42 | 33 | 6 | 9 | 0.846 | 0.786 | 0.815 |
-| state | 57 | 39 | 6 | 18 | 0.867 | 0.684 | 0.765 |
-| city | 18 | 18 | 3 | 0 | 0.857 | 1.000 | 0.923 |
-| supplyArea | 51 | 51 | 0 | 0 | 1.000 | 1.000 | 1.000 |
-| project | 15 | 12 | 3 | 3 | 0.800 | 0.800 | 0.800 |
-| publicationPeriod | 42 | 18 | 12 | 12 | 0.600 | 0.600 | 0.600 |
-| creationPeriod | 6 | 3 | 3 | 0 | 0.500 | 1.000 | 0.667 |
-| sortField | 30 | 3 | 0 | 27 | 1.000 | 0.100 | 0.182 |
-| sortDirection | 30 | 9 | 6 | 15 | 0.600 | 0.375 | 0.462 |
-| limit | 15 | 6 | 0 | 9 | 1.000 | 0.400 | 0.571 |
+| keyword | 183 | 168 | 135 | 0 | 0.554 | 1.000 | 0.713 |
+| scale | 252 | 183 | 24 | 45 | 0.884 | 0.803 | 0.841 |
+| productType | 132 | 111 | 12 | 21 | 0.902 | 0.841 | 0.871 |
+| state | 387 | 261 | 18 | 117 | 0.935 | 0.690 | 0.795 |
+| city | 87 | 87 | 21 | 0 | 0.806 | 1.000 | 0.892 |
+| supplyArea | 120 | 108 | 6 | 6 | 0.947 | 0.947 | 0.947 |
+| project | 33 | 30 | 3 | 3 | 0.909 | 0.909 | 0.909 |
+| publicationPeriod | 153 | 60 | 63 | 36 | 0.488 | 0.625 | 0.548 |
+| creationPeriod | 30 | 9 | 15 | 9 | 0.375 | 0.500 | 0.429 |
+| sortField | 87 | 30 | 0 | 57 | 1.000 | 0.345 | 0.513 |
+| sortDirection | 87 | 42 | 6 | 39 | 0.875 | 0.519 | 0.651 |
+| limit | 30 | 21 | 0 | 9 | 1.000 | 0.700 | 0.824 |
 
 ## Por categoria
 
 | Categoria | n | Acurácia | F1 ponderado |
 |---|---|---|---|
-| Simples | 66 | 77.3% | 0.770 |
-| Compostas | 132 | 38.6% | 0.721 |
-| Código MI/INOM | 45 | 60.0% | 0.910 |
-| Tempo relativo | 45 | 20.0% | 0.714 |
-| Ordenação | 30 | 0.0% | 0.566 |
-| Ambíguas/informais | 123 | 39.0% | 0.654 |
-| Fora do domínio | 6 | 100.0% | 0.000 |
+| Simples | 300 | 79.0% | 0.844 |
+| Compostas | 540 | 47.8% | 0.763 |
+| Código MI/INOM | 171 | 78.9% | 0.929 |
+| Tempo relativo | 180 | 21.7% | 0.645 |
+| Ordenação | 87 | 20.7% | 0.691 |
+| Ambíguas/informais | 591 | 51.3% | 0.744 |
+| Fora do domínio | 24 | 62.5% | 0.000 |
 
 ## Por origem
 
@@ -55,16 +55,16 @@
 |---|---|---|
 | P | 66 | 40.9% |
 | N | 111 | 51.4% |
-| G | 36 | 66.7% |
+| G | 741 | 58.7% |
 
 ## Diagnósticos
 
-- Tipos de erro: {'campo_omitido': 12, 'campo_inventado': 15, 'valor_errado': 21, 'misto': 30, 'nao_chamou': 27}
+- Tipos de erro: {'campo_omitido': 42, 'campo_inventado': 24, 'valor_errado': 87, 'misto': 150, 'nao_chamou': 87, 'chamou_sem_dever': 9}
 - Campos fora do schema: {}
-- IoU médio de períodos: {'publicationPeriod': 0.743, 'creationPeriod': 1.0}
+- IoU médio de períodos: {'publicationPeriod': 0.844, 'creationPeriod': 0.875}
 - Chamadas com erro de infraestrutura: 0 {}
 - Respostas do modelo fora do schema da ferramenta: 0 {}
-- Não chamou a ferramenta quando devia: 27
+- Não chamou a ferramenta quando devia: 87
 
 ## Observacionais (fora das métricas principais)
 
@@ -74,6 +74,6 @@
 
 | Rep. | Acurácia | F1 ponderado | Lat. mediana (ms) |
 |---|---|---|---|
-| 1 | 50.7% | 0.722 | 429 |
-| 2 | 50.7% | 0.722 | 415 |
-| 3 | 50.7% | 0.722 | 429 |
+| 1 | 56.5% | 0.765 | 399 |
+| 2 | 56.5% | 0.765 | 397 |
+| 3 | 56.5% | 0.765 | 395 |

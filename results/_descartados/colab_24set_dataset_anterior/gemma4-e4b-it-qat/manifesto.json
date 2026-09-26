@@ -1,0 +1,58 @@
+{
+  "modelo": "gemma4:e4b-it-qat",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-24 11:54:49.388601+00:00",
+    "digest": "ee665637121887cf3befff38abbb1be4ee117c7db867d97a67e29049ecd7e15f",
+    "tamanho_bytes": 6146501801
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "temperature": 0,
+    "num_predict": 1024,
+    "timeout_s": 180.0,
+    "keep_alive": "15m",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 3,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "57ba4fee7639441f2f3c5f5c274b9eaa49dbc7f0156ca54734fd0cd5e18bb3d3"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.1",
+    "langchain_ollama": "1.1.0",
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "ea552179b6c0"
+  },
+  "iniciado_em": "2026-09-24T12:15:38",
+  "aquecimento_ms": 119294.75600700016,
+  "encerrado_em": "2026-09-24T12:30:46"
+}

@@ -115,6 +115,29 @@ def mcnemar_exato(b: int, c: int) -> float:
     return min(1.0, 2 * cauda)
 
 
+def correcao_por_id(linhas: list[dict]) -> dict[str, bool]:
+    """Resultado de cada CONSULTA: acerto pela maioria estrita das suas repetições.
+
+    As repetições de uma consulta não são observações independentes (numa mesma sessão
+    elas quase sempre coincidem); os testes comparam, por isso, uma observação por consulta.
+    """
+    votos: dict[str, list[bool]] = defaultdict(list)
+    for lin in linhas:
+        if not lin.get("observacional"):
+            votos[lin["id"]].append(metrics.avaliar_linha(lin).correto)
+    return {i: 2 * sum(v) > len(v) for i, v in votos.items()}
+
+
+def ic_acuracia(linhas: list[dict]) -> tuple[float, float]:
+    """IC de Wilson para a acurácia (média sobre as execuções) com n = número de consultas."""
+    corr = correcao_por_consulta(linhas)
+    n_consultas = len({i for i, _ in corr})
+    if not corr or not n_consultas:
+        return (0.0, 0.0)
+    p = sum(corr.values()) / len(corr)
+    return wilson(p * n_consultas, n_consultas)
+
+
 def correcao_por_consulta(linhas: list[dict]) -> dict[tuple[str, int], bool]:
     return {
         (lin["id"], lin["repeticao"]): metrics.avaliar_linha(lin).correto
@@ -171,13 +194,12 @@ def tab_comparativo(dados: dict[str, dict]) -> str:
               r"\hline"]
     for modelo, d in dados.items():
         g = d["resumo"]["geral"]
-        corr = correcao_por_consulta(d["linhas"])
-        lo, hi = wilson(sum(corr.values()), len(corr))
+        lo, hi = ic_acuracia(d["linhas"])
         linhas.append(f"{_tex(rotulo(modelo))} & {_pct(g['acuracia'])} & {_pct(lo)}--{_pct(hi)} & "
                       f"{_f(g['precisao_ponderada'])} & {_f(g['recall_ponderado'])} & {_f(g['f1_ponderado'])} & "
                       f"{g['latencia_llm_ms'].get('mediana', 0):.0f} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelos autores. IC 95\%: intervalo de confiança de Wilson para a acurácia. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}",
+               r"\fonte{Elaborado pelos autores. IC 95\%: intervalo de confiança de Wilson para a acurácia, com n igual ao número de consultas, pois as repetições de uma mesma consulta não são independentes. Precisão, \textit{recall} e F1 ponderados pela frequência de cada campo no gabarito. Latência mediana da chamada de tradução, no ambiente de cada rodada.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -283,8 +305,8 @@ def tab_por_origem(dados: dict[str, dict]) -> str:
 
 
 def tab_mcnemar(dados: dict[str, dict]) -> str:
-    """Teste de McNemar exato entre cada par de modelos (mesmas consultas e repetições)."""
-    correcoes = {m: correcao_por_consulta(d["linhas"]) for m, d in dados.items()}
+    """Teste de McNemar exato entre cada par de modelos, com uma observação por consulta."""
+    correcoes = {m: correcao_por_id(d["linhas"]) for m, d in dados.items()}
     linhas = [r"\begin{table}[htbp!]", r"\centering",
               rf"\caption{{Teste de McNemar exato entre pares de modelos{TITULO}}}",
               rf"\label{{tab:mcnemar{SUFIXO}}}", r"\small",
@@ -298,7 +320,7 @@ def tab_mcnemar(dados: dict[str, dict]) -> str:
             linhas.append(f"{_tex(rotulo(modelos[i]))} & {_tex(rotulo(modelos[j]))} & {so_a} & {so_b} & "
                           f"{_f(mcnemar_exato(so_a, so_b), 4)} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
-               r"\fonte{Elaborado pelos autores. Pares discordantes sobre as mesmas consultas e repetições das métricas principais; \textit{p}-valor bicaudal exato.}",
+               r"\fonte{Elaborado pelos autores. Consultas discordantes entre os dois modelos nas métricas principais, com o resultado de cada consulta dado pela maioria das suas repetições; \textit{p}-valor bicaudal exato.}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 
@@ -395,7 +417,7 @@ def macros_latex(dados: dict[str, dict]) -> str:
         chave = CHAVES.get(m, slug(m))
         g = d["resumo"]["geral"]
         corr = correcoes[m]
-        lo, hi = wilson(sum(corr.values()), len(corr))
+        lo, hi = ic_acuracia(d["linhas"])
         lat = g["latencia_llm_ms"] or {}
         put(chave, "nome", _tex(rotulo(m)))
         put(chave, "n", str(g["n_consultas"]))
@@ -471,7 +493,7 @@ def macros_latex(dados: dict[str, dict]) -> str:
         for j in range(i + 1, len(modelos)):
             a, b = modelos[i], modelos[j]
             par = f"{CHAVES.get(a, slug(a))}-{CHAVES.get(b, slug(b))}"
-            so_a, so_b = _discordantes(correcoes[a], correcoes[b])
+            so_a, so_b = _discordantes(correcao_por_id(dados[a]["linhas"]), correcao_por_id(dados[b]["linhas"]))
             put(par, "soa", str(so_a))
             put(par, "sob", str(so_b))
             pv = mcnemar_exato(so_a, so_b)
@@ -646,8 +668,7 @@ def comparativo_markdown(dados: dict[str, dict]) -> str:
             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for m, d in dados.items():
         g = d["resumo"]["geral"]
-        corr = correcao_por_consulta(d["linhas"])
-        lo, hi = wilson(sum(corr.values()), len(corr))
+        lo, hi = ic_acuracia(d["linhas"])
         lat = g["latencia_llm_ms"]
         out.append(f"| {rotulo(m)} | {g['n_consultas']} | {_pct_md(g['acuracia'])} | {100*lo:.1f}–{100*hi:.1f}% | "
                    f"{g['precisao_ponderada']:.3f} | {g['recall_ponderado']:.3f} | {g['f1_ponderado']:.3f} | {g['f1_macro']:.3f} | "
@@ -694,12 +715,14 @@ def comparativo_markdown(dados: dict[str, dict]) -> str:
 def estatistica_markdown(dados: dict[str, dict]) -> str:
     out = ["# Estatística", "", "## Acurácia com IC 95% (Wilson)", "",
            "| Modelo | acertos / n | acurácia | IC 95% |", "|---|---|---|---|"]
-    correcoes = {m: correcao_por_consulta(d["linhas"]) for m, d in dados.items()}
-    for m, corr in correcoes.items():
-        n, k = len(corr), sum(corr.values())
-        lo, hi = wilson(k, n)
+    correcoes = {m: correcao_por_id(d["linhas"]) for m, d in dados.items()}
+    for m, d in dados.items():
+        execucoes = correcao_por_consulta(d["linhas"])
+        n, k = len(execucoes), sum(execucoes.values())
+        lo, hi = ic_acuracia(d["linhas"])
         out.append(f"| {rotulo(m)} | {k} / {n} | {100*k/n if n else 0:.1f}% | {100*lo:.1f}–{100*hi:.1f}% |")
-    out += ["", "## McNemar pareado (mesmas consultas × repetições)", "",
+    out += ["", "IC com n = número de consultas (as repetições de uma consulta não são independentes).", "",
+            "## McNemar pareado (uma observação por consulta: maioria das repetições)", "",
             "| Modelo A | Modelo B | só A acerta | só B acerta | p-valor exato |", "|---|---|---|---|---|"]
     modelos = list(dados)
     for i in range(len(modelos)):
@@ -711,8 +734,8 @@ def estatistica_markdown(dados: dict[str, dict]) -> str:
             out.append(f"| {rotulo(modelos[i])} | {rotulo(modelos[j])} | {so_a} | {so_b} | "
                        f"{mcnemar_exato(so_a, so_b):.4f} |")
     out += ["", "Leitura: p < 0,05 indica que a diferença de acurácia entre os dois modelos, sobre as "
-            "mesmas consultas, dificilmente é obra do acaso. Repetições do mesmo modelo entram como pares "
-            "independentes — é uma aproximação, declarada como tal no texto.", ""]
+            "mesmas consultas, dificilmente é obra do acaso. Cada consulta entra uma vez, com o resultado da "
+            "maioria das suas repetições.", ""]
     return "\n".join(out)
 
 

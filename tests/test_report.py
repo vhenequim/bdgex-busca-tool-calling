@@ -121,3 +121,21 @@ def test_mesmas_consultas_restringe_a_pontuacao(tmp_path):
                         "--saida", str(saida)]) == 0
     macros = (saida / "numeros_r.tex").read_text(encoding="utf-8")
     assert r"res@r@geral@nexecutadas\endcsname{22}" in macros
+
+
+def test_repeticoes_identicas_nao_estreitam_o_ic_nem_inflam_o_mcnemar(tmp_path):
+    """Três repetições idênticas valem como UMA observação por consulta."""
+    import json
+
+    res = tmp_path / "results"
+    _rodada_sintetica(res, "qwen3:4b-instruct-2507-q4_K_M")
+    pasta = next(res.iterdir())
+    linhas = [json.loads(x) for x in (pasta / "execucoes.jsonl").read_text(encoding="utf-8").splitlines()]
+    triplicadas = [{**x, "repeticao": r} for x in linhas for r in (1, 2, 3)]
+    (pasta / "execucoes.jsonl").write_text("\n".join(json.dumps(x, ensure_ascii=False) for x in triplicadas) + "\n",
+                                           encoding="utf-8")
+    dados = report.carregar_modelos(res, None)
+    lin = next(iter(dados.values()))["linhas"]
+    n_consultas = len({x["id"] for x in lin if not x.get("observacional")})
+    assert report.ic_acuracia(lin) == pytest.approx(report.wilson(n_consultas, n_consultas))
+    assert set(report.correcao_por_id(lin).values()) == {True} and len(report.correcao_por_id(lin)) == n_consultas

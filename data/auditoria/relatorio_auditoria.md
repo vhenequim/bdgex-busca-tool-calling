@@ -10,7 +10,7 @@ Nenhum problema estrutural.
 
 
 
-- **detalhad** → `scale` (resolvido por exceção justificada): "1:25.000" em P21, GC018, GA018; {"$um_de": ["1:25.000", "1:50.000"]} em P14
+- **detalhad** → `scale` (resolvido por exceção justificada): {"$um_de": ["1:25.000", "1:50.000"]} em P14; "1:25.000" em P21, GC018, GA018
   - P14: as escalas explícitas '(25k ou 50k)' prevalecem sobre o qualificativo 'detalhado'
 
 ## 3. Evidência (anotador por regras × gabarito)
