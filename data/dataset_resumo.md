@@ -1,6 +1,6 @@
 # Dataset de avaliação — resumo
 
-Gerado em 2026-09-28 14:53. Total: **310** consultas (306 nas métricas principais, 4 observacionais). Com mais de uma leitura aceita: 45.
+Gerado em 2026-09-28 17:08. Total: **310** consultas (306 nas métricas principais, 4 observacionais). Com mais de uma leitura aceita: 45.
 
 ## Por origem e família
 

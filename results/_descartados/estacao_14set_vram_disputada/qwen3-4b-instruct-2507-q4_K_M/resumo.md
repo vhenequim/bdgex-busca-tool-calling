@@ -1,6 +1,6 @@
 # qwen3:4b-instruct-2507-q4_K_M — resumo da avaliação
 
-62 execuções · repetições [1] · gerado em 2026-09-28T14:53:53
+62 execuções · repetições [1] · gerado em 2026-09-28T17:08:23
 
 ## Geral (métricas principais)
 

@@ -216,6 +216,9 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
         r"\textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por "
         r"consulta (maioria das repetições). Parâm.: parâmetros (ef.: efetivos; MoE: mistura de especialistas, "
         r"com parte dos parâmetros ativa a cada \textit{token})."
+        + (r" Modelos locais e método do protótipo: GPU T4, \textit{Tool Calling} com três repetições e linhas de "
+           r"base com uma, data de referência de 14/09/2026."
+           if sufixo != "_estacao" and any("/" not in tc for tc, _ in pares) else "")
         + (r" Modelos (Groq): execução em nuvem, uma repetição, data de referência de 24/09/2026."
            if any("/" in tc for tc, _ in pares) else "") + "}",
         r"\end{table}", ""])

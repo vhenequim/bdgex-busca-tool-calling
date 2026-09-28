@@ -1,6 +1,6 @@
 # qwen/qwen3.8-27b — resumo da avaliação
 
-310 execuções · repetições [1] · gerado em 2026-09-28T16:10:07
+310 execuções · repetições [1] · gerado em 2026-09-28T17:08:27
 
 ## Geral (métricas principais)
 

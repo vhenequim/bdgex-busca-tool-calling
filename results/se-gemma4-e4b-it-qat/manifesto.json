@@ -1,0 +1,90 @@
+{
+  "modelo": "gemma4:e4b-it-qat",
+  "provedor": "ollama",
+  "abordagem": "saida_estruturada",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-28 18:13:40.426643+00:00",
+    "digest": "ee665637121887cf3befff38abbb1be4ee117c7db867d97a67e29049ecd7e15f",
+    "tamanho_bytes": 6146501801
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON do Ollama; schema dos parâmetros no prompt",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false,
+    "fallback": false,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "prompt_sha256": "70d651a6a248145ba13354ed58674ab15329406b89cf491e98d99d4ff50240b8",
+  "codigo": "e22674c",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.5",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "060a4936fd37"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-28T18:23:59",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-28T18:23:59",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 0
+      },
+      "aquecimento_ms": 137580.68415499997,
+      "ollama_ps": {
+        "tamanho_bytes": 3086242282,
+        "na_vram_bytes": 3086242282,
+        "fracao_na_gpu": 1.0,
+        "contexto": 4096
+      },
+      "encerrado_em": "2026-09-28T18:31:00",
+      "executadas": 310
+    }
+  ],
+  "aquecimento_ms": 137580.68415499997,
+  "encerrado_em": "2026-09-28T18:31:00"
+}

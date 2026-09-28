@@ -8,10 +8,19 @@
 \hline
 \textbf{Modelo} & \textbf{Parâm.} & \textbf{Abordagem} & \textbf{Acurácia} & \textbf{Sem F} & \textbf{F1} & \textbf{Recusa F} & \textbf{Campo a mais} & \textbf{\textit{p}} & \textbf{\textit{p} sem F} \\
 \hline
+\multirow{2}{*}{Gemma 4 E2B} & \multirow{2}{*}{2B ef.} & Tool Calling & 56,5\% & 56,4\% & 0,765 & 62,5\% & 17,1\% & \multirow{2}{*}{0,488} & \multirow{2}{*}{0,839} \\
+ & & Saída Estruturada & 53,9\% & 55,4\% & 0,792 & 0,0\% & 26,8\% & & \\ \hline
+\multirow{2}{*}{Qwen 3 4B} & \multirow{2}{*}{4B} & Tool Calling & 54,2\% & 53,0\% & 0,666 & 100,0\% & 37,6\% & \multirow{2}{*}{0,038} & \multirow{2}{*}{0,001} \\
+ & & Saída Estruturada & 60,1\% & 61,7\% & 0,808 & 0,0\% & 27,2\% & & \\ \hline
+\multirow{2}{*}{Gemma 4 E4B} & \multirow{2}{*}{4B ef.} & Tool Calling & 60,2\% & 59,2\% & 0,793 & 100,0\% & 10,3\% & \multirow{2}{*}{$<$\,0,001} & \multirow{2}{*}{$<$\,0,001} \\
+ & & Saída Estruturada & 75,2\% & 77,2\% & 0,902 & 0,0\% & 6,7\% & & \\ \hline
+\multirow{2}{*}{Mistral Nemo 12B} & \multirow{2}{*}{12B} & Tool Calling & 26,8\% & 24,8\% & 0,451 & 100,0\% & 7,4\% & \multirow{2}{*}{$<$\,0,001} & \multirow{2}{*}{$<$\,0,001} \\
+ & & Saída Estruturada & 52,0\% & 53,4\% & 0,727 & 0,0\% & 8,7\% & & \\ \hline
 \multirow{2}{*}{GPT-OSS 20B (Groq)} & \multirow{2}{*}{21B (MoE)} & Tool Calling & 89,2\% & 88,9\% & 0,946 & 100,0\% & 2,3\% & \multirow{2}{*}{$<$\,0,001} & \multirow{2}{*}{$<$\,0,001} \\
  & & Saída Estruturada & 77,5\% & 79,5\% & 0,919 & 0,0\% & 4,7\% & & \\ \hline
 \multirow{2}{*}{GPT-OSS 120B (Groq)} & \multirow{2}{*}{117B (MoE)} & Tool Calling & 89,9\% & 89,6\% & 0,956 & 100,0\% & 4,0\% & \multirow{2}{*}{0,268} & \multirow{2}{*}{1,000} \\
  & & Saída Estruturada & 87,3\% & 89,6\% & 0,964 & 0,0\% & 3,0\% & & \\ \hline
+Phi-4 14B & 14B & Método do protótipo & 58,8\% & 60,4\% & 0,856 & 0,0\% & 28,2\% & --- & --- \\ \hline
 \end{tabular}}
-\fonte{Elaborado pelos autores. Sem F: acurácia nas consultas das métricas principais fora da categoria F. Recusa F: proporção das execuções da categoria F sem busca; na Saída Estruturada a aplicação sempre busca. Campo a mais: proporção das execuções fora da categoria F com algum campo ausente do gabarito. \textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por consulta (maioria das repetições). Parâm.: parâmetros (ef.: efetivos; MoE: mistura de especialistas, com parte dos parâmetros ativa a cada \textit{token}). Modelos (Groq): execução em nuvem, uma repetição, data de referência de 24/09/2026.}
+\fonte{Elaborado pelos autores. Sem F: acurácia nas consultas das métricas principais fora da categoria F. Recusa F: proporção das execuções da categoria F sem busca; na Saída Estruturada a aplicação sempre busca. Campo a mais: proporção das execuções fora da categoria F com algum campo ausente do gabarito. \textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por consulta (maioria das repetições). Parâm.: parâmetros (ef.: efetivos; MoE: mistura de especialistas, com parte dos parâmetros ativa a cada \textit{token}). Modelos locais e método do protótipo: GPU T4, \textit{Tool Calling} com três repetições e linhas de base com uma, data de referência de 14/09/2026. Modelos (Groq): execução em nuvem, uma repetição, data de referência de 24/09/2026.}
 \end{table}

@@ -4,14 +4,14 @@
 \label{tab:abordagens_estacao}
 \footnotesize
 \ajustartabela{%
-\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+\begin{tabular}{|l|c|l|c|c|c|c|c|c|c|}
 \hline
-\textbf{Modelo} & \textbf{Abordagem} & \textbf{Acurácia} & \textbf{Sem F} & \textbf{F1} & \textbf{Recusa F} & \textbf{Campo a mais} & \textbf{\textit{p}} & \textbf{\textit{p} sem F} \\
+\textbf{Modelo} & \textbf{Parâm.} & \textbf{Abordagem} & \textbf{Acurácia} & \textbf{Sem F} & \textbf{F1} & \textbf{Recusa F} & \textbf{Campo a mais} & \textbf{\textit{p}} & \textbf{\textit{p} sem F} \\
 \hline
-\multirow{2}{*}{Qwen 3 4B} & Tool Calling & 49,2\% & 47,4\% & 0,733 & 100,0\% & 31,6\% & \multirow{2}{*}{1,000} & \multirow{2}{*}{0,629} \\
- & Saída Estruturada & 50,8\% & 52,6\% & 0,815 & 0,0\% & 22,8\% & & \\ \hline
-\multirow{2}{*}{Gemma 4 E2B} & Tool Calling & 47,5\% & 45,6\% & 0,719 & 100,0\% & 15,8\% & \multirow{2}{*}{1,000} & \multirow{2}{*}{1,000} \\
- & Saída Estruturada & 45,8\% & 47,4\% & 0,782 & 0,0\% & 28,1\% & & \\ \hline
+\multirow{2}{*}{Gemma 4 E2B} & \multirow{2}{*}{2B ef.} & Tool Calling & 47,5\% & 45,6\% & 0,719 & 100,0\% & 15,8\% & \multirow{2}{*}{1,000} & \multirow{2}{*}{1,000} \\
+ & & Saída Estruturada & 45,8\% & 47,4\% & 0,782 & 0,0\% & 28,1\% & & \\ \hline
+\multirow{2}{*}{Qwen 3 4B} & \multirow{2}{*}{4B} & Tool Calling & 49,2\% & 47,4\% & 0,733 & 100,0\% & 31,6\% & \multirow{2}{*}{1,000} & \multirow{2}{*}{0,629} \\
+ & & Saída Estruturada & 50,8\% & 52,6\% & 0,815 & 0,0\% & 22,8\% & & \\ \hline
 \end{tabular}}
-\fonte{Elaborado pelos autores. Sem F: acurácia nas consultas das métricas principais fora da categoria F. Recusa F: proporção das execuções da categoria F sem busca; na Saída Estruturada a aplicação sempre busca. Campo a mais: proporção das execuções fora da categoria F com algum campo ausente do gabarito. \textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por consulta (maioria das repetições).}
+\fonte{Elaborado pelos autores. Sem F: acurácia nas consultas das métricas principais fora da categoria F. Recusa F: proporção das execuções da categoria F sem busca; na Saída Estruturada a aplicação sempre busca. Campo a mais: proporção das execuções fora da categoria F com algum campo ausente do gabarito. \textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por consulta (maioria das repetições). Parâm.: parâmetros (ef.: efetivos; MoE: mistura de especialistas, com parte dos parâmetros ativa a cada \textit{token}).}
 \end{table}

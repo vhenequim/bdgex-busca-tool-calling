@@ -1,0 +1,90 @@
+{
+  "modelo": "phi4:14b",
+  "provedor": "ollama",
+  "abordagem": "prototipo",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "phi3",
+      "families": [
+        "phi3"
+      ],
+      "parameter_size": "14.7B",
+      "quantization_level": "Q4_K_M"
+    },
+    "capabilities": [
+      "completion"
+    ],
+    "modified_at": "2026-09-28 18:17:35.394885+00:00",
+    "digest": "ac896e5b8b34a1f4efa7b14d7520725140d5512484457fab45d2a4ea14c69dba",
+    "tamanho_bytes": 9053116391
+  },
+  "thinking_desativado": false,
+  "configuracao": {
+    "abordagem": "prototipo",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON; descrição do schema no prompt (Instructor JSON_SCHEMA com Ollama)",
+    "zero_shot": false,
+    "few_shot": true,
+    "dicionario_normalizacao": true,
+    "fallback": true,
+    "novas_tentativas": 3,
+    "temperatura_do_prototipo": 0.6,
+    "ordenacao_padrao_contada": false,
+    "validacao_de_local_no_banco": false,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "prompt_sha256": "d65c76609dcbd06cfa11718791b26e59460d8fad316b8ba95301052a8bcbb272",
+  "codigo": "e22674c",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.5",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "060a4936fd37"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-28T18:43:29",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-28T18:43:29",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 0
+      },
+      "aquecimento_ms": 69668.42208000025,
+      "ollama_ps": {
+        "tamanho_bytes": 9734685981,
+        "na_vram_bytes": 9734685981,
+        "fracao_na_gpu": 1.0,
+        "contexto": 4096
+      },
+      "encerrado_em": "2026-09-28T20:00:52",
+      "executadas": 310
+    }
+  ],
+  "aquecimento_ms": 69668.42208000025,
+  "encerrado_em": "2026-09-28T20:00:52"
+}
