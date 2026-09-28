@@ -5,8 +5,9 @@
 
 Executa, na ordem: pfc-dataset --apendice, pfc-auditar --paper e pfc-relatorio para as
 rodadas completas, a validação na estação, a reexecução na estação, a referência em nuvem e
-a referência em nuvem restrita às consultas das rodadas completas. Um modelo da nuvem só
-entra quando a sua rodada cobre todas as consultas do dataset.
+a referência em nuvem restrita às consultas das rodadas completas, e a comparação entre Tool Calling
+e Saída Estruturada (linhas de base), quando houver. Um modelo da nuvem só entra quando a sua rodada
+cobre todas as consultas do dataset.
 """
 
 from __future__ import annotations
@@ -15,7 +16,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from pfc_busca.evaluation import audit, dataset_builder, report
+from pfc_busca.evaluation import audit, comparacao, dataset_builder, report
 from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, carregar_execucoes, repontuar
 
 LOCAIS = ["qwen3:4b-instruct-2507-q4_K_M", "gemma4:e4b-it-qat", "gemma4:e2b-it-qat", "mistral-nemo:12b"]
@@ -68,6 +69,10 @@ def main() -> int:
                            "--mesmas-consultas-de", str(DIR_RESULTADOS), "--modelos-referencia", ",".join(LOCAIS),
                            "--saida", str(DIR_RESULTADOS / "consolidado_groqcomum"), "--paper", texto]),
         ]
+    passos += [
+        (comparacao.main, ["--resultados", str(DIR_RESULTADOS), "--paper", texto]),
+        (comparacao.main, ["--resultados", str(DIR_RESULTADOS / "estacao"), "--sufixo", "_estacao", "--paper", texto]),
+    ]
     for funcao, argv in passos:
         # cada comando lê SUFIXO/TITULO globais do relatório; zere entre as chamadas
         report.SUFIXO, report.TITULO = "", ""

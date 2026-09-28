@@ -5,6 +5,12 @@
 ferramenta, para a API devolver texto ao usuário (RF1). Na avaliação, a
 resposta final fica desligada por padrão: ela dobra o custo e não entra em
 métrica alguma.
+
+Três desfechos chegam ao usuário: (1) o modelo recusa a consulta (fora do domínio) e
+a resposta é a frase dele, sem busca; (2) a busca devolve produtos, sempre lidos do
+banco, e o modelo só os resume; (3) a busca não encontra nada, e a resposta é uma
+mensagem fixa com os critérios usados, sem nova chamada ao modelo — nenhum produto
+é inventado em nenhum dos casos.
 """
 
 from __future__ import annotations
@@ -19,6 +25,19 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, Tool
 from pfc_busca import db, schema, tools
 from pfc_busca.agent import Traducao, Tradutor
 from pfc_busca.prompts import montar_system_prompt
+
+MENSAGEM_SEM_RESULTADOS = ("Nenhum produto do acervo atende aos critérios da busca ({criterios}). "
+                           "Tente retirar ou ampliar algum dos critérios.")
+
+
+def mensagem_sem_resultados(parametros: dict[str, Any]) -> str:
+    """Resposta determinística para busca sem resultado: nada a resumir, nada a inventar."""
+    partes = []
+    for campo, valor in parametros.items():
+        if isinstance(valor, dict):
+            valor = " a ".join(str(valor[k]) for k in ("start", "end") if valor.get(k))
+        partes.append(f"{campo}: {valor}")
+    return MENSAGEM_SEM_RESULTADOS.format(criterios="; ".join(partes) or "nenhum filtro")
 
 
 @dataclass
@@ -57,8 +76,12 @@ class Pipeline:
             execucao.busca = tools.buscar_catalogo(traducao.predito, self.dsn)
 
         if resposta_final and traducao.predito is not None and traducao.tool_calls:
-            execucao.resposta_final, execucao.latencia_resposta_final_ms = self._responder(
-                consulta, hoje, traducao, execucao.busca)
+            if execucao.busca is not None and execucao.busca.executado and execucao.busca.total == 0:
+                execucao.resposta_final = mensagem_sem_resultados(traducao.predito)
+                execucao.latencia_resposta_final_ms = 0.0
+            else:
+                execucao.resposta_final, execucao.latencia_resposta_final_ms = self._responder(
+                    consulta, hoje, traducao, execucao.busca)
 
         execucao.latencia_total_ms = (time.perf_counter() - inicio) * 1000
         return execucao

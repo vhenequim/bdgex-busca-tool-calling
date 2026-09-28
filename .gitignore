@@ -2,6 +2,12 @@
 __pycache__/
 *.pyc
 .env
+.env.*
+*.env
+!.env.example
+.ipynb_checkpoints/
+resultados_colab.zip
+linha_de_base_colab.zip
 # results/ e versionado de proposito: cada rodada carrega manifesto de reprodutibilidade (RNF4)
 data/*.tmp
 .pytest_cache/
@@ -19,3 +25,9 @@ texto/*.blg
 texto/*.idx
 texto/*.out
 texto/*.synctex*
+texto/*.loq
+texto/*.ilg
+texto/*.ind
+texto/*.fls
+texto/*.fdb_latexmk
+texto/*.brf

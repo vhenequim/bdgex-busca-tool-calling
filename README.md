@@ -12,6 +12,9 @@ estruturados de busca do catálogo. A Saída Estruturada do protótipo foi subst
 *Tool Calling* nativo, com modelos abertos executados localmente pelo Ollama, e a
 tradução é avaliada sobre um *dataset* auditado de 310 consultas.
 
+> Trabalho acadêmico: não é um produto oficial do BDGEx nem da DSG, e não contém dados do
+> acervo real. A busca ponta a ponta roda sobre uma semente sintética do banco.
+
 ## O que há aqui
 
 | Caminho | Conteúdo |
@@ -20,6 +23,7 @@ tradução é avaliada sobre um *dataset* auditado de 310 consultas.
 | `src/pfc_busca/prompts.py` | *prompt* de sistema, com a data de referência injetada; sem exemplos e sem dicionário |
 | `src/pfc_busca/agent.py` | tradução por `ChatOllama.bind_tools()`; *thinking* desativado; falhas classificadas |
 | `src/pfc_busca/agent_groq.py` | a mesma tradução via `ChatOpenAI` apontado para o Groq (referência em nuvem) |
+| `src/pfc_busca/agent_estruturado.py` | linhas de base com Saída Estruturada (mesmo modelo e *prompt*; e o método do protótipo) |
 | `src/pfc_busca/tools.py`, `db.py` | busca no PostgreSQL/PostGIS, com a lógica SQL portada do protótipo |
 | `src/pfc_busca/pipeline.py`, `api.py` | ciclo completo e API FastAPI (`POST /api/search`, `GET /api/health`) |
 | `src/pfc_busca/evaluation/` | *dataset*, gabarito com leituras múltiplas, auditoria, execução, métricas e relatório |
@@ -29,6 +33,7 @@ tradução é avaliada sobre um *dataset* auditado de 310 consultas.
 | `data/auditoria/` | resultado da auditoria, anotação independente, adjudicação e amostra para revisão humana |
 | `results/` | registros e manifestos de todas as rodadas (ver abaixo) |
 | `notebooks/avaliacao_colab.ipynb` | rodadas completas em GPU de nuvem (Google Colab) |
+| `notebooks/linha_de_base_colab.ipynb` | linhas de base com Saída Estruturada em GPU de nuvem |
 | `db/` | esquema do banco do protótipo e semente **sintética**, que não entra em nenhuma métrica |
 | `tests/` | testes automatizados (`pytest`) |
 | `texto/` | fontes LaTeX (abnTeX2) e PDF do texto do PFC |
@@ -54,8 +59,8 @@ A auditoria tem três etapas, e todos os artefatos estão em `data/auditoria/`:
 3. **Adjudicação**: cada divergência recebeu uma decisão registrada, com justificativa e
    com o gabarito anterior à decisão (`adjudicacao.json`).
 
-A amostra `revisao_humana_amostra.csv` (40 consultas, semente 42) serve para a conferência
-manual do gabarito; quando preenchida, o resultado entra automaticamente no relatório.
+Por fim, uma amostra estratificada de 40 consultas (`revisao_humana_amostra.csv`, semente 42)
+foi conferida manualmente por um dos autores, sem divergência com o gabarito.
 
 ## Instalação
 
@@ -102,13 +107,19 @@ pytest
   fora do requisito de execução local.
 - As rodadas completas em GPU de nuvem usam `notebooks/avaliacao_colab.ipynb` com o pacote
   gerado por `python scripts/empacotar_colab.py`.
+- As linhas de base com Saída Estruturada usam `pfc-avaliar --abordagem saida_estruturada`
+  (mesmo modelo e *prompt*, resposta em JSON, sem ferramenta) e `--abordagem prototipo`
+  (método do protótipo: dicionário, exemplos, novas tentativas e *fallback*).
+- `python scripts/gerar_tabelas_texto.py --texto texto` regenera todas as tabelas, figuras e
+  macros do texto a partir de `data/` e `results/`.
 
 ## Resultados
 
 | Pasta | Rodada |
 |---|---|
-| `results/<modelo>/` | rodadas completas dos modelos locais, com Ollama numa GPU NVIDIA T4 |
-| `results/estacao/` | validação na estação de referência (RTX 3050 Laptop, 4 GB), camadas P e N |
+| `results/<modelo>/` | rodadas completas dos modelos abertos, com Ollama numa GPU de nuvem (Google Colab, T4 de 16 GB); só a GPU é alugada, nenhum serviço de LLM é usado |
+| `results/se-*/`, `results/prototipo-*/` | linhas de base com Saída Estruturada |
+| `results/estacao/` | validação na estação de referência (RTX 3050 Laptop, 4 GB), camadas P e N, com *Tool Calling* e com Saída Estruturada |
 | `results/groq-*/` | referência em nuvem (Groq) |
 | `results/consolidado*/` | tabelas, figuras e estatísticas geradas por `pfc-relatorio` |
 | `results/_descartados/` | rodadas substituídas, mantidas para rastreabilidade |
@@ -128,12 +139,13 @@ pytest
 ## Texto do PFC
 
 `texto/` traz as fontes LaTeX e o PDF (`texto/main.pdf`). As tabelas, figuras e valores
-citados no Capítulo 5 são gerados por `pfc-relatorio --paper texto` e `pfc-auditar --paper
-texto`; nenhum número de resultado é digitado à mão. Para compilar: `pdflatex main.tex`,
+citados no Capítulo 5 são gerados por `python scripts/gerar_tabelas_texto.py --texto texto`;
+nenhum número de resultado é digitado à mão. Para compilar: `pdflatex main.tex`,
 `bibtex main` e mais duas passadas de `pdflatex`, ou `python build.py` (ver `texto/BUILD.md`).
 
 ## Licença
 
-MIT (`LICENSE`). Partes derivadas do protótipo do 1º CGEO, licenciado sob MIT pelo
+Código, *dataset* e artefatos de avaliação: MIT (`LICENSE`). O texto do PFC (`texto/`) segue
+os termos de uso do IME impressos no verso da folha de rosto. Partes derivadas do protótipo do 1º CGEO, licenciado sob MIT pelo
 Exército Brasileiro - Diretoria de Serviço Geográfico, estão listadas em
 `THIRD_PARTY_NOTICES.md`.

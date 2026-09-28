@@ -57,3 +57,31 @@ def test_limite_invalido_cai_no_padrao_e_e_teto_100():
 def test_direcao_invalida_vira_desc():
     _, principal, _ = tools.montar_sql({"sortDirection": "para cima"})
     assert "ORDER BY data_publicacao DESC" in principal
+
+
+def test_busca_sem_resultado_tem_resposta_fixa_sem_nova_chamada_ao_modelo(monkeypatch):
+    from datetime import date
+
+    from pfc_busca import pipeline as pl
+    from pfc_busca.agent import Traducao
+
+    class TradutorFalso:
+        modelo = "falso"
+
+        def __init__(self):
+            self.chamadas = 0
+
+        def traduzir(self, consulta, hoje):
+            self.chamadas += 1
+            return Traducao(modelo="falso", hoje=hoje.isoformat(), consulta=consulta, chamou_ferramenta=True,
+                            predito={"scale": "1:1.000", "state": "Acre"},
+                            tool_calls=[{"name": "buscar_catalogo", "args": {}, "id": "c1"}])
+
+    monkeypatch.setattr(pl.db, "disponivel", lambda dsn: True)
+    monkeypatch.setattr(pl.tools, "buscar_catalogo", lambda params, dsn: tools.ResultadoBusca(executado=True, total=0))
+    tradutor = TradutorFalso()
+    execucao = pl.Pipeline(tradutor, dsn="postgresql://falso").buscar("cartas 1:1000 do acre", date(2026, 9, 14),
+                                                                     resposta_final=True)
+    assert tradutor.chamadas == 1                       # só a tradução; nenhuma chamada para a resposta final
+    assert execucao.resposta_final.startswith("Nenhum produto do acervo")
+    assert "state: Acre" in execucao.resposta_final

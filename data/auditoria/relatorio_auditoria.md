@@ -10,7 +10,7 @@ Nenhum problema estrutural.
 
 
 
-- **detalhad** → `scale` (resolvido por exceção justificada): {"$um_de": ["1:25.000", "1:50.000"]} em P14; "1:25.000" em P21, GC018, GA018
+- **detalhad** → `scale` (resolvido por exceção justificada): "1:25.000" em P21, GC018, GA018; {"$um_de": ["1:25.000", "1:50.000"]} em P14
   - P14: as escalas explícitas '(25k ou 50k)' prevalecem sobre o qualificativo 'detalhado'
 
 ## 3. Evidência (anotador por regras × gabarito)
@@ -82,4 +82,4 @@ Concordância com o gabarito em 309 de 310 consultas (99.7%).
 
 ## 6. Revisão humana de amostra
 
-Pendente: preencher a coluna 'concorda (S/N)' de `revisao_humana_amostra.csv` (amostra estratificada de 40 consultas, semente 42).
+40 de 40 consultas revisadas; gabarito confirmado em 40. Discordâncias: nenhuma.

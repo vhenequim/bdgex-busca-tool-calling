@@ -55,6 +55,7 @@ class Traducao:
     duracoes_ollama_ms: dict[str, float] = field(default_factory=dict)
     erro: str | None = None
     classe_erro: str | None = None               # timeout | indisponivel | args_invalidos | ferramenta_inexistente | falha
+    extras: dict[str, Any] = field(default_factory=dict)  # só nas linhas de base (agent_estruturado)
 
     def para_dict(self) -> dict[str, Any]:
         return asdict(self)

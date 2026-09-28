@@ -2,7 +2,7 @@
 
     python scripts/empacotar_colab.py
 
-Antes de empacotar, grava no notebook (célula 1) o hash SHA-256 do data/dataset.json
+Antes de empacotar, grava nos notebooks (célula 1) o hash SHA-256 do data/dataset.json
 vigente: o notebook se recusa a rodar com um pacote cujo dataset não seja esse, o que
 impede reaproveitar por engano um zip antigo.
 """
@@ -16,13 +16,19 @@ import zipfile
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-NOTEBOOK = RAIZ / "notebooks" / "avaliacao_colab.ipynb"
+NOTEBOOKS = [RAIZ / "notebooks" / "avaliacao_colab.ipynb", RAIZ / "notebooks" / "linha_de_base_colab.ipynb"]
 INCLUIR = ["src", "tests", "scripts", "db", "notebooks", "docs", "data/dataset.json", "data/auditoria",
            "pyproject.toml", "README.md", ".env.example", ".gitignore", "docker-compose.yml"]
 
 
 def gravar_hash_no_notebook(sha: str) -> None:
-    nb = json.loads(NOTEBOOK.read_text(encoding="utf-8"))
+    for notebook in NOTEBOOKS:
+        if notebook.exists():
+            _gravar_hash(notebook, sha)
+
+
+def _gravar_hash(notebook: Path, sha: str) -> None:
+    nb = json.loads(notebook.read_text(encoding="utf-8"))
     alterou = False
     for celula in nb["cells"]:
         fonte = "".join(celula["source"])
@@ -31,7 +37,7 @@ def gravar_hash_no_notebook(sha: str) -> None:
             alterou = nova != fonte
             celula["source"] = nova.splitlines(keepends=True)
     if alterou:
-        NOTEBOOK.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+        notebook.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
 
 def main() -> None:

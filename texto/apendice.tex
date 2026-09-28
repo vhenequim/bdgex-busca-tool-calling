@@ -110,7 +110,7 @@ A auditoria segue o procedimento descrito no manual de anotação (Seção~\ref{
   \item \texttt{auditoria\_casos.csv}: uma linha por consulta, com o gabarito legível, as evidências localizadas pelo anotador por regras, os apontamentos e as divergências com a anotação independente;
   \item \texttt{anotacao\_independente.json}: a anotação às cegas das 310 consultas, com a justificativa de cada uma;
   \item \texttt{adjudicacao.json}: as decisões de adjudicação, com o gabarito anterior a cada decisão;
-  \item \texttt{revisao\_humana\_amostra.csv}: amostra estratificada por origem (40 consultas, semente 42) para conferência manual do gabarito.
+  \item \texttt{revisao\_humana\_amostra.csv}: amostra estratificada por origem (40 consultas, semente 42), conferida manualmente por um dos autores.
 \end{itemize}
 
 O comando que refaz a auditoria e regenera as tabelas correspondentes (Tabelas~\ref{tab:auditoria} e~\ref{tab:auditoria-campos} e Quadro~\ref{quadro:adjudicacao}) é:
@@ -233,7 +233,7 @@ A referência em nuvem usa a API do Groq, compatível com a da OpenAI, por meio 
 \chapter{Repositório de Código e Reprodução dos Experimentos}
 \label{apendice:codigo}
 
-O código-fonte, o \textit{dataset}, o manual de anotação, os registros de auditoria, os registros de execução de todas as rodadas e as fontes deste texto estão no repositório do projeto, \url{https://github.com/vhenequim/bdgex-busca-tool-calling}, sob a licença MIT; as partes derivadas do protótipo do 1º CGEO mantêm a licença MIT original, como registrado no arquivo \texttt{THIRD\_PARTY\_NOTICES.md}. A estrutura principal é a seguinte:
+O código-fonte, o \textit{dataset}, o manual de anotação, os registros de auditoria, os registros de execução de todas as rodadas e as fontes deste texto estão no repositório público do projeto, \url{https://github.com/vhenequim/bdgex-busca-tool-calling}. O código, o \textit{dataset} e os artefatos de avaliação estão sob a licença MIT, e as partes derivadas do protótipo do 1º CGEO mantêm a licença MIT original, como registrado no arquivo \texttt{THIRD\_PARTY\_NOTICES.md}; o texto deste trabalho segue os termos de uso do IME impressos no verso da folha de rosto. A estrutura principal é a seguinte:
 
 {\footnotesize
 \begin{verbatim}
@@ -243,6 +243,7 @@ bdgex-busca-tool-calling/
     prompts.py           prompt de sistema (com a data de referencia)
     agent.py             traducao via ChatOllama.bind_tools() (modelos locais)
     agent_groq.py        traducao via ChatOpenAI (referencia em nuvem)
+    agent_estruturado.py linhas de base com Saida Estruturada
     tools.py, db.py      busca no PostgreSQL/PostGIS (psycopg)
     pipeline.py          ciclo completo: traducao, busca e resposta
     api.py               rotas POST /api/search e GET /api/health (FastAPI)
@@ -256,12 +257,14 @@ bdgex-busca-tool-calling/
       metrics.py         acuracia, P/R/F1 por campo, latencia
       report.py          pfc-relatorio: tabelas, figuras, Wilson, McNemar
       conferencia.py     pfc-conferir: conferencia das rodadas
+      comparacao.py      Tool Calling x Saida Estruturada (tabela e macros)
   scripts/generate_dataset_paper.py   gerador da camada G (semente 42)
   docs/manual_de_anotacao.md          manual de anotacao
   data/dataset.json                   dataset (310 consultas)
   data/auditoria/                     artefatos da auditoria
   results/                            registros e manifestos das rodadas
   notebooks/avaliacao_colab.ipynb     rodadas completas em GPU de nuvem
+  notebooks/linha_de_base_colab.ipynb linhas de base em GPU de nuvem
   tests/                              testes automatizados (pytest)
   texto/                              fontes LaTeX e PDF deste trabalho
 \end{verbatim}

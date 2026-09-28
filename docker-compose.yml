@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: pfc
       POSTGRES_DB: geospatial_search
     ports:
-      - "5433:5432"   # 5432 fica livre para o PostgreSQL 18 instalado na maquina
+      - "127.0.0.1:5433:5432"   # 5432 fica livre para o PostgreSQL 18 instalado na maquina
     volumes:
       - ./db/init_schema_prototipo.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
       - ./db/seed_sintetico.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro

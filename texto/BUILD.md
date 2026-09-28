@@ -1,114 +1,70 @@
-# Como compilar o PFC
+# Como compilar o texto do PFC
+
+Todos os comandos abaixo são executados **de dentro da pasta do texto** (no repositório,
+`texto/`).
 
 ## Pré-requisitos
 
-- **TeX Live 2022+** (Linux/macOS) ou **MiKTeX 2023+** (Windows) — deve incluir os pacotes:
-  - `abntex2` (classe base do IME)
-  - `tikz`, `enumitem`, `float`, `hyperref` (já vêm no *full install*)
-  - `texlive-lang-portuguese` (Linux) — para o Babel `brazilian`
-- **Python 3.11+** (só se for regerar o dataset via `--dataset`)
+- **TeX Live 2022+** (Linux/macOS) ou **MiKTeX 2023+** (Windows), com `tikz`, `enumitem`,
+  `longtable`, `multirow`, `hyperref` e o Babel `brazilian` (`texlive-lang-portuguese` no
+  Linux). As classes abnTeX2 e a personalização do IME já vêm na pasta.
+- **Python 3.12+**, só para `build.py` ou para regerar tabelas e figuras.
 
-## Uso rápido
+## Compilação
 
-### Python (multiplataforma, recomendado)
-
-```bash
-python build.py                # local se tiver LaTeX; fallback online (latexonline.cc)
-python build.py --clean        # limpa artefatos antes
-python build.py --quick        # 1 passada só (sem bibtex)
-python build.py --dataset      # regera o apêndice antes
-python build.py --online       # força compilação online (não precisa de LaTeX local)
-python build.py --open         # abre o PDF ao final
-```
-
-Para o modo `--online`, instale a dependência opcional uma única vez:
-```bash
-pip install -r requirements-build.txt
-```
-
-### Windows (PowerShell)
-
-```powershell
-cd paper_revisado
-.\build.ps1                # build normal
-.\build.ps1 -Open          # compila e abre o PDF
-.\build.ps1 -Clean         # limpa e recompila do zero
-.\build.ps1 -Quick         # só 1 passada de pdflatex (sem bibtex — mais rápido)
-.\build.ps1 -Dataset       # regera o apêndice do dataset antes de compilar
-```
-
-Se der erro de política de execução, rode uma vez:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
-### Linux / macOS / WSL
+Sequência canônica do abnTeX2:
 
 ```bash
-cd paper_revisado
-./build.sh                 # build normal
-./build.sh --open          # compila e abre
-./build.sh --clean         # limpa e recompila do zero
-./build.sh --quick         # só 1 passada
-./build.sh --dataset       # regera o apêndice
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
 ```
 
-## O que o script faz
+Ou pelos scripts, que fazem o mesmo e reportam referências e citações indefinidas:
 
-1. **Verifica** que `pdflatex` e `bibtex` estão no PATH.
-2. **(Opcional)** Roda `python generate_dataset.py` para regerar `apendice_dataset_gerado.tex`.
-3. **(Opcional)** Limpa artefatos (`*.aux`, `*.log`, `*.toc`, `*.bbl`…).
-4. Roda a sequência canônica de compilação **abntex2**:
-   - `pdflatex main.tex` (gera `.aux` inicial)
-   - `bibtex main` (resolve referências bibliográficas)
-   - `pdflatex main.tex` (integra a bibliografia)
-   - `pdflatex main.tex` (resolve *cross-references*, sumário, LOF/LOT)
-5. **Reporta**:
-   - PDF gerado (nome, tamanho, número de páginas)
-   - Referências indefinidas (`\ref{}` quebrado)
-   - Citações indefinidas (`\cite{}` sem entrada no `.bib`)
-   - Contagem de *Overfull hboxes* (linhas longas — só estético)
-
-## Estrutura de arquivos
-
-```
-paper_revisado/
-├── main.tex                        # arquivo principal (entry point)
-├── dados.tex                       # metadados (título, autores, orientador)
-├── pre-texto.tex                   # resumo, abstract
-├── simbolo-abrev.tex               # lista de abreviaturas
-├── cap01-introducao.tex
-├── cap02-referencial.tex
-├── cap03-metodologia.tex
-├── cap04-aprimoramento.tex
-├── cap05-resultados.tex            # (desativado — só será preenchido após F6)
-├── cap06-conclusao.tex             # (desativado)
-├── apendice.tex                    # Apêndices A (dataset) e B (specs de HW)
-├── apendice_dataset_gerado.tex     # \input{}-ado por apendice.tex
-├── refs.bib                        # referências bibliográficas
-├── abntex2.cls                     # classe (não editar)
-├── abntex2ime.sty                  # personalização IME (não editar)
-├── abntex2cite.sty                 # citações ABNT (não editar)
-├── generate_dataset.py             # regerador programático do dataset
-├── images/                         # figuras (poucas — quase tudo é TikZ)
-├── build.ps1                       # compilador PowerShell (Windows)
-├── build.sh                        # compilador Bash (Linux/Mac/WSL)
-└── BUILD.md                        # este arquivo
+```bash
+python build.py            # multiplataforma; --clean, --quick, --open
+./build.sh                 # Linux / macOS / WSL
+.\build.ps1                # Windows (PowerShell)
 ```
 
-## Troubleshooting
+`python build.py --online` envia o projeto para o serviço latexonline.cc; sem essa opção,
+a compilação é sempre local.
 
-### "! Package babel Error: Unknown option 'brazil'"
-Instale o pacote de português: `sudo apt install texlive-lang-portuguese` (Ubuntu/Debian) ou reinstale MiKTeX com *full install*.
+## Tabelas, figuras e números do texto
 
-### "! LaTeX Error: File `abntex2.cls' not found"
-O arquivo já vem no repositório. Confirme que está rodando o script **de dentro** do diretório `paper_revisado/`.
+As tabelas de `tabelas/`, as figuras de `figuras/` e os valores citados na prosa
+(`tabelas/numeros*.tex`, macros `\res{...}`) são gerados a partir de `data/` e `results/` do
+repositório, com, na raiz do repositório:
 
-### PDF gerado, mas sumário/referências aparecem como "??"
-Normal na 1ª compilação. Rode o script novamente — ou use `--clean` e depois build normal.
+```bash
+python scripts/gerar_tabelas_texto.py --texto texto
+```
 
-### "Reference `algo' undefined on input line X"
-Você tem `\ref{algo}` mas nenhum `\label{algo}`. Confira no capítulo mencionado.
+Nenhum número de resultado é digitado à mão.
 
-### "Citation `xxx' undefined"
-`\cite{xxx}` não bate com nenhuma entrada de `refs.bib`. Confira grafia.
+## Estrutura
+
+```
+main.tex                  arquivo principal
+dados.tex                 título, autores, orientador, data e banca
+pre-texto.tex             dedicatória, resumo e abstract
+simbolo-abrev.tex         lista de abreviaturas e siglas
+cap01-introducao.tex ... cap06-conclusao.tex
+apendice.tex              Apêndices A (dataset e auditoria), B (ambientes) e C (repositório)
+apendice_manual_anotacao.tex, apendice_dataset_P.tex, apendice_dataset_N.tex,
+apendice_dataset_gerado.tex   gerados por pfc-dataset --apendice
+tabelas/, figuras/        gerados (ver acima)
+refs.bib                  referências
+abntex2.cls, abntex2cite.sty, abntex2ime.sty   classes (não editar)
+build.py, build.sh, build.ps1                  scripts de compilação
+```
+
+## Problemas comuns
+
+- **"Unknown option 'brazil'"**: instale o pacote de português do LaTeX
+  (`texlive-lang-portuguese`) ou use a instalação completa do MiKTeX.
+- **"File `abntex2.cls' not found"**: rode a compilação de dentro da pasta do texto.
+- **Sumário ou referências com "??"**: rode a sequência completa (com `bibtex` e duas passadas
+  finais de `pdflatex`).

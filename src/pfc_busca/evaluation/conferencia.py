@@ -45,7 +45,7 @@ def conferir(pasta: Path) -> dict:
         problemas.append("definição da ferramenta diferente da vigente")
     if manifesto.get("prompt_sha256") is None:
         avisos.append("manifesto sem hash do prompt (rodada anterior ao registro do hash)")
-    elif manifesto["prompt_sha256"] != hash_prompt():
+    elif manifesto["prompt_sha256"] != hash_prompt(manifesto.get("abordagem") or "tool_calling"):
         problemas.append("prompt de sistema diferente do vigente")
 
     chaves = Counter((x["id"], x["repeticao"]) for x in linhas)

@@ -9,7 +9,11 @@ Partes deste repositório derivam do protótipo
 - as 22 consultas da camada P do *dataset* (`src/pfc_busca/evaluation/manual_cases.py`
   e `data/dataset.json`, IDs P01–P22), extraídas de `backend/evaluation/test-cases.ts`,
   com a anotação original mantida como leitura preferencial;
-- a lógica das consultas SQL de `src/pfc_busca/tools.py`, portada de `backend/src/services/search.ts`.
+- a lógica das consultas SQL de `src/pfc_busca/tools.py`, portada de `backend/src/services/search.ts`;
+- na linha de base que reproduz o método do protótipo (`src/pfc_busca/agent_estruturado.py` e
+  `src/pfc_busca/prototipo_termos.py`): o dicionário `COMMON_TERMS`, o *prompt* com exemplos, as
+  descrições e os enumerados do *schema* Zod, e a lógica de pré-processamento, validação e
+  *fallback* de `backend/src/services/llm/` e `backend/src/types/api.ts`, portadas para Python.
 
 Esse material é distribuído sob a licença abaixo.
 
