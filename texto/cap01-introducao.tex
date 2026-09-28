@@ -77,7 +77,7 @@ O projeto resultou nos seguintes entregáveis:
   \item Um relatório comparativo entre quatro modelos de LLM com suporte a \textit{Tool Calling} executáveis localmente via Ollama --- Qwen 3 4B, Gemma 4 E4B, Gemma 4 E2B e Mistral Nemo 12B ---, indicando o mais adequado para uso operacional no acervo da DSG, considerando o equilíbrio entre desempenho e requisitos de \textit{hardware}.
 \end{enumerate}
 
-Como referência, o mesmo \textit{dataset}, o mesmo \textit{prompt}, a mesma ferramenta e as mesmas métricas foram aplicados a \res{groq}{geral}{nmodelos} modelos de maior porte servidos em nuvem pela plataforma Groq. Esses modelos rodaram com uma repetição e com o raciocínio interno no menor esforço aceito, pois não permitem desligá-lo, enquanto os modelos locais foram avaliados sem raciocínio. Seus resultados são reportados à parte por não atenderem ao requisito de execução local.
+Como referência, o mesmo \textit{dataset}, o mesmo \textit{prompt}, a mesma ferramenta e as mesmas métricas foram aplicados a \res{groq}{geral}{nmodelos} modelos de maior porte servidos em nuvem pela plataforma Groq. Esses modelos rodaram com uma repetição e com o menor esforço de raciocínio que cada um aceita: sem raciocínio no Qwen 3.8 27B, como os modelos locais, e com esforço baixo nos dois modelos GPT-OSS, que não permitem desligá-lo. Seus resultados são reportados à parte por não atenderem ao requisito de execução local.
 
 \section{Delimitação do Trabalho}
 

@@ -613,7 +613,9 @@ def tabela_familia(casos: list[dict]) -> list[str]:
     for c in casos:
         out.append(f"{c['id']} & {' · '.join(c['categorias'])} & {esc(c['consulta'])} & "
                    f"{'; '.join(linhas_gabarito(c))} " + r"\\ \hline")
-    out += [r"\end{longtable}", "}"]
+    # longtable incrementa o contador de tabelas mesmo sem \caption; sem a correção,
+    # a numeração das tabelas seguintes salta uma unidade por listagem.
+    out += [r"\end{longtable}", r"\addtocounter{table}{-1}", "}"]
     return out
 
 

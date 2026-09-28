@@ -317,8 +317,10 @@ def tab_mcnemar(dados: dict[str, dict]) -> str:
     for i in range(len(modelos)):
         for j in range(i + 1, len(modelos)):
             so_a, so_b = _discordantes(correcoes[modelos[i]], correcoes[modelos[j]])
+            pv = mcnemar_exato(so_a, so_b)
+            p_tex = r"$<$\,0,0001" if pv < 0.0001 else _f(pv, 4)
             linhas.append(f"{_tex(rotulo(modelos[i]))} & {_tex(rotulo(modelos[j]))} & {so_a} & {so_b} & "
-                          f"{_f(mcnemar_exato(so_a, so_b), 4)} \\\\")
+                          f"{p_tex} \\\\")
     linhas += [r"\hline", r"\end{tabular}",
                r"\fonte{Elaborado pelos autores. Consultas discordantes entre os dois modelos nas métricas principais, com o resultado de cada consulta dado pela maioria das suas repetições; \textit{p}-valor bicaudal exato.}",
                r"\end{table}"]
