@@ -200,6 +200,35 @@ em consultas cujo gabarito é **defensável por duas fontes independentes**; as 
 relatadas por família e motivo, e a passada B (fora do filtro) estima a qualidade do gabarito
 que ficou. Os números estão em `data/lote_validacao/relatorio.md`.
 
+**Resultado.** Das 1.950 consultas redigidas, 1.929 (98,9%) formam o lote final:
+
+| Etapa | Descartadas | Motivo |
+|---|---|---|
+| Checagens automáticas | 5 | alvos de região com "Sertão", que também é município (RS): a seção 6.3 faria dele `city`, o que o alvo não previa (apontado pelos próprios anotadores) |
+| Deduplicação | 15 | 4 repetiam uma das 310 consultas ("cartas de São Paulo", "mapas do ce"…); 11 repetiam outra consulta do lote (pedidos genéricos e fora do domínio curtos) |
+| Anotação às cegas | 1 | leitura do anotador não aceita pelo gabarito |
+
+Concordância, sobre as 1.950 consultas, antes do filtro (construção × anotador A): decisão com
+kappa 1,000; leituras compatíveis nos dois sentidos em 99,8%; leitura preferencial idêntica em
+99,8% das que ambos buscam; valor igual em 100% dos campos preenchidos por ambos; detecção de
+leituras múltiplas com kappa 0,967. Entre os dois anotadores (A × B, 390 consultas), todas as
+medidas ficaram em 100%. Nas 383 consultas da amostra B que entraram no lote, o anotador B — que
+não participou do filtro — é compatível com o gabarito em todas.
+
+**Leitura desses números.** A concordância é alta por construção: os alvos exigem superfícies
+explícitas e o manual decide as ambiguidades previstas. Ela mostra que cada consulta sustenta o
+seu gabarito segundo o manual, com leituras reproduzíveis por anotadores independentes; não
+mostra que pessoas leriam do mesmo modo, porque redatores e anotadores são modelos da mesma
+família. Dois sinais indicam que a anotação não copiou o gabarito: na amostra B, os dois
+anotadores concordam mais entre si (84 consultas com leituras múltiplas cada) do que com a
+construção (86), e só 13 das 390 justificativas coincidem literalmente entre A e B (similaridade
+textual média de 0,74).
+
+**Ajuste de gabarito pelo texto.** Um único ajuste é feito na montagem, por regra do manual e a
+partir do texto redigido: "copa do mundo"/"copa 2014" sem a palavra "projeto" não é nome
+completo, sigla nem apelido informado na ferramenta, e o manual (seção 2, `project`) torna o
+campo opcional nesse caso (12 consultas). A divergência foi apontada pelos anotadores.
+
 ## 9. Avaliação
 
 ### 9.1 Modelo e ambiente
@@ -210,17 +239,22 @@ Data de referência: 24/09/2026 no lote (a da anotação) e 14/09/2026 nas 310 (
 
 ### 9.2 Especificação v2
 
-A análise de erros do Tool Calling v1 do Gemma 4 E4B nas 310 (930 execuções, 371 erradas)
+A análise de erros do Tool Calling v1 do Gemma 4 E4B nas 310 (918 execuções das métricas
+principais, três repetições; 365 erradas; `lote.diagnostico_v1`, macros `es{diag}{tc1}{…}`)
 mostrou:
 
 | Erro | Execuções |
 |---|---|
-| não chamou a ferramenta numa consulta do domínio (quase sempre pedindo esclarecimento: "preciso saber o período exato da semana passada") | 167 |
-| `productType` acrescentado para "cartas"/"mapas" sozinhos | 72 |
-| período relativo só com `start` = data atual ("este ano" → start = hoje) | 48 |
-| código copiado do exemplo da descrição ("2901" → "2901-2-NE") ou "folha" como keyword | 35 |
-| escala sem o ponto de milhar ("1:2000") | 24 |
-| região virou CGEO, estado virou projeto, "AM" virou Amapá, plural virou `limit = 1` | 15 |
+| não buscou numa consulta do domínio | 161 (17,5%) |
+| … das quais pedindo esclarecimento ("preciso saber qual é o ano atual", "especifique o tipo de produto") | 154 |
+| `productType` acrescentado sem que a consulta nomeasse o tipo ("cartas"/"mapas" sozinhos) | 72 |
+| código com sufixo acrescentado ("2901" → "2901-2-NE", o código do exemplo da descrição) ou "folha" como keyword | 21 |
+| escala sem o ponto de milhar ("1:2000") | 21 |
+| período relativo só com `start` igual à data atual ("este ano" → start = hoje) | 18 |
+
+Outros erros pontuais do mesmo tipo: região que virou CGEO ("amazônia legal" → 1º CGEO),
+estado que virou projeto ("mapas do amapá" → BCD do Amapá), "AM" lido como Amapá e plural sem
+número com `limit = 1`.
 
 A v2 (`src/pfc_busca/v2.py`) muda **só a especificação**: (1) descrições dos parâmetros que
 explicitam as convenções do manual (quando preencher cada campo, a forma canônica, o que não

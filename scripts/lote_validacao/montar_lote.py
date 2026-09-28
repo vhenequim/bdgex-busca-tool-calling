@@ -410,6 +410,12 @@ def main() -> int:
     def f3(v: float | None) -> str:
         return "---" if v is None else f"{v:.3f}".replace(".", ",")
 
+    def milhar(n: int) -> str:
+        return f"{n:,}".replace(",", ".")
+
+    def menos(n: int) -> str:
+        return f"$-${n}" if n else "0"
+
     defs = {
         "alvos": len(alvos), "redigidas": etapas["redigidas"], "checagem": etapas["passaram_checagem"],
         "dedup": etapas["passaram_dedup"], "aceitas": etapas["aceitas"],
@@ -432,7 +438,8 @@ def main() -> int:
                     compatBfinalabs=compat_b_aceitos)
     macros = ["% AUTO-GERADO por scripts/lote_validacao/montar_lote.py — não editar à mão",
               r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}"]
-    macros += [f"\\expandafter\\def\\csname res@lotedados@geral@{k}\\endcsname{{{v}}}" for k, v in sorted(defs.items())]
+    macros += [f"\\expandafter\\def\\csname res@lotedados@geral@{k}\\endcsname"
+               f"{{{milhar(v) if isinstance(v, int) else v}}}" for k, v in sorted(defs.items())]
     nomes_fam = {"VS": "Simples (um critério)", "VC": "Compostas", "VM": "Códigos MI/INOM", "VT": "Tempo",
                  "VO": "Ordenação", "VA": "Leituras múltiplas", "VE": "Subespecificadas", "VF": "Fora do domínio"}
     tab = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Lote de validação: do alvo ao lote final, por família}",
@@ -441,10 +448,11 @@ def main() -> int:
            r"\textbf{Lote final} \\", r"\hline"]
     for f in familias:
         x = por_fam[f]
-        tab.append(f"{f} & {nomes_fam[f]} & {x['alvos']} & $-${x['checagem automática'] + x['deduplicação']} & "
-                   f"$-${x['anotação às cegas']} & {x['aceitas']} \\\\")
-    tab += [r"\hline", f"\\textbf{{Total}} & & {len(alvos)} & $-${len(alvos) - etapas['passaram_dedup']} & "
-            f"$-${etapas['passaram_dedup'] - etapas['aceitas']} & \\textbf{{{etapas['aceitas']}}} \\\\", r"\hline",
+        tab.append(f"{f} & {nomes_fam[f]} & {x['alvos']} & {menos(x['checagem automática'] + x['deduplicação'])} & "
+                   f"{menos(x['anotação às cegas'])} & {x['aceitas']} \\\\")
+    tab += [r"\hline", f"\\textbf{{Total}} & & {milhar(len(alvos))} & {menos(len(alvos) - etapas['passaram_dedup'])} & "
+            f"{menos(etapas['passaram_dedup'] - etapas['aceitas'])} & \\textbf{{{milhar(etapas['aceitas'])}}} \\\\",
+            r"\hline",
             r"\end{tabular}", r"\fonte{Elaborada pelos autores. Checagens: descartadas nas checagens automáticas "
             r"e na deduplicação. Anotação às cegas: descartadas por incompatibilidade entre o gabarito por construção "
             r"e a anotação A.}", r"\end{table}", ""]
@@ -462,7 +470,7 @@ def main() -> int:
                     f3(conc_ab["ambiguidade_kappa"]) if com_b else "---")]
     tab_conc = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Concordância na anotação às cegas do lote de validação}",
                 r"\label{tab:lote_concordancia}", r"\footnotesize", r"\begin{tabular}{|l|c|c|}", r"\hline",
-                rf"\textbf{{Medida}} & \textbf{{Construção $\times$ A}} (n={len(anotados)}) & "
+                rf"\textbf{{Medida}} & \textbf{{Construção $\times$ A}} (n={milhar(len(anotados))}) & "
                 rf"\textbf{{A $\times$ B}} (n={len(com_b)}) \\", r"\hline"]
     tab_conc += [f"{m} & {a} & {b} \\\\" for m, a, b in conc_linhas]
     tab_conc += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelos autores. Medidas de \texttt{audit.concordancia}, "

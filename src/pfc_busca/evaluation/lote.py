@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -144,6 +145,47 @@ def medidas(linhas: list[dict], casos: dict[str, dict]) -> dict[str, Any]:
     }
 
 
+PEDE_ESCLARECIMENTO = re.compile(
+    r"preciso|precisa|poderia|pode(ria)? (me )?(informar|especificar|fornecer|dizer)|especifi|mais informa|informe"
+    r"|forne[çc]a|esclare|confirm|qual (é|e) |quais s[ãa]o|voc[êe] (gostaria|quer|deseja)|por favor", re.I)
+
+
+def diagnostico_v1(linhas: list[dict]) -> dict[str, int]:
+    """Erros do Tool Calling v1 que motivaram a v2 (contagem por execução, métricas principais)."""
+
+    def aceitos(lin: dict, campo: str) -> list:
+        leituras = [lin["esperado_resolvido"]] + list(lin.get("alternativas_resolvidas") or [])
+        return [v for le in leituras if campo in le for v in gabarito.valores_aceitos(le[campo])]
+
+    d = Counter()
+    for lin in linhas:
+        d["execucoes"] += 1
+        aval = metrics.avaliar_linha(lin)
+        d["erradas"] += not aval.correto
+        pred = lin["predito"]
+        dominio = lin["espera_tool_call"] and not lin.get("aceita_nao_chamar")
+        if pred is None:
+            if dominio:
+                d["naochamou"] += 1
+                d["naochamouesclarece"] += bool(PEDE_ESCLARECIMENTO.search(lin.get("texto_resposta") or ""))
+            continue
+        if "productType" in pred and not aceitos(lin, "productType"):
+            d["tipoinventado"] += 1
+        for campo in ("publicationPeriod", "creationPeriod"):
+            p = pred.get(campo)
+            if isinstance(p, dict) and set(p) == {"start"} and p["start"] == lin["hoje"] and aceitos(lin, campo) \
+                    and p not in aceitos(lin, campo):
+                d["periodohoje"] += 1
+        kw = pred.get("keyword")
+        if isinstance(kw, str) and "keyword" in aval.fp:
+            if kw.lower() in ("folha", "carta", "mapa") or any(
+                    isinstance(a, str) and kw.upper().startswith(a.upper() + "-") for a in aceitos(lin, "keyword")):
+                d["codigoalterado"] += 1
+        if isinstance(pred.get("scale"), str) and re.fullmatch(r"1:\d{4,}", pred["scale"]):
+            d["escalasemponto"] += 1
+    return dict(d)
+
+
 def _matriz(linhas: list[dict], ids: list[str]) -> dict[str, np.ndarray]:
     """Por consulta (uma linha: a primeira repetição com o resultado majoritário) e campo: tp/fp/fn/ocorrências."""
     por_id = _por_id(linhas)
@@ -199,6 +241,10 @@ def comparar(a: list[dict], b: list[dict]) -> dict[str, Any]:
 # Saída
 # ---------------------------------------------------------------------------
 
+def _milhar(n: int) -> str:
+    return f"{n:,}".replace(",", ".")
+
+
 def _pp(v: float) -> str:
     """Diferença em pontos percentuais, com sinal."""
     return ("+" if v > 0 else "") + f"{100 * v:.1f}".replace(".", ",")
@@ -220,6 +266,8 @@ def gerar() -> dict[str, Any]:
             if r is not None:
                 dados.setdefault(conjunto, {})[config] = {"linhas": r[0], "casos": r[1]}
     resultado: dict[str, Any] = {"medidas": {}, "pares": {}}
+    if "tc1" in dados.get("base", {}):
+        resultado["diagnostico_v1"] = diagnostico_v1(dados["base"]["tc1"]["linhas"])
     for conjunto, cfgs in dados.items():
         # só entram configurações que cobrem o conjunto inteiro (rodada incompleta fica de fora)
         n_total = len(next(iter(cfgs.values()))["casos"])
@@ -240,9 +288,14 @@ def macros(res: dict[str, Any]) -> str:
     def put(rodada: str, chave: str, medida: str, valor: str) -> None:
         defs[f"res@{rodada}@{chave}@{medida}"] = valor
 
+    diag = res.get("diagnostico_v1") or {}
+    for chave, valor in diag.items():
+        put("diag", "tc1", chave, _milhar(valor))
+    if diag.get("execucoes"):
+        put("diag", "tc1", "pctnaochamou", report._pct(diag.get("naochamou", 0) / diag["execucoes"]))
     for conjunto, cfgs in res["medidas"].items():
         for k, m in cfgs.items():
-            put(conjunto, k, "n", str(m["n"]))
+            put(conjunto, k, "n", _milhar(m["n"]))
             put(conjunto, k, "acuracia", report._pct(m["acuracia"]))
             put(conjunto, k, "ic", f"{report._pct(m['ic'][0])} a {report._pct(m['ic'][1])}")
             put(conjunto, k, "f1", report._f(m["f1"]))

@@ -78,3 +78,15 @@ Cada caso registra a origem. Na camada P, a fonte é o arquivo de testes do prot
   \item O processo se repete até não restar divergência sem decisão.
   \item \textbf{Revisão humana de amostra}: uma amostra estratificada por origem (40 consultas, semente 42) é conferida por uma pessoa, que marca se concorda com as leituras aceitas.
 \end{enumerate}
+
+\subsection*{Extensões para o lote de validação}
+
+O lote de validação (Seção~\ref{sec:lote-validacao}) cobre situações que as 310 consultas não tinham. As regras abaixo estendem o manual sem alterar nenhuma anotação das 310.
+
+\begin{description}
+  \item[Consulta subespecificada (categoria E).] A consulta pede produtos do acervo, mas não traz nenhum critério representável no \textit{schema} (``quero ver as cartas do acervo'', ``cartas do Nordeste'', ``mapas para uma trilha''). O gabarito não tem parâmetros e aceita duas respostas: buscar sem filtros ou não buscar (pedir esclarecimento ou recusar). Uma chamada com qualquer parâmetro é erro. Difere de F porque há intenção de busca no acervo (``me ajuda'' e ``quero um mapa bonito'' continuam F) e da categoria S porque não há nenhum critério (``ortoimagens'' é consulta simples e exige a busca).
+  \item[Tempo relativo parametrizado.] As regras do Quadro~\ref{quadro:tempo-relativo} valem para qualquer quantidade e qualquer ano: ``últimos $N$ meses'' (D$-$30$N$ dias até D; mesmo dia, $N$ meses antes, até D); ``últimos $N$ anos'' (D menos $N$ anos até D; 1º de janeiro do ano$-N$ até D); ``últimos $N$ dias'' (D$-N$ até D; D$-$($N-1$) até D); ``desde'' e ``a partir de AAAA''; ``depois de'' e ``após AAAA''; ``antes de'' e ``anteriores a AAAA''. Ano isolado (``em AAAA'', ``de AAAA'') e intervalo de anos (``entre AAAA e BBBB'') têm leitura única, do primeiro ao último dia.
+  \item[Municípios e UF.] Qualquer município da lista oficial do IBGE é \texttt{city}; a sigla da UF junto ao município (``Campinas, SP'') anota também \texttt{state}. O lote não usa municípios homônimos de UF.
+  \item[Nomes de folha reais.] Nomes de folha do BDGEx precedidos de ``carta'' ou ``folha'' são \texttt{keyword}; quando coincidem com o nome de um município, vale a leitura estrutural \texttt{city}.
+  \item[Armadilhas de vocabulário.] ``Carta'', ``mapa'', ``folha'', ``escala'' e ``projeto'' em outro sentido (``carta de vinhos'', ``mapa astral'', ``folha de pagamento'', ``escala de plantão'', ``projeto de lei'') não pedem produto cartográfico: categoria F.
+\end{description}

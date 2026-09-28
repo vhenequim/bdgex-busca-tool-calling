@@ -4,9 +4,9 @@ Motivação. Na análise de erros do Gemma 4 E4B nas 310 consultas (Tool Calling
 se concentraram em comportamentos que o manual de anotação especifica mas que a definição da
 ferramenta não informava ao modelo:
 
-- em 18% das execuções o modelo não chamou a ferramenta e pediu esclarecimento ("preciso
-  saber o período exato da semana passada", "qual escala você considera maior que 100k");
-- "cartas"/"mapas" sozinhos viraram `productType` (72 falsos positivos);
+- em 17,5% das execuções (161 de 918) o modelo não buscou, quase sempre (154) pedindo
+  esclarecimento ("preciso saber qual é o ano atual", "especifique o tipo de produto");
+- "cartas"/"mapas" sozinhos viraram `productType` (72 execuções);
 - períodos relativos saíram só com `start` igual à data atual ("este ano" → start = hoje);
 - `1:2000` ficou sem o ponto de milhar; `2901` virou `2901-2-NE` (o código do exemplo da
   descrição); a região virou CGEO ("amazônia legal" → 1º CGEO) e o estado virou projeto

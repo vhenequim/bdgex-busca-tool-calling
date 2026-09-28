@@ -1,0 +1,16 @@
+\begin{table}[htbp!]
+\centering
+\caption{Gemma 4 E4B no lote de validação e nas 310 consultas: especificações v1 e v2}
+\label{tab:lote}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+\hline
+\textbf{Conjunto} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{F1} & \textbf{Recusa F} & \textbf{Falsa recusa} & \textbf{F1 recusa} & \textbf{Múltiplas leituras} \\
+\hline
+\multirow{2}{*}{\shortstack[l]{310 consultas\\(n=306)}} & Tool Calling v1 & 60,1\% & 54,6\%--65,5\% & 0,793 & 100,0\% & 18,8\% & 0,222 & 26,9\% \\
+ & Saída Estruturada v1 & 75,2\% & 70,0\%--79,7\% & 0,902 & 0,0\% & 0,0\% & 0,000 & 52,2\% \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Gemma 4 E4B, GPU T4. Acurácia por consulta, com IC de Wilson. Recusa F: proporção das consultas fora do domínio sem busca (recall da recusa). Falsa recusa: proporção das consultas do domínio (fora das categorias F e E) sem busca. F1 recusa: média harmônica da precisão e do recall da recusa. Múltiplas leituras: acurácia nas consultas do domínio com mais de uma leitura aceita. Na v1, a Saída Estruturada não tem como recusar. A v2 foi desenhada a partir dos erros nas 310 consultas: nesse conjunto, o resultado da v2 é dentro da amostra.}
+\end{table}

@@ -1,0 +1,16 @@
+\begin{table}[htbp!]
+\centering
+\caption{Comparações pareadas (Gemma 4 E4B)}
+\label{tab:lote_pares}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|c|c|c|c|}
+\hline
+\textbf{Conjunto} & \textbf{Par (A × B)} & \textbf{Só A} & \textbf{Só B} & \textbf{\textit{p}} & \textbf{B $-$ A, acurácia (IC)} & \textbf{B $-$ A, F1 (IC)} \\
+\hline
+\hline
+310 & TC v1 × SE v1 & 16 & 62 & $<$\,0,001 & +15,0 p.p. (+9,8 a +20,6) & 0,106 (0,072 a 0,147) \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Só A / Só B: consultas em que só uma das configurações acerta. \textit{p}: McNemar exato, uma observação por consulta. IC: bootstrap pareado (2.000 reamostragens das consultas), percentis 2,5 e 97,5. TC: \textit{Tool Calling}; SE: Saída Estruturada.}
+\end{table}
