@@ -26,6 +26,7 @@ from pfc_busca.evaluation.dataset_builder import carregar_dataset
 from pfc_busca.evaluation.run_evaluation import (
     DIR_RESULTADOS,
     carregar_execucoes,
+    dataset_da_rodada,
     hash_ferramenta,
     hash_prompt,
     repontuar,
@@ -36,12 +37,13 @@ def conferir(pasta: Path) -> dict:
     manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8")) \
         if (pasta / "manifesto.json").exists() else {}
     linhas = carregar_execucoes(pasta)
-    validas, descartadas = repontuar(linhas)
+    dataset = dataset_da_rodada(pasta)
+    validas, descartadas = repontuar(linhas, dataset)
     problemas, avisos = [], []
 
     if not manifesto:
         problemas.append("sem manifesto.json")
-    if manifesto.get("ferramenta_sha256") and manifesto["ferramenta_sha256"] != hash_ferramenta():
+    if manifesto.get("ferramenta_sha256") and             manifesto["ferramenta_sha256"] != hash_ferramenta(manifesto.get("abordagem") or "tool_calling"):
         problemas.append("definição da ferramenta diferente da vigente")
     if manifesto.get("prompt_sha256") is None:
         avisos.append("manifesto sem hash do prompt (rodada anterior ao registro do hash)")
@@ -67,7 +69,7 @@ def conferir(pasta: Path) -> dict:
                 if (i, r) not in {(x["id"], x["repeticao"]) for x in validas}]
     if faltando:
         problemas.append(f"{len(faltando)} execução(ões) faltando para completar {esperadas} repetição(ões)")
-    total_dataset = len(carregar_dataset())
+    total_dataset = len(carregar_dataset(dataset))
     if len(ids_validos) not in (total_dataset, 62, 22, 40):
         avisos.append(f"{len(ids_validos)} consultas distintas (dataset tem {total_dataset}): subconjunto?")
 
@@ -88,7 +90,7 @@ def conferir(pasta: Path) -> dict:
 
 def pastas_padrao() -> list[Path]:
     candidatas = []
-    for base in (DIR_RESULTADOS, DIR_RESULTADOS / "estacao"):
+    for base in (DIR_RESULTADOS, DIR_RESULTADOS / "estacao", DIR_RESULTADOS / "lote"):
         if base.is_dir():
             candidatas += [p for p in sorted(base.iterdir()) if (p / "execucoes.jsonl").exists()]
     return candidatas

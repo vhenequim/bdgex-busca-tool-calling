@@ -59,11 +59,12 @@ SUFIXO = ""   # ex.: "_groq" — distingue rótulos e arquivos do resultado para
 TITULO = ""   # ex.: " --- resultado paralelo em nuvem (Groq)"
 NOMES_CATEGORIA = {"S": "Simples", "C": "Compostas", "M": "Com código MI/INOM",
                    "T": "Com referência temporal relativa", "O": "Com ordenação",
-                   "A": "Ambíguas / variações ortográficas", "F": "Fora do domínio (recusa)"}
+                   "A": "Ambíguas / variações ortográficas", "F": "Fora do domínio (recusa)",
+                   "E": "Subespecificadas (buscar ou esclarecer)"}
 CATEGORIA_CURTA = {"S": "Simples", "C": "Compostas", "M": "Código\nMI/INOM", "T": "Tempo\nrelativo",
-                   "O": "Ordenação", "A": "Ambíguas /\ninformais", "F": "Fora do\ndomínio"}
+                   "O": "Ordenação", "A": "Ambíguas /\ninformais", "F": "Fora do\ndomínio", "E": "Subespe-\ncificadas"}
 CATEGORIA_TABELA = {"S": "Simples", "C": "Compostas", "M": "Código MI/INOM", "T": "Tempo relativo",
-                    "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio"}
+                    "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio", "E": "Subespecificadas"}
 # F1 não se aplica à categoria F (gabarito sem campos): ela aparece só nas visões de acurácia.
 CATS_F1 = ["S", "C", "M", "T", "O", "A"]
 CATS_ACC = ["S", "C", "M", "T", "O", "A", "F"]

@@ -1,0 +1,1916 @@
+{
+ "tarefa": 2,
+ "saida": "data/lote_validacao/redacao/saida_02.json",
+ "instrucoes": "Você vai escrever consultas de usuários reais ao assistente de busca do acervo de produtos cartográficos do Exército Brasileiro (BDGEx, Diretoria de Serviço Geográfico). O assistente recebe a mensagem do usuário e a transforma em uma busca no catálogo. As consultas vão compor um conjunto de avaliação: cada uma precisa dizer exatamente o que o alvo pede, nem mais nem menos.\n\nPara CADA alvo da lista, escreva UMA mensagem em português do Brasil:\n1. A mensagem deve conter TODOS os itens de `pedido`. Quando o item diz \"escrito como X\" ou \"escrita como X\", o trecho X precisa aparecer literalmente na mensagem (maiúsculas, acentos e pontuação podem mudar só no registro \"sem_acento\"). Nomes de lugares, de cartas, códigos e números entram exatamente como dados.\n2. Respeite TODOS os itens de `proibido`. Em especial, não acrescente critério de busca nenhum além dos pedidos: nenhum outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade. A persona e o registro mudam só o tom e o vocabulário, nunca os critérios (um \"oficial planejando uma operação\" não cita a região da operação se o alvo não pede).\n3. Siga o registro de linguagem (`registro_descricao`) e escreva como a persona escreveria. No registro \"sem_acento\", a mensagem inteira fica em minúsculas e sem acentos, inclusive os nomes. No registro \"erro_digitacao\", faça UM erro de digitação leve numa palavra comum, nunca num nome, código, número ou expressão de tempo.\n4. Varie a construção de uma mensagem para outra: não repita a mesma abertura nem o mesmo molde. Soe como uma pessoa real digitando numa caixa de busca ou num chat — nada de texto de formulário, nada de explicar o sistema, nada de aspas em volta dos valores (a não ser que fosse natural).\n5. Não escreva nomes de campos do sistema (keyword, scale, supplyArea, productType, enum...).\n6. Nos alvos fora do domínio (pedido começa com \"escreva uma mensagem de usuário do tipo\"), a mensagem não pode pedir produto cartográfico do território brasileiro que exista num acervo.\n\nEntregue um único arquivo JSON, no caminho indicado na tarefa, no formato {\"<id>\": \"<mensagem>\", ...}, com uma entrada para cada id da tarefa, na mesma ordem. Não escreva nada além do JSON no arquivo.",
+ "alvos": [
+  {
+   "id": "VE0059",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"Norte\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0295",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: outro assunto do dia a dia: previsão do tempo, trânsito, esportes, receitas, notícias, horários de ônibus, programação de TV. Tema sugerido: notícias do dia. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VM0108",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "o código INOM SD-23-X-C-V-2-SO, escrito como \"folha SD-23-X-C-V-2-SO\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0267",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "na escala 1:25.000, escrita como \"1:25.000\"",
+    "o município de Indiara, seguido da sigla do estado \"GO\" (ex.: \"Indiara, GO\" ou \"Indiara (GO)\")",
+    "do projeto \"Copa do Mundo 2014\", escrito como \"copa 2014\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0104",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "peça de forma genérica cartas, mapas ou produtos do acervo, SEM nenhum critério (nenhum lugar, escala, tipo, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0088",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "a folha chamada \"Serra Imeri\" (escreva \"folha\" antes do nome)",
+    "na escala 1:25.000, escrita como \"1:25000\"",
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"topográficas\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0201",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "na escala 1:25.000, escrita como \"25 mil\"",
+    "o estado de São Paulo, escrito com a palavra \"estado\" (ex.: \"estado de São Paulo\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0209",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a carta chamada \"Rio Axibi\" (escreva \"carta\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0098",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); vários resultados, no plural e SEM dizer quantos",
+    "o código MI 450, escrito como \"folha 450\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0146",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); exatamente 3 resultados (escreva o número como \"3\")",
+    "o estado de Santa Catarina, escrito como a sigla \"SC\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0105",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o estado de Paraná, escrito como a sigla \"PR\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0065",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "o programa de cartografia sistemática, dito como \"cartografia sistemática\" (sem a palavra \"projeto\" e sem \"mapeamento\")",
+    "o município de Registro (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0155",
+   "registro": "erro_digitacao",
+   "registro_descricao": "com UM erro de digitação leve numa palavra comum (nunca num nome, código, número ou expressão de tempo)",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "o município de Lagoão (escreva só o nome do município, sem o estado)",
+    "na escala 1:25.000, escrita como \"25 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0041",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "peça de forma genérica cartas, mapas ou produtos do acervo, SEM nenhum critério (nenhum lugar, escala, tipo, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0090",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pergunta conceitual sobre cartografia ou sobre o sistema, sem pedir produtos (o que é, como funciona, para que serve). Tema sugerido: como calcular distância numa carta. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VE0030",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "peça de forma genérica cartas, mapas ou produtos do acervo, SEM nenhum critério (nenhum lugar, escala, tipo, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0066",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "do 1° Centro de Geoinformação, escrito como \"1º Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0168",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); vários resultados, no plural e SEM dizer quantos",
+    "na escala 1:25.000, escrita como \"25 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0240",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "com a expressão de tempo \"após 2010\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas após 2010\"), de modo que não se saiba se é data de publicação ou de criação",
+    "na escala 1:25.000, escrita como \"1:25000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VM0085",
+   "registro": "erro_digitacao",
+   "registro_descricao": "com UM erro de digitação leve numa palavra comum (nunca num nome, código, número ou expressão de tempo)",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "o código INOM SH-21-Z-B, escrito como \"SH-21-Z-B\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0266",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido que usa as palavras 'carta', 'mapa', 'folha', 'escala' ou 'projeto' em OUTRO sentido, sem nenhuma relação com produtos cartográficos (armadilha de vocabulário). Tema sugerido: escala Richter. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VS0096",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "o município de Júlio Mesquita (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0263",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o código INOM SC-20-Y-B-III-3, escrito como \"folha SC-20-Y-B-III-3\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0136",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"no segundo semestre do ano passado\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)",
+    "na escala 1:25.000, escrita como \"1:25000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VT0143",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"no ano de 1998\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)",
+    "do 5° Centro de Geoinformação, escrito como \"5º Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")",
+    "na escala 1:50.000, escrita como \"1:50000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VT0023",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"2 anos atrás\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VE0051",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"Nordeste\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0038",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); vários resultados, no plural e SEM dizer quantos",
+    "o código MI 1571, escrito como \"carta MI 1571\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0302",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido de dado que não é produto cartográfico: população, PIB, CEP, telefone, endereço, estatística, eleição. Tema sugerido: índice de chuva do mês. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0323",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"cartas topo\"",
+    "na escala 1:25.000, escrita como \"25k\"",
+    "do projeto \"Mapeamento Sistemático\", escrito como \"mapeamento sistematico\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0082",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "do 2° Centro de Geoinformação, escrito como \"segundo cgeo\" (use \"do/da\", sem verbo como \"produzido\")",
+    "na escala 1:100.000, escrita como \"1:100000\"",
+    "do projeto \"Mapeamento Sistemático\", escrito como \"mapeamento sistemático\"",
+    "o estado de Minas Gerais, escrito como a sigla \"MG\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0110",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Vetorial\", escrito como \"cartas vetoriais\"",
+    "mencione também a região \"Sertão\" (é só uma região, não diga estado nem município)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0125",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "o lugar \"São Paulo\", escrito só como \"São Paulo\", SEM as palavras \"estado\", \"cidade\" ou \"município\" e sem sigla (ex.: \"cartas de São Paulo\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0195",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: navegação ou rota: como chegar, distância entre cidades, caminho de carro, GPS, trajeto. Tema sugerido: localização atual. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0165",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Ortoimagem\", escrito como \"ortos\"",
+    "o município de Itobi, seguido da sigla do estado \"SP\" (ex.: \"Itobi, SP\" ou \"Itobi (SP)\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0191",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "o município de Iúna (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0110",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "ordenadas por data, as mais antigas/primeiras (crescente); a ordem deve ser explicitamente pela data de PUBLICAÇÃO (ex.: \"últimas publicadas\", \"em ordem de publicação\"); exatamente 10 resultados (escreva o número como \"10\")",
+    "do 3° Centro de Geoinformação, escrito como \"3º Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0023",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "o código INOM SE-21-Z-B-V, escrito como \"SE-21-Z-B-V\"",
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"topográficas\"",
+    "na escala 1:100.000, escrita como \"1:100.000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0115",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem deve ser explicitamente pela data de PUBLICAÇÃO (ex.: \"últimas publicadas\", \"em ordem de publicação\"); exatamente 10 resultados (escreva o número como \"dez\")",
+    "o código MI 1720-2-SO, escrito como \"MI-1720-2-SO\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0081",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "a folha chamada \"Boca da Missão\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0122",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido que usa as palavras 'carta', 'mapa', 'folha', 'escala' ou 'projeto' em OUTRO sentido, sem nenhuma relação com produtos cartográficos (armadilha de vocabulário). Tema sugerido: folha de ponto. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0031",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Vetorial\", escrito como \"cartas vetoriais\"",
+    "do projeto \"Mapeamento Sistemático\", escrito como \"mapeamento sistematico\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0201",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"de 2015 a 2018\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VS0189",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"carta topográfica\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0128",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "o município de Chalé, seguido da sigla do estado \"MG\" (ex.: \"Chalé, MG\" ou \"Chalé (MG)\")",
+    "na escala 1:50.000, escrita como \"1:50000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0093",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: conversa sem intenção de busca: saudação, agradecimento, teste, mensagem vazia de conteúdo. Tema sugerido: pergunta se está funcionando. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VS0101",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "do 3° Centro de Geoinformação, escrito como \"terceiro cgeo\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0145",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "peça de forma genérica cartas, mapas ou produtos do acervo, SEM nenhum critério (nenhum lugar, escala, tipo, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0091",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "o código MI 0937-1, escrito como \"folha 0937-1\"",
+    "produtos do tipo \"SCN Carta Ortoimagem\", escrito como \"ortoimagens\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0258",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "do 3° Centro de Geoinformação, escrito como \"terceiro Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")",
+    "a folha chamada \"Bairro Rio Pardinho\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0299",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "do 1° Centro de Geoinformação, escrito como \"1º CGEO\" (use \"do/da\", sem verbo como \"produzido\")",
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"carta topográfica\"",
+    "do projeto \"Copa das Confederações\", escrito como \"copa das confederações\"",
+    "na escala 1:50.000, escrita como \"50 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0010",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem deve ser explicitamente pela data de PUBLICAÇÃO (ex.: \"últimas publicadas\", \"em ordem de publicação\"); exatamente 5 resultados (escreva o número como \"5\")",
+    "o município de Petrolina de Goiás (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0070",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "com a expressão de tempo \"nesta semana\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas nesta semana\"), de modo que não se saiba se é data de publicação ou de criação",
+    "na escala 1:25.000, escrita como \"escala detalhada\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VM0066",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o código INOM SB-21-Z-C-I, escrito como \"folha SB-21-Z-C-I\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0041",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Ortoimagem\", escrito como \"cartas ortoimagem\"",
+    "mencione também a região \"Sul\" (é só uma região, não diga estado nem município)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0181",
+   "registro": "erro_digitacao",
+   "registro_descricao": "com UM erro de digitação leve numa palavra comum (nunca num nome, código, número ou expressão de tempo)",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Vetorial\", escrito como \"cartas vetoriais\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0239",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "o município de Senador Firmino (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0320",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: cartas ou mapas de um lugar FORA do Brasil (outro país, cidade estrangeira, continente, polo, outro planeta ou a Lua). Tema sugerido: Peru. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VS0229",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "a folha chamada \"Rio Anauá\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0039",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "peça de forma genérica cartas, mapas ou produtos do acervo, SEM nenhum critério (nenhum lugar, escala, tipo, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0116",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "com a expressão de tempo \"deste mês\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas deste mês\"), de modo que não se saiba se é data de publicação ou de criação",
+    "produtos do tipo \"Cartas Temáticas Não SCN\", escrito como \"cartas temáticas\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VE0012",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"Norte\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0052",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"Centro-Oeste\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0260",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"de 2013\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)",
+    "na escala 1:50.000, escrita como \"1:50000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VS0276",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a folha chamada \"Passo do Goulart\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0323",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: outro assunto do dia a dia: previsão do tempo, trânsito, esportes, receitas, notícias, horários de ônibus, programação de TV. Tema sugerido: filme em cartaz. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VF0315",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido de dado que não é produto cartográfico: população, PIB, CEP, telefone, endereço, estatística, eleição. Tema sugerido: número de eleitores. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VS0047",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "a carta chamada \"Vitória da União\" (escreva \"carta\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0245",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o município de Nova Canaã do Norte (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0068",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"região Sul\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0183",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"cartas topográficas\"",
+    "a folha chamada \"Foz do Acuraua\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0141",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "peça cartas ou mapas para planejar uma obra, dizendo a finalidade mas SEM nenhum critério do acervo (nenhum lugar, escala, tipo de produto, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0093",
+   "registro": "erro_digitacao",
+   "registro_descricao": "com UM erro de digitação leve numa palavra comum (nunca num nome, código, número ou expressão de tempo)",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "ordenadas por data, as mais antigas/primeiras (crescente); a ordem deve ser explicitamente pela data de PUBLICAÇÃO (ex.: \"últimas publicadas\", \"em ordem de publicação\"); UM só resultado, no singular e sem número (ex.: \"a carta mais recente\", \"a mais antiga\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0022",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "com a expressão de tempo \"no ano de 2025\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas no ano de 2025\"), de modo que não se saiba se é data de publicação ou de criação",
+    "o município de Ponte Serrada (escreva só o nome do município, sem o estado)",
+    "na escala 1:25.000, escrita como \"1:25.000\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VS0206",
+   "registro": "erro_digitacao",
+   "registro_descricao": "com UM erro de digitação leve numa palavra comum (nunca num nome, código, número ou expressão de tempo)",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o município de Sonora (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0040",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "com a expressão de tempo \"anteriores a 2009\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas anteriores a 2009\"), de modo que não se saiba se é data de publicação ou de criação",
+    "o município de Novo Horizonte (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VA0005",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a folha chamada \"Cachoeira do Arari\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0249",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "do projeto \"Copa do Mundo 2014\", escrito como \"copa do mundo\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0123",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "o código INOM SH-22-Y-A-I-4, escrito como \"folha SH-22-Y-A-I-4\"",
+    "o estado de São Paulo, escrito com a palavra \"estado\" (ex.: \"estado de São Paulo\")",
+    "do 1° Centro de Geoinformação, escrito como \"1º CGEO\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0068",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem deve ser explicitamente pela data de PUBLICAÇÃO (ex.: \"últimas publicadas\", \"em ordem de publicação\"); UM só resultado, no singular e sem número (ex.: \"a carta mais recente\", \"a mais antiga\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0085",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "a folha chamada \"Fazenda Peroba Preta\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0200",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido que usa as palavras 'carta', 'mapa', 'folha', 'escala' ou 'projeto' em OUTRO sentido, sem nenhuma relação com produtos cartográficos (armadilha de vocabulário). Tema sugerido: mapa astral. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0230",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "a folha chamada \"Nascente do Rio Poana\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0003",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); UM só resultado, no singular e sem número (ex.: \"a carta mais recente\", \"a mais antiga\")",
+    "o município de Soledade (escreva só o nome do município, sem o estado)",
+    "o código MI 1769-4-NE, escrito como \"MI 1769-4-NE\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0013",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "com período de PUBLICAÇÃO dado pela expressão \"depois de 2025\", ligada a um verbo de publicação (publicada/publicado/publicadas/lançada)",
+    "produtos do tipo \"SCN Carta Ortoimagem\", escrito como \"ortoimagens\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VM0157",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o código MI 2989-1-NO, escrito como \"folha MI 2989-1-NO\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0036",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: outro assunto do dia a dia: previsão do tempo, trânsito, esportes, receitas, notícias, horários de ônibus, programação de TV. Tema sugerido: receita de bolo. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VA0181",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "numa escala descrita qualitativamente como \"grande escala\" (use exatamente essa expressão, sem número de escala)",
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"cartas topo\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0160",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: outro assunto do dia a dia: previsão do tempo, trânsito, esportes, receitas, notícias, horários de ônibus, programação de TV. Tema sugerido: notícias do dia. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VF0089",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: cartas ou mapas de um lugar FORA do Brasil (outro país, cidade estrangeira, continente, polo, outro planeta ou a Lua). Tema sugerido: Portugal. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VS0240",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "a carta chamada \"Vila do Arruai\" (escreva \"carta\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0195",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "ordenadas por data, as mais antigas/primeiras (crescente); a ordem deve ser explicitamente pela data de CRIAÇÃO ou ATUALIZAÇÃO (ex.: \"criadas mais recentemente\", \"última atualização\", \"primeiro mapeamento feito\"); exatamente 3 resultados (escreva o número como \"três\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0229",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "com a expressão de tempo \"nos últimos quatro meses\" SEM nenhum verbo de publicação ou de criação (ex.: \"cartas nos últimos quatro meses\"), de modo que não se saiba se é data de publicação ou de criação",
+    "do 5° Centro de Geoinformação, escrito como \"quinto Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VS0271",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o estado de Alagoas (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0124",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"Sudeste\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0018",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "o estado de Mato Grosso (escreva o nome do estado por extenso)",
+    "a folha chamada \"Anicete Joaquim de Santana\" (escreva \"folha\" antes do nome)",
+    "na escala 1:25.000, escrita como \"escala detalhada\"",
+    "do projeto \"Base Cartográfica Digital de Rondônia\", escrito como \"BCD de Rondônia\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0004",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: cartas ou mapas de um lugar FORA do Brasil (outro país, cidade estrangeira, continente, polo, outro planeta ou a Lua). Tema sugerido: Tóquio. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VM0030",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o código MI 383, escrito como \"MI 383\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0008",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o código MI 0691, escrito como \"folha 0691\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0043",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o município de Ourinhos (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0136",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "o código MI 1905-3-NO, escrito como \"folha 1905-3-NO\"",
+    "o estado do Paraná (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0231",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a carta chamada \"Ponto do Jofre\" (escreva \"carta\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VT0250",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "com período de CRIAÇÃO dado pela expressão \"no ano de 2010\", ligada a um verbo de criação (criada/feita/elaborada/produzida)",
+    "produtos do tipo \"SCN Carta Topográfica Vetorial\", escrito como \"cartas topográficas vetoriais\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VS0234",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "a folha chamada \"Rio Comandante Fontoura\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0109",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a carta chamada \"Santa Maria da Serra\" (escreva \"carta\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0157",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido que usa as palavras 'carta', 'mapa', 'folha', 'escala' ou 'projeto' em OUTRO sentido, sem nenhuma relação com produtos cartográficos (armadilha de vocabulário). Tema sugerido: mapa de assentos do avião. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VT0092",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "analista de um Centro de Geoinformação",
+   "pedido": [
+    "com período de CRIAÇÃO dado pela expressão \"nos últimos quinze dias\", ligada a um verbo de criação (criada/feita/elaborada/produzida)",
+    "o município de São Lourenço do Piauí (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)"
+   ]
+  },
+  {
+   "id": "VA0059",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a carta chamada \"Tupã\" (escreva \"carta\" antes do nome)",
+    "produtos do tipo \"MDS — RAM\", escrito como \"MDSs\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0072",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido para PRODUZIR algo novo, não buscar no acervo (desenhar, criar, editar ou gerar um mapa). Tema sugerido: criar mapa personalizado. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0094",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "do 1° Centro de Geoinformação, escrito como \"1º CGEO\" (use \"do/da\", sem verbo como \"produzido\")",
+    "o estado de Minas Gerais, escrito como a sigla \"MG\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0131",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "a folha chamada \"Barra da Conceiçao\" (escreva \"folha\" antes do nome)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0118",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "o código MI 1437-4-NO, escrito como \"folha 1437-4-NO\"",
+    "na escala 1:25.000, escrita como \"25k\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0287",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pergunta conceitual sobre cartografia ou sobre o sistema, sem pedir produtos (o que é, como funciona, para que serve). Tema sugerido: o que é projeção UTM. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0330",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "a carta chamada \"Arroio Santo Antônio\" (escreva \"carta\" antes do nome)",
+    "produtos do tipo \"SCN Carta Topográfica Vetorial\", escrito como \"cartas topográficas vetoriais\"",
+    "o município de Bezerros (escreva só o nome do município, sem o estado)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0069",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "engenheiro civil de uma construtora",
+   "pedido": [
+    "o estado do Piauí (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0119",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); UM só resultado, no singular e sem número (ex.: \"a carta mais recente\", \"a mais antiga\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0117",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "servidor de órgão ambiental",
+   "pedido": [
+    "na escala 1:50.000, escrita como \"1:50000\"",
+    "mencione também a região \"Sertão\" (é só uma região, não diga estado nem município)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VA0020",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o programa de cartografia sistemática, dito como \"cartografia sistemática\" (sem a palavra \"projeto\" e sem \"mapeamento\")",
+    "na escala 1:50.000, escrita como \"50 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0117",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "técnico de prefeitura",
+   "pedido": [
+    "o código MI 1436-4-SO, escrito como \"carta MI 1436-4-SO\"",
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"cartas topográficas\"",
+    "na escala 1:25.000, escrita como \"25 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0013",
+   "registro": "sem_acento",
+   "registro_descricao": "tudo em minúsculas e sem acentos, como quem digita rápido no celular",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); vários resultados, no plural e SEM dizer quantos",
+    "do 3° Centro de Geoinformação, escrito como \"terceiro cgeo\" (use \"do/da\", sem verbo como \"produzido\")",
+    "o código MI 0084-4, escrito como \"MI 0084-4\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0009",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "agente da defesa civil",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pedido que usa as palavras 'carta', 'mapa', 'folha', 'escala' ou 'projeto' em OUTRO sentido, sem nenhuma relação com produtos cartográficos (armadilha de vocabulário). Tema sugerido: mapa mental. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  },
+  {
+   "id": "VC0164",
+   "registro": "telegrafico",
+   "registro_descricao": "só termos-chave, sem verbos nem artigos, como anotação rápida",
+   "persona": "cidadão sem conhecimento técnico",
+   "pedido": [
+    "produtos do tipo \"SCN Carta Topográfica Matricial\", escrito como \"topográficas\"",
+    "do projeto \"Copa das Confederações\", escrito como \"copa das confederacoes\"",
+    "na escala 1:25.000, escrita como \"25 mil\""
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0230",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "o estado do Espírito Santo (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VO0025",
+   "registro": "coloquial",
+   "registro_descricao": "linguagem falada do dia a dia, com expressões informais ('tem aí', 'queria ver', 'me passa')",
+   "persona": "oficial do Exército planejando uma operação",
+   "pedido": [
+    "ordenadas por data, as mais recentes/últimas (decrescente); a ordem NÃO pode dizer se é por publicação ou por criação (ex.: \"as mais recentes\", \"as 3 mais antigas\"); exatamente 3 resultados (escreva o número como \"três\")",
+    "o estado do Tocantins (escreva o nome do estado por extenso)",
+    "do 5° Centro de Geoinformação, escrito como \"5o cgeo\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VS0246",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "sargento topógrafo",
+   "pedido": [
+    "o estado de Roraima (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0090",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "pesquisador de universidade",
+   "pedido": [
+    "peça cartas ou mapas de uma região do Brasil — \"fronteira oeste\" — SEM estado, município ou outro critério"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VC0203",
+   "registro": "contexto",
+   "registro_descricao": "frase mais longa, que explica o uso ('estou planejando um trabalho de campo e...', 'para um relatório preciso de...'), sem acrescentar critérios de busca",
+   "persona": "estudante de graduação em geografia",
+   "pedido": [
+    "produtos do tipo \"MDS — RAM\", escrito como \"MDSs\"",
+    "do projeto \"Base Cartográfica Digital do Amapá\", escrito como \"BCD do Amapá\"",
+    "do 2° Centro de Geoinformação, escrito como \"2º Centro de Geoinformação\" (use \"do/da\", sem verbo como \"produzido\")"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VE0054",
+   "registro": "direto",
+   "registro_descricao": "pedido curto e direto, como numa caixa de busca",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "peça cartas ou mapas para uma trilha, dizendo a finalidade mas SEM nenhum critério do acervo (nenhum lugar, escala, tipo de produto, data, código, projeto, ordem ou quantidade)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VM0149",
+   "registro": "formal",
+   "registro_descricao": "frase completa e cortês, como num pedido por escrito a um setor técnico",
+   "persona": "geólogo de campo",
+   "pedido": [
+    "o código MI 2783, escrito como \"folha MI 2783\"",
+    "o estado de Sergipe (escreva o nome do estado por extenso)"
+   ],
+   "proibido": [
+    "não acrescente NENHUM outro critério além dos pedidos: nada de outro lugar, escala, tipo de produto, data, código, projeto, CGEO, ordem ou quantidade",
+    "palavras genéricas como \"cartas\", \"mapas\", \"folhas\" e \"produtos\" podem ser usadas, mas não use \"topográfica\", \"ortoimagem\", \"vetorial\", \"MDT\", \"MDS\" ou outro tipo se o tipo não foi pedido",
+    "não escreva nomes de campos nem termos do sistema (keyword, supplyArea, enum...)",
+    "não use verbos de data (publicada, criada, feita, elaborada, produzida) nem expressões de tempo"
+   ]
+  },
+  {
+   "id": "VF0105",
+   "registro": "pergunta",
+   "registro_descricao": "pergunta ao sistema ('vocês têm...?', 'existe alguma...?', 'onde encontro...?')",
+   "persona": "professor do ensino médio",
+   "pedido": [
+    "escreva uma mensagem de usuário do tipo: pergunta conceitual sobre cartografia ou sobre o sistema, sem pedir produtos (o que é, como funciona, para que serve). Tema sugerido: o que é o MI. A mensagem NÃO pode pedir produtos cartográficos do território brasileiro que existam num acervo (nada de cartas de estados, municípios, escalas ou códigos do Brasil)"
+   ],
+   "proibido": []
+  }
+ ]
+}

@@ -1,0 +1,1807 @@
+[
+ {
+  "id": "Q0391",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede rota/direção de trânsito, sem intenção de busca no acervo (seção 3, P4)."
+ },
+ {
+  "id": "Q0392",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede cartas do acervo sem nenhum critério representável (seção 6.1, categoria E)."
+ },
+ {
+  "id": "Q0393",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Lagoa das Porteiras",
+   "productType": "Cartas Temáticas Não SCN"
+  },
+  "justificativa": "Nome precedido de 'carta' é keyword (seção 2/6.4; não é município do IBGE); 'mapas temáticos' é tipo pelo nome (seção 2, productType)."
+ },
+ {
+  "id": "Q0394",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Morporá",
+   "productType": "SCN Carta Topográfica Matricial",
+   "scale": "1:100.000"
+  },
+  "justificativa": "'carta Morporá' é keyword (seção 2; não consta do IBGE), 'topográfica' → Matricial e escala explícita (seção 2)."
+ },
+ {
+  "id": "Q0395",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2978-4"
+  },
+  "justificativa": "Código MI sem o prefixo 'MI' (seção 2, keyword)."
+ },
+ {
+  "id": "Q0396",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "project": "Base Cartográfica Digital de Rondônia",
+   "supplyArea": "2° Centro de Geoinformação",
+   "state": "Bahia"
+  },
+  "justificativa": "'topo' → Matricial, 'BCD de Rondônia' → projeto (seção 2, project), '2º CGEO' → supplyArea e 'Bahia' → state; anota-se o que o texto diz (P1)."
+ },
+ {
+  "id": "Q0397",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "1° Centro de Geoinformação",
+   "creationPeriod": {
+    "start": "2024-01-01",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2024-01-01",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2024-01-01"
+     },
+     {
+      "start": "2025-01-01",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2025-01-01"
+     }
+    ]
+   }
+  ],
+  "justificativa": "'primeiro Centro de Geoinformação' → supplyArea; 'criadas após 2024' → creationPeriod com as leituras de 'depois de/após AAAA' (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0398",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Rio Cupari Braço Oeste"
+  },
+  "justificativa": "Nome precedido de 'folha' é keyword (seção 2; não é município); finalidade não é campo."
+ },
+ {
+  "id": "Q0399",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede telefone de outro órgão, sem intenção de busca no acervo (seção 3, P4)."
+ },
+ {
+  "id": "Q0400",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Nova Módica",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "limit": 3
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "justificativa": "Município do IBGE → city (6.3); 'três ... mais antigas' → ASC, limit 3 e sortField sem pista {publicationDate, creationDate} (seção 2)."
+ },
+ {
+  "id": "Q0401",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Igarapé Turi"
+  },
+  "justificativa": "Nome precedido de 'carta' é keyword (seção 2; não é município)."
+ },
+ {
+  "id": "Q0402",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:50.000",
+   "project": "Mapeamento Sistemático"
+  },
+  "campos_opcionais": [
+   "project"
+  ],
+  "justificativa": "Escala explícita; 'cartografia sistemática' designa o projeto só pelo termo distintivo → project opcional (seção 2, project)."
+ },
+ {
+  "id": "Q0403",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2026-09-21",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-27"
+     }
+    ]
+   },
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-27"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "creationPeriod": {
+     "start": "2026-09-21",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "'nesta semana' sem verbo → publicationPeriod preferencial e creationPeriod estrutural, com as leituras da tabela (seção 2)."
+ },
+ {
+  "id": "Q0404",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:50.000",
+   "sortField": "publicationDate",
+   "sortDirection": "DESC"
+  },
+  "justificativa": "Escala explícita; 'mais recentes, ordenadas pela data de publicação' → DESC/publicationDate, plural sem limit (seção 2)."
+ },
+ {
+  "id": "Q0405",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fora do Brasil (Paris) → não chamar (seção 3)."
+ },
+ {
+  "id": "Q0406",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2766-3-NO",
+   "state": "Rio de Janeiro"
+  },
+  "justificativa": "Código MI sem prefixo → keyword; sigla 'RJ' é sempre estado (seção 2)."
+ },
+ {
+  "id": "Q0407",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2026-04-01",
+    "end": "2026-06-30"
+   }
+  },
+  "justificativa": "'publicadas no trimestre passado' → publicationPeriod, trimestre-calendário anterior ao de D (seção 2)."
+ },
+ {
+  "id": "Q0408",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "publicationDate",
+   "sortDirection": "ASC"
+  },
+  "justificativa": "'mais antigas, ordenadas pela data de publicação' → ASC/publicationDate, plural sem limit (seção 2)."
+ },
+ {
+  "id": "Q0409",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Rio de Janeiro",
+   "scale": "1:25.000"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Rio de Janeiro",
+    "scale": "1:25.000"
+   }
+  ],
+  "justificativa": "'Rio de Janeiro' sem qualificador → state com leitura estrutural city; 'escala detalhada' → 1:25.000 (seção 2)."
+ },
+ {
+  "id": "Q0410",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "scale": "1:50.000",
+   "project": "Olimpíadas Rio 2016",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "'topográficas' → Matricial, escala explícita, 'olimpíadas' é apelido informado → projeto, 'segundo cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0411",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "project": "Base Cartográfica Digital do Amapá",
+   "scale": "1:25.000",
+   "supplyArea": "1° Centro de Geoinformação"
+  },
+  "justificativa": "'bcd do amapa' (sigla de Base Cartográfica Digital) → projeto (seção 2, project); escala explícita; '1o cgeo' → supplyArea."
+ },
+ {
+  "id": "Q0412",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Lagoa Tres Casas",
+   "state": "Ceará",
+   "scale": "1:100.000",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "Nome precedido de 'carta' → keyword (não é município); 'Ceará' → state; escala explícita; 'segundo Centro de Geoinformação' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0413",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "'topográficas' → Matricial; 'Amazônia Legal' é região e não é anotada (seção 2, state)."
+ },
+ {
+  "id": "Q0414",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Outro assunto (cinema), sem intenção de busca no acervo (seção 3)."
+ },
+ {
+  "id": "Q0415",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "Cartas Temáticas Não SCN",
+   "scale": "1:50.000",
+   "project": "Copa do Mundo 2014",
+   "city": "Dom Aquino",
+   "state": "Mato Grosso"
+  },
+  "campos_opcionais": [
+   "project"
+  ],
+  "justificativa": "'temáticas' → tipo pelo nome; escala explícita; município + sigla '(MT)' → city e state (6.3); 'copa 2014' designa o projeto só por termos do nome, sem 'projeto'/sigla/apelido → project opcional (seção 2)."
+ },
+ {
+  "id": "Q0416",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "1° Centro de Geoinformação",
+   "city": "Guarinos",
+   "state": "Goiás"
+  },
+  "justificativa": "'primeiro Centro de Geoinformação' → supplyArea; município com sigla 'GO' → city e state (6.3)."
+ },
+ {
+  "id": "Q0417",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "'segundo cgeo' → supplyArea; 'folhas' sozinho não define tipo (seção 2)."
+ },
+ {
+  "id": "Q0418",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'folha de ponto' é armadilha de vocabulário, não produto cartográfico (6.5)."
+ },
+ {
+  "id": "Q0419",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Amazonas"
+  },
+  "justificativa": "Sigla 'AM' é sempre estado (seção 2)."
+ },
+ {
+  "id": "Q0420",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Ribeira",
+   "state": "São Paulo",
+   "scale": "1:25.000",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "Município com sigla '(SP)' → city e state (6.3); '25k' → 1:25.000; '3º Centro de Geoinformação' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0421",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Amapá",
+   "scale": "1:50.000"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:50.000",
+     "1:25.000",
+     "1:10.000",
+     "1:5.000",
+     "1:2.000",
+     "1:1.000"
+    ]
+   }
+  ],
+  "justificativa": "Sigla 'AP' → state; 'maior que 100k' aceita o conjunto de escalas que a satisfazem (seção 2, scale)."
+ },
+ {
+  "id": "Q0422",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "state": "Rio de Janeiro"
+  },
+  "leituras_estruturais": [
+   {
+    "productType": "SCN Carta Topográfica Matricial",
+    "city": "Rio de Janeiro"
+   }
+  ],
+  "justificativa": "'topográfica' → Matricial; 'Rio de Janeiro' sem qualificador → state com leitura estrutural city (seção 2); singular sem ordenação não gera limit."
+ },
+ {
+  "id": "Q0423",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "city": "Independência",
+   "state": "Ceará"
+  },
+  "justificativa": "'25k' → 1:25.000; município com sigla 'CE' → city e state (6.3)."
+ },
+ {
+  "id": "Q0424",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "creationDate",
+   "sortDirection": "ASC",
+   "limit": 3
+  },
+  "justificativa": "'três ... mais antigas por data de criação' → ASC, creationDate e limit 3 (seção 2)."
+ },
+ {
+  "id": "Q0425",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Pedrinhas Paulista"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Pedrinhas Paulista"
+   }
+  ],
+  "justificativa": "Nome precedido de 'carta' → keyword; coincide com município do IBGE → leitura estrutural city (seções 2 e 6.4)."
+ },
+ {
+  "id": "Q0426",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Vetorial",
+   "state": "Amazonas",
+   "publicationPeriod": {
+    "start": "2026-08-01",
+    "end": "2026-08-31"
+   }
+  },
+  "leituras_estruturais": [
+   {
+    "productType": "SCN Carta Topográfica Vetorial",
+    "state": "Amazonas",
+    "creationPeriod": {
+     "start": "2026-08-01",
+     "end": "2026-08-31"
+    }
+   }
+  ],
+  "justificativa": "'vetoriais' → tipo pelo nome; 'Amazonas' → state; 'do mês passado' sem verbo → publicationPeriod com creationPeriod estrutural (seção 2)."
+ },
+ {
+  "id": "Q0427",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "creationPeriod": {
+    "end": "2008-12-31"
+   }
+  },
+  "justificativa": "'25 mil' → 1:25.000; 'elaboradas em anos anteriores a 2009' → creationPeriod até 2008-12-31 (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0428",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Região não é campo; pedido de mapas sem critério representável (seção 6.1, categoria E)."
+ },
+ {
+  "id": "Q0429",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2026-05-27",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-05-27",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-05-24",
+      "end": "2026-09-24"
+     }
+    ]
+   },
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-05-27",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-05-24",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "creationPeriod": {
+     "start": "2026-05-27",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "'nos últimos quatro meses' sem verbo → publicationPeriod preferencial, creationPeriod estrutural, leituras de 'últimos N meses' (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0430",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Buritirama",
+   "scale": "1:25.000"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Buritirama",
+    "scale": "1:25.000"
+   }
+  ],
+  "justificativa": "Nome precedido de 'folha' → keyword, coincide com município → leitura estrutural city (6.4); 'escala detalhada' → 1:25.000."
+ },
+ {
+  "id": "Q0431",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "scale": "1:100.000",
+   "keyword": "SE-21-Z-B-V"
+  },
+  "justificativa": "'topográficas' → Matricial; escala explícita; código INOM → keyword (seção 2)."
+ },
+ {
+  "id": "Q0432",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede cartas para uma finalidade (obra), que não é campo: sem critério representável (seção 6.1, categoria E)."
+ },
+ {
+  "id": "Q0433",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede distância rodoviária, outro assunto (seção 3)."
+ },
+ {
+  "id": "Q0434",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Finalidade (aula de geografia) não é campo; pedido sem critério representável (seção 6.1, categoria E)."
+ },
+ {
+  "id": "Q0435",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SA-20-X-D-III-4"
+  },
+  "justificativa": "Código INOM → keyword (seção 2)."
+ },
+ {
+  "id": "Q0436",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "justificativa": "'ortoimg' → SCN Carta Ortoimagem; 'mais antigas' sem pista → ASC e sortField {publicationDate, creationDate}, plural sem limit; '2º Centro' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0437",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2979-2-NO",
+   "sortField": "creationDate",
+   "sortDirection": "DESC"
+  },
+  "justificativa": "Código MI → keyword; 'mais recentes pela data de atualização' → DESC com pista de atualização → creationDate; plural sem limit (seção 2)."
+ },
+ {
+  "id": "Q0438",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "'terceiro cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0439",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2026-06-26",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-06-26",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-06-24",
+      "end": "2026-09-24"
+     }
+    ]
+   },
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-06-26",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-06-24",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "creationPeriod": {
+     "start": "2026-06-26",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "'nos últimos três meses' sem verbo → publicationPeriod preferencial, creationPeriod estrutural, leituras da tabela (seção 2)."
+ },
+ {
+  "id": "Q0440",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede tempo de viagem de carro, outro assunto (seção 3)."
+ },
+ {
+  "id": "Q0441",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Nascente do Rio Poana"
+  },
+  "justificativa": "Nome precedido de 'folha' → keyword (seção 2; não é município)."
+ },
+ {
+  "id": "Q0442",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2998-1-SE",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "limit": 1
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "campos_opcionais": [
+   "limit"
+  ],
+  "justificativa": "Código MI → keyword; 'mais antiga' singular → ASC, sortField sem pista {publicationDate, creationDate} e limit 1 opcional (seção 2)."
+ },
+ {
+  "id": "Q0443",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'folha de ponto' é armadilha de vocabulário (6.5)."
+ },
+ {
+  "id": "Q0444",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:5.000"
+  },
+  "justificativa": "Escala explícita; 'região Nordeste' é região e não é anotada (seção 2)."
+ },
+ {
+  "id": "Q0445",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Senador Cortes",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC"
+  },
+  "justificativa": "Município do IBGE → city (6.3); 'em ordem de publicação, das mais antigas para as mais recentes' → publicationDate ASC (seção 2)."
+ },
+ {
+  "id": "Q0446",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem",
+   "keyword": "1998-3-NO",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "'ortoimg' → SCN Carta Ortoimagem; código MI da folha → keyword; '3º CGEO' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0447",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta administrativa sobre prazo de entrega, sem intenção de busca no acervo (seção 3)."
+ },
+ {
+  "id": "Q0448",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "NA-20-Y-C-VI-1",
+   "supplyArea": "4° Centro de Geoinformação"
+  },
+  "justificativa": "Código INOM → keyword; 'quarto cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0449",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'fronteira oeste' é região, não é campo: sem critério representável (seções 2 e 6.1)."
+ },
+ {
+  "id": "Q0450",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "limit": 1
+  },
+  "campos_opcionais": [
+   "limit"
+  ],
+  "justificativa": "'a carta mais antiga por data de publicação' → ASC, publicationDate e limit 1 opcional (singular sem número, seção 2)."
+ },
+ {
+  "id": "Q0451",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem",
+   "scale": "1:25.000",
+   "publicationPeriod": {
+    "start": "2022-01-01",
+    "end": "2022-12-31"
+   }
+  },
+  "justificativa": "'ortoimagem' → SCN Carta Ortoimagem; '25 mil' → 1:25.000; 'publicadas em 2022' → publicationPeriod do ano inteiro (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0452",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Rio de Janeiro",
+   "scale": "1:25.000"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Rio de Janeiro",
+    "scale": "1:25.000"
+   }
+  ],
+  "justificativa": "'Rio de Janeiro' sem qualificador → state com leitura estrutural city; '25k' → 1:25.000 (seção 2)."
+ },
+ {
+  "id": "Q0453",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "'topo' → Matricial; um único critério basta para buscar (seção 6.1, diferença para S)."
+ },
+ {
+  "id": "Q0454",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Senador Firmino"
+  },
+  "justificativa": "Município do IBGE → city (6.3)."
+ },
+ {
+  "id": "Q0455",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fictício (Westeros) → não chamar (seção 3)."
+ },
+ {
+  "id": "Q0456",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "MDS — RAM",
+   "keyword": "Tupã"
+  },
+  "leituras_estruturais": [
+   {
+    "productType": "MDS — RAM",
+    "city": "Tupã"
+   }
+  ],
+  "justificativa": "'MDSs' → MDS — RAM pelo nome; 'carta Tupã' → keyword, coincide com município → leitura estrutural city (6.4)."
+ },
+ {
+  "id": "Q0457",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Região não é campo; pedido de mapas sem critério representável (seção 6.1)."
+ },
+ {
+  "id": "Q0458",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2026-06-26",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-06-26",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-06-24",
+      "end": "2026-09-24"
+     }
+    ]
+   },
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-06-26",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-06-24",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "creationPeriod": {
+     "start": "2026-06-26",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "'nos últimos três meses' sem verbo → publicationPeriod preferencial, creationPeriod estrutural, leituras da tabela (seção 2)."
+ },
+ {
+  "id": "Q0459",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "0438"
+  },
+  "justificativa": "Código MI sem o prefixo 'MI-' (seção 2, keyword)."
+ },
+ {
+  "id": "Q0460",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "NA-22-V-D-II-1-SE"
+  },
+  "justificativa": "INOM compactado normalizado para a grafia com hífens (seção 2, keyword)."
+ },
+ {
+  "id": "Q0461",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'Sertão nordestino' é região, não é campo (seções 2 e 6.1)."
+ },
+ {
+  "id": "Q0462",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "0309-1",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "Código MI da folha → keyword; '2º cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0463",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fora do Brasil (Antártida) → não chamar (seção 3)."
+ },
+ {
+  "id": "Q0464",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Outro assunto (chuva/clima) (seção 3)."
+ },
+ {
+  "id": "Q0465",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Finalidade (avaliar terreno de obra) não é campo; sem critério representável (seção 6.1)."
+ },
+ {
+  "id": "Q0466",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'semiárido' é região, não é campo (seções 2 e 6.1)."
+ },
+ {
+  "id": "Q0467",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Minas Gerais",
+   "publicationPeriod": {
+    "start": "2020-01-01",
+    "end": "2020-12-31"
+   }
+  },
+  "leituras_estruturais": [
+   {
+    "state": "Minas Gerais",
+    "creationPeriod": {
+     "start": "2020-01-01",
+     "end": "2020-12-31"
+    }
+   }
+  ],
+  "justificativa": "'Minas Gerais' → state; 'no ano de 2020' sem verbo → publicationPeriod com creationPeriod estrutural, ano inteiro (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0468",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Fátima do Sul",
+   "state": "Mato Grosso do Sul",
+   "scale": "1:50.000",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "Município com sigla '(MS)' → city e state (6.3); escala explícita; '2o cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0469",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SC-23-Y-D-V-4-NO"
+  },
+  "justificativa": "Código INOM → keyword (seção 2)."
+ },
+ {
+  "id": "Q0470",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Cacimba",
+   "productType": "SCN Carta Topográfica Vetorial",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "justificativa": "'folha Cacimba' → keyword (não é município do IBGE); 'dados vetoriais' → tipo pelo nome; '2º Centro' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0471",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Alagoas",
+   "publicationPeriod": {
+    "start": "2026-09-21",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-27"
+     }
+    ]
+   },
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-09-21",
+      "end": "2026-09-27"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "state": "Alagoas",
+    "creationPeriod": {
+     "start": "2026-09-21",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "Sigla 'AL' → state; 'esta semana' sem verbo → publicationPeriod preferencial, creationPeriod estrutural (seção 2)."
+ },
+ {
+  "id": "Q0472",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:100.000",
+   "sortField": "publicationDate",
+   "sortDirection": "DESC",
+   "limit": 1
+  },
+  "campos_opcionais": [
+   "limit"
+  ],
+  "justificativa": "Escala explícita; 'carta ... mais recente por data de publicação' → DESC, publicationDate, limit 1 opcional (seção 2)."
+ },
+ {
+  "id": "Q0473",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem",
+   "city": "Cajueiro"
+  },
+  "justificativa": "'ortoimagens' → SCN Carta Ortoimagem; Cajueiro é município do IBGE → city (6.3)."
+ },
+ {
+  "id": "Q0474",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Pindobaçu",
+   "state": "Bahia",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "Município com sigla '(BA)' → city e state (6.3); '3º Centro de Geoinformação' → supplyArea."
+ },
+ {
+  "id": "Q0475",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Vetorial",
+   "city": "Bezerros",
+   "keyword": "Arroio Santo Antônio"
+  },
+  "justificativa": "'topográficas vetoriais' → SCN Carta Topográfica Vetorial; Bezerros é município → city (6.3); nome precedido de 'carta' → keyword (seção 2)."
+ },
+ {
+  "id": "Q0476",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta institucional sobre a DSG, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0477",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "2° Centro de Geoinformação",
+   "publicationPeriod": {
+    "start": "2025-01-01",
+    "end": "2025-12-31"
+   }
+  },
+  "leituras_estruturais": [
+   {
+    "supplyArea": "2° Centro de Geoinformação",
+    "creationPeriod": {
+     "start": "2025-01-01",
+     "end": "2025-12-31"
+    }
+   }
+  ],
+  "justificativa": "'segundo cgeo' → supplyArea; 'no ano passado' sem verbo → publicationPeriod com creationPeriod estrutural (seção 2)."
+ },
+ {
+  "id": "Q0478",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Baía de Sepetiba",
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "Nome precedido de 'carta' → keyword (não é município); 'topográficas' → Matricial (seção 2)."
+ },
+ {
+  "id": "Q0479",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede direção de trânsito local, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0480",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "project": "Base Cartográfica Digital da Bahia"
+  },
+  "justificativa": "'BCD da Bahia' (sigla de Base Cartográfica Digital) → projeto (seção 2, project); não implica state (P1)."
+ },
+ {
+  "id": "Q0481",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Roda Velha-n",
+   "scale": "1:25.000",
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "Nome precedido de 'carta' → keyword; 'escala detalhada' → 1:25.000; 'carta topográfica' → Matricial (seção 2)."
+ },
+ {
+  "id": "Q0482",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pedido de produção de mapa personalizado, não busca no acervo (seções 3 e 6.1)."
+ },
+ {
+  "id": "Q0483",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "Cartas Temáticas Não SCN",
+   "scale": "1:50.000"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:50.000",
+     "1:100.000"
+    ]
+   }
+  ],
+  "justificativa": "'temáticos' → tipo pelo nome; duas escalas explícitas ('50k ou 1:100000') → aceita-se qualquer uma (seção 2, scale)."
+ },
+ {
+  "id": "Q0484",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SE-24-V-D-V-1-NE",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "Código INOM → keyword; '3o cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0485",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SC-23-X-C-VI-1-SE",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "Código INOM → keyword; 'terceiro cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0486",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta conceitual sobre o SCN, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0487",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Vetorial",
+   "publicationPeriod": {
+    "start": "2008-01-01",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2008-01-01",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2008-01-01"
+     }
+    ]
+   }
+  ],
+  "justificativa": "'topográficas vetoriais' → Vetorial; 'publicadas desde 2008' → publicationPeriod com as leituras de 'desde AAAA' (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0488",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Igarapé Uneí-so",
+   "scale": "1:50.000",
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "Nome precedido de 'carta' → keyword; '50k' → 1:50.000; 'topo' → Matricial (seção 2)."
+ },
+ {
+  "id": "Q0489",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "1° Centro de Geoinformação",
+   "creationPeriod": {
+    "start": "2026-03-28",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2026-03-28",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-03-24",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "justificativa": "'primeiro cgeo' → supplyArea; 'criadas nos últimos 6 meses' → creationPeriod com as leituras da tabela (seção 2)."
+ },
+ {
+  "id": "Q0490",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "publicationPeriod": {
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   }
+  },
+  "justificativa": "Escala explícita; 'publicadas, só as de 2024' → publicationPeriod do ano inteiro, leitura única (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0491",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "1° Centro de Geoinformação"
+  },
+  "justificativa": "'1º Centro de Geoinformação' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0492",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "creationPeriod": {
+    "end": "2009-12-31"
+   }
+  },
+  "justificativa": "'feitas antes de 2010' → creationPeriod sem início até 2009-12-31 (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0493",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Agradecimento/conversa, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0494",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "keyword": "SC-23-Z-A-V-1-NE",
+   "scale": "1:25.000"
+  },
+  "justificativa": "'topo' → Matricial; código INOM → keyword; escala explícita (seção 2)."
+ },
+ {
+  "id": "Q0495",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SG-22-Y-D-III",
+   "supplyArea": "1° Centro de Geoinformação",
+   "scale": "1:100.000"
+  },
+  "justificativa": "Código INOM → keyword; '1o cgeo' → supplyArea; '100 mil' → 1:100.000 (seção 2)."
+ },
+ {
+  "id": "Q0496",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Tocantins",
+   "scale": "1:50.000"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:50.000",
+     "1:25.000",
+     "1:10.000",
+     "1:5.000",
+     "1:2.000",
+     "1:1.000"
+    ]
+   }
+  ],
+  "justificativa": "'do Tocantins' → state; 'maior que 100k' aceita o conjunto de escalas (seção 2, scale)."
+ },
+ {
+  "id": "Q0497",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Mato Grosso"
+  },
+  "justificativa": "Sigla 'MT' é sempre estado (seção 2)."
+ },
+ {
+  "id": "Q0498",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "project": "Copa das Confederações",
+   "supplyArea": "1° Centro de Geoinformação"
+  },
+  "justificativa": "Nome do projeto sem acento → project (seção 2); 'primeiro centro de geoinformacao' → supplyArea."
+ },
+ {
+  "id": "Q0499",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Outro assunto (horóscopo) (seção 3)."
+ },
+ {
+  "id": "Q0500",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:1.000",
+   "state": "Maranhão",
+   "creationPeriod": {
+    "start": "2020-01-01",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "creationPeriod",
+    "valores": [
+     {
+      "start": "2020-01-01",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2020-01-01"
+     }
+    ]
+   }
+  ],
+  "justificativa": "Escala explícita; sigla 'MA' → state; 'elaboradas desde 2020' → creationPeriod com as leituras de 'desde AAAA' (seções 2 e 6.2)."
+ },
+ {
+  "id": "Q0501",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Finalidade (aula de geografia) não é campo; sem critério representável (seção 6.1)."
+ },
+ {
+  "id": "Q0502",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:2.000",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "supplyArea": "1° Centro de Geoinformação",
+   "limit": 1
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "campos_opcionais": [
+   "limit"
+  ],
+  "justificativa": "Escala explícita; 'mapa ... mais antigo' singular → ASC, sortField sem pista {publicationDate, creationDate}, limit 1 opcional; 'primeiro cgeo' → supplyArea (seção 2)."
+ },
+ {
+  "id": "Q0503",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SB-21-X-B-II-3",
+   "scale": "1:50.000",
+   "state": "Bahia"
+  },
+  "justificativa": "Código INOM → keyword; '50k' → 1:50.000; 'referente à Bahia' → state (seção 2, P1)."
+ },
+ {
+  "id": "Q0504",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Ribeirão Bonito"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Ribeirão Bonito"
+   }
+  ],
+  "justificativa": "Nome precedido de 'folha' → keyword; coincide com município → leitura estrutural city (6.4)."
+ },
+ {
+  "id": "Q0505",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta sobre preço/desconto, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0506",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "project": "Base Cartográfica Digital do Amapá",
+   "city": "Coronel João Pessoa",
+   "state": "Rio Grande do Norte"
+  },
+  "justificativa": "Nome do projeto por extenso → project; município com sigla '(RN)' → city e state (6.3); anota-se o que o texto diz (P1)."
+ },
+ {
+  "id": "Q0507",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Região não é campo; pedido sem critério representável (seção 6.1)."
+ },
+ {
+  "id": "Q0508",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "supplyArea": "4° Centro de Geoinformação",
+   "keyword": "Rio Aracá-se",
+   "scale": "1:25.000"
+  },
+  "justificativa": "'topo' → Matricial; 'quarto Centro' → supplyArea; nome precedido de 'carta' → keyword; escala explícita (seção 2)."
+ },
+ {
+  "id": "Q0509",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "4° Centro de Geoinformação",
+   "project": "NGA-BECA"
+  },
+  "justificativa": "'4º CGEO' → supplyArea; 'projeto NGA-BECA' → project (seção 2)."
+ },
+ {
+  "id": "Q0510",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Mapa fictício (tesouro de pirata) → não chamar (seção 3)."
+ },
+ {
+  "id": "Q0511",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede contato de suporte, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0512",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta de acesso/senha, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0513",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Outro assunto (horário de ônibus) (seção 3)."
+ },
+ {
+  "id": "Q0514",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Rio Camaraipi",
+   "project": "NGA-BECA"
+  },
+  "justificativa": "Nome precedido de 'folha' → keyword; 'projeto NGA-BECA' → project (seção 2)."
+ },
+ {
+  "id": "Q0515",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fora do Brasil (Uruguai) (seção 3)."
+ },
+ {
+  "id": "Q0516",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "supplyArea": "1° Centro de Geoinformação",
+   "sortField": "publicationDate",
+   "sortDirection": "ASC",
+   "limit": 1
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "campos_opcionais": [
+   "limit"
+  ],
+  "justificativa": "'primeiro cgeo' → supplyArea; 'carta mais antiga' singular → ASC, sortField sem pista {publicationDate, creationDate}, limit 1 opcional (seção 2)."
+ },
+ {
+  "id": "Q0517",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "1197"
+  },
+  "justificativa": "Código MI sem o prefixo 'MI-' (seção 2, keyword)."
+ },
+ {
+  "id": "Q0518",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fora do Brasil (Nova York) (seção 3)."
+ },
+ {
+  "id": "Q0519",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta de nível de acesso da conta, sem intenção de busca (seção 3)."
+ },
+ {
+  "id": "Q0520",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Espírito Santo"
+  },
+  "justificativa": "'do Espírito Santo' → state por extenso (seção 2); finalidade não é campo."
+ }
+]

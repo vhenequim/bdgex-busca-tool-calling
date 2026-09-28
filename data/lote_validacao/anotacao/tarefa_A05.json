@@ -1,0 +1,528 @@
+{
+ "tarefa": "A05",
+ "saida": "data/lote_validacao/anotacao/saida_A05.json",
+ "data_referencia": "2026-09-24",
+ "instrucoes": "Você é anotador independente do gabarito de um conjunto de avaliação. Cada item é a mensagem de um usuário ao assistente de busca do acervo cartográfico da DSG, que transforma a mensagem numa chamada da ferramenta buscar_catalogo. Anote, para cada mensagem, a chamada correta — ou que a ferramenta não deve ser chamada.\n\nReferências (leia-as inteiras antes de começar e siga-as à risca; em caso de dúvida, o manual decide):\n- o manual de anotação, docs/manual_de_anotacao.md (princípios P1–P6, regras por campo, seção 3 e as extensões da seção 6);\n- a definição da ferramenta, FERRAMENTA_BUSCAR_CATALOGO em src/pfc_busca/schema.py (enumerados e descrições dos parâmetros).\nPara saber se um nome é de município brasileiro (seções 6.3 e 6.4), você pode consultar a lista oficial do IBGE em data/lote_validacao/ibge_municipios.json (campo \"nome\").\n\nData de referência D = 2026-09-24 (quinta-feira). Escreva períodos como datas ISO concretas resolvidas com D.\n\nFormato de cada anotação (um objeto por mensagem):\n{\n  \"id\": \"<id da mensagem>\",\n  \"chamar_ferramenta\": true | false,\n  \"aceita_nao_chamar\": true | false,   // true só na categoria E (seção 6.1): buscar sem filtros e não buscar são ambos corretos\n  \"observacional\": true | false,       // P6\n  \"parametros\": {<campo>: <valor canônico da leitura preferencial>},\n  \"valores_alternativos\": [{\"campo\": \"<campo>\", \"valores\": [<todos os valores aceitos, o preferencial primeiro>]}],\n  \"campos_opcionais\": [\"<campo>\", ...],\n  \"leituras_estruturais\": [{<leitura completa alternativa, com todos os campos>}],\n  \"justificativa\": \"<uma frase citando a regra do manual>\"\n}\nOmita \"valores_alternativos\", \"campos_opcionais\" e \"leituras_estruturais\" quando não houver. Fora do domínio: \"chamar_ferramenta\": false e \"parametros\": {}. Categoria E: \"chamar_ferramenta\": true, \"aceita_nao_chamar\": true e \"parametros\": {} (se não houver nenhum critério representável). Expressões de tempo com mais de uma leitura (tabelas das seções 2 e 6.2) vão em \"valores_alternativos\"; período sem verbo que desempate vai também em \"leituras_estruturais\" com o campo trocado.\n\nAnote pelo que o TEXTO diz, não pelo que o usuário provavelmente quis. Não invente nada que o texto não sustente (P1); não deixe de fora nada que ele sustente.\n\nEntregue um único arquivo JSON, no caminho indicado na tarefa, com a lista de anotações [{...}, {...}], uma por id, na mesma ordem da tarefa.",
+ "consultas": [
+  {
+   "id": "Q0521",
+   "consulta": "À equipe do acervo: gostaria de obter a carta topográfica da folha Babaçulândia, para uso em sala de aula."
+  },
+  {
+   "id": "Q0522",
+   "consulta": "MI-1715-2-NO do terceiro cgeo"
+  },
+  {
+   "id": "Q0523",
+   "consulta": "Tem aí as cartas 100k da copa do mundo? Manda pra mim que eu preciso dar uma olhada"
+  },
+  {
+   "id": "Q0524",
+   "consulta": "preciso de mapas de ribeirao claro pro licenciamento"
+  },
+  {
+   "id": "Q0525",
+   "consulta": "Gostaria de compreender o que é um MDT e para que ele serve nos estudos de relevo."
+  },
+  {
+   "id": "Q0526",
+   "consulta": "modelos digitais de terreno do Espírito Santo, NGA-BECA, do 1º CGEO"
+  },
+  {
+   "id": "Q0527",
+   "consulta": "Manda os MDS que tiver aí, faz favor."
+  },
+  {
+   "id": "Q0528",
+   "consulta": "queria uns mapas pra usar numa aula de geografia, o que voces tem?"
+  },
+  {
+   "id": "Q0529",
+   "consulta": "Estou procuarndo a carta Fazenda Busato I na escala 1:50.000."
+  },
+  {
+   "id": "Q0530",
+   "consulta": "Prezados, gostaria de obter modelos digitais de superfície em 100 mil ou 50k, para uso em sala de aula. Obrigado."
+  },
+  {
+   "id": "Q0531",
+   "consulta": "Puxa pra mim as três cartas mais antigas pela data de publicação, pode ser?"
+  },
+  {
+   "id": "Q0532",
+   "consulta": "cartas do projeto base cartográfica digital de rondônia"
+  },
+  {
+   "id": "Q0533",
+   "consulta": "cartas CIRC de 2 anos atrás"
+  },
+  {
+   "id": "Q0534",
+   "consulta": "Gostaria de solicitar, se possível, as cartas topográficas vetoriais em escala detalhada do 2º Centro de Geoinformação. Agradeço a atenção."
+  },
+  {
+   "id": "Q0535",
+   "consulta": "cartas 1:100000 MG mapeamento sistemático do segundo cgeo"
+  },
+  {
+   "id": "Q0536",
+   "consulta": "receita de bolo de cenoura com cobertura de chocolate"
+  },
+  {
+   "id": "Q0537",
+   "consulta": "Me conta as notícias de hoje, o que tá rolando no mundo?"
+  },
+  {
+   "id": "Q0538",
+   "consulta": "Me explica a escala de dó maior no violão? Tô aprendendo e sempre me enrolo."
+  },
+  {
+   "id": "Q0539",
+   "consulta": "quais as principais noticias do dia? to no campo e sem sinal de tv aqui"
+  },
+  {
+   "id": "Q0540",
+   "consulta": "ortoimagem banda P polarização HH, quatro mais antigas por data de publicação"
+  },
+  {
+   "id": "Q0541",
+   "consulta": "E aí, tem umas cartas de Angola? Vai ter missão lá."
+  },
+  {
+   "id": "Q0542",
+   "consulta": "cartas Camargo"
+  },
+  {
+   "id": "Q0543",
+   "consulta": "Por gentileza, poderiam me informar o placar do jogo do Corinthians de ontem?"
+  },
+  {
+   "id": "Q0544",
+   "consulta": "cartas 25k CE publicadas nos últimos quinze dias"
+  },
+  {
+   "id": "Q0545",
+   "consulta": "Como faço para aumentar o meu nível de acesso no sistema?"
+  },
+  {
+   "id": "Q0546",
+   "consulta": "Venho por meio desta solicitar a carta MI 0450-4. Grato."
+  },
+  {
+   "id": "Q0547",
+   "consulta": "queria ver cartas do Paraná em grande escala, tem aí?"
+  },
+  {
+   "id": "Q0548",
+   "consulta": "como monto a escala de trabalho 12x36 pro pessoal da obra?"
+  },
+  {
+   "id": "Q0549",
+   "consulta": "dá pra você desenhar um croqui rapidinho da minha área de estudo? é só um esboço pra botar no artigo"
+  },
+  {
+   "id": "Q0550",
+   "consulta": "Gostaria de solicitar a carta mais antiga do estado do Pará, considerando a ordem de publicação."
+  },
+  {
+   "id": "Q0551",
+   "consulta": "cartas São Caetano do Sul"
+  },
+  {
+   "id": "Q0552",
+   "consulta": "tem cartas em escala detalhada antes de 2022?"
+  },
+  {
+   "id": "Q0553",
+   "consulta": "listar cartas do acervo"
+  },
+  {
+   "id": "Q0554",
+   "consulta": "cartas para planejamento de obra"
+  },
+  {
+   "id": "Q0555",
+   "consulta": "Tem aí as cartas da cartografia sistemática de Registro?"
+  },
+  {
+   "id": "Q0556",
+   "consulta": "cartas ortoimagem da regiao norte"
+  },
+  {
+   "id": "Q0557",
+   "consulta": "preciso de cartas 25 mil do centro-oeste"
+  },
+  {
+   "id": "Q0558",
+   "consulta": "Prezados, gostaria de saber se vocês dispõem de algum mapa da Atlântida, a cidade perdida da lenda."
+  },
+  {
+   "id": "Q0559",
+   "consulta": "Gostaria de saber quais cartas de Sergipe foram publicadas depois de 2010."
+  },
+  {
+   "id": "Q0560",
+   "consulta": "Solicitamos, por gentileza, acesso aos produtos cartográficos disponíveis no acervo. Atenciosamente."
+  },
+  {
+   "id": "Q0561",
+   "consulta": "cartas do quinto cgeo publicadas nos últimos dez anos"
+  },
+  {
+   "id": "Q0562",
+   "consulta": "Tem como achar mapas do Sertão nordestino por aqui?"
+  },
+  {
+   "id": "Q0563",
+   "consulta": "Boa tarde. Poderiam me enviar as cartas da MI 2087-1-NO, em Alagoas, ordenadas da data de criação mais antiga para a mais recente?"
+  },
+  {
+   "id": "Q0564",
+   "consulta": "Para a introdução da minha tese, quero citar a carta mais recente do acervo pela data de publicação."
+  },
+  {
+   "id": "Q0565",
+   "consulta": "Nordeste, cartas do terceiro Centro de Geoinformação"
+  },
+  {
+   "id": "Q0566",
+   "consulta": "Tem cartas ortoimagem de 50 mil no ano de 2022?"
+  },
+  {
+   "id": "Q0567",
+   "consulta": "o que significa MI na numeração das folhas"
+  },
+  {
+   "id": "Q0568",
+   "consulta": "Estou procurnado a folha INOM SF-23-X-A-V-2-NO do segundo Centro de Geoinformação."
+  },
+  {
+   "id": "Q0569",
+   "consulta": "Não entendo muito do assunto, mas gostaria de solicitar ortoimg em 25k ou 250k, caso seja possível. Obrigado."
+  },
+  {
+   "id": "Q0570",
+   "consulta": "Prezados, solicito informações sobre a disponibilidade de cartas do território uruguaio, em especial dos arredores de Montevidéu, para uma pesquisa de campo."
+  },
+  {
+   "id": "Q0571",
+   "consulta": "base cartográfica digital da bahia em 1:25000"
+  },
+  {
+   "id": "Q0572",
+   "consulta": "Vocês têm cartas de Primavera no acervo?"
+  },
+  {
+   "id": "Q0573",
+   "consulta": "São Joaquim do Monte, cartas topográficas em 50 mil"
+  },
+  {
+   "id": "Q0574",
+   "consulta": "A carta Itaberá aparece entre os mapas temáticos?"
+  },
+  {
+   "id": "Q0575",
+   "consulta": "preciso das cartas do rio grande do norte publicadas em 2019, tem?"
+  },
+  {
+   "id": "Q0576",
+   "consulta": "me tira uma dúvida: no truco, qual carta de baralho é a mais forte?"
+  },
+  {
+   "id": "Q0577",
+   "consulta": "Para a revisão de um artigo, preciso comparar as cartas 1:25000 após 2010 que existem no acervo; vocês podem me mostrar?"
+  },
+  {
+   "id": "Q0578",
+   "consulta": "Poderiam, por gentileza, me enviar os 10 dados vetoriais mais recentes pela data de publicação?"
+  },
+  {
+   "id": "Q0579",
+   "consulta": "folha Passo do Goulart"
+  },
+  {
+   "id": "Q0580",
+   "consulta": "oi, tem aí a folha Serra da Quina? queria dar uma olhada nela"
+  },
+  {
+   "id": "Q0581",
+   "consulta": "consegue me mandar uns mapas do acervo? tô precisando pro pessoal da defesa civil"
+  },
+  {
+   "id": "Q0582",
+   "consulta": "Quais são as 5 cartas mais recentes de Petrolina de Goiás por data de publicação?"
+  },
+  {
+   "id": "Q0583",
+   "consulta": "Onde encontro mapas publicados de 2020?"
+  },
+  {
+   "id": "Q0584",
+   "consulta": "oi, tem a carta riacho dos tres galhos do primeiro centro de geoinformacao? queria mostrar pros alunos"
+  },
+  {
+   "id": "Q0585",
+   "consulta": "Presciso da folha 0355-2 em 1:50000 para a obra."
+  },
+  {
+   "id": "Q0586",
+   "consulta": "Onde encontro MDS do litoral nordestino?"
+  },
+  {
+   "id": "Q0587",
+   "consulta": "Estou montando o plano de contingência contra enchentes e preciso das cartas de Carnaíba para identificar as áreas de risco."
+  },
+  {
+   "id": "Q0588",
+   "consulta": "A folha Igarapé Cearense do mapeamento sistematico está disponível?"
+  },
+  {
+   "id": "Q0589",
+   "consulta": "Preciso levantar as cartas produzidas nos últimos 3 anos, pdoe listar?"
+  },
+  {
+   "id": "Q0590",
+   "consulta": "Para um levantamento histórico que estou organizando na defesa civil, preciso reunir as ortoimagens banda P HH publicadas de 1995 a 1996. Podem me ajudar a localizá-las?"
+  },
+  {
+   "id": "Q0591",
+   "consulta": "cartas 50 mil do segundo cgeo produzidas dois anos atrás"
+  },
+  {
+   "id": "Q0592",
+   "consulta": "Gostaria de ver as quatro cartas mais antigas do acervo, pela ordem de publicação, por favor."
+  },
+  {
+   "id": "Q0593",
+   "consulta": "mapas no primeiro trimestre deste ano"
+  },
+  {
+   "id": "Q0594",
+   "consulta": "queria ver as cartas no último trimestre do ano passado, dá?"
+  },
+  {
+   "id": "Q0595",
+   "consulta": "dados vetoriais 50k"
+  },
+  {
+   "id": "Q0596",
+   "consulta": "queria ver os mapas que vocês têm aí pra levar pra sala de aula"
+  },
+  {
+   "id": "Q0597",
+   "consulta": "Me passa a carta Furo Grande de Aruãs do quarto cgeo? É aquela da base cartográfica digital de rondônia."
+  },
+  {
+   "id": "Q0598",
+   "consulta": "Cadê as cartas que foram publicadas 2 anos atrás? Queria ver quais são."
+  },
+  {
+   "id": "Q0599",
+   "consulta": "Senhores, solicito informações sobre a disponibilidade de mapas da Lua para uma atividade de instrução da tropa."
+  },
+  {
+   "id": "Q0600",
+   "consulta": "Solicito, por gentileza, as ortoimagens de Minas Gerais do 2o cgeo."
+  },
+  {
+   "id": "Q0601",
+   "consulta": "cartas Pedralva do mês passado"
+  },
+  {
+   "id": "Q0602",
+   "consulta": "Soledade MI 1769-4-NE, carta mais recente"
+  },
+  {
+   "id": "Q0603",
+   "consulta": "Qeuro mostrar aos meus alunos as cartas elaboradas ao longo dos últimos 6 meses. Onde vejo isso?"
+  },
+  {
+   "id": "Q0604",
+   "consulta": "Solicito, respeitosamente, a carta correspondente ao INOM SG-22-V-C-IV."
+  },
+  {
+   "id": "Q0605",
+   "consulta": "queria ver mapas de Ipubi em grande escala, consegue?"
+  },
+  {
+   "id": "Q0606",
+   "consulta": "Me mostra o que vocês têm de cartas de GO?"
+  },
+  {
+   "id": "Q0607",
+   "consulta": "A construtora está avaliando a viabilidade de um loteamento, então preciso das cartas do PI."
+  },
+  {
+   "id": "Q0608",
+   "consulta": "Será que tem a carta Rio Mururé do 4º Centro de Geoinformação?"
+  },
+  {
+   "id": "Q0609",
+   "consulta": "quero ver as cartas do acervo pra um trabaho da faculdade"
+  },
+  {
+   "id": "Q0610",
+   "consulta": "carta MI 0031-2-SO, as três com atualização mais recente"
+  },
+  {
+   "id": "Q0611",
+   "consulta": "Oi, vocês têm a carta topográfica da folha Rio Catete do 3o cgeo?"
+  },
+  {
+   "id": "Q0612",
+   "consulta": "as 10 cartas mais antigas do MA"
+  },
+  {
+   "id": "Q0613",
+   "consulta": "Estou procurnado a folha sd23ybii3no, vocês têm?"
+  },
+  {
+   "id": "Q0614",
+   "consulta": "Gostaria, por gentileza, de uma explicação sobre o valor de cada carta do baralho no jogo de truco."
+  },
+  {
+   "id": "Q0615",
+   "consulta": "Prezados, gostaria de solicitar as cartas topográficas vetoriais da folha Maloca do Contão, do projeto rio 2016, do 1º Centro de Geoinformação."
+  },
+  {
+   "id": "Q0616",
+   "consulta": "folhas nos últimos 7 dias"
+  },
+  {
+   "id": "Q0617",
+   "consulta": "No diagnóstico ambiental que estou conduzindo vou precisar dos MDTs em 1:50.000 de São Francisco do Guaporé (RO)."
+  },
+  {
+   "id": "Q0618",
+   "consulta": "O que tiver de mapas do Centro-Oeste, joga aqui pra mim."
+  },
+  {
+   "id": "Q0619",
+   "consulta": "preciso da carta mi 1957-1-so do rio grande do norte em 25k"
+  },
+  {
+   "id": "Q0620",
+   "consulta": "Prezada equipe, gostaria de solicitar a relação dos produtos cartográficos do acervo."
+  },
+  {
+   "id": "Q0621",
+   "consulta": "o que é projeção UTM"
+  },
+  {
+   "id": "Q0622",
+   "consulta": "Tem como achar cartas CIRC do projeto AMAN aqui?"
+  },
+  {
+   "id": "Q0623",
+   "consulta": "o que e projecao utm e pra que serve?"
+  },
+  {
+   "id": "Q0624",
+   "consulta": "Por gentileza, solicito a carta sd23vdvi4se do 3º CGEO para uso em pesquisa."
+  },
+  {
+   "id": "Q0625",
+   "consulta": "Prezados, venho solicitar as cartas do município de Perdizes publicadas nos últimos 15 dias, caso existam."
+  },
+  {
+   "id": "Q0626",
+   "consulta": "Gostaria de entender como é interpretada a escala Richter e a partir de qual magnitude um tremor pode causar danos estruturais em edificações."
+  },
+  {
+   "id": "Q0627",
+   "consulta": "quais cartas voces tem do am?"
+  },
+  {
+   "id": "Q0628",
+   "consulta": "eita 😅👍"
+  },
+  {
+   "id": "Q0629",
+   "consulta": "Estou preparando um artigo e preciso comparar os dados vetoriais do acervo: poderiam me mostrar os cinco com data de criação mais recente?"
+  },
+  {
+   "id": "Q0630",
+   "consulta": "Peço, por gentileza, acesso à folha Cachoeira do Arari. Fico no aguardo."
+  },
+  {
+   "id": "Q0631",
+   "consulta": "cotação do dólar hoje"
+  },
+  {
+   "id": "Q0632",
+   "consulta": "Esqueci a senha de acesso à minha conta e não consigo mais entrar no sistema. Poderiam, por gentileza, me orientar sobre como redefini-la?"
+  },
+  {
+   "id": "Q0633",
+   "consulta": "Prezados, gostaria de saber se há cartas do projeto base cartográfica digital de rondônia que abranjam Itatiaiuçu. Seriam utilizadas em aulas de geografia."
+  },
+  {
+   "id": "Q0634",
+   "consulta": "tem alguma coisa do 1o cgeo? preciso ver"
+  },
+  {
+   "id": "Q0635",
+   "consulta": "Prezada equipe, solicito a gentileza de disponibilizar a folha Rio Bacati para minha pesquisa."
+  },
+  {
+   "id": "Q0636",
+   "consulta": "ortoimagens da folha Cacha Pregos, base cartográfica digital de rondônia"
+  },
+  {
+   "id": "Q0637",
+   "consulta": "Gostaria de solicitar as topográficas do 4º CGEO em escala detalhada, para fins de estudo acadêmico."
+  },
+  {
+   "id": "Q0638",
+   "consulta": "Estou planejando uma operação e preciso dos modelos digitais de superfície de Abre Campo em 1:25000 para analisar linhas de visada."
+  },
+  {
+   "id": "Q0639",
+   "consulta": "MDT: o que é e para que serve"
+  },
+  {
+   "id": "Q0640",
+   "consulta": "tem as cartas de boa vista da aparecida em 1:50.000 do primeiro cgeo? e pra usar com a turma"
+  },
+  {
+   "id": "Q0641",
+   "consulta": "cartas Centro-Oeste, 5º Centro de Geoinformação"
+  },
+  {
+   "id": "Q0642",
+   "consulta": "queria dar uma olhada nas cartas topográficas vetoriais, tem?"
+  },
+  {
+   "id": "Q0643",
+   "consulta": "Preciso das cartas do mapeamento sistemático que cobrem Bodó, consegue levnatar pra mim?"
+  },
+  {
+   "id": "Q0644",
+   "consulta": "Tem mapas da Bolívia? Vou fazer uma expedição pro altiplano."
+  },
+  {
+   "id": "Q0645",
+   "consulta": "Fala aí, tô precisando de carta pra um trabalho de campo com o pessoal do batalhão, o que dá pra me arrumar?"
+  },
+  {
+   "id": "Q0646",
+   "consulta": "Há cartas de Ribeira do Piauí publicadas antes de 2018?"
+  },
+  {
+   "id": "Q0647",
+   "consulta": "Existe alguma carta do Chile no acervo de vocês?"
+  },
+  {
+   "id": "Q0648",
+   "consulta": "listar produtos do acervo"
+  },
+  {
+   "id": "Q0649",
+   "consulta": "carta topográfica no ano de 2023"
+  },
+  {
+   "id": "Q0650",
+   "consulta": "mapas de Naviraí"
+  }
+ ]
+}

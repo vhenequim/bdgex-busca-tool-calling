@@ -188,3 +188,55 @@ Cada caso registra a origem:
 5. **Revisão humana de amostra**: uma amostra estratificada por origem (40 consultas,
    semente 42; `data/auditoria/revisao_humana_amostra.csv`) é conferida por uma pessoa,
    que marca se concorda com as leituras aceitas.
+
+## 6. Extensões para o lote de validação (setembro de 2026)
+
+O lote de validação (`docs/lote_validacao.md`) cobre situações que as 310 consultas não
+tinham. As regras abaixo **estendem** o manual sem alterar nenhuma anotação das 310: cada
+uma generaliza uma regra existente ou cobre um caso que antes não ocorria.
+
+**6.1 Categoria E — consulta subespecificada.** A consulta pede produtos do acervo
+(intenção de busca explícita) mas não traz nenhum critério representável no *schema*:
+"quero ver as cartas do acervo", "vocês têm mapas?", "cartas do Nordeste" (região não é
+campo, seção 2), "mapas para uma trilha" (finalidade não é campo). O gabarito não tem
+parâmetros e aceita **duas respostas**: buscar sem filtros (chamada sem parâmetros) ou não
+buscar (pedir esclarecimento ou recusar). No *dataset* isso é o campo
+`aceita_nao_chamar = true`. Uma chamada com qualquer parâmetro é erro (falso positivo).
+
+- Diferença para F: F não tem intenção de busca no acervo — outro assunto, território fora
+  do Brasil, pedido de produção, conversa. "Me ajuda" e "quero um mapa bonito" continuam F.
+- Diferença para S: um único critério ("ortoimagens", "cartas 1:50.000", "cartas de
+  Manaus") é consulta simples e exige a busca (instrução 1 do *prompt*: "um único parâmetro
+  basta"), como nas 310.
+
+**6.2 Tempo relativo parametrizado.** A tabela da seção 2 vale para qualquer quantidade e
+qualquer ano (D = data de referência):
+
+| Expressão | Leituras aceitas |
+|---|---|
+| últimos N meses | D − 30·N dias até D; mesmo dia N meses antes até D |
+| últimos N anos | D − N anos até D; 1º de janeiro de (ano − N) até D |
+| últimos N dias | D − N dias até D; D − (N − 1) dias até D |
+| desde AAAA / a partir de AAAA | AAAA-01-01 até D; AAAA-01-01 sem limite final |
+| depois de AAAA / após AAAA | início em AAAA-01-01 ou (AAAA+1)-01-01; fim D ou sem limite final |
+| antes de AAAA / anteriores a AAAA | sem limite inicial até (AAAA−1)-12-31 |
+| em AAAA / de AAAA / no ano de AAAA | AAAA-01-01 a AAAA-12-31 (leitura única) |
+| entre AAAA e BBBB / de AAAA a BBBB | AAAA-01-01 a BBBB-12-31 (leitura única) |
+
+**6.3 Municípios e UF.** Qualquer município da lista oficial do IBGE é `city`. A sigla da UF
+junto ao município ("Campinas, SP", "Campinas (SP)") anota também `state` (sigla é sempre
+estado, seção 2). O lote não usa municípios homônimos de UF (ex.: Goiás, Amapá, Paraná,
+Tocantins), cuja ambiguidade o manual não prevê.
+
+**6.4 Nomes de folha reais.** Nomes de folha do BDGEx precedidos de "carta"/"folha" são
+`keyword` (seção 2); quando coincidem com o nome de um município da lista do IBGE, vale a
+leitura estrutural `city` já prevista.
+
+**6.5 Armadilhas de vocabulário.** "Carta", "mapa", "folha", "escala" e "projeto" em outro
+sentido — "carta de vinhos", "carta de apresentação", "mapa astral", "mapa mental",
+"folha de pagamento", "escala de plantão", "escala Richter", "projeto de lei" — não pedem
+produto cartográfico: categoria F.
+
+**6.6 Anotação às cegas do lote.** A data de referência é 2026-09-24, a mesma das 310.
+Cada consulta é anotada sem acesso ao alvo que a originou; as consultas chegam ao anotador
+embaralhadas e com identificadores neutros (a família não aparece).

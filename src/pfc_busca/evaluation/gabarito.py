@@ -152,7 +152,7 @@ def formatar_valor(v: Any) -> str:
     if eh_um_de(v):
         return " ou ".join(formatar_valor(x) for x in v[UM_DE])
     if eh_rel(v):
-        return relative_time.TEXTO_REGRA.get(v["rel"], v["rel"])
+        return relative_time.texto_regra(v["rel"])
     if isinstance(v, dict):
         return _fmt_periodo(v)
     if isinstance(v, str):

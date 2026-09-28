@@ -51,10 +51,9 @@ from rich.progress import (
 )
 from rich.text import Text
 
-from pfc_busca import agent, agent_estruturado, db, prompts, schema, tools
+from pfc_busca import agent, agent_estruturado, db, prompts, schema, tools, v2
 from pfc_busca.evaluation import metrics
-from pfc_busca.evaluation.dataset_builder import CAMINHO_SAIDA as CAMINHO_DATASET
-from pfc_busca.evaluation.dataset_builder import carregar_dataset
+from pfc_busca.evaluation.dataset_builder import caminho_dataset, carregar_dataset
 from pfc_busca.evaluation.gabarito import resolver_gabarito, resolver_leituras
 
 RAIZ_REPO = Path(__file__).resolve().parents[3]
@@ -63,7 +62,9 @@ FALHAS_INFRA_PARA_ABORTAR = 3
 CONSULTA_AQUECIMENTO = "cartas de São Paulo"
 
 
-PREFIXO_ABORDAGEM = {"tool_calling": "", "saida_estruturada": "se-", "prototipo": "prototipo-"}
+PREFIXO_ABORDAGEM = {"tool_calling": "", "saida_estruturada": "se-", "prototipo": "prototipo-",
+                     "tool_calling_v2": "tc2-", "saida_estruturada_v2": "se2-"}
+ABORDAGENS = list(PREFIXO_ABORDAGEM)
 
 
 def slug(modelo: str, provedor: str = "ollama", abordagem: str = "tool_calling") -> str:
@@ -86,6 +87,8 @@ def criar_tradutor(args, registrar=print):
         if args.abordagem == "saida_estruturada":
             return TradutorEstruturadoGroq(args.modelo, registrar=registrar)
         return TradutorGroq(args.modelo, registrar=registrar)
+    if args.abordagem in v2.ABORDAGENS_V2:
+        return v2.criar(args.modelo, args.abordagem, base_url=args.base_url)
     if args.abordagem != "tool_calling":
         return agent_estruturado.TradutorEstruturado(args.modelo, args.abordagem, base_url=args.base_url)
     return agent.Tradutor(args.modelo, base_url=args.base_url)
@@ -194,15 +197,21 @@ def hash_prompt(abordagem: str = "tool_calling") -> str:
         texto = agent_estruturado._MODELO_SE + json.dumps(agent_estruturado.PARAMETROS, ensure_ascii=False, sort_keys=True)
     elif abordagem == "prototipo":
         texto = agent_estruturado._PROMPT_PROTOTIPO + agent_estruturado.instrucao_instructor()
+    elif abordagem in v2.ABORDAGENS_V2:
+        texto = v2.texto_hash(abordagem)
     else:
         texto = prompts._MODELO
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
 
 
-def hash_ferramenta() -> str:
-    return hashlib.sha256(
-        json.dumps(schema.FERRAMENTA_BUSCAR_CATALOGO, ensure_ascii=False, sort_keys=True).encode()
-    ).hexdigest()
+def hash_ferramenta(abordagem: str = "tool_calling") -> str:
+    if abordagem == "tool_calling_v2":
+        definicao = [v2.FERRAMENTA_BUSCAR_CATALOGO_V2, v2.FERRAMENTA_RECUSAR]
+    elif abordagem == "saida_estruturada_v2":
+        definicao = v2.FERRAMENTA_BUSCAR_CATALOGO_V2
+    else:
+        definicao = schema.FERRAMENTA_BUSCAR_CATALOGO
+    return hashlib.sha256(json.dumps(definicao, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
 
 
 def _info_modelo(modelo: str, base_url: str) -> dict:
@@ -240,16 +249,16 @@ def montar_manifesto(args, tradutor: agent.Tradutor, executar_sql: bool) -> dict
                         if nuvem else _info_modelo(args.modelo, args.base_url)),
         "thinking_desativado": tradutor.thinking_desativado,
         "configuracao": ({**tradutor.descricao(), "timeout_s": agent.TIMEOUT_S, "keep_alive": agent.KEEP_ALIVE}
-                         if linha_de_base else
+                         if linha_de_base or hasattr(tradutor, "descricao") else
                          {"temperature": 0, "num_predict": agent.MAX_TOKENS_SAIDA,
                           "timeout_s": agent.TIMEOUT_S, "keep_alive": agent.KEEP_ALIVE,
                           "zero_shot": True, "few_shot": False, "dicionario_normalizacao": False}),
         "hoje": args.hoje.isoformat(),
         "repeticoes": args.repeticoes,
         "executar_sql": executar_sql,
-        "dataset": {"caminho": str(CAMINHO_DATASET.relative_to(RAIZ_REPO)),
-                    "sha256": _hash_arquivo(CAMINHO_DATASET)},
-        "ferramenta_sha256": hash_ferramenta(),
+        "dataset": {"caminho": caminho_dataset().relative_to(RAIZ_REPO).as_posix(),
+                    "sha256": _hash_arquivo(caminho_dataset())},
+        "ferramenta_sha256": hash_ferramenta(args.abordagem),
         "prompt_sha256": hash_prompt(args.abordagem),
         "codigo": versao_codigo(),
         "software": {
@@ -327,6 +336,7 @@ def executar_caso(tradutor: agent.Tradutor, caso: dict, repeticao: int, hoje: da
         "id": caso["id"], "origem": caso["origem"], "familia": caso["familia"],
         "categorias": caso["categorias"], "consulta": caso["consulta"],
         "observacional": caso["observacional"], "espera_tool_call": caso["espera_tool_call"],
+        "aceita_nao_chamar": bool(caso.get("aceita_nao_chamar")),
         "notas": caso.get("notas", ""),
         "modelo": tradutor.modelo, "repeticao": repeticao, "hoje": hoje.isoformat(),
         "esperado": caso["esperado"],
@@ -468,15 +478,27 @@ def carregar_execucoes(dir_saida: Path) -> list[dict]:
     return [json.loads(lin) for lin in caminho.read_text(encoding="utf-8").splitlines() if lin.strip()]
 
 
-def repontuar(linhas: list[dict]) -> tuple[list[dict], list[str]]:
-    """Reaplica o gabarito VIGENTE de `data/dataset.json` a execuções já feitas.
+def dataset_da_rodada(dir_saida: Path) -> Path:
+    """Dataset em que a rodada foi feita (manifesto); sem manifesto, o dataset ativo."""
+    try:
+        manifesto = json.loads((dir_saida / "manifesto.json").read_text(encoding="utf-8"))
+        caminho = RAIZ_REPO / manifesto["dataset"]["caminho"]
+        if caminho.exists():
+            return caminho
+    except (OSError, KeyError, TypeError, ValueError):
+        pass
+    return caminho_dataset()
+
+
+def repontuar(linhas: list[dict], dataset: Path | None = None) -> tuple[list[dict], list[str]]:
+    """Reaplica o gabarito VIGENTE do dataset (padrão: `data/dataset.json`) a execuções já feitas.
 
     Cada linha mantém o que o modelo respondeu (`predito`) e a data de referência
     da execução (`hoje`); gabarito, leituras alternativas, categorias e condição de
     observacional vêm do dataset atual. Linhas cujo id não existe mais, ou cujo texto
     de consulta mudou, são descartadas (e listadas).
     """
-    atuais = {c["id"]: c for c in carregar_dataset()}
+    atuais = {c["id"]: c for c in carregar_dataset(dataset)}
     validas, descartadas = [], []
     for lin in linhas:
         caso = atuais.get(lin["id"])
@@ -489,12 +511,14 @@ def repontuar(linhas: list[dict]) -> tuple[list[dict], list[str]]:
                         "esperado": caso["esperado"], "alternativas": caso["alternativas"],
                         "esperado_resolvido": leituras[0], "alternativas_resolvidas": leituras[1:],
                         "espera_tool_call": caso["espera_tool_call"], "observacional": caso["observacional"],
+                        "aceita_nao_chamar": bool(caso.get("aceita_nao_chamar")),
                         "categorias": caso["categorias"], "origem": caso["origem"], "familia": caso["familia"]})
     return validas, descartadas
 
 
 def resumir(dir_saida: Path, console: Console | None = None) -> dict:
-    linhas, descartadas = repontuar(carregar_execucoes(dir_saida))
+    dataset = dataset_da_rodada(dir_saida)
+    linhas, descartadas = repontuar(carregar_execucoes(dir_saida), dataset)
     if not linhas:
         return {}
     repeticoes = sorted({lin["repeticao"] for lin in linhas})
@@ -505,7 +529,8 @@ def resumir(dir_saida: Path, console: Console | None = None) -> dict:
         "geral": metrics.agregar(linhas),
         "por_repeticao": {str(r): metrics.agregar([lin for lin in linhas if lin["repeticao"] == r]) for r in repeticoes},
         "gerado_em": datetime.now().isoformat(timespec="seconds"),
-        "dataset_sha256_na_pontuacao": _hash_arquivo(CAMINHO_DATASET),
+        "dataset_na_pontuacao": dataset.relative_to(RAIZ_REPO).as_posix(),
+        "dataset_sha256_na_pontuacao": _hash_arquivo(dataset),
         "linhas_descartadas_texto_alterado": sorted(set(descartadas)),
     }
     (dir_saida / "resumo.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -562,8 +587,10 @@ def resumo_markdown(resumo: dict) -> str:
                    f"{_f(c['precisao'])} | {_f(c['recall'])} | {_f(c['f1'])} |")
     out += ["", "## Por categoria", "", "| Categoria | n | Acurácia | F1 ponderado |", "|---|---|---|---|"]
     nomes = {"S": "Simples", "C": "Compostas", "M": "Código MI/INOM", "T": "Tempo relativo",
-             "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio"}
+             "O": "Ordenação", "A": "Ambíguas/informais", "F": "Fora do domínio", "E": "Subespecificadas"}
     for cat, v in g["por_categoria"].items():
+        if not v["n"]:
+            continue
         out.append(f"| {nomes[cat]} | {v['n']} | {_pct(v['acuracia'])} | {_f(v['f1_ponderado'])} |")
     out += ["", "## Por origem", "", "| Origem | n | Acurácia |", "|---|---|---|"]
     for o, v in g["por_origem"].items():
@@ -597,11 +624,14 @@ def analisar(argv: list[str] | None = None):
     p.add_argument("--modelo", required=True, help="tag do Ollama (ex.: qwen3:4b) ou id do Groq")
     p.add_argument("--provedor", choices=["ollama", "groq"], default="ollama",
                    help="ollama = local (configuração avaliada); groq = nuvem (resultado paralelo)")
-    p.add_argument("--abordagem", choices=["tool_calling", "saida_estruturada", "prototipo"], default="tool_calling",
+    p.add_argument("--abordagem", choices=ABORDAGENS, default="tool_calling",
                    help="tool_calling = solução avaliada; saida_estruturada e prototipo = linhas de base "
-                        "(prototipo só no Ollama)")
+                        "(prototipo só no Ollama); tool_calling_v2 e saida_estruturada_v2 = especificação v2 "
+                        "(lote de validação; só no Ollama)")
     p.add_argument("--intervalo", type=float, default=None,
                    help="segundos entre chamadas (padrão: 0 no Ollama, 11 no Groq por causa do limite por minuto)")
+    p.add_argument("--dataset", type=Path, help="dataset alternativo (ex.: data/lote_validacao.json); "
+                   "equivale a definir PFC_DATASET")
     p.add_argument("--repeticoes", type=int, default=1)
     p.add_argument("--hoje", type=date.fromisoformat, default=date.today(),
                    help="data de referência (ISO) injetada no prompt e usada no gabarito")
@@ -624,12 +654,16 @@ def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     args = analisar(argv)
+    if args.dataset:
+        import os
+
+        os.environ["PFC_DATASET"] = str(args.dataset)
     if args.intervalo is None:
         args.intervalo = 11.0 if args.provedor == "groq" else 0.0
     if args.provedor == "groq":
         args.sem_sql = True  # a nuvem só traduz; a demonstração ponta a ponta é local
-        if args.abordagem == "prototipo":
-            print("o método do protótipo (Phi-4 14B) roda só no Ollama")
+        if args.abordagem == "prototipo" or args.abordagem in v2.ABORDAGENS_V2:
+            print(f"a abordagem {args.abordagem} roda só no Ollama")
             return 2
     _carregar_env()
     console = Console(highlight=False)

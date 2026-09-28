@@ -15,6 +15,7 @@ inequívocas ("ano passado") têm uma só.
 from __future__ import annotations
 
 import calendar
+import re
 from collections.abc import Callable
 from datetime import date, timedelta
 
@@ -184,12 +185,53 @@ TEXTO_REGRA: dict[str, str] = {
 }
 
 
+def _ultimos_dias(n: int) -> Callable[[date], list[Periodo]]:
+    return lambda h: [_p(h - timedelta(days=n), h), _p(h - timedelta(days=n - 1), h)]
+
+
+# Regras parametrizadas (lote de validação): o mesmo padrão de leituras da tabela do manual,
+# para qualquer quantidade ou ano — "últimos 12 meses", "desde 2015", "antes de 2010".
+PARAMETRIZADAS: list[tuple[re.Pattern, Callable[..., Callable[[date], list[Periodo]]], str]] = [
+    (re.compile(r"^ultimos_(\d+)_meses$"), lambda n: _ultimos_meses(int(n)), "últimos {} meses"),
+    (re.compile(r"^ultimos_(\d+)_anos$"), lambda n: _ultimos_anos(int(n)), "últimos {} anos"),
+    (re.compile(r"^ultimos_(\d+)_dias$"), lambda n: _ultimos_dias(int(n)), "últimos {} dias"),
+    (re.compile(r"^desde_(\d{4})$"), lambda a: _desde(int(a)), "desde {}"),
+    (re.compile(r"^depois_de_(\d{4})$"), lambda a: _depois_de(int(a)), "depois de {}"),
+    (re.compile(r"^antes_de_(\d{4})$"), lambda a: _antes_de(int(a)), "antes de {}"),
+]
+
+
+def _regra(regra: str) -> Callable[[date], list[Periodo]]:
+    if regra in REGRAS:
+        return REGRAS[regra]
+    for padrao, fabrica, _texto in PARAMETRIZADAS:
+        m = padrao.match(regra)
+        if m:
+            return fabrica(m.group(1))
+    raise KeyError(f"regra de tempo relativo desconhecida: {regra!r}")
+
+
+def texto_regra(regra: str) -> str:
+    if regra in TEXTO_REGRA:
+        return TEXTO_REGRA[regra]
+    for padrao, _fabrica, texto in PARAMETRIZADAS:
+        m = padrao.match(regra)
+        if m:
+            return texto.format(m.group(1))
+    return regra
+
+
+def existe(regra: str) -> bool:
+    try:
+        _regra(regra)
+    except KeyError:
+        return False
+    return True
+
+
 def leituras(regra: str, hoje: date) -> list[Periodo]:
     """Todas as leituras aceitas de `regra` no dia `hoje` (sem repetição, preferencial primeiro)."""
-    try:
-        brutas = REGRAS[regra](hoje)
-    except KeyError as erro:
-        raise KeyError(f"regra de tempo relativo desconhecida: {regra!r}") from erro
+    brutas = _regra(regra)(hoje)
     unicas: list[Periodo] = []
     for p in brutas:
         if p not in unicas:

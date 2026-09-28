@@ -19,6 +19,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 import re
 import sys
 import unicodedata
@@ -30,13 +31,14 @@ from types import ModuleType
 from pfc_busca import schema
 from pfc_busca.evaluation import gabarito, relative_time
 from pfc_busca.evaluation.manual_cases import CASOS_MANUAIS
-from pfc_busca.evaluation.relative_time import REGRAS
+from pfc_busca.evaluation.relative_time import existe as regra_existe
 
 RAIZ_REPO = Path(__file__).resolve().parents[3]
 CAMINHO_GERADOR = RAIZ_REPO / "scripts" / "generate_dataset_paper.py"
 CAMINHO_SAIDA = RAIZ_REPO / "data" / "dataset.json"
 CAMINHO_RESUMO = RAIZ_REPO / "data" / "dataset_resumo.md"
-CATEGORIAS_VALIDAS = {"S", "C", "M", "T", "O", "A", "F"}
+# E: consulta subespecificada (lote de validação) — buscar ou pedir esclarecimento são ambos aceitos
+CATEGORIAS_VALIDAS = {"S", "C", "M", "T", "O", "A", "F", "E"}
 
 
 def normalizar_consulta(texto: str) -> str:
@@ -97,7 +99,7 @@ def _problemas_valor(rotulo: str, campo: str, valor) -> list[str]:
         if not isinstance(valor, dict):
             problemas.append(f"{rotulo}: {campo} não é objeto")
         elif "rel" in valor:
-            if valor["rel"] not in REGRAS:
+            if not regra_existe(valor["rel"]):
                 problemas.append(f"{rotulo}: regra desconhecida {valor['rel']}")
         elif not set(valor) <= {"start", "end"} or not valor:
             problemas.append(f"{rotulo}: {campo} com chaves inválidas {sorted(valor)}")
@@ -137,7 +139,7 @@ def validar(casos: list[dict]) -> list[str]:
         for origem, destino in c["trocas"]:
             if origem not in c["esperado"]:
                 problemas.append(f"{rotulo}: troca {origem}->{destino} sem o campo de origem")
-        if c["espera_tool_call"] and not c["esperado"]:
+        if c["espera_tool_call"] and not c["esperado"] and not c.get("aceita_nao_chamar"):
             problemas.append(f"{rotulo}: espera tool call mas gabarito vazio")
         if not c["espera_tool_call"] and c["esperado"]:
             problemas.append(f"{rotulo}: 'não chamar' deve ter gabarito vazio")
@@ -294,8 +296,17 @@ def escrever_dataset(casos: list[dict], destino: Path = CAMINHO_SAIDA) -> str:
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
 
 
-def carregar_dataset(caminho: Path = CAMINHO_SAIDA) -> list[dict]:
-    return json.loads(caminho.read_text(encoding="utf-8-sig"))["casos"]
+def caminho_dataset() -> Path:
+    """Dataset ativo: `data/dataset.json` ou o indicado em PFC_DATASET (ex.: o lote de validação)."""
+    alternativo = os.environ.get("PFC_DATASET")
+    if alternativo:
+        p = Path(alternativo)
+        return p if p.is_absolute() else RAIZ_REPO / p
+    return CAMINHO_SAIDA
+
+
+def carregar_dataset(caminho: Path | None = None) -> list[dict]:
+    return json.loads((caminho or caminho_dataset()).read_text(encoding="utf-8-sig"))["casos"]
 
 
 def main(argv: list[str] | None = None) -> int:

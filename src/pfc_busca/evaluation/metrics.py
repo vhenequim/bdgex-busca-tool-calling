@@ -172,7 +172,8 @@ def _obrigatorios(esperado: dict[str, Any]) -> set[str]:
 
 def avaliar_caso(esperado: dict[str, Any], predito: dict[str, Any] | None,
                  espera_tool_call: bool = True,
-                 alternativas: list[dict[str, Any]] | None = None) -> AvaliacaoCaso:
+                 alternativas: list[dict[str, Any]] | None = None,
+                 aceita_nao_chamar: bool = False) -> AvaliacaoCaso:
     """Avalia UMA execução contra todas as leituras aceitas do gabarito.
 
     `predito=None` significa que não houve tool call. Entre as leituras aceitas
@@ -189,6 +190,10 @@ def avaliar_caso(esperado: dict[str, Any], predito: dict[str, Any] | None,
         for campo in predito:
             (aval.fp if campo in schema.CAMPOS else aval.fora_do_schema).add(campo)
         return aval
+
+    # Consulta subespecificada (categoria E): não buscar (pedir esclarecimento) também é aceito
+    if not chamou and aceita_nao_chamar:
+        return AvaliacaoCaso(correto=True)
 
     if not chamou:
         obrig = _obrigatorios(esperado)
@@ -211,7 +216,7 @@ def avaliar_caso(esperado: dict[str, Any], predito: dict[str, Any] | None,
 def avaliar_linha(linha: dict[str, Any]) -> AvaliacaoCaso:
     """Atalho para uma linha de `execucoes.jsonl` (usa as leituras resolvidas da linha)."""
     return avaliar_caso(linha["esperado_resolvido"], linha["predito"], linha["espera_tool_call"],
-                        linha.get("alternativas_resolvidas"))
+                        linha.get("alternativas_resolvidas"), bool(linha.get("aceita_nao_chamar")))
 
 
 # ---------------------------------------------------------------------------
@@ -300,7 +305,7 @@ def agregar(linhas: list[dict[str, Any]]) -> dict[str, Any]:
 
     pares = list(zip(principais, avaliacoes, strict=True))
     por_categoria = {}
-    for cat in ["S", "C", "M", "T", "O", "A", "F"]:
+    for cat in ["S", "C", "M", "T", "O", "A", "F", "E"]:
         sub = [(lin, a) for lin, a in pares if cat in lin["categorias"]]
         sub_tp, sub_fp, sub_fn, sub_occ = Counter(), Counter(), Counter(), Counter()
         for _lin, a in sub:
