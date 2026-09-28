@@ -3,8 +3,9 @@
     python -m pfc_busca.evaluation.comparacao --paper ../paper_revisado
     python -m pfc_busca.evaluation.comparacao --resultados results/estacao --sufixo _estacao --paper ...
 
-Para cada modelo local com rodada de Tool Calling e de Saída Estruturada no mesmo diretório de
-resultados (`<modelo>/` e `se-<modelo>/`), e para a rodada do método do protótipo
+Para cada modelo com rodada de Tool Calling e de Saída Estruturada no mesmo diretório de
+resultados (`<modelo>/` e `se-<modelo>/`, locais; `groq-<modelo>/` e `groq-se-<modelo>/`, nuvem),
+em ordem crescente de tamanho, e para a rodada do método do protótipo
 (`prototipo-<modelo>/`), calcula: acurácia (IC de Wilson com n = consultas), acurácia sem a
 categoria F, F1 ponderado, recusa nas consultas fora do domínio, proporção de execuções com
 campo acrescentado e o teste de McNemar exato entre as abordagens, com uma observação por
@@ -26,6 +27,12 @@ from pfc_busca.evaluation import metrics, report
 from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS
 
 LOCAIS = ["qwen3:4b-instruct-2507-q4_K_M", "gemma4:e4b-it-qat", "gemma4:e2b-it-qat", "mistral-nemo:12b"]
+# ordem crescente de tamanho, para ler a tabela como "o que muda quando o modelo aumenta"
+ORDEM = ["gemma4:e2b-it-qat", "qwen3:4b-instruct-2507-q4_K_M", "gemma4:e4b-it-qat", "mistral-nemo:12b",
+         "openai/gpt-oss-20b", "qwen/qwen3.8-27b", "openai/gpt-oss-120b"]
+PARAMETROS = {"gemma4:e2b-it-qat": "2B ef.", "qwen3:4b-instruct-2507-q4_K_M": "4B", "gemma4:e4b-it-qat": "4B ef.",
+              "mistral-nemo:12b": "12B", "openai/gpt-oss-20b": "21B (MoE)", "qwen/qwen3.8-27b": "27B",
+              "openai/gpt-oss-120b": "117B (MoE)"}
 
 
 def _principais(linhas: list[dict]) -> list[dict]:
@@ -103,8 +110,17 @@ def _ic(ic: tuple[float, float]) -> str:
 
 def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
     dados = report.carregar_modelos(dir_resultados, None)
-    pares = [(m, rotulo_modelo(m, "saida_estruturada")) for m in LOCAIS
-             if m in dados and rotulo_modelo(m, "saida_estruturada") in dados]
+    def ids(m: str) -> set[str]:
+        return {lin["id"] for lin in dados[m]["linhas"]}
+
+    # só entra o modelo cujas duas rodadas cobrem as mesmas consultas (rodada incompleta fica de fora)
+    pares = [(m, rotulo_modelo(m, "saida_estruturada")) for m in ORDEM
+             if m in dados and rotulo_modelo(m, "saida_estruturada") in dados
+             and ids(m) == ids(rotulo_modelo(m, "saida_estruturada"))]
+    incompletos = [m for m in ORDEM if m in dados and rotulo_modelo(m, "saida_estruturada") in dados
+                   and (m, rotulo_modelo(m, "saida_estruturada")) not in pares]
+    if incompletos:
+        print(f"linha de base incompleta, fora da comparação: {', '.join(incompletos)}")
     prototipo = rotulo_modelo(MODELO_PROTOTIPO, "prototipo")
     tem_prototipo = prototipo in dados
     if not pares and not tem_prototipo:
@@ -143,12 +159,13 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
         _, _, p_semf = _mcnemar(dados[tc]["linhas"], dados[se]["linhas"], True)
         nome = report._tex(report.rotulo(tc))
         linhas_tab.append(
-            f"\\multirow{{2}}{{*}}{{{nome}}} & Tool Calling & {report._pct(mtc['acuracia'])} & "
+            f"\\multirow{{2}}{{*}}{{{nome}}} & \\multirow{{2}}{{*}}{{{PARAMETROS.get(tc, '')}}} & "
+            f"Tool Calling & {report._pct(mtc['acuracia'])} & "
             f"{report._pct(mtc['accsemf'])} & {report._f(mtc['f1'])} & {report._pct(mtc['recusa'])} & "
             f"{report._pct(mtc['acrescentou'])} & \\multirow{{2}}{{*}}{{{_p_tab(p_geral)}}} & "
             f"\\multirow{{2}}{{*}}{{{_p_tab(p_semf)}}} \\\\")
         linhas_tab.append(
-            f" & Saída Estruturada & {report._pct(mse['acuracia'])} & {report._pct(mse['accsemf'])} & "
+            f" & & Saída Estruturada & {report._pct(mse['acuracia'])} & {report._pct(mse['accsemf'])} & "
             f"{report._f(mse['f1'])} & {report._pct(mse['recusa'])} & {report._pct(mse['acrescentou'])} & & \\\\ \\hline")
     if tem_prototipo:
         linhas_p = dados[prototipo]["linhas"]
@@ -179,7 +196,7 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
                 put(f"{chave}-prototipo", "soprototipo", str(so_p))
                 put(f"{chave}-prototipo", "p", _p(pv))
         linhas_tab.append(
-            f"Phi-4 14B & Método do protótipo & {report._pct(mp['acuracia'])} & {report._pct(mp['accsemf'])} & "
+            f"Phi-4 14B & 14B & Método do protótipo & {report._pct(mp['acuracia'])} & {report._pct(mp['accsemf'])} & "
             f"{report._f(mp['f1'])} & {report._pct(mp['recusa'])} & {report._pct(mp['acrescentou'])} & --- & --- \\\\ \\hline")
 
     titulo = " --- estação de referência (camadas P e N)" if sufixo == "_estacao" else ""
@@ -188,8 +205,8 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
         rf"\caption{{Tool Calling e Saída Estruturada sobre as mesmas consultas{titulo}}}",
         rf"\label{{tab:abordagens{sufixo}}}", r"\footnotesize",
         r"\ajustartabela{%",
-        r"\begin{tabular}{|l|l|c|c|c|c|c|c|c|}", r"\hline",
-        r"\textbf{Modelo} & \textbf{Abordagem} & \textbf{Acurácia} & \textbf{Sem F} & \textbf{F1} & "
+        r"\begin{tabular}{|l|c|l|c|c|c|c|c|c|c|}", r"\hline",
+        r"\textbf{Modelo} & \textbf{Parâm.} & \textbf{Abordagem} & \textbf{Acurácia} & \textbf{Sem F} & \textbf{F1} & "
         r"\textbf{Recusa F} & \textbf{Campo a mais} & \textbf{\textit{p}} & \textbf{\textit{p} sem F} \\", r"\hline",
         *linhas_tab,
         r"\end{tabular}}",
@@ -197,7 +214,10 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
         r"Recusa F: proporção das execuções da categoria F sem busca; na Saída Estruturada a aplicação sempre busca. "
         r"Campo a mais: proporção das execuções fora da categoria F com algum campo ausente do gabarito. "
         r"\textit{p}: teste de McNemar exato entre as duas abordagens do mesmo modelo, com uma observação por "
-        r"consulta (maioria das repetições).}",
+        r"consulta (maioria das repetições). Parâm.: parâmetros (ef.: efetivos; MoE: mistura de especialistas, "
+        r"com parte dos parâmetros ativa a cada \textit{token})."
+        + (r" Modelos (Groq): execução em nuvem, uma repetição, data de referência de 24/09/2026."
+           if any("/" in tc for tc, _ in pares) else "") + "}",
         r"\end{table}", ""])
     macros = [f"% AUTO-GERADO por pfc_busca.evaluation.comparacao (rodada '{rodada}') — não editar à mão",
               r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}"]

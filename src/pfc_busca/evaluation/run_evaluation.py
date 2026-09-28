@@ -81,8 +81,10 @@ def _carregar_env() -> None:
 
 def criar_tradutor(args, registrar=print):
     if args.provedor == "groq":
-        from pfc_busca.agent_groq import TradutorGroq
+        from pfc_busca.agent_groq import TradutorEstruturadoGroq, TradutorGroq
 
+        if args.abordagem == "saida_estruturada":
+            return TradutorEstruturadoGroq(args.modelo, registrar=registrar)
         return TradutorGroq(args.modelo, registrar=registrar)
     if args.abordagem != "tool_calling":
         return agent_estruturado.TradutorEstruturado(args.modelo, args.abordagem, base_url=args.base_url)
@@ -596,7 +598,8 @@ def analisar(argv: list[str] | None = None):
     p.add_argument("--provedor", choices=["ollama", "groq"], default="ollama",
                    help="ollama = local (configuração avaliada); groq = nuvem (resultado paralelo)")
     p.add_argument("--abordagem", choices=["tool_calling", "saida_estruturada", "prototipo"], default="tool_calling",
-                   help="tool_calling = solução avaliada; saida_estruturada e prototipo = linhas de base (só Ollama)")
+                   help="tool_calling = solução avaliada; saida_estruturada e prototipo = linhas de base "
+                        "(prototipo só no Ollama)")
     p.add_argument("--intervalo", type=float, default=None,
                    help="segundos entre chamadas (padrão: 0 no Ollama, 11 no Groq por causa do limite por minuto)")
     p.add_argument("--repeticoes", type=int, default=1)
@@ -625,8 +628,8 @@ def main(argv: list[str] | None = None) -> int:
         args.intervalo = 11.0 if args.provedor == "groq" else 0.0
     if args.provedor == "groq":
         args.sem_sql = True  # a nuvem só traduz; a demonstração ponta a ponta é local
-        if args.abordagem != "tool_calling":
-            print("as linhas de base com Saída Estruturada rodam só no Ollama")
+        if args.abordagem == "prototipo":
+            print("o método do protótipo (Phi-4 14B) roda só no Ollama")
             return 2
     _carregar_env()
     console = Console(highlight=False)
