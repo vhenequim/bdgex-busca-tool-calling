@@ -68,15 +68,20 @@ def pasta(conjunto: str, config: str) -> Path:
     return base / sub[config] / (CONFIGS[config][0] + MODELO)
 
 
-def carregar(conjunto: str, config: str) -> tuple[list[dict], dict[str, dict]] | None:
-    p = pasta(conjunto, config)
+def carregar_pasta(p: Path, dataset: Path | None = None) -> tuple[list[dict], dict[str, dict]] | None:
+    """Execuções de uma pasta de rodada, repontuadas contra o gabarito vigente de `dataset` (padrão: o
+    dataset do manifesto da rodada), sem as consultas observacionais; None se a pasta não tem execuções."""
     linhas = carregar_execucoes(p)
     if not linhas:
         return None
-    dataset = dataset_da_rodada(p)
+    dataset = dataset or dataset_da_rodada(p)
     validas, _ = repontuar(linhas, dataset)
     casos = {c["id"]: c for c in carregar_dataset(dataset)}
     return [lin for lin in validas if not lin.get("observacional")], casos
+
+
+def carregar(conjunto: str, config: str) -> tuple[list[dict], dict[str, dict]] | None:
+    return carregar_pasta(pasta(conjunto, config))
 
 
 # ---------------------------------------------------------------------------
@@ -1241,6 +1246,59 @@ def gerar() -> dict[str, Any]:
     return resultado
 
 
+def macros_config(put, conjunto: str, k: str, m: dict[str, Any]) -> None:
+    """Macros \\res{conjunto}{k}{...} das medidas de uma configuração (`medidas`)."""
+    put(conjunto, k, "n", _milhar(m["n"]))
+    put(conjunto, k, "acuracia", report._pct(m["acuracia"]))
+    put(conjunto, k, "ic", f"{report._pct(m['ic'][0])} a {report._pct(m['ic'][1])}")
+    put(conjunto, k, "f1", report._f(m["f1"]))
+    put(conjunto, k, "f1macro", report._f(m["f1macro"]))
+    put(conjunto, k, "accdominio", report._pct(m["accdominio"]))
+    put(conjunto, k, "ndominio", _milhar(m["n_dominio"]))
+    put(conjunto, k, "recusa", report._pct(m["recusa"]["recall"]))
+    put(conjunto, k, "recusaprec", report._pct(m["recusa"]["precisao"]))
+    put(conjunto, k, "recusaf", report._f(m["recusa"]["f1"]))
+    put(conjunto, k, "falsarecusa", report._pct(m["recusa"]["falsa"]))
+    put(conjunto, k, "nfora", str(m["recusa"]["n_fora"]))
+    e = m["subespecificadas"]
+    if e["n"]:
+        put(conjunto, k, "esem", report._pct(e["sem_parametros"] / e["n"]))
+        put(conjunto, k, "enao", report._pct(e["nao_buscou"] / e["n"]))
+        put(conjunto, k, "ecom", report._pct(e["com_parametros"] / e["n"]))
+        put(conjunto, k, "en", str(e["n"]))
+    put(conjunto, k, "accunica", report._pct(m["leituras"]["unica"]["acuracia"]))
+    put(conjunto, k, "accmultiplas", report._pct(m["leituras"]["multiplas"]["acuracia"]))
+    put(conjunto, k, "nmultiplas", str(m["leituras"]["multiplas"]["n"]))
+    put(conjunto, k, "latmed", report._num((m["latmed"] or 0) / 1000, 2))
+    for c in CATEGORIAS:
+        put(conjunto, k, f"acc{c}", report._pct(m["por_categoria"][c]["acuracia"]))
+    put(conjunto, k, "latp95", report._num((m["latp95"] or 0) / 1000, 2))
+    put(conjunto, k, "accnaof", report._pct(m["accnaof"]))
+    r = m["recusa"]
+    put(conjunto, k, "recusan", _razao(r["tp"], r["n_fora"]))
+    put(conjunto, k, "recusaprecn", _razao(r["tp"], r["tp"] + r["fp"]))
+    put(conjunto, k, "falsarecusan", _razao(r["fp"], m["n_dominio"]))
+
+
+def macros_par(put, conjunto: str, par: str, cmp: dict[str, Any]) -> None:
+    """Macros \\res{conjunto}{par}{...} de uma comparação pareada (`comparar`)."""
+    put(conjunto, par, "p", _p(cmp["p"]))
+    put(conjunto, par, "soa", str(cmp["so_a"]))
+    put(conjunto, par, "sob", str(cmp["so_b"]))
+    put(conjunto, par, "difacc", _pp(cmp["dif_acc"]))
+    put(conjunto, par, "icdifacc", _ic_pp(cmp["ic_dif_acc"]))
+    put(conjunto, par, "diff", report._f(cmp["dif_f1"]))
+    put(conjunto, par, "icdiff", f"{report._f(cmp['ic_dif_f1'][0])} a {report._f(cmp['ic_dif_f1'][1])}")
+
+
+def texto_macros(defs: dict[str, str], origem: str = "pfc_busca.evaluation.lote") -> str:
+    """Arquivo numeros*.tex com as definições `defs` (nome do csname -> valor), em ordem alfabética."""
+    linhas = [f"% AUTO-GERADO por {origem} — não editar à mão",
+              r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}"]
+    linhas += [f"\\expandafter\\def\\csname {k}\\endcsname{{{v}}}" for k, v in sorted(defs.items())]
+    return "\n".join(linhas) + "\n"
+
+
 def macros(res: dict[str, Any]) -> str:
     defs: dict[str, str] = {}
 
@@ -1300,63 +1358,19 @@ def macros(res: dict[str, Any]) -> str:
     if diag.get("execucoes"):
         put("diag", "tc1", "pctnaochamou", report._pct(diag.get("naochamou", 0) / diag["execucoes"]))
 
-    def por_config(conjunto: str, k: str, m: dict[str, Any]) -> None:
-        put(conjunto, k, "n", _milhar(m["n"]))
-        put(conjunto, k, "acuracia", report._pct(m["acuracia"]))
-        put(conjunto, k, "ic", f"{report._pct(m['ic'][0])} a {report._pct(m['ic'][1])}")
-        put(conjunto, k, "f1", report._f(m["f1"]))
-        put(conjunto, k, "f1macro", report._f(m["f1macro"]))
-        put(conjunto, k, "accdominio", report._pct(m["accdominio"]))
-        put(conjunto, k, "ndominio", _milhar(m["n_dominio"]))
-        put(conjunto, k, "recusa", report._pct(m["recusa"]["recall"]))
-        put(conjunto, k, "recusaprec", report._pct(m["recusa"]["precisao"]))
-        put(conjunto, k, "recusaf", report._f(m["recusa"]["f1"]))
-        put(conjunto, k, "falsarecusa", report._pct(m["recusa"]["falsa"]))
-        put(conjunto, k, "nfora", str(m["recusa"]["n_fora"]))
-        e = m["subespecificadas"]
-        if e["n"]:
-            put(conjunto, k, "esem", report._pct(e["sem_parametros"] / e["n"]))
-            put(conjunto, k, "enao", report._pct(e["nao_buscou"] / e["n"]))
-            put(conjunto, k, "ecom", report._pct(e["com_parametros"] / e["n"]))
-            put(conjunto, k, "en", str(e["n"]))
-        put(conjunto, k, "accunica", report._pct(m["leituras"]["unica"]["acuracia"]))
-        put(conjunto, k, "accmultiplas", report._pct(m["leituras"]["multiplas"]["acuracia"]))
-        put(conjunto, k, "nmultiplas", str(m["leituras"]["multiplas"]["n"]))
-        put(conjunto, k, "latmed", report._num((m["latmed"] or 0) / 1000, 2))
-        for c in CATEGORIAS:
-            put(conjunto, k, f"acc{c}", report._pct(m["por_categoria"][c]["acuracia"]))
-        put(conjunto, k, "latp95", report._num((m["latp95"] or 0) / 1000, 2))
-        put(conjunto, k, "accnaof", report._pct(m["accnaof"]))
-        r = m["recusa"]
-        put(conjunto, k, "recusan", _razao(r["tp"], r["n_fora"]))
-        put(conjunto, k, "recusaprecn", _razao(r["tp"], r["tp"] + r["fp"]))
-        put(conjunto, k, "falsarecusan", _razao(r["fp"], m["n_dominio"]))
-
-    def por_par(conjunto: str, par: str, cmp: dict[str, Any]) -> None:
-        put(conjunto, par, "p", _p(cmp["p"]))
-        put(conjunto, par, "soa", str(cmp["so_a"]))
-        put(conjunto, par, "sob", str(cmp["so_b"]))
-        put(conjunto, par, "difacc", _pp(cmp["dif_acc"]))
-        put(conjunto, par, "icdifacc", _ic_pp(cmp["ic_dif_acc"]))
-        put(conjunto, par, "diff", report._f(cmp["dif_f1"]))
-        put(conjunto, par, "icdiff", f"{report._f(cmp['ic_dif_f1'][0])} a {report._f(cmp['ic_dif_f1'][1])}")
-
     for conjunto, cfgs in res["medidas"].items():
         for k, m in cfgs.items():
-            por_config(conjunto, k, m)
+            macros_config(put, conjunto, k, m)
         for par, cmp in res["pares"].get(conjunto, {}).items():
-            por_par(conjunto, par, cmp)
+            macros_par(put, conjunto, par, cmp)
     # configurações derivadas (duas etapas, regra do objeto vazio) e seus pares
     for conjunto, cfgs in (res.get("derivadas") or {}).items():
         for k, m in cfgs.items():
-            por_config(conjunto, k, m)
+            macros_config(put, conjunto, k, m)
         for par, cmp in (res.get("pares_derivados") or {}).get(conjunto, {}).items():
-            por_par(conjunto, par, cmp)
+            macros_par(put, conjunto, par, cmp)
     _macros_complementares(put, res)
-    linhas = ["% AUTO-GERADO por pfc_busca.evaluation.lote — não editar à mão",
-              r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}"]
-    linhas += [f"\\expandafter\\def\\csname {k}\\endcsname{{{v}}}" for k, v in sorted(defs.items())]
-    return "\n".join(linhas) + "\n"
+    return texto_macros(defs)
 
 
 def tabela_principal(res: dict[str, Any]) -> str:

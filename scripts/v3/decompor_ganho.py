@@ -11,57 +11,19 @@ objeto do histórico de tentativas.
 
 from __future__ import annotations
 
-import ast
 import sys
-from collections import Counter
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "src"))
 
-from pfc_busca.evaluation import metrics  # noqa: E402
+# a lógica da primeira decisão e da decomposição está em pfc_busca.evaluation.lote2 (usada na análise do lote 2)
+from pfc_busca.evaluation import lote2  # noqa: E402
 from pfc_busca.evaluation.run_evaluation import (  # noqa: E402
     carregar_execucoes,
     dataset_da_rodada,
     repontuar,
 )
-
-_SEM = object()
-
-
-def _extra(linha: dict, chave: str, padrao=None):
-    v = (linha.get("extras") or {}).get(chave, padrao)
-    if isinstance(v, str):
-        try:
-            return ast.literal_eval(v)
-        except (ValueError, SyntaxError):
-            return v
-    return v
-
-
-def primeira_decisao(linha: dict):
-    """Parâmetros da primeira busca, None para recusa/não busca, ou _SEM se o traço não permite saber."""
-    historico = _extra(linha, "historico")
-    if isinstance(historico, list) and historico:          # Saída Estruturada v3
-        h = historico[0]
-        if isinstance(h, str):
-            return None
-        return h.get("params") if isinstance(h, dict) else _SEM
-    traco = _extra(linha, "traco")
-    if not isinstance(traco, list):
-        return _SEM
-    for t in traco:
-        f = t.get("ferramenta") if isinstance(t, dict) else None
-        if f == "buscar_catalogo":
-            return t.get("args") if isinstance(t.get("args"), dict) else {}
-        if f == "recusar_consulta":
-            return None
-    return linha["predito"]   # nenhuma busca nem recusa contestada: a primeira decisão é a final
-
-
-def correto_com(linha: dict, predito) -> bool:
-    x = dict(linha, predito=predito, chamou_ferramenta=predito is not None)
-    return metrics.avaliar_linha(x).correto
 
 
 def decompor(pasta: Path) -> dict:
@@ -71,25 +33,7 @@ def decompor(pasta: Path) -> dict:
         dev = set(ids.read_text(encoding="utf-8").strip().split(","))
         validas = [x for x in validas if x["id"] in dev]
     linhas = [x for x in validas if not x.get("observacional")]
-    c = Counter()
-    for x in linhas:
-        final = metrics.avaliar_linha(x).correto
-        p = primeira_decisao(x)
-        if p is _SEM:
-            c["sem_traco"] += 1
-            continue
-        primeira = correto_com(x, p)
-        c["n"] += 1
-        c["final"] += final
-        c["primeira"] += primeira
-        c["consertou"] += final and not primeira
-        c["estragou"] += primeira and not final
-        if _extra(x, "recusa_contestada") in (True, "True"):
-            c["contestadas"] += 1
-            c["contestada_" + ("F" if not x["espera_tool_call"] else "dominio") + ("_certa" if final else "_errada")] += 1
-        if int(_extra(x, "avisos_recebidos", 0) or 0) > 0:
-            c["com_aviso"] += 1
-    return dict(c)
+    return lote2.decompor(linhas)
 
 
 def main() -> int:
