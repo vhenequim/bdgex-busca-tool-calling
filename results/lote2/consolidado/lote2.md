@@ -53,6 +53,7 @@ Gerado por `python -m pfc_busca.evaluation.lote2`. Plano de análise: `docs/v3.m
 | secundarios | Duas etapas × TC v3 | 945 | 25 | 174 | 1.148e-28 | +15.8 p.p. [+13.1, +18.4] | +0.081 [+0.068, +0.096] |
 | secundarios | Duas etapas × SE v3 | 945 | 53 | 140 | 3.012e-10 | +9.2 p.p. [+6.6, +12.1] | +0.046 [+0.031, +0.061] |
 | secundarios | melhor isolada (SE v2) × SE v3 | 945 | 29 | 162 | 1.316e-23 | +14.1 p.p. [+11.4, +16.9] | +0.089 [+0.072, +0.106] |
+| exploratorio | TC v3 × SE v3 | 945 | 146 | 67 | 6.477e-08 | -8.4 p.p. [-11.3, -5.4] | -0.066 [-0.085, -0.048] |
 
 ## Decomposição do acerto
 

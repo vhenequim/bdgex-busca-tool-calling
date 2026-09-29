@@ -148,7 +148,8 @@ def test_medidas_v3_pares_e_melhor_isolada():
              for k, v in (("tc3", tc3), ("se3", se3))}
     avisos: list[str] = []
     r = lote2.analisar(dados, lote2.GRUPOS_PARES, lote2.DECOMPOSTAS, avisos)
-    assert list(r["pares"]) == ["tc3se3"] and r["pares"]["tc3se3"]["n"] == 2          # só B e C são comuns
+    assert list(r["pares"]) == ["tc3se3", "tc3se3primeira"] and r["pares"]["tc3se3"]["n"] == 2  # só B e C
+    assert r["pares"]["tc3se3primeira"]["grupo"] == "exploratorio"
     assert r["melhor_isolada"] is None and any("hib" in a for a in avisos)
     res = {"dir": "results/lote2", "dataset": "data/lote_validacao_2.json", "n_conjunto": 4,
            "presentes": list(dados), "ausentes": [k for k in lote2.CONFIGS if k not in dados], **r, "avisos": avisos}

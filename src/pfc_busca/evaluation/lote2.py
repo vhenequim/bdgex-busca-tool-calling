@@ -411,7 +411,10 @@ def medidas_v3(k: str, linhas: list[dict]) -> dict[str, Any]:
     ex = {"perguntas": [], "perguntas_em_texto": [], "chamadas_em_texto": [], "recusa_contestada": [],
           "sem_final": []}
     contestadas = Counter()
+    texto_certas = 0
     for x in linhas:
+        if _int(extra(x, "chamadas_em_texto", 0) or 0) > 0 and metrics.avaliar_linha(x).correto:
+            texto_certas += 1
         for chave in ("perguntas", "perguntas_em_texto", "chamadas_em_texto"):
             ex[chave].append(_int(extra(x, chave, 0) or 0))
         contestada = _sim(extra(x, "recusa_contestada"))
@@ -429,6 +432,7 @@ def medidas_v3(k: str, linhas: list[dict]) -> dict[str, Any]:
         "perguntas_em_texto": sum(ex["perguntas_em_texto"]) if tc else None,
         "com_chamada_em_texto": sum(v > 0 for v in ex["chamadas_em_texto"]) if tc else None,
         "chamadas_em_texto": sum(ex["chamadas_em_texto"]) if tc else None,
+        "com_chamada_em_texto_certa": texto_certas if tc else None,
         "contestadas": sum(ex["recusa_contestada"]),
         "contestadas_detalhe": dict(contestadas),
         "sem_final": sum(ex["sem_final"]) if tc else None,
@@ -499,6 +503,15 @@ def analisar(dados: dict[str, dict], grupos, decompostas, avisos: list[str],
             avisos.append(f"melhor: as candidatas v1/v2 têm números de consultas diferentes ({sorted(ns)}); a escolha "
                           f"compara acurácias de conjuntos diferentes")
     pares = _pares(linhas, grupos, avisos)
+    # EXPLORATÓRIO (fora do plano de docs/v3.md, acrescentado depois do teste a pedido da revisão): as primeiras
+    # decisões do TC v3 e do controle comparadas por consulta, como se fossem respostas finais.
+    if derivar and "tc3" in dados and "se3" in dados:
+        prim = {k: [dict(x, predito=pd, chamou_ferramenta=pd is not None)
+                    for x in dados[k]["linhas"] if (pd := primeira_decisao(x)) is not SEM_TRACO]
+                for k in ("tc3", "se3")}
+        if prim["tc3"] and prim["se3"]:
+            pares["tc3se3primeira"] = {"grupo": "exploratorio", "a": "tc3", "b": "se3",
+                                       **lote.comparar(prim["tc3"], prim["se3"])}
     decomposicao = {k: decompor(dados[k]["linhas"]) for k in decompostas if k in dados}
     for k, d in decomposicao.items():
         if d.get("sem_traco"):
@@ -543,6 +556,7 @@ def _macros_conjunto(put, ns: str, r: dict[str, Any]) -> None:
     fmt = report._pct
     for k, m in r["medidas"].items():
         lote.macros_config(put, ns, k, m)
+        put(ns, k, "acuraciaen", fmt(m["acuracia"]).replace(",", "."))   # para o abstract, em inglês
         for efeito, (num, den) in m["efeitos"].items():
             put(ns, k, efeito, fmt(num / den) if den else "---")
             put(ns, k, efeito + "n", f"{num}/{lote._milhar(den)}")
@@ -561,6 +575,9 @@ def _macros_conjunto(put, ns: str, r: dict[str, Any]) -> None:
                 put(ns, k, "perguntastexto", str(x["com_pergunta_em_texto"]))
                 put(ns, k, "chamadastexto", str(x["com_chamada_em_texto"]))
                 put(ns, k, "chamadastextopct", fmt(x["com_chamada_em_texto"] / x["n"]) if x["n"] else "---")
+                put(ns, k, "chamadastextocertas", str(x["com_chamada_em_texto_certa"]))
+                put(ns, k, "chamadastextocertaspct", fmt(x["com_chamada_em_texto_certa"] / x["com_chamada_em_texto"])
+                    if x["com_chamada_em_texto"] else "---")
     melhor = r.get("melhor_isolada")
     if melhor:
         lote.macros_config(put, ns, "melhor", r["medidas"][melhor["config"]])
