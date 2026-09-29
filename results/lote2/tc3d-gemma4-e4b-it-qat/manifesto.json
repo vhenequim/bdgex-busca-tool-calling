@@ -1,0 +1,98 @@
+{
+  "modelo": "gemma4:e4b-it-qat",
+  "provedor": "ollama",
+  "abordagem": "tool_calling_v3d",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-29 19:51:47.790291+00:00",
+    "digest": "ee665637121887cf3befff38abbb1be4ee117c7db867d97a67e29049ecd7e15f",
+    "tamanho_bytes": 6146501801
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "tool_calling_v3d",
+    "temperature": 0,
+    "num_predict": 1024,
+    "ferramentas": [
+      "buscar_catalogo",
+      "recusar_consulta"
+    ],
+    "ferramentas_auxiliares": false,
+    "validacao_com_retorno": false,
+    "max_chamadas_modelo": 6,
+    "max_tentativas_busca": 3,
+    "usuario_simulado": "Resposta do usuário: não tenho outros detalhes além do que escrevi; pode buscar com o que eu disse.",
+    "num_ctx": 8192,
+    "recusa_com_retorno": false,
+    "pergunta_em_texto_respondida": false,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-24",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/lote_validacao_2.json",
+    "sha256": "ba5130cbbf898dc6f8bbe8bc17d8d03cec29b032df39b88979b76d3b34f69b92"
+  },
+  "ferramenta_sha256": "1af9423399abb1d0fc972d5602f8bc6fe271ff60a4243c45fac51f9d65e891fe",
+  "prompt_sha256": "9723e508ea82ce7edd60d4853cec4a2c701835a8bf2c91fcdcc90cb433c98b39",
+  "codigo": "fbf466e",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.3",
+    "langchain_core": "1.6.6",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "ebd85eb56b96"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-29T21:35:05",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-29T21:35:05",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "gemma4:e4b-it-qat"
+      ],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 91
+      },
+      "aquecimento_ms": 15785.252138999567,
+      "ollama_ps": {
+        "tamanho_bytes": 3227821014,
+        "na_vram_bytes": 3227821014,
+        "fracao_na_gpu": 1.0,
+        "contexto": 8192
+      },
+      "encerrado_em": "2026-09-29T21:50:07",
+      "executadas": 945
+    }
+  ],
+  "aquecimento_ms": 15785.252138999567,
+  "encerrado_em": "2026-09-29T21:50:07"
+}

@@ -1,0 +1,4027 @@
+{
+ "dir": "results/lote2",
+ "dataset": "data/lote_validacao_2.json",
+ "n_conjunto": 945,
+ "presentes": [
+  "tc1",
+  "tc2",
+  "tc3d",
+  "tc3a",
+  "tc3",
+  "se3",
+  "se1",
+  "se2"
+ ],
+ "ausentes": [],
+ "rodadas": {
+  "tc1": {
+   "pasta": "results/lote2/gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "tc2": {
+   "pasta": "results/lote2/tc2-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "tc3d": {
+   "pasta": "results/lote2/tc3d-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "tc3a": {
+   "pasta": "results/lote2/tc3a-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "tc3": {
+   "pasta": "results/lote2/tc3-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "se3": {
+   "pasta": "results/lote2/se3-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "se1": {
+   "pasta": "results/lote2/se-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  },
+  "se2": {
+   "pasta": "results/lote2/se2-gemma4-e4b-it-qat",
+   "descartadas": 0,
+   "n_conjunto": 945,
+   "cobertura": 1.0,
+   "n": 945
+  }
+ },
+ "medidas": {
+  "tc1": {
+   "n": 945,
+   "acuracia": 0.5862433862433862,
+   "ic": [
+    0.5545543092085805,
+    0.617234111535198
+   ],
+   "f1": 0.730750285093655,
+   "f1macro": 0.6866241772710193,
+   "f1micro": 0.7440758293838863,
+   "precisao": 0.885691104802577,
+   "recall": 0.6404076568376764,
+   "por_campo": {
+    "keyword": {
+     "tp": 197,
+     "fp": 31,
+     "fn": 26,
+     "ocorrencias": 240,
+     "precisao": 0.8640350877192983,
+     "recall": 0.8834080717488789,
+     "f1": 0.8736141906873615
+    },
+    "scale": {
+     "tp": 125,
+     "fp": 4,
+     "fn": 68,
+     "ocorrencias": 197,
+     "precisao": 0.9689922480620154,
+     "recall": 0.6476683937823834,
+     "f1": 0.7763975155279502
+    },
+    "productType": {
+     "tp": 116,
+     "fp": 46,
+     "fn": 72,
+     "ocorrencias": 192,
+     "precisao": 0.7160493827160493,
+     "recall": 0.6170212765957447,
+     "f1": 0.6628571428571428
+    },
+    "state": {
+     "tp": 85,
+     "fp": 5,
+     "fn": 52,
+     "ocorrencias": 138,
+     "precisao": 0.9444444444444444,
+     "recall": 0.6204379562043796,
+     "f1": 0.748898678414097
+    },
+    "city": {
+     "tp": 46,
+     "fp": 5,
+     "fn": 51,
+     "ocorrencias": 102,
+     "precisao": 0.9019607843137255,
+     "recall": 0.4742268041237113,
+     "f1": 0.6216216216216216
+    },
+    "supplyArea": {
+     "tp": 138,
+     "fp": 0,
+     "fn": 37,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 0.7885714285714286,
+     "f1": 0.8817891373801916
+    },
+    "project": {
+     "tp": 83,
+     "fp": 4,
+     "fn": 13,
+     "ocorrencias": 99,
+     "precisao": 0.9540229885057471,
+     "recall": 0.8645833333333334,
+     "f1": 0.907103825136612
+    },
+    "publicationPeriod": {
+     "tp": 31,
+     "fp": 16,
+     "fn": 57,
+     "ocorrencias": 102,
+     "precisao": 0.6595744680851063,
+     "recall": 0.3522727272727273,
+     "f1": 0.4592592592592593
+    },
+    "creationPeriod": {
+     "tp": 9,
+     "fp": 4,
+     "fn": 25,
+     "ocorrencias": 37,
+     "precisao": 0.6923076923076923,
+     "recall": 0.2647058823529412,
+     "f1": 0.3829787234042553
+    },
+    "sortField": {
+     "tp": 42,
+     "fp": 3,
+     "fn": 54,
+     "ocorrencias": 99,
+     "precisao": 0.9333333333333333,
+     "recall": 0.4375,
+     "f1": 0.5957446808510638
+    },
+    "sortDirection": {
+     "tp": 45,
+     "fp": 0,
+     "fn": 54,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 0.45454545454545453,
+     "f1": 0.625
+    },
+    "limit": {
+     "tp": 25,
+     "fp": 4,
+     "fn": 17,
+     "ocorrencias": 42,
+     "precisao": 0.8620689655172413,
+     "recall": 0.5952380952380952,
+     "f1": 0.7042253521126761
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.5104166666666666,
+     "f1": 0.6576290821201757
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.49141630901287553,
+     "f1": 0.7756473504875814
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.8076923076923077,
+     "f1": 0.9402908213125807
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.22302158273381295,
+     "f1": 0.5623181527374036
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.2727272727272727,
+     "f1": 0.6361484978413625
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.4923413566739606,
+     "f1": 0.7691394755711687
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.9538461538461539,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.45885634588563456,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 254,
+    "fn": 0,
+    "tn": 463,
+    "precisao": 0.3908872901678657,
+    "recall": 1.0,
+    "f1": 0.5620689655172414,
+    "falsa": 0.3542538354253835,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 0,
+    "nao_buscou": 62,
+    "com_parametros": 3,
+    "acuracia": 0.9538461538461539
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.53099173553719
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.3090128755364807
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.6
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.3291139240506329
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.6176470588235294
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.5277777777777778
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.581081081081081
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.6526946107784432
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.6347826086956522
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.5733333333333334
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 0.16666666666666666
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.1
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.5294117647058824
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.5555555555555556
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.3333333333333333
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.16666666666666666
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.0
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.8695652173913043
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.5,
+   "latmed": 848.4433599996919,
+   "latp95": 1410.1153009996779,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     90
+    ],
+    "prefixo": [
+     2,
+     48
+    ],
+    "limite": [
+     4,
+     429
+    ],
+    "tipo": [
+     41,
+     336
+    ]
+   },
+   "chamadas": 1.0,
+   "chamadas_em_texto_nao_interpretadas": 0
+  },
+  "tc2": {
+   "n": 945,
+   "acuracia": 0.6211640211640211,
+   "ic": [
+    0.5898030219133991,
+    0.6515439004812346
+   ],
+   "f1": 0.8421198229313082,
+   "f1macro": 0.8422566288115952,
+   "f1micro": 0.8367933567550303,
+   "precisao": 0.781901502639614,
+   "recall": 0.9368790476366657,
+   "por_campo": {
+    "keyword": {
+     "tp": 170,
+     "fp": 103,
+     "fn": 8,
+     "ocorrencias": 239,
+     "precisao": 0.6227106227106227,
+     "recall": 0.9550561797752809,
+     "f1": 0.753880266075388
+    },
+    "scale": {
+     "tp": 176,
+     "fp": 7,
+     "fn": 14,
+     "ocorrencias": 197,
+     "precisao": 0.9617486338797814,
+     "recall": 0.9263157894736842,
+     "f1": 0.9436997319034852
+    },
+    "productType": {
+     "tp": 182,
+     "fp": 134,
+     "fn": 8,
+     "ocorrencias": 192,
+     "precisao": 0.5759493670886076,
+     "recall": 0.9578947368421052,
+     "f1": 0.7193675889328064
+    },
+    "state": {
+     "tp": 77,
+     "fp": 54,
+     "fn": 16,
+     "ocorrencias": 135,
+     "precisao": 0.5877862595419847,
+     "recall": 0.8279569892473119,
+     "f1": 0.6875
+    },
+    "city": {
+     "tp": 80,
+     "fp": 19,
+     "fn": 20,
+     "ocorrencias": 106,
+     "precisao": 0.8080808080808081,
+     "recall": 0.8,
+     "f1": 0.8040201005025126
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "project": {
+     "tp": 88,
+     "fp": 5,
+     "fn": 7,
+     "ocorrencias": 98,
+     "precisao": 0.946236559139785,
+     "recall": 0.9263157894736842,
+     "f1": 0.9361702127659575
+    },
+    "publicationPeriod": {
+     "tp": 72,
+     "fp": 24,
+     "fn": 5,
+     "ocorrencias": 93,
+     "precisao": 0.75,
+     "recall": 0.935064935064935,
+     "f1": 0.8323699421965318
+    },
+    "creationPeriod": {
+     "tp": 33,
+     "fp": 8,
+     "fn": 5,
+     "ocorrencias": 46,
+     "precisao": 0.8048780487804879,
+     "recall": 0.868421052631579,
+     "f1": 0.8354430379746836
+    },
+    "sortField": {
+     "tp": 99,
+     "fp": 7,
+     "fn": 0,
+     "ocorrencias": 99,
+     "precisao": 0.9339622641509434,
+     "recall": 1.0,
+     "f1": 0.9658536585365853
+    },
+    "sortDirection": {
+     "tp": 99,
+     "fp": 7,
+     "fn": 0,
+     "ocorrencias": 99,
+     "precisao": 0.9339622641509434,
+     "recall": 1.0,
+     "f1": 0.9658536585365853
+    },
+    "limit": {
+     "tp": 59,
+     "fp": 60,
+     "fn": 0,
+     "ocorrencias": 59,
+     "precisao": 0.4957983193277311,
+     "recall": 1.0,
+     "f1": 0.6629213483146068
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.6770833333333334,
+     "f1": 0.799637183591948
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.4656652360515021,
+     "f1": 0.8601373031204828
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.49230769230769234,
+     "f1": 0.8270684157262608
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.4028776978417266,
+     "f1": 0.8549488269144904
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.5656565656565656,
+     "f1": 0.9209490589005416
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.4989059080962801,
+     "f1": 0.8402169923456931
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.6461538461538462,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.5327754532775453,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 3,
+    "fn": 0,
+    "tn": 714,
+    "precisao": 0.9819277108433735,
+    "recall": 1.0,
+    "f1": 0.9908814589665653,
+    "falsa": 0.0041841004184100415,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 33,
+    "nao_buscou": 9,
+    "com_parametros": 23,
+    "acuracia": 0.6461538461538462
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.5681818181818182
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.4592274678111588
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.6193548387096774
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.569620253164557
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.611764705882353
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.6388888888888888
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.668918918918919
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.6287425149700598
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.6521739130434783
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.5333333333333333
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 0.25
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.05
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.6470588235294118
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.8888888888888888
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.6666666666666666
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.0
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 0.7777777777777778
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.17391304347826086
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.5421994884910486,
+   "latmed": 912.586530000226,
+   "latp95": 1396.3830689999668,
+   "fora_do_schema": 1,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     46,
+     125
+    ],
+    "prefixo": [
+     44,
+     49
+    ],
+    "limite": [
+     60,
+     650
+    ],
+    "tipo": [
+     118,
+     523
+    ]
+   },
+   "chamadas": 1.0,
+   "chamadas_em_texto_nao_interpretadas": 12
+  },
+  "tc3d": {
+   "n": 945,
+   "acuracia": 0.7523809523809524,
+   "ic": [
+    0.7238757278334886,
+    0.7788425340976914
+   ],
+   "f1": 0.8955331550253045,
+   "f1macro": 0.884556398128194,
+   "f1micro": 0.8934796642995481,
+   "precisao": 0.8677688665425818,
+   "recall": 0.9334841258811635,
+   "por_campo": {
+    "keyword": {
+     "tp": 207,
+     "fp": 58,
+     "fn": 11,
+     "ocorrencias": 239,
+     "precisao": 0.7811320754716982,
+     "recall": 0.9495412844036697,
+     "f1": 0.8571428571428572
+    },
+    "scale": {
+     "tp": 180,
+     "fp": 4,
+     "fn": 13,
+     "ocorrencias": 197,
+     "precisao": 0.9782608695652174,
+     "recall": 0.9326424870466321,
+     "f1": 0.9549071618037135
+    },
+    "productType": {
+     "tp": 175,
+     "fp": 30,
+     "fn": 16,
+     "ocorrencias": 192,
+     "precisao": 0.8536585365853658,
+     "recall": 0.9162303664921466,
+     "f1": 0.8838383838383838
+    },
+    "state": {
+     "tp": 106,
+     "fp": 15,
+     "fn": 32,
+     "ocorrencias": 138,
+     "precisao": 0.8760330578512396,
+     "recall": 0.7681159420289855,
+     "f1": 0.8185328185328185
+    },
+    "city": {
+     "tp": 82,
+     "fp": 21,
+     "fn": 16,
+     "ocorrencias": 103,
+     "precisao": 0.7961165048543689,
+     "recall": 0.8367346938775511,
+     "f1": 0.8159203980099503
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "project": {
+     "tp": 93,
+     "fp": 3,
+     "fn": 3,
+     "ocorrencias": 99,
+     "precisao": 0.96875,
+     "recall": 0.96875,
+     "f1": 0.96875
+    },
+    "publicationPeriod": {
+     "tp": 79,
+     "fp": 14,
+     "fn": 5,
+     "ocorrencias": 93,
+     "precisao": 0.8494623655913979,
+     "recall": 0.9404761904761905,
+     "f1": 0.8926553672316385
+    },
+    "creationPeriod": {
+     "tp": 36,
+     "fp": 10,
+     "fn": 1,
+     "ocorrencias": 46,
+     "precisao": 0.782608695652174,
+     "recall": 0.972972972972973,
+     "f1": 0.8674698795180723
+    },
+    "sortField": {
+     "tp": 98,
+     "fp": 17,
+     "fn": 1,
+     "ocorrencias": 99,
+     "precisao": 0.8521739130434782,
+     "recall": 0.98989898989899,
+     "f1": 0.9158878504672896
+    },
+    "sortDirection": {
+     "tp": 98,
+     "fp": 17,
+     "fn": 1,
+     "ocorrencias": 99,
+     "precisao": 0.8521739130434782,
+     "recall": 0.98989898989899,
+     "f1": 0.9158878504672896
+    },
+    "limit": {
+     "tp": 55,
+     "fp": 42,
+     "fn": 0,
+     "ocorrencias": 55,
+     "precisao": 0.5670103092783505,
+     "recall": 1.0,
+     "f1": 0.7236842105263158
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.8489583333333334,
+     "f1": 0.9062067900575302
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.6459227467811158,
+     "f1": 0.9075315009777397
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.7846153846153846,
+     "f1": 0.9380231394486562
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.5899280575539568,
+     "f1": 0.9186403579173884
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.7676767676767676,
+     "f1": 0.9648997053383039
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.6564551422319475,
+     "f1": 0.894649704137421
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.676923076923077,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.702928870292887,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 5,
+    "fn": 0,
+    "tn": 712,
+    "precisao": 0.9702380952380952,
+    "recall": 1.0,
+    "f1": 0.984894259818731,
+    "falsa": 0.00697350069735007,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 37,
+    "nao_buscou": 7,
+    "com_parametros": 21,
+    "acuracia": 0.676923076923077
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.7231404958677686
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.6609442060085837
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.7225806451612903
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.759493670886076
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.7470588235294118
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.75
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.8040540540540541
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.7544910179640718
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.8
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.64
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 0.75
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.2
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.7647058823529411
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.16666666666666666
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.5
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 0.8888888888888888
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.17391304347826086
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.7007672634271099,
+   "latmed": 901.6808070000479,
+   "latp95": 1380.5194990000018,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     112
+    ],
+    "prefixo": [
+     1,
+     49
+    ],
+    "limite": [
+     42,
+     648
+    ],
+    "tipo": [
+     27,
+     521
+    ]
+   },
+   "chamadas": 1.0063492063492063,
+   "v3": {
+    "n": 945,
+    "com_pergunta": 0,
+    "perguntas": 0,
+    "com_pergunta_em_texto": 0,
+    "perguntas_em_texto": 0,
+    "com_chamada_em_texto": 7,
+    "chamadas_em_texto": 7,
+    "contestadas": 0,
+    "contestadas_detalhe": {},
+    "sem_final": 0
+   }
+  },
+  "tc3a": {
+   "n": 945,
+   "acuracia": 0.8306878306878307,
+   "ic": [
+    0.8054485908536444,
+    0.85324934144612
+   ],
+   "f1": 0.9289949256578068,
+   "f1macro": 0.9232997854028892,
+   "f1micro": 0.9310113864701941,
+   "precisao": 0.9450603667546479,
+   "recall": 0.9179747476290052,
+   "por_campo": {
+    "keyword": {
+     "tp": 223,
+     "fp": 24,
+     "fn": 6,
+     "ocorrencias": 236,
+     "precisao": 0.902834008097166,
+     "recall": 0.9737991266375546,
+     "f1": 0.9369747899159664
+    },
+    "scale": {
+     "tp": 187,
+     "fp": 1,
+     "fn": 9,
+     "ocorrencias": 197,
+     "precisao": 0.9946808510638298,
+     "recall": 0.9540816326530612,
+     "f1": 0.9739583333333334
+    },
+    "productType": {
+     "tp": 161,
+     "fp": 4,
+     "fn": 30,
+     "ocorrencias": 192,
+     "precisao": 0.9757575757575757,
+     "recall": 0.8429319371727748,
+     "f1": 0.9044943820224718
+    },
+    "state": {
+     "tp": 94,
+     "fp": 7,
+     "fn": 40,
+     "ocorrencias": 134,
+     "precisao": 0.9306930693069307,
+     "recall": 0.7014925373134329,
+     "f1": 0.8
+    },
+    "city": {
+     "tp": 100,
+     "fp": 5,
+     "fn": 10,
+     "ocorrencias": 110,
+     "precisao": 0.9523809523809523,
+     "recall": 0.9090909090909091,
+     "f1": 0.9302325581395349
+    },
+    "supplyArea": {
+     "tp": 173,
+     "fp": 0,
+     "fn": 2,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 0.9885714285714285,
+     "f1": 0.9942528735632185
+    },
+    "project": {
+     "tp": 91,
+     "fp": 6,
+     "fn": 5,
+     "ocorrencias": 99,
+     "precisao": 0.9381443298969072,
+     "recall": 0.9479166666666666,
+     "f1": 0.9430051813471502
+    },
+    "publicationPeriod": {
+     "tp": 78,
+     "fp": 12,
+     "fn": 14,
+     "ocorrencias": 101,
+     "precisao": 0.8666666666666667,
+     "recall": 0.8478260869565217,
+     "f1": 0.8571428571428571
+    },
+    "creationPeriod": {
+     "tp": 32,
+     "fp": 5,
+     "fn": 4,
+     "ocorrencias": 38,
+     "precisao": 0.8648648648648649,
+     "recall": 0.8888888888888888,
+     "f1": 0.8767123287671232
+    },
+    "sortField": {
+     "tp": 96,
+     "fp": 5,
+     "fn": 2,
+     "ocorrencias": 99,
+     "precisao": 0.9504950495049505,
+     "recall": 0.9795918367346939,
+     "f1": 0.964824120603015
+    },
+    "sortDirection": {
+     "tp": 97,
+     "fp": 4,
+     "fn": 2,
+     "ocorrencias": 99,
+     "precisao": 0.9603960396039604,
+     "recall": 0.9797979797979798,
+     "f1": 0.9700000000000001
+    },
+    "limit": {
+     "tp": 58,
+     "fp": 9,
+     "fn": 0,
+     "ocorrencias": 58,
+     "precisao": 0.8656716417910447,
+     "recall": 1.0,
+     "f1": 0.928
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.8854166666666666,
+     "f1": 0.9335540021929823
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.7532188841201717,
+     "f1": 0.9298808320248289
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.9,
+     "f1": 0.9629538599033771
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.7410071942446043,
+     "f1": 0.900671716169229
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.8484848484848485,
+     "f1": 0.9691554190713882
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.7702407002188184,
+     "f1": 0.9229311821000973
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.8615384615384616,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 0.9631901840490797,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.797768479776848,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 157,
+    "fp": 13,
+    "fn": 6,
+    "tn": 704,
+    "precisao": 0.9235294117647059,
+    "recall": 0.9631901840490797,
+    "f1": 0.942942942942943,
+    "falsa": 0.01813110181311018,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 37,
+    "nao_buscou": 19,
+    "com_parametros": 9,
+    "acuracia": 0.8615384615384616
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.7871900826446281
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.8197424892703863
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.8387096774193549
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.759493670886076
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.8529411764705882
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.9166666666666666
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.8175675675675675
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.8502994011976048
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.8608695652173913
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.7333333333333333
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 1.0
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.75
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.8823529411764706
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.3333333333333333
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.6086956521739131
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 0.6
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.80306905370844,
+   "latmed": 1365.0189809995936,
+   "latp95": 3353.7239950001094,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     97
+    ],
+    "prefixo": [
+     2,
+     49
+    ],
+    "limite": [
+     9,
+     640
+    ],
+    "tipo": [
+     3,
+     516
+    ]
+   },
+   "chamadas": 1.819047619047619,
+   "v3": {
+    "n": 945,
+    "com_pergunta": 96,
+    "perguntas": 109,
+    "com_pergunta_em_texto": 49,
+    "perguntas_em_texto": 49,
+    "com_chamada_em_texto": 235,
+    "chamadas_em_texto": 235,
+    "contestadas": 0,
+    "contestadas_detalhe": {},
+    "sem_final": 1
+   }
+  },
+  "tc3": {
+   "n": 945,
+   "acuracia": 0.9439153439153439,
+   "ic": [
+    0.9273679179067252,
+    0.9568681864124783
+   ],
+   "f1": 0.9814749067392444,
+   "f1macro": 0.9798858784284955,
+   "f1micro": 0.9814513504718516,
+   "precisao": 0.9744547041637829,
+   "recall": 0.9888644759771921,
+   "por_campo": {
+    "keyword": {
+     "tp": 226,
+     "fp": 16,
+     "fn": 4,
+     "ocorrencias": 235,
+     "precisao": 0.9338842975206612,
+     "recall": 0.9826086956521739,
+     "f1": 0.9576271186440679
+    },
+    "scale": {
+     "tp": 194,
+     "fp": 1,
+     "fn": 2,
+     "ocorrencias": 197,
+     "precisao": 0.9948717948717949,
+     "recall": 0.9897959183673469,
+     "f1": 0.9923273657289001
+    },
+    "productType": {
+     "tp": 191,
+     "fp": 1,
+     "fn": 1,
+     "ocorrencias": 192,
+     "precisao": 0.9947916666666666,
+     "recall": 0.9947916666666666,
+     "f1": 0.9947916666666666
+    },
+    "state": {
+     "tp": 126,
+     "fp": 3,
+     "fn": 5,
+     "ocorrencias": 131,
+     "precisao": 0.9767441860465116,
+     "recall": 0.9618320610687023,
+     "f1": 0.9692307692307692
+    },
+    "city": {
+     "tp": 111,
+     "fp": 4,
+     "fn": 3,
+     "ocorrencias": 114,
+     "precisao": 0.9652173913043478,
+     "recall": 0.9736842105263158,
+     "f1": 0.9694323144104805
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "project": {
+     "tp": 97,
+     "fp": 3,
+     "fn": 0,
+     "ocorrencias": 100,
+     "precisao": 0.97,
+     "recall": 1.0,
+     "f1": 0.9847715736040609
+    },
+    "publicationPeriod": {
+     "tp": 96,
+     "fp": 6,
+     "fn": 1,
+     "ocorrencias": 102,
+     "precisao": 0.9411764705882353,
+     "recall": 0.9896907216494846,
+     "f1": 0.964824120603015
+    },
+    "creationPeriod": {
+     "tp": 36,
+     "fp": 3,
+     "fn": 1,
+     "ocorrencias": 37,
+     "precisao": 0.9230769230769231,
+     "recall": 0.972972972972973,
+     "f1": 0.9473684210526315
+    },
+    "sortField": {
+     "tp": 98,
+     "fp": 1,
+     "fn": 0,
+     "ocorrencias": 99,
+     "precisao": 0.98989898989899,
+     "recall": 1.0,
+     "f1": 0.9949238578680203
+    },
+    "sortDirection": {
+     "tp": 99,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "limit": {
+     "tp": 59,
+     "fp": 2,
+     "fn": 0,
+     "ocorrencias": 59,
+     "precisao": 0.9672131147540983,
+     "recall": 1.0,
+     "f1": 0.9833333333333333
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.9739583333333334,
+     "f1": 0.986831410558879
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.9356223175965666,
+     "f1": 0.9848274296684837
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.9846153846153847,
+     "f1": 0.9961711860739189
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.9136690647482014,
+     "f1": 0.9756192124468527
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.9696969696969697,
+     "f1": 0.9930854488673158
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.936542669584245,
+     "f1": 0.9824467763677772
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.9230769230769231,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 0.950920245398773,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.9442119944211994,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 155,
+    "fp": 2,
+    "fn": 8,
+    "tn": 715,
+    "precisao": 0.9872611464968153,
+    "recall": 0.950920245398773,
+    "f1": 0.9687500000000001,
+    "falsa": 0.002789400278940028,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 41,
+    "nao_buscou": 19,
+    "com_parametros": 5,
+    "acuracia": 0.9230769230769231
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.9504132231404959
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.9313304721030042
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.9612903225806452
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.8860759493670886
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.9823529411764705
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 1.0
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.9324324324324325
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.9461077844311377
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.9217391304347826
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.9066666666666666
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 1.0
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.85
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 1.0
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.8333333333333334
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 1.0
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.5
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.782608695652174
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 0.95
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 0.6666666666666666
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 0.8947368421052632
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.9424552429667519,
+   "latmed": 1473.663151999972,
+   "latp95": 4962.28842399978,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     127
+    ],
+    "prefixo": [
+     1,
+     49
+    ],
+    "limite": [
+     2,
+     651
+    ],
+    "tipo": [
+     0,
+     523
+    ]
+   },
+   "chamadas": 2.055026455026455,
+   "v3": {
+    "n": 945,
+    "com_pergunta": 133,
+    "perguntas": 171,
+    "com_pergunta_em_texto": 81,
+    "perguntas_em_texto": 81,
+    "com_chamada_em_texto": 236,
+    "chamadas_em_texto": 236,
+    "contestadas": 20,
+    "contestadas_detalhe": {
+     "dominio_certa": 10,
+     "F_certa": 7,
+     "F_errada": 3
+    },
+    "sem_final": 3
+   }
+  },
+  "se3": {
+   "n": 945,
+   "acuracia": 0.8783068783068783,
+   "ic": [
+    0.855916414031126,
+    0.8976340205198043
+   ],
+   "f1": 0.9464020586771271,
+   "f1macro": 0.9517826846046349,
+   "f1micro": 0.9468760441029068,
+   "precisao": 0.9500290878303241,
+   "recall": 0.9467983046667391,
+   "por_campo": {
+    "keyword": {
+     "tp": 213,
+     "fp": 48,
+     "fn": 4,
+     "ocorrencias": 241,
+     "precisao": 0.8160919540229885,
+     "recall": 0.9815668202764977,
+     "f1": 0.891213389121339
+    },
+    "scale": {
+     "tp": 169,
+     "fp": 15,
+     "fn": 13,
+     "ocorrencias": 197,
+     "precisao": 0.9184782608695652,
+     "recall": 0.9285714285714286,
+     "f1": 0.9234972677595629
+    },
+    "productType": {
+     "tp": 177,
+     "fp": 0,
+     "fn": 15,
+     "ocorrencias": 192,
+     "precisao": 1.0,
+     "recall": 0.921875,
+     "f1": 0.959349593495935
+    },
+    "state": {
+     "tp": 131,
+     "fp": 8,
+     "fn": 5,
+     "ocorrencias": 136,
+     "precisao": 0.9424460431654677,
+     "recall": 0.9632352941176471,
+     "f1": 0.9527272727272728
+    },
+    "city": {
+     "tp": 82,
+     "fp": 3,
+     "fn": 19,
+     "ocorrencias": 103,
+     "precisao": 0.9647058823529412,
+     "recall": 0.8118811881188119,
+     "f1": 0.881720430107527
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "project": {
+     "tp": 93,
+     "fp": 3,
+     "fn": 3,
+     "ocorrencias": 99,
+     "precisao": 0.96875,
+     "recall": 0.96875,
+     "f1": 0.96875
+    },
+    "publicationPeriod": {
+     "tp": 98,
+     "fp": 1,
+     "fn": 6,
+     "ocorrencias": 104,
+     "precisao": 0.98989898989899,
+     "recall": 0.9423076923076923,
+     "f1": 0.9655172413793104
+    },
+    "creationPeriod": {
+     "tp": 32,
+     "fp": 0,
+     "fn": 3,
+     "ocorrencias": 35,
+     "precisao": 1.0,
+     "recall": 0.9142857142857143,
+     "f1": 0.955223880597015
+    },
+    "sortField": {
+     "tp": 94,
+     "fp": 0,
+     "fn": 5,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 0.9494949494949495,
+     "f1": 0.9740932642487047
+    },
+    "sortDirection": {
+     "tp": 94,
+     "fp": 0,
+     "fn": 5,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 0.9494949494949495,
+     "f1": 0.9740932642487047
+    },
+    "limit": {
+     "tp": 59,
+     "fp": 1,
+     "fn": 2,
+     "ocorrencias": 61,
+     "precisao": 0.9833333333333333,
+     "recall": 0.9672131147540983,
+     "f1": 0.9752066115702478
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.8802083333333334,
+     "f1": 0.9313189644738361
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.8197424892703863,
+     "f1": 0.9486953791121452
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.8461538461538461,
+     "f1": 0.9584683654285927
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.8992805755395683,
+     "f1": 0.9630880034440117
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.8686868686868687,
+     "f1": 0.9617679613098851
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.8183807439824945,
+     "f1": 0.9377002360191523
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.9538461538461539,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.8437935843793585,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 36,
+    "fn": 0,
+    "tn": 681,
+    "precisao": 0.8190954773869347,
+    "recall": 1.0,
+    "f1": 0.9005524861878452,
+    "falsa": 0.0502092050209205,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 1,
+    "nao_buscou": 61,
+    "com_parametros": 3,
+    "acuracia": 0.9538461538461539
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.8636363636363636
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.8025751072961373
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.896774193548387
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.9113924050632911
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.8588235294117647
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.8888888888888888
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.9054054054054054
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.874251497005988
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.8695652173913043
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.8133333333333334
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 0.875
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 1.0
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.0
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 1.0
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.8888888888888888
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.3333333333333333
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.5
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.8695652173913043
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.8529411764705882,
+   "latmed": 780.9634139998707,
+   "latp95": 2552.5767089998226,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     139
+    ],
+    "prefixo": [
+     0,
+     49
+    ],
+    "limite": [
+     1,
+     621
+    ],
+    "tipo": [
+     0,
+     504
+    ]
+   },
+   "chamadas": 1.2253968253968255,
+   "v3": {
+    "n": 945,
+    "com_pergunta": null,
+    "perguntas": null,
+    "com_pergunta_em_texto": null,
+    "perguntas_em_texto": null,
+    "com_chamada_em_texto": null,
+    "chamadas_em_texto": null,
+    "contestadas": 67,
+    "contestadas_detalhe": {
+     "dominio_errada": 31,
+     "dominio_certa": 26,
+     "F_certa": 10
+    },
+    "sem_final": null
+   }
+  },
+  "se1": {
+   "n": 945,
+   "acuracia": 0.6126984126984127,
+   "ic": [
+    0.5812426569007854,
+    0.6432415984269744
+   ],
+   "f1": 0.8949412111497537,
+   "f1macro": 0.8827157229451691,
+   "f1micro": 0.8967120557954169,
+   "precisao": 0.8828860310081608,
+   "recall": 0.9292840941966165,
+   "por_campo": {
+    "keyword": {
+     "tp": 213,
+     "fp": 114,
+     "fn": 0,
+     "ocorrencias": 241,
+     "precisao": 0.6513761467889908,
+     "recall": 1.0,
+     "f1": 0.788888888888889
+    },
+    "scale": {
+     "tp": 177,
+     "fp": 14,
+     "fn": 8,
+     "ocorrencias": 197,
+     "precisao": 0.9267015706806283,
+     "recall": 0.9567567567567568,
+     "f1": 0.9414893617021277
+    },
+    "productType": {
+     "tp": 175,
+     "fp": 13,
+     "fn": 6,
+     "ocorrencias": 192,
+     "precisao": 0.9308510638297872,
+     "recall": 0.9668508287292817,
+     "f1": 0.9485094850948509
+    },
+    "state": {
+     "tp": 119,
+     "fp": 13,
+     "fn": 19,
+     "ocorrencias": 139,
+     "precisao": 0.9015151515151515,
+     "recall": 0.8623188405797102,
+     "f1": 0.8814814814814814
+    },
+    "city": {
+     "tp": 54,
+     "fp": 3,
+     "fn": 43,
+     "ocorrencias": 100,
+     "precisao": 0.9473684210526315,
+     "recall": 0.5567010309278351,
+     "f1": 0.7012987012987012
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 1,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 0.9943181818181818,
+     "recall": 1.0,
+     "f1": 0.9971509971509972
+    },
+    "project": {
+     "tp": 96,
+     "fp": 6,
+     "fn": 1,
+     "ocorrencias": 100,
+     "precisao": 0.9411764705882353,
+     "recall": 0.9896907216494846,
+     "f1": 0.964824120603015
+    },
+    "publicationPeriod": {
+     "tp": 87,
+     "fp": 31,
+     "fn": 1,
+     "ocorrencias": 105,
+     "precisao": 0.7372881355932204,
+     "recall": 0.9886363636363636,
+     "f1": 0.8446601941747574
+    },
+    "creationPeriod": {
+     "tp": 16,
+     "fp": 4,
+     "fn": 14,
+     "ocorrencias": 34,
+     "precisao": 0.8,
+     "recall": 0.5333333333333333,
+     "f1": 0.64
+    },
+    "sortField": {
+     "tp": 88,
+     "fp": 5,
+     "fn": 6,
+     "ocorrencias": 99,
+     "precisao": 0.946236559139785,
+     "recall": 0.9361702127659575,
+     "f1": 0.9411764705882354
+    },
+    "sortDirection": {
+     "tp": 93,
+     "fp": 0,
+     "fn": 6,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 0.9393939393939394,
+     "f1": 0.96875
+    },
+    "limit": {
+     "tp": 57,
+     "fp": 3,
+     "fn": 0,
+     "ocorrencias": 57,
+     "precisao": 0.95,
+     "recall": 1.0,
+     "f1": 0.9743589743589743
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.8541666666666666,
+     "f1": 0.8937321919550314
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.7017167381974249,
+     "f1": 0.9104412742217242
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.8,
+     "f1": 0.9384889896730217
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.6834532374100719,
+     "f1": 0.8739784928480631
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.7373737373737373,
+     "f1": 0.939857505599848
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.7133479212253829,
+     "f1": 0.8978796111846391
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.6615384615384615,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 0.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.7475592747559274,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 163,
+    "tn": 717,
+    "precisao": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "falsa": 0.0,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 43,
+    "nao_buscou": 0,
+    "com_parametros": 22,
+    "acuracia": 0.6615384615384615
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.7851239669421488
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.6695278969957081
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.6258064516129033
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.7341772151898734
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.6647058823529411
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.7777777777777778
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.5675675675675675
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.5389221556886228
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.5304347826086957
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.64
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 0.9166666666666666
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.0
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.8823529411764706
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.8888888888888888
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.3333333333333333
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 0.7222222222222222
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.2608695652173913
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 0.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 0.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 0.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 0.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 0.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 0.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 0.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 0.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 0.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 0.0
+    }
+   },
+   "accnaof": 0.7404092071611253,
+   "latmed": 720.4729149998457,
+   "latp95": 1444.2423039999994,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     125
+    ],
+    "prefixo": [
+     2,
+     49
+    ],
+    "limite": [
+     3,
+     653
+    ],
+    "tipo": [
+     2,
+     525
+    ]
+   },
+   "chamadas": 1.0
+  },
+  "se2": {
+   "n": 945,
+   "acuracia": 0.7375661375661375,
+   "ic": [
+    0.7085934771194851,
+    0.7646151174446656
+   ],
+   "f1": 0.857413412457617,
+   "f1macro": 0.8535340739911051,
+   "f1micro": 0.869047619047619,
+   "precisao": 0.9177655174732066,
+   "recall": 0.8332418284172769,
+   "por_campo": {
+    "keyword": {
+     "tp": 215,
+     "fp": 78,
+     "fn": 3,
+     "ocorrencias": 241,
+     "precisao": 0.7337883959044369,
+     "recall": 0.9862385321100917,
+     "f1": 0.8414872798434442
+    },
+    "scale": {
+     "tp": 166,
+     "fp": 2,
+     "fn": 29,
+     "ocorrencias": 197,
+     "precisao": 0.9880952380952381,
+     "recall": 0.8512820512820513,
+     "f1": 0.9146005509641872
+    },
+    "productType": {
+     "tp": 154,
+     "fp": 5,
+     "fn": 36,
+     "ocorrencias": 192,
+     "precisao": 0.9685534591194969,
+     "recall": 0.8105263157894737,
+     "f1": 0.8825214899713466
+    },
+    "state": {
+     "tp": 77,
+     "fp": 17,
+     "fn": 49,
+     "ocorrencias": 137,
+     "precisao": 0.8191489361702128,
+     "recall": 0.6111111111111112,
+     "f1": 0.7000000000000001
+    },
+    "city": {
+     "tp": 28,
+     "fp": 2,
+     "fn": 72,
+     "ocorrencias": 102,
+     "precisao": 0.9333333333333333,
+     "recall": 0.28,
+     "f1": 0.4307692307692308
+    },
+    "supplyArea": {
+     "tp": 169,
+     "fp": 0,
+     "fn": 6,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 0.9657142857142857,
+     "f1": 0.9825581395348837
+    },
+    "project": {
+     "tp": 86,
+     "fp": 3,
+     "fn": 11,
+     "ocorrencias": 99,
+     "precisao": 0.9662921348314607,
+     "recall": 0.8865979381443299,
+     "f1": 0.9247311827956988
+    },
+    "publicationPeriod": {
+     "tp": 87,
+     "fp": 11,
+     "fn": 10,
+     "ocorrencias": 105,
+     "precisao": 0.8877551020408163,
+     "recall": 0.8969072164948454,
+     "f1": 0.8923076923076922
+    },
+    "creationPeriod": {
+     "tp": 26,
+     "fp": 1,
+     "fn": 7,
+     "ocorrencias": 34,
+     "precisao": 0.9629629629629629,
+     "recall": 0.7878787878787878,
+     "f1": 0.8666666666666665
+    },
+    "sortField": {
+     "tp": 88,
+     "fp": 1,
+     "fn": 11,
+     "ocorrencias": 99,
+     "precisao": 0.9887640449438202,
+     "recall": 0.8888888888888888,
+     "f1": 0.9361702127659574
+    },
+    "sortDirection": {
+     "tp": 88,
+     "fp": 1,
+     "fn": 11,
+     "ocorrencias": 99,
+     "precisao": 0.9887640449438202,
+     "recall": 0.8888888888888888,
+     "f1": 0.9361702127659574
+    },
+    "limit": {
+     "tp": 57,
+     "fp": 4,
+     "fn": 4,
+     "ocorrencias": 61,
+     "precisao": 0.9344262295081968,
+     "recall": 0.9344262295081968,
+     "f1": 0.9344262295081968
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.6145833333333334,
+     "f1": 0.7031663359788359
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.6587982832618026,
+     "f1": 0.8762230963209634
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.8,
+     "f1": 0.9409436418009827
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.697841726618705,
+     "f1": 0.8974180081709608
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.7373737373737373,
+     "f1": 0.904337853475494
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.6258205689277899,
+     "f1": 0.8516873910710623
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 1.0,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.6541143654114365,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 116,
+    "fn": 0,
+    "tn": 601,
+    "precisao": 0.5842293906810035,
+    "recall": 1.0,
+    "f1": 0.7375565610859728,
+    "falsa": 0.16178521617852162,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 0,
+    "nao_buscou": 65,
+    "com_parametros": 0,
+    "acuracia": 1.0
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.6673553719008265
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.6266094420600858
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.7483870967741936
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.6708860759493671
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.7294117647058823
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.75
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.7567567567567568
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.7544910179640718
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.7478260869565218
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.7066666666666667
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 1.0
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.0
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.5294117647058824
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.6666666666666666
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.16666666666666666
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.0
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 1.0
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 1.0
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.6828644501278772,
+   "latmed": 611.0544660004962,
+   "latp95": 1471.6350359994976,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     13,
+     94
+    ],
+    "prefixo": [
+     8,
+     49
+    ],
+    "limite": [
+     4,
+     544
+    ],
+    "tipo": [
+     3,
+     432
+    ]
+   },
+   "chamadas": 1.0
+  },
+  "hib": {
+   "n": 945,
+   "acuracia": 0.7862433862433862,
+   "ic": [
+    0.7589733338284451,
+    0.8111955963702308
+   ],
+   "f1": 0.9004897756399417,
+   "f1macro": 0.8858807384055921,
+   "f1micro": 0.903485254691689,
+   "precisao": 0.892215883353255,
+   "recall": 0.92785605761409,
+   "por_campo": {
+    "keyword": {
+     "tp": 212,
+     "fp": 93,
+     "fn": 1,
+     "ocorrencias": 241,
+     "precisao": 0.6950819672131148,
+     "recall": 0.9953051643192489,
+     "f1": 0.8185328185328187
+    },
+    "scale": {
+     "tp": 176,
+     "fp": 12,
+     "fn": 9,
+     "ocorrencias": 197,
+     "precisao": 0.9361702127659575,
+     "recall": 0.9513513513513514,
+     "f1": 0.9436997319034852
+    },
+    "productType": {
+     "tp": 175,
+     "fp": 13,
+     "fn": 6,
+     "ocorrencias": 192,
+     "precisao": 0.9308510638297872,
+     "recall": 0.9668508287292817,
+     "f1": 0.9485094850948509
+    },
+    "state": {
+     "tp": 119,
+     "fp": 12,
+     "fn": 19,
+     "ocorrencias": 139,
+     "precisao": 0.9083969465648855,
+     "recall": 0.8623188405797102,
+     "f1": 0.8847583643122676
+    },
+    "city": {
+     "tp": 54,
+     "fp": 3,
+     "fn": 43,
+     "ocorrencias": 100,
+     "precisao": 0.9473684210526315,
+     "recall": 0.5567010309278351,
+     "f1": 0.7012987012987012
+    },
+    "supplyArea": {
+     "tp": 175,
+     "fp": 0,
+     "fn": 0,
+     "ocorrencias": 175,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "project": {
+     "tp": 96,
+     "fp": 6,
+     "fn": 1,
+     "ocorrencias": 100,
+     "precisao": 0.9411764705882353,
+     "recall": 0.9896907216494846,
+     "f1": 0.964824120603015
+    },
+    "publicationPeriod": {
+     "tp": 87,
+     "fp": 31,
+     "fn": 1,
+     "ocorrencias": 105,
+     "precisao": 0.7372881355932204,
+     "recall": 0.9886363636363636,
+     "f1": 0.8446601941747574
+    },
+    "creationPeriod": {
+     "tp": 16,
+     "fp": 4,
+     "fn": 14,
+     "ocorrencias": 34,
+     "precisao": 0.8,
+     "recall": 0.5333333333333333,
+     "f1": 0.64
+    },
+    "sortField": {
+     "tp": 88,
+     "fp": 5,
+     "fn": 6,
+     "ocorrencias": 99,
+     "precisao": 0.946236559139785,
+     "recall": 0.9361702127659575,
+     "f1": 0.9411764705882354
+    },
+    "sortDirection": {
+     "tp": 93,
+     "fp": 0,
+     "fn": 6,
+     "ocorrencias": 99,
+     "precisao": 1.0,
+     "recall": 0.9393939393939394,
+     "f1": 0.96875
+    },
+    "limit": {
+     "tp": 57,
+     "fp": 3,
+     "fn": 0,
+     "ocorrencias": 57,
+     "precisao": 0.95,
+     "recall": 1.0,
+     "f1": 0.9743589743589743
+    }
+   },
+   "por_categoria": {
+    "S": {
+     "n": 192,
+     "acuracia": 0.8489583333333334,
+     "f1": 0.8906215762068079
+    },
+    "C": {
+     "n": 466,
+     "acuracia": 0.7017167381974249,
+     "f1": 0.9104412742217242
+    },
+    "M": {
+     "n": 130,
+     "acuracia": 0.8,
+     "f1": 0.9384889896730217
+    },
+    "T": {
+     "n": 139,
+     "acuracia": 0.6834532374100719,
+     "f1": 0.8739784928480631
+    },
+    "O": {
+     "n": 99,
+     "acuracia": 0.7373737373737373,
+     "f1": 0.939857505599848
+    },
+    "A": {
+     "n": 457,
+     "acuracia": 0.7133479212253829,
+     "f1": 0.8978071914646868
+    },
+    "E": {
+     "n": 65,
+     "acuracia": 0.6923076923076923,
+     "f1": 0.0
+    },
+    "F": {
+     "n": 163,
+     "acuracia": 1.0,
+     "f1": 0.0
+    }
+   },
+   "accdominio": 0.7461645746164575,
+   "n_dominio": 717,
+   "recusa": {
+    "tp": 163,
+    "fp": 3,
+    "fn": 0,
+    "tn": 714,
+    "precisao": 0.9819277108433735,
+    "recall": 1.0,
+    "f1": 0.9908814589665653,
+    "falsa": 0.0041841004184100415,
+    "n_fora": 163
+   },
+   "subespecificadas": {
+    "n": 65,
+    "sem_parametros": 36,
+    "nao_buscou": 9,
+    "com_parametros": 20,
+    "acuracia": 0.6923076923076923
+   },
+   "leituras": {
+    "unica": {
+     "n": 484,
+     "acuracia": 0.7830578512396694
+    },
+    "multiplas": {
+     "n": 233,
+     "acuracia": 0.6695278969957081
+    }
+   },
+   "por_registro": {
+    "coloquial": {
+     "n": 155,
+     "acuracia": 0.832258064516129
+    },
+    "contexto": {
+     "n": 79,
+     "acuracia": 0.7215189873417721
+    },
+    "direto": {
+     "n": 170,
+     "acuracia": 0.7823529411764706
+    },
+    "erro_digitacao": {
+     "n": 36,
+     "acuracia": 0.7777777777777778
+    },
+    "formal": {
+     "n": 148,
+     "acuracia": 0.8175675675675675
+    },
+    "pergunta": {
+     "n": 167,
+     "acuracia": 0.8023952095808383
+    },
+    "sem_acento": {
+     "n": 115,
+     "acuracia": 0.808695652173913
+    },
+    "telegrafico": {
+     "n": 75,
+     "acuracia": 0.64
+    }
+   },
+   "por_subtipo": {
+    "VA·dois_codigos": {
+     "n": 8,
+     "acuracia": 1.0
+    },
+    "VA·duas_escalas": {
+     "n": 12,
+     "acuracia": 0.9166666666666666
+    },
+    "VA·escala_qualitativa": {
+     "n": 20,
+     "acuracia": 0.0
+    },
+    "VA·estado_ou_capital": {
+     "n": 17,
+     "acuracia": 0.8823529411764706
+    },
+    "VA·folha_municipio": {
+     "n": 18,
+     "acuracia": 0.8888888888888888
+    },
+    "VA·periodo_sem_verbo": {
+     "n": 9,
+     "acuracia": 0.7777777777777778
+    },
+    "VA·projeto_termo": {
+     "n": 6,
+     "acuracia": 0.3333333333333333
+    },
+    "VA·regiao_com_criterio": {
+     "n": 8,
+     "acuracia": 0.75
+    },
+    "VE·finalidade": {
+     "n": 18,
+     "acuracia": 0.7222222222222222
+    },
+    "VE·generica": {
+     "n": 24,
+     "acuracia": 1.0
+    },
+    "VE·regiao": {
+     "n": 23,
+     "acuracia": 0.34782608695652173
+    },
+    "VF·armadilha_lexical": {
+     "n": 31,
+     "acuracia": 1.0
+    },
+    "VF·conceitual": {
+     "n": 20,
+     "acuracia": 1.0
+    },
+    "VF·conversa": {
+     "n": 15,
+     "acuracia": 1.0
+    },
+    "VF·cotidiano": {
+     "n": 16,
+     "acuracia": 1.0
+    },
+    "VF·dados": {
+     "n": 19,
+     "acuracia": 1.0
+    },
+    "VF·exterior": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·ficcao": {
+     "n": 10,
+     "acuracia": 1.0
+    },
+    "VF·producao": {
+     "n": 6,
+     "acuracia": 1.0
+    },
+    "VF·rotas": {
+     "n": 14,
+     "acuracia": 1.0
+    },
+    "VF·servicos": {
+     "n": 18,
+     "acuracia": 1.0
+    }
+   },
+   "accnaof": 0.7416879795396419,
+   "latmed": 1454.1550379999535,
+   "latp95": 2787.2931190004238,
+   "fora_do_schema": 0,
+   "erros_infra": 0,
+   "efeitos": {
+    "sigla": [
+     0,
+     125
+    ],
+    "prefixo": [
+     2,
+     49
+    ],
+    "limite": [
+     3,
+     650
+    ],
+    "tipo": [
+     2,
+     523
+    ]
+   },
+   "chamadas": 1.8148148148148149
+  }
+ },
+ "pares": {
+  "tc3se3": {
+   "grupo": "principal",
+   "a": "tc3",
+   "b": "se3",
+   "n": 945,
+   "so_a": 95,
+   "so_b": 33,
+   "p": 3.8109453870922303e-08,
+   "dif_acc": -0.06560846560846567,
+   "ic_dif_acc": [
+    -0.08888888888888889,
+    -0.042328042328042326
+   ],
+   "dif_f1": -0.03507284806211741,
+   "ic_dif_f1": [
+    -0.046580387668064584,
+    -0.024655874011431888
+   ],
+   "f1_a": 0.9814749067392444,
+   "f1_b": 0.946402058677127
+  },
+  "tc1tc2": {
+   "grupo": "degraus",
+   "a": "tc1",
+   "b": "tc2",
+   "n": 945,
+   "so_a": 126,
+   "so_b": 159,
+   "p": 0.05783345992054669,
+   "dif_acc": 0.03492063492063491,
+   "ic_dif_acc": [
+    0.0,
+    0.06984126984126984
+   ],
+   "dif_f1": 0.11136953783765302,
+   "ic_dif_f1": [
+    0.08331281046722579,
+    0.14158856549763535
+   ],
+   "f1_a": 0.7307502850936549,
+   "f1_b": 0.8421198229313079
+  },
+  "tc2tc3d": {
+   "grupo": "degraus",
+   "a": "tc2",
+   "b": "tc3d",
+   "n": 945,
+   "so_a": 26,
+   "so_b": 150,
+   "p": 2.162406656117245e-22,
+   "dif_acc": 0.13121693121693123,
+   "ic_dif_acc": [
+    0.10476190476190476,
+    0.15767195767195769
+   ],
+   "dif_f1": 0.05341333209399646,
+   "ic_dif_f1": [
+    0.04187090860887063,
+    0.06556663790347604
+   ],
+   "f1_a": 0.8421198229313079,
+   "f1_b": 0.8955331550253044
+  },
+  "tc3dtc3a": {
+   "grupo": "degraus",
+   "a": "tc3d",
+   "b": "tc3a",
+   "n": 945,
+   "so_a": 55,
+   "so_b": 129,
+   "p": 4.9248320896266295e-08,
+   "dif_acc": 0.07830687830687832,
+   "ic_dif_acc": [
+    0.050793650793650794,
+    0.10476190476190476
+   ],
+   "dif_f1": 0.03346177063250244,
+   "ic_dif_f1": [
+    0.01829054827730691,
+    0.04723303625790265
+   ],
+   "f1_a": 0.8955331550253044,
+   "f1_b": 0.9289949256578068
+  },
+  "tc3atc3": {
+   "grupo": "degraus",
+   "a": "tc3a",
+   "b": "tc3",
+   "n": 945,
+   "so_a": 12,
+   "so_b": 119,
+   "p": 2.587003859247397e-23,
+   "dif_acc": 0.11322751322751323,
+   "ic_dif_acc": [
+    0.091005291005291,
+    0.13756613756613756
+   ],
+   "dif_f1": 0.05247998108143759,
+   "ic_dif_f1": [
+    0.04187772227424293,
+    0.06374322307559027
+   ],
+   "f1_a": 0.9289949256578068,
+   "f1_b": 0.9814749067392444
+  },
+  "melhortc3": {
+   "grupo": "secundarios",
+   "a": "melhor",
+   "b": "tc3",
+   "n": 945,
+   "so_a": 29,
+   "so_b": 224,
+   "p": 1.6568343860182494e-38,
+   "dif_acc": 0.2063492063492064,
+   "ic_dif_acc": [
+    0.17777777777777778,
+    0.23703703703703705
+   ],
+   "dif_f1": 0.12406149428162738,
+   "ic_dif_f1": [
+    0.1066262303988764,
+    0.14336017316947522
+   ],
+   "f1_a": 0.857413412457617,
+   "f1_b": 0.9814749067392444
+  },
+  "hibtc3": {
+   "grupo": "secundarios",
+   "a": "hib",
+   "b": "tc3",
+   "n": 945,
+   "so_a": 25,
+   "so_b": 174,
+   "p": 1.147574861030202e-28,
+   "dif_acc": 0.15767195767195774,
+   "ic_dif_acc": [
+    0.1312169312169312,
+    0.18412698412698414
+   ],
+   "dif_f1": 0.08098513109930272,
+   "ic_dif_f1": [
+    0.06794454628652358,
+    0.09569465074663484
+   ],
+   "f1_a": 0.9004897756399417,
+   "f1_b": 0.9814749067392444
+  },
+  "hibse3": {
+   "grupo": "secundarios",
+   "a": "hib",
+   "b": "se3",
+   "n": 945,
+   "so_a": 53,
+   "so_b": 140,
+   "p": 3.0122672871316036e-10,
+   "dif_acc": 0.09206349206349207,
+   "ic_dif_acc": [
+    0.0656084656084656,
+    0.12063492063492064
+   ],
+   "dif_f1": 0.04591228303718531,
+   "ic_dif_f1": [
+    0.03129231407114538,
+    0.060961880134826965
+   ],
+   "f1_a": 0.9004897756399417,
+   "f1_b": 0.946402058677127
+  },
+  "melhorse3": {
+   "grupo": "secundarios",
+   "a": "melhor",
+   "b": "se3",
+   "n": 945,
+   "so_a": 29,
+   "so_b": 162,
+   "p": 1.3157373410765632e-23,
+   "dif_acc": 0.14074074074074072,
+   "ic_dif_acc": [
+    0.11428571428571428,
+    0.1693121693121693
+   ],
+   "dif_f1": 0.08898864621950997,
+   "ic_dif_f1": [
+    0.07183275924343495,
+    0.10565760332486612
+   ],
+   "f1_a": 0.857413412457617,
+   "f1_b": 0.946402058677127
+  }
+ },
+ "decomposicao": {
+  "tc3a": {
+   "n": 945,
+   "final": 785,
+   "primeira": 784,
+   "consertou": 1,
+   "estragou": 0,
+   "erro_infra": 0,
+   "com_retorno": 12,
+   "truncadas_sem_reconstrucao": 0,
+   "consertou_forma": 1,
+   "recebeu_forma": 1,
+   "consertou_remover_forma": 1
+  },
+  "tc3": {
+   "n": 945,
+   "final": 892,
+   "primeira": 784,
+   "consertou": 112,
+   "estragou": 4,
+   "erro_infra": 0,
+   "com_retorno": 141,
+   "contestadas": 20,
+   "contestada_dominio_certa": 10,
+   "consertou_contestada": 10,
+   "recebeu_contestada": 10,
+   "com_aviso": 116,
+   "refeitas": 58,
+   "recebeu_valor": 61,
+   "consertou_valor": 60,
+   "consertou_remover": 19,
+   "recebeu_remover": 22,
+   "recebeu_aponta": 15,
+   "truncadas_sem_reconstrucao": 0,
+   "consertou_forma": 12,
+   "recebeu_forma": 12,
+   "consertou_aponta": 11,
+   "estragou_valor": 1,
+   "contestada_F_certa": 7,
+   "contestada_F_errada": 3,
+   "estragou_contestada": 3,
+   "consertou_remover_forma": 31
+  },
+  "se3": {
+   "n": 945,
+   "final": 830,
+   "primeira": 705,
+   "consertou": 125,
+   "estragou": 0,
+   "erro_infra": 0,
+   "com_retorno": 189,
+   "contestadas": 67,
+   "contestada_dominio_errada": 31,
+   "contestada_dominio_certa": 26,
+   "consertou_contestada": 26,
+   "recebeu_contestada": 26,
+   "recebeu_remover": 31,
+   "consertou_valor": 54,
+   "recebeu_valor": 55,
+   "consertou_remover": 20,
+   "consertou_aponta": 21,
+   "recebeu_aponta": 38,
+   "consertou_forma": 4,
+   "recebeu_forma": 6,
+   "contestada_F_certa": 10,
+   "consertou_remover_forma": 24
+  }
+ },
+ "melhor_isolada": {
+  "config": "se2",
+  "nome": "Saída Estruturada v2",
+  "acuracia": 0.7375661375661375,
+  "f1": 0.857413412457617
+ },
+ "avisos": [],
+ "desenvolvimento_310": {
+  "dir": "results/v3_310",
+  "dataset": "data/dataset.json",
+  "n_conjunto": 306,
+  "presentes": [
+   "tc3",
+   "se3"
+  ],
+  "rodadas": {
+   "tc3": {
+    "pasta": "results/v3_310/tc3-gemma4-e4b-it-qat",
+    "descartadas": 0,
+    "n_conjunto": 306,
+    "cobertura": 1.0,
+    "n": 306
+   },
+   "se3": {
+    "pasta": "results/v3_310/se3-gemma4-e4b-it-qat",
+    "descartadas": 0,
+    "n_conjunto": 306,
+    "cobertura": 1.0,
+    "n": 306
+   }
+  },
+  "medidas": {
+   "tc3": {
+    "n": 306,
+    "acuracia": 0.9771241830065359,
+    "ic": [
+     0.9535411752777504,
+     0.9888758532942684
+    ],
+    "f1": 0.9925273665457374,
+    "f1macro": 0.9928962515485709,
+    "f1micro": 0.9925093632958801,
+    "precisao": 0.9909012543844005,
+    "recall": 0.9943820224719101,
+    "por_campo": {
+     "keyword": {
+      "tp": 61,
+      "fp": 2,
+      "fn": 0,
+      "ocorrencias": 61,
+      "precisao": 0.9682539682539683,
+      "recall": 1.0,
+      "f1": 0.9838709677419354
+     },
+     "scale": {
+      "tp": 84,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 84,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "productType": {
+      "tp": 44,
+      "fp": 1,
+      "fn": 0,
+      "ocorrencias": 44,
+      "precisao": 0.9777777777777777,
+      "recall": 1.0,
+      "f1": 0.9887640449438202
+     },
+     "state": {
+      "tp": 126,
+      "fp": 0,
+      "fn": 3,
+      "ocorrencias": 129,
+      "precisao": 1.0,
+      "recall": 0.9767441860465116,
+      "f1": 0.988235294117647
+     },
+     "city": {
+      "tp": 29,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 29,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "supplyArea": {
+      "tp": 40,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 40,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "project": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 11,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "publicationPeriod": {
+      "tp": 49,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 49,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "creationPeriod": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 12,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "sortField": {
+      "tp": 29,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 29,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "sortDirection": {
+      "tp": 28,
+      "fp": 1,
+      "fn": 0,
+      "ocorrencias": 29,
+      "precisao": 0.9655172413793104,
+      "recall": 1.0,
+      "f1": 0.9824561403508771
+     },
+     "limit": {
+      "tp": 17,
+      "fp": 1,
+      "fn": 0,
+      "ocorrencias": 17,
+      "precisao": 0.9444444444444444,
+      "recall": 1.0,
+      "f1": 0.9714285714285714
+     }
+    },
+    "por_categoria": {
+     "S": {
+      "n": 100,
+      "acuracia": 1.0,
+      "f1": 1.0
+     },
+     "C": {
+      "n": 180,
+      "acuracia": 0.9722222222222222,
+      "f1": 0.9915935783427202
+     },
+     "M": {
+      "n": 57,
+      "acuracia": 0.9824561403508771,
+      "f1": 0.9951540325372101
+     },
+     "T": {
+      "n": 60,
+      "acuracia": 1.0,
+      "f1": 1.0
+     },
+     "O": {
+      "n": 29,
+      "acuracia": 0.9310344827586207,
+      "f1": 0.9909592162223742
+     },
+     "A": {
+      "n": 197,
+      "acuracia": 0.9847715736040609,
+      "f1": 0.9931097480358495
+     },
+     "E": {
+      "n": 0,
+      "acuracia": null,
+      "f1": 0.0
+     },
+     "F": {
+      "n": 8,
+      "acuracia": 0.75,
+      "f1": 0.0
+     }
+    },
+    "accdominio": 0.9832214765100671,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 6,
+     "fp": 0,
+     "fn": 2,
+     "tn": 298,
+     "precisao": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571428571428571,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "subespecificadas": {
+     "n": 0,
+     "sem_parametros": 0,
+     "nao_buscou": 0,
+     "com_parametros": 0,
+     "acuracia": null
+    },
+    "leituras": {
+     "unica": {
+      "n": 231,
+      "acuracia": 0.9956709956709957
+     },
+     "multiplas": {
+      "n": 67,
+      "acuracia": 0.9402985074626866
+     }
+    },
+    "por_registro": {},
+    "por_subtipo": {},
+    "accnaof": 0.9832214765100671,
+    "latmed": 1384.761199499735,
+    "latp95": 2659.263681000084,
+    "fora_do_schema": 0,
+    "erros_infra": 0,
+    "efeitos": {
+     "sigla": [
+      0,
+      126
+     ],
+     "prefixo": [
+      0,
+      35
+     ],
+     "limite": [
+      1,
+      277
+     ],
+     "tipo": [
+      0,
+      254
+     ]
+    },
+    "chamadas": 2.1437908496732025,
+    "v3": {
+     "n": 306,
+     "com_pergunta": 6,
+     "perguntas": 8,
+     "com_pergunta_em_texto": 4,
+     "perguntas_em_texto": 4,
+     "com_chamada_em_texto": 8,
+     "chamadas_em_texto": 8,
+     "contestadas": 2,
+     "contestadas_detalhe": {
+      "F_certa": 1,
+      "F_errada": 1
+     },
+     "sem_final": 0
+    }
+   },
+   "se3": {
+    "n": 306,
+    "acuracia": 0.9411764705882353,
+    "ic": [
+     0.9089418273467762,
+     0.962471178524611
+    ],
+    "f1": 0.9743135105969514,
+    "f1macro": 0.9781544049603146,
+    "f1micro": 0.9744075829383886,
+    "precisao": 0.9835698625237377,
+    "recall": 0.9663954324761733,
+    "por_campo": {
+     "keyword": {
+      "tp": 59,
+      "fp": 6,
+      "fn": 0,
+      "ocorrencias": 62,
+      "precisao": 0.9076923076923077,
+      "recall": 1.0,
+      "f1": 0.9516129032258065
+     },
+     "scale": {
+      "tp": 82,
+      "fp": 1,
+      "fn": 1,
+      "ocorrencias": 84,
+      "precisao": 0.9879518072289156,
+      "recall": 0.9879518072289156,
+      "f1": 0.9879518072289156
+     },
+     "productType": {
+      "tp": 42,
+      "fp": 0,
+      "fn": 2,
+      "ocorrencias": 44,
+      "precisao": 1.0,
+      "recall": 0.9545454545454546,
+      "f1": 0.9767441860465117
+     },
+     "state": {
+      "tp": 121,
+      "fp": 0,
+      "fn": 9,
+      "ocorrencias": 130,
+      "precisao": 1.0,
+      "recall": 0.9307692307692308,
+      "f1": 0.9641434262948207
+     },
+     "city": {
+      "tp": 27,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 27,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "supplyArea": {
+      "tp": 40,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 40,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "project": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 11,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "publicationPeriod": {
+      "tp": 48,
+      "fp": 0,
+      "fn": 1,
+      "ocorrencias": 49,
+      "precisao": 1.0,
+      "recall": 0.9795918367346939,
+      "f1": 0.9896907216494846
+     },
+     "creationPeriod": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 0,
+      "ocorrencias": 12,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "sortField": {
+      "tp": 27,
+      "fp": 1,
+      "fn": 2,
+      "ocorrencias": 29,
+      "precisao": 0.9642857142857143,
+      "recall": 0.9310344827586207,
+      "f1": 0.9473684210526316
+     },
+     "sortDirection": {
+      "tp": 27,
+      "fp": 1,
+      "fn": 2,
+      "ocorrencias": 29,
+      "precisao": 0.9642857142857143,
+      "recall": 0.9310344827586207,
+      "f1": 0.9473684210526316
+     },
+     "limit": {
+      "tp": 18,
+      "fp": 0,
+      "fn": 1,
+      "ocorrencias": 19,
+      "precisao": 1.0,
+      "recall": 0.9473684210526315,
+      "f1": 0.972972972972973
+     }
+    },
+    "por_categoria": {
+     "S": {
+      "n": 100,
+      "acuracia": 0.93,
+      "f1": 0.9626982414499946
+     },
+     "C": {
+      "n": 180,
+      "acuracia": 0.95,
+      "f1": 0.9793351651817465
+     },
+     "M": {
+      "n": 57,
+      "acuracia": 0.9473684210526315,
+      "f1": 0.9852843915343916
+     },
+     "T": {
+      "n": 60,
+      "acuracia": 0.95,
+      "f1": 0.9836583328239298
+     },
+     "O": {
+      "n": 29,
+      "acuracia": 0.9310344827586207,
+      "f1": 0.9674696105053249
+     },
+     "A": {
+      "n": 197,
+      "acuracia": 0.9238578680203046,
+      "f1": 0.9705656449471933
+     },
+     "E": {
+      "n": 0,
+      "acuracia": null,
+      "f1": 0.0
+     },
+     "F": {
+      "n": 8,
+      "acuracia": 1.0,
+      "f1": 0.0
+     }
+    },
+    "accdominio": 0.9395973154362416,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 10,
+     "fn": 0,
+     "tn": 288,
+     "precisao": 0.4444444444444444,
+     "recall": 1.0,
+     "f1": 0.6153846153846153,
+     "falsa": 0.03355704697986577,
+     "n_fora": 8
+    },
+    "subespecificadas": {
+     "n": 0,
+     "sem_parametros": 0,
+     "nao_buscou": 0,
+     "com_parametros": 0,
+     "acuracia": null
+    },
+    "leituras": {
+     "unica": {
+      "n": 231,
+      "acuracia": 0.961038961038961
+     },
+     "multiplas": {
+      "n": 67,
+      "acuracia": 0.8656716417910447
+     }
+    },
+    "por_registro": {},
+    "por_subtipo": {},
+    "accnaof": 0.9395973154362416,
+    "latmed": 772.2923555002126,
+    "latp95": 2672.7978119997715,
+    "fora_do_schema": 0,
+    "erros_infra": 0,
+    "efeitos": {
+     "sigla": [
+      0,
+      121
+     ],
+     "prefixo": [
+      0,
+      35
+     ],
+     "limite": [
+      0,
+      269
+     ],
+     "tipo": [
+      0,
+      246
+     ]
+    },
+    "chamadas": 1.2058823529411764,
+    "v3": {
+     "n": 306,
+     "com_pergunta": null,
+     "perguntas": null,
+     "com_pergunta_em_texto": null,
+     "perguntas_em_texto": null,
+     "com_chamada_em_texto": null,
+     "chamadas_em_texto": null,
+     "contestadas": 9,
+     "contestadas_detalhe": {
+      "dominio_errada": 2,
+      "dominio_certa": 5,
+      "F_certa": 2
+     },
+     "sem_final": null
+    }
+   }
+  },
+  "pares": {
+   "tc3se3": {
+    "grupo": "principal",
+    "a": "tc3",
+    "b": "se3",
+    "n": 306,
+    "so_a": 15,
+    "so_b": 4,
+    "p": 0.0192108154296875,
+    "dif_acc": -0.03594771241830064,
+    "ic_dif_acc": [
+     -0.06535947712418301,
+     -0.00980392156862745
+    ],
+    "dif_f1": -0.018213855948785995,
+    "ic_dif_f1": [
+     -0.03121082563909564,
+     -0.007273671341805953
+    ],
+    "f1_a": 0.9925273665457374,
+    "f1_b": 0.9743135105969514
+   }
+  },
+  "decomposicao": {
+   "tc3": {
+    "n": 306,
+    "final": 299,
+    "primeira": 277,
+    "consertou": 23,
+    "estragou": 1,
+    "erro_infra": 0,
+    "com_retorno": 25,
+    "com_aviso": 22,
+    "refeitas": 11,
+    "consertou_valor": 13,
+    "recebeu_valor": 13,
+    "recebeu_remover": 5,
+    "consertou_aponta": 3,
+    "recebeu_aponta": 3,
+    "consertou_remover": 4,
+    "truncadas_sem_reconstrucao": 0,
+    "consertou_forma": 3,
+    "recebeu_forma": 3,
+    "contestadas": 2,
+    "contestada_F_certa": 1,
+    "contestada_F_errada": 1,
+    "estragou_contestada": 1,
+    "consertou_remover_forma": 7
+   },
+   "se3": {
+    "n": 306,
+    "final": 288,
+    "primeira": 235,
+    "consertou": 53,
+    "estragou": 0,
+    "erro_infra": 0,
+    "com_retorno": 58,
+    "consertou_valor": 35,
+    "recebeu_valor": 35,
+    "consertou_aponta": 6,
+    "recebeu_aponta": 9,
+    "consertou_remover": 6,
+    "recebeu_remover": 17,
+    "consertou_forma": 1,
+    "recebeu_forma": 9,
+    "contestadas": 9,
+    "contestada_dominio_errada": 2,
+    "contestada_dominio_certa": 5,
+    "consertou_contestada": 5,
+    "recebeu_contestada": 5,
+    "contestada_F_certa": 2,
+    "consertou_remover_forma": 7
+   }
+  },
+  "melhor_isolada": null,
+  "avisos": []
+ }
+}
