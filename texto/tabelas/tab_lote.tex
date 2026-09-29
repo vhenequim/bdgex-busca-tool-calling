@@ -8,9 +8,16 @@
 \hline
 \textbf{Conjunto} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{F1} & \textbf{Recusa F} & \textbf{Falsa recusa} & \textbf{F1 recusa} & \textbf{Múltiplas leituras} \\
 \hline
-\multirow{2}{*}{\shortstack[l]{310 consultas\\(n=306)}} & Tool Calling v1 & 60,1\% & 54,6\%--65,5\% & 0,793 & 100,0\% & 18,8\% & 0,222 & 26,9\% \\
+\multirow{4}{*}{\shortstack[l]{Lote de validação\\(n=1929)}} & Tool Calling v1 & 61,5\% & 59,3\%--63,6\% & 0,761 & 100,0\% & 32,1\% & 0,592 & 34,6\% \\
+ & Saída Estruturada v1 & 62,2\% & 60,0\%--64,3\% & 0,892 & 0,0\% & 0,0\% & 0,000 & 72,0\% \\
+ & Tool Calling v2 & 62,8\% & 60,7\%--65,0\% & 0,840 & 99,7\% & 0,9\% & 0,980 & 46,5\% \\
+ & Saída Estruturada v2 & 72,4\% & 70,4\%--74,4\% & 0,860 & 100,0\% & 17,8\% & 0,723 & 61,1\% \\
+\hline
+\multirow{4}{*}{\shortstack[l]{310 consultas\\(n=306)}} & Tool Calling v1 & 60,1\% & 54,6\%--65,5\% & 0,793 & 100,0\% & 18,8\% & 0,222 & 26,9\% \\
  & Saída Estruturada v1 & 75,2\% & 70,0\%--79,7\% & 0,902 & 0,0\% & 0,0\% & 0,000 & 52,2\% \\
+ & Tool Calling v2 & 47,4\% & 41,9\%--53,0\% & 0,796 & 100,0\% & 0,0\% & 1,000 & 40,3\% \\
+ & Saída Estruturada v2 & 68,0\% & 62,6\%--73,0\% & 0,859 & 100,0\% & 14,4\% & 0,271 & 53,7\% \\
 \hline
 \end{tabular}}
-\fonte{Elaborado pelos autores. Gemma 4 E4B, GPU T4. Acurácia por consulta, com IC de Wilson. Recusa F: proporção das consultas fora do domínio sem busca (recall da recusa). Falsa recusa: proporção das consultas do domínio (fora das categorias F e E) sem busca. F1 recusa: média harmônica da precisão e do recall da recusa. Múltiplas leituras: acurácia nas consultas do domínio com mais de uma leitura aceita. Na v1, a Saída Estruturada não tem como recusar. A v2 foi desenhada a partir dos erros nas 310 consultas: nesse conjunto, o resultado da v2 é dentro da amostra.}
+\fonte{Elaborado pelos autores. Gemma 4 E4B, GPU T4. Acurácia por consulta, com IC de Wilson. Recusa F: proporção das consultas fora do domínio sem busca (recall da recusa). Falsa recusa: proporção das consultas do domínio (fora das categorias F e E) sem busca. F1 recusa: média harmônica da precisão e do recall da recusa. Múltiplas leituras: acurácia nas consultas do domínio com mais de uma leitura aceita. Na v1, a Saída Estruturada não tem como recusar. A v2 foi desenhada a partir dos erros nas 310 consultas: nesse conjunto, o resultado da v2 é de dentro da amostra e, mesmo assim, ficou abaixo do da v1 nas duas abordagens.}
 \end{table}

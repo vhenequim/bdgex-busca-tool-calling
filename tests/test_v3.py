@@ -1,4 +1,4 @@
-"""v3: ferramentas auxiliares, validador, orientações e o laço de Tool Calling (com LLM simulado)."""
+"""v3: ferramentas auxiliares, validador e o laço de Tool Calling em degraus (com LLM simulado)."""
 
 from datetime import date
 from types import SimpleNamespace
@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from langchain_core.messages import AIMessage
 
 from pfc_busca import ferramentas as F
-from pfc_busca import orientacoes, v3
+from pfc_busca import v3
 from pfc_busca.evaluation.run_evaluation import hash_prompt, slug
 
 HOJE = date(2026, 9, 24)
@@ -65,19 +65,6 @@ def test_validador_avisos_de_evidencia():
                                                                "projeto rio 2016", HOJE)[1])
 
 
-def test_orientacoes_so_do_tipo_certo(tmp_path):
-    (tmp_path / "a.md").write_text("---\ntipo: orientacao-pfc\nnome: a\ntitulo: A\ngatilhos:\n  - 'cgeo'\n---\nregra A\n",
-                                   encoding="utf-8")
-    (tmp_path / "b.md").write_text("---\ntipo: outra-coisa\nnome: b\n---\nnão carregar\n", encoding="utf-8")
-    (tmp_path / "c.md").write_text("---\ntipo: orientacao-pfc\nstatus: retirada\nnome: c\n---\nretirada\n",
-                                   encoding="utf-8")
-    carregadas = orientacoes.carregar(str(tmp_path))
-    assert [o.nome for o in carregadas] == ["a"]
-    assert carregadas[0].aplica("cartas do 3o cgeo") and not carregadas[0].aplica("cartas de Goiás")
-    assert all(o.arquivo.endswith(".md") for o in orientacoes.carregar())
-    assert len(orientacoes.assinatura()) == 64
-
-
 def test_chamadas_em_texto():
     nomes = {"pedir_esclarecimento", "buscar_catalogo", "recusar_consulta"}
     assert v3.chamadas_em_texto('pedir_esclarecimento(pergunta="Qual estado?")', nomes) == [
@@ -102,7 +89,7 @@ class _LLMFalso:
 def _tradutor(respostas, abordagem="tool_calling_v3"):
     t = object.__new__(v3.TradutorV3)
     t.modelo, t.abordagem = "falso", abordagem
-    t.com_ferramentas, t.modo_orientacoes = v3.VARIANTES[abordagem]
+    t.auxiliares, t.retorno = v3.VARIANTES[abordagem]
     t.nomes_ferramentas = {f["function"]["name"] for f in v3.ferramentas_da(abordagem)}
     t.llm_com_ferramenta = _LLMFalso(respostas)
     return t
@@ -142,6 +129,35 @@ def test_laco_ferramenta_auxiliar_pergunta_e_recusa():
     assert r.predito is None and r.extras["recusou"] and r.extras["chamadas_em_texto"] == 1
 
 
+def test_recusa_com_retorno_e_pergunta_em_texto():
+    # recusa de consulta com critério do catálogo: contestada uma vez; a segunda recusa vale
+    t = _tradutor([_chamada("recusar_consulta", {"motivo": "uso em obra"}),
+                   _chamada("buscar_catalogo", {"productType": "SCN Carta Ortoimagem"}, "2")])
+    r = t.traduzir("me passa umas ortoimagens? é pra uma obra", HOJE)
+    assert r.predito == {"productType": "SCN Carta Ortoimagem"} and r.extras["recusa_contestada"]
+    t = _tradutor([_chamada("recusar_consulta", {"motivo": "conceitual"}),
+                   _chamada("recusar_consulta", {"motivo": "conceitual"}, "2")])
+    r = t.traduzir("o que é um MDT e pra que serve", HOJE)
+    assert r.predito is None and r.extras["recusou"] and r.extras["recusa_contestada"]
+    # sem critério do catálogo, a recusa vale na hora
+    t = _tradutor([_chamada("recusar_consulta", {"motivo": "fora"})])
+    r = t.traduzir("quanto vale cada carta do baralho no truco?", HOJE)
+    assert r.predito is None and not r.extras["recusa_contestada"]
+    # pergunta escrita em texto recebe a resposta do usuário simulado
+    t = _tradutor([AIMessage(content="Você quer de qual estado?"), _chamada("buscar_catalogo", {}, "2")])
+    r = t.traduzir("quero ver cartas", HOJE)
+    assert r.predito == {} and r.extras["perguntas"] == 1 and r.extras["perguntas_em_texto"] == 1
+
+
+def test_evidencias_de_catalogo():
+    assert F.evidencias_de_catalogo("consegue me mostrar as cartas de Cromínia publicadas este mês?") == [
+        "o município Cromínia (GO)"]
+    assert F.evidencias_de_catalogo("Existe algum mapa do tesouro de pirata aí? rs") == []
+    assert F.evidencias_de_catalogo("Vocês teriam alguma carta de Paris? Estou procurando algo da França.") == []
+    assert not F.municipio_citado("Onde encontro mapas do Rio Grande do Norte?")
+    assert F.municipio_citado("carta MI 1906-3-SE de Flexeiras") == ("Flexeiras", "AL")
+
+
 def test_se3_valida_e_pede_nova_tentativa():
     t = object.__new__(v3.TradutorEstruturadoV3)
     t.modelo, t.tag, t.opcoes, t.keep_alive, t.thinking_desativado = "falso", "falso", {}, "1m", False
@@ -153,9 +169,31 @@ def test_se3_valida_e_pede_nova_tentativa():
     t.cliente = SimpleNamespace(chat=chat)
     r = t.traduzir("cartas do AM", HOJE)
     assert r.predito == {"state": "Amazonas"} and r.extras["tentativas"] == 2
+    respostas = iter(['{"fora_do_escopo": true}', '{"productType": "SCN Carta Ortoimagem"}'])
+    r = t.traduzir("me passa umas ortoimagens? é pra uma obra", HOJE)
+    assert r.predito == {"productType": "SCN Carta Ortoimagem"} and r.extras["recusa_contestada"]
 
 
 def test_v3_no_manifesto():
     assert slug("gemma4:e4b-it-qat", "ollama", "tool_calling_v3") == "tc3-gemma4-e4b-it-qat"
     assert slug("gemma4:e4b-it-qat", "ollama", "saida_estruturada_v3") == "se3-gemma4-e4b-it-qat"
     assert len({hash_prompt(a) for a in v3.ABORDAGENS_V3}) == len(v3.ABORDAGENS_V3)
+
+
+def test_degraus_da_v3():
+    # tc3a: ferramentas auxiliares, sem retorno — a busca é aceita como veio, e a recusa vale na hora
+    t = _tradutor([_chamada("identificar_nome", {"nome": "AM"}),
+                   _chamada("buscar_catalogo", {"state": "AM"}, "2")], "tool_calling_v3a")
+    r = t.traduzir("cartas do AM", HOJE)
+    assert r.predito == {"state": "AM"} and r.extras["avisos_recebidos"] == 0
+    t = _tradutor([_chamada("recusar_consulta", {"motivo": "obra"})], "tool_calling_v3a")
+    r = t.traduzir("me passa umas ortoimagens? é pra uma obra", HOJE)
+    assert r.predito is None and not r.extras["recusa_contestada"]
+    # tc3d: uma chamada só; texto sem chamada encerra
+    t = _tradutor([AIMessage(content="Qual estado?")], "tool_calling_v3d")
+    r = t.traduzir("quero ver cartas", HOJE)
+    assert r.predito is None and r.extras["chamadas_modelo"] == 1
+    assert [f["function"]["name"] for f in v3.ferramentas_da("tool_calling_v3d")] == ["buscar_catalogo",
+                                                                                   "recusar_consulta"]
+    assert "confere os parâmetros" not in v3.prompt_tc("tool_calling_v3a", HOJE)
+    assert "confere os parâmetros" in v3.prompt_tc("tool_calling_v3", HOJE)

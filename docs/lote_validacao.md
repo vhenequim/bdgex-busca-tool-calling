@@ -22,11 +22,13 @@ As 310 consultas deixaram três perguntas em aberto:
    anotação independente às cegas e adjudicação (Cap. 3); ainda assim, um conjunto em que o
    gabarito nasce **antes** da consulta (por construção) e é **confirmado** por um anotador
    que não o conhece dá uma segunda linha de evidência.
-3. **O *Tool Calling* estava mal especificado?** Na análise de erros do Gemma 4 E4B nas 310,
-   a maior parte dos erros vem de comportamentos que o manual de anotação especifica, mas a
-   definição da ferramenta não informava ao modelo (seção 9.2). A v2 explicita essas
-   convenções; para medir o efeito sem otimismo de amostra, é preciso um conjunto que o
-   desenho da v2 não viu.
+3. **O *Tool Calling* estava mal especificado?** Na análise de erros do Gemma 4 E4B nas 310
+   (seção 9.2), os dois erros mais frequentes, não buscar numa consulta do domínio e acrescentar
+   o tipo de produto a "cartas", contrariam instruções que o *prompt* v1 já dava ("Um único
+   parâmetro basta"; "não complete campos por suposição"). Outros vêm de convenções do manual
+   de anotação que a definição da ferramenta não informava ao modelo, ou de exemplos que ela
+   trazia. A v2 reforça essas instruções e explicita as convenções; para medir o efeito fora da
+   amostra que orientou o desenho, é preciso um conjunto que o desenho da v2 não viu.
 
 ## 2. Visão geral
 
@@ -240,7 +242,7 @@ Data de referência: 24/09/2026 no lote (a da anotação) e 14/09/2026 nas 310 (
 ### 9.2 Especificação v2
 
 A análise de erros do Tool Calling v1 do Gemma 4 E4B nas 310 (918 execuções das métricas
-principais, três repetições; 365 erradas; `lote.diagnostico_v1`, macros `es{diag}{tc1}{…}`)
+principais, três repetições; 365 erradas; `lote.diagnostico_v1`, macros `\res{diag}{tc1}{…}`)
 mostrou:
 
 | Erro | Execuções |
@@ -256,16 +258,53 @@ Outros erros pontuais do mesmo tipo: região que virou CGEO ("amazônia legal" �
 estado que virou projeto ("mapas do amapá" → BCD do Amapá), "AM" lido como Amapá e plural sem
 número com `limit = 1`.
 
+Os dois erros mais frequentes da tabela, a não busca e o `productType` acrescentado, contrariam
+instruções explícitas do *prompt* v1 (instrução 1, "Um único parâmetro basta"; instrução 2, "Só
+deixe de chamar a ferramenta quando..."; instrução 3, "não complete campos por suposição"). O que
+a descrição v1 de fato não informava são convenções do gabarito como "última atualização" →
+`creationDate`, o fim nos períodos que vão até hoje e o preenchimento de uma escala qualitativa
+("grande escala").
+
 A v2 (`src/pfc_busca/v2.py`) muda **só a especificação**: (1) descrições dos parâmetros que
 explicitam as convenções do manual (quando preencher cada campo, a forma canônica, o que não
-deduzir), sem códigos de exemplo e com as siglas das 27 UFs; (2) no Tool Calling, uma segunda
-ferramenta, `recusar_consulta(motivo)`, e a instrução de chamar exatamente uma das duas, nunca
-pedindo esclarecimento; (3) na Saída Estruturada, as mesmas descrições, a mesma regra e o campo
-`fora_do_escopo`, que torna a recusa representável. Tipos, enumerados e mecanismo não mudam.
+deduzir), sem os códigos de exemplo da v1 e com a lista das siglas das 27 UFs; (2) no Tool
+Calling, uma segunda ferramenta, `recusar_consulta(motivo)`, e a instrução de chamar exatamente
+uma das duas, nunca pedindo esclarecimento; (3) na Saída Estruturada, as mesmas descrições, a
+mesma regra e o campo `fora_do_escopo`, que torna a recusa representável. Tipos, enumerados e
+mecanismo não mudam.
 
-As duas v2 recebem a mesma especificação: a comparação entre elas continua isolando o
-mecanismo. Como a v2 foi desenhada olhando os erros nas 310, o resultado da v2 **nas 310 é
-dentro da amostra** (otimista); a medida que vale é a do lote.
+A v2 não ficou livre de exemplos copiáveis nem de ambiguidade de forma. A descrição de `keyword`
+traz 'sf22yd' → 'SF-22-Y-D', o código da consulta N35 das 310 com o seu gabarito, e a de `limit`,
+'a carta mais recente' → 1. A de `state` pede o nome por extenso, mas troca a regra com direção
+da v1 ("Normalizar siglas: 'RJ' → 'Rio de Janeiro'") por uma lista de pares ("AC Acre, AL
+Alagoas, …"), e os dois *prompts* v2 perderam a frase da instrução 1 da v1 "siglas, abreviações e
+grafias sem acento são esperadas e devem ser reconhecidas e normalizadas".
+
+As duas v2 recebem as mesmas descrições dos 12 parâmetros, mas o texto que enquadra a recusa
+difere. Só o Tool Calling lê "mesmo que de forma vaga" (no *prompt*), "Uma consulta sem nenhum
+parâmetro reconhecível ainda é uma busca: chame com os parâmetros vazios" (na descrição de
+`buscar_catalogo`) e "Não use para consultas vagas sobre o acervo" (na de `recusar_consulta`).
+Só a Saída Estruturada lê `{"fora_do_escopo": true} e nada mais` (no *prompt*) e "Consultas
+vagas sobre o acervo não são fora do escopo" (na descrição do campo). A comparação TC v2 × SE v2
+mede, portanto, o mecanismo junto com esse texto, sobretudo na recusa.
+
+Como a v2 foi desenhada olhando os erros nas 310, esperava-se que o seu resultado **nas 310**
+(dentro da amostra) fosse otimista. Não foi: nas 310, o TC v2 fez 47,4% e a SE v2, 68,0%, abaixo
+das v1 no mesmo conjunto (60,1% e 75,2%). A comparação direta com o lote (62,8% e 72,4%) não
+serve, porque o lote tem 17,4% de consultas F, que as duas v2 recusam, contra 2,6% nas 310. No
+domínio, v2 − v1 foi de −13,1 p.p. (310) × +4,4 p.p. (lote) no TC e de −10,1 × −12,2 p.p. na SE:
+dentro da amostra, a v2 foi pior do que fora dela no TC e parecida na SE. Das consultas do
+domínio que o TC v1 acertava, o TC v2 errou 82/176 = 46,6% nas 310, contra 213/708 = 30,1% no
+lote, em boa parte porque os erros de forma introduzidos pela v2 (sigla da UF, prefixo MI)
+atingem formas que se repetem na camada G ('cartas de <UF>', 'folha MI <código> do <UF>'); a
+composição explica de 40% a 85% do excesso de quebras, conforme a definição do estrato. Os consertos
+dentro da amostra existem (nas 310, o TC v2 acertou 25 consultas em que o TC v1 não buscava e 18
+em que buscava com erro), mas são menores que as quebras (82). A medida que vale continua sendo a do lote
+(macros `\res{base}{tc1tc2}{…}` e `\res{lote}{tc1tc2}{…}` de `numeros_lote.tex`).
+
+A docstring de `v2.py` não foi atualizada, porque o arquivo fica congelado junto com as rodadas,
+e ainda diz "sem códigos de exemplo", "exatamente a mesma especificação" e "otimista"; vale o
+que está nesta seção.
 
 ### 9.3 Configurações e conjuntos
 
@@ -285,12 +324,46 @@ F1 por campo, acurácia por categoria — e, com o tamanho do lote:
   buscou. Precisão, recall (a "recusa F" do Cap. 5), F1 e taxa de **falsa recusa** nas consultas
   do domínio (fora de F e E);
 - **categoria E**: proporção que buscou sem filtros, que não buscou e que buscou com algum
-  filtro (erro);
+  filtro (erro). Como no manual (seção 6.1), qualquer não busca conta como acerto, pedido de
+  esclarecimento ou recusa. A SE v2 marca `fora_do_escopo` em todas as consultas E, o que
+  contraria a própria descrição do campo; a acurácia com essas recusas contadas como erro sai
+  em `\res{lote}{se2}{accEerro}`;
 - acurácia nas consultas com **uma** e com **mais de uma** leitura aceita;
 - acurácia por registro de linguagem e por subtipo (VA, VE, VF);
 - comparações pareadas (TC v1 × SE v1, TC v2 × SE v2, TC v1 × TC v2, SE v1 × SE v2,
   TC v1 × SE v2): McNemar exato com uma observação por consulta e *bootstrap* pareado (2.000
   reamostragens das consultas, semente 42) para a diferença de acurácia e de F1 ponderado.
+
+### 9.5 Medidas complementares (análise de 29/09/2026)
+
+`python -m pfc_busca.evaluation.lote` também gera, nas macros `\res{...}` de
+`numeros_lote.tex`, as medidas da síntese da análise do lote. São **simulações post hoc** sobre
+as rodadas existentes, não pipelines executados:
+
+- **duas etapas** (`hib`, função `duas_etapas`): o TC v2 decide se busca e, quando busca, valem
+  os parâmetros da SE v1 na mesma consulta; latência = soma das duas chamadas quando há busca.
+  Pares com a convenção de `comparar` (A × B, diferença B − A): `se2hib`, `se1hib`, `tc2hib`,
+  `se1vaziohib` e `se2normhib` (SE v2 com as três normalizações);
+- **regra do objeto vazio** (`se1vazio`, função `regra_objeto_vazio`): a resposta da SE v1 sem
+  nenhum campo do schema conta como não busca (regra definida depois de ver os dados);
+- as duas configurações derivadas, ao lado das quatro rodadas e nos dois conjuntos, vão para
+  `tab_lote_duas_etapas.tex` (Tabela `tab:lote_duas_etapas` do Cap. 5);
+- sigla da UF nas mesmas consultas (`siglamesmas`, TC v2 × SE v2): consultas do domínio com estado
+  no gabarito em que as duas buscaram; sigla = primeira palavra do valor de `state` é uma sigla de
+  UF (inclui a forma 'XX Nome' copiada da lista), com McNemar exato;
+- decomposição TC v1 → v2 (consertos de falsa recusa, consertos de campo, quebras), saldos
+  SE v1 → v2 por grupo, falsa recusa por forma da resposta (expressões regulares de
+  `forma_nao_busca`) e por subgrupo, extração quando as duas buscam, subconjunto comum,
+  diferença das diferenças nas leituras múltiplas e comparação por registro (Fisher exato);
+- efeitos na SQL de `tools.montar_sql` sem banco: o ILIKE sobre os 27 nomes de UF e os
+  municípios do IBGE (`ibge_municipios.json`) é reproduzido em Python e coincide, consulta a
+  consulta, com o do PostgreSQL; a condição de *full-text* da keyword é aproximada (termos da
+  consulta contidos no documento, sem radicalização);
+- auditoria (`auditoria_complementar`): convenções que a descrição v1 não informa (K1 a K5),
+  SQL das respostas erradas sem as aproximações de datas e a classe b sob dois critérios. O
+  critério estrito usa os julgamentos de `data/lote_validacao/auditoria_criterios.json`
+  (execuções b para o analista que contrariam uma regra escrita do manual); o amplo é calculado
+  por código (b do analista, busca equivalente à de uma leitura aceita ou acerto sob K1 a K5).
 
 ## 10. Limitações
 

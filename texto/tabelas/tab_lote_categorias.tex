@@ -1,0 +1,23 @@
+\begin{table}[htbp!]
+\centering
+\caption{Acurácia por categoria no lote de validação (Gemma 4 E4B)}
+\label{tab:lote_categorias}
+\footnotesize
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Categoria} & \textbf{n} & \textbf{Tool Calling v1} & \textbf{Saída Estruturada v1} & \textbf{Tool Calling v2} & \textbf{Saída Estruturada v2} \\
+\hline
+Simples & 389 & 53,0\% & 79,2\% & 60,2\% & 55,5\% \\
+Compostas & 955 & 52,4\% & 73,7\% & 49,9\% & 65,4\% \\
+Código MI/INOM & 281 & 77,9\% & 78,3\% & 50,5\% & 76,5\% \\
+Tempo relativo & 278 & 22,7\% & 65,8\% & 37,4\% & 61,2\% \\
+Ordenação & 199 & 39,2\% & 77,4\% & 52,8\% & 73,4\% \\
+Ambíguas/informais & 927 & 48,1\% & 72,9\% & 50,3\% & 61,1\% \\
+Subespecificadas & 146 & 97,3\% & 74,0\% & 71,9\% & 100,0\% \\
+Fora do domínio & 336 & 100,0\% & 0,0\% & 99,7\% & 100,0\% \\
+\hline
+\textbf{Todas} & 1929 & \textbf{61,5\%} & \textbf{62,2\%} & \textbf{62,8\%} & \textbf{72,4\%} \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelos autores. Uma consulta pode pertencer a mais de uma categoria. Subespecificadas: buscar sem filtros ou não buscar são ambos corretos.}
+\end{table}

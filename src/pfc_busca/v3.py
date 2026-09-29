@@ -1,24 +1,27 @@
-"""Configurações v3: Tool Calling com ferramentas auxiliares, validação com retorno e orientações.
+"""Configurações v3: Tool Calling com ferramentas auxiliares e validação com retorno, em degraus.
 
-Desenho (docs/v3.md). Todas as variantes partem da v2 (`pfc_busca.v2`) com as descrições corrigidas
-dos efeitos colaterais medidos no lote 1 (siglas devolvidas como valor, prefixo em códigos, limit em
-plural) e diferem só no que acrescentam:
+Desenho (docs/v3.md). Todas partem da v2 (`pfc_busca.v2`) com as descrições corrigidas dos efeitos
+colaterais medidos no lote 1 (siglas devolvidas como valor, prefixo em códigos, limit em plural). Cada
+degrau acrescenta uma peça ao anterior:
 
-    tool_calling_v3d   descrições v3 (uma chamada, como a v2)
-    tool_calling_v3o   descrições v3 + orientações injetadas pelos gatilhos
-    tool_calling_v3f   descrições v3 + ferramentas auxiliares + validação com retorno + pedir_esclarecimento
-    tool_calling_v3    v3f + orientações injetadas (configuração completa)
-    tool_calling_v3t   v3f + orientações entregues pela ferramenta consultar_orientacoes (e não injetadas)
-    saida_estruturada_v3   CONTROLE: Saída Estruturada com as descrições v3, as orientações injetadas e a
-                       MESMA validação (`ferramentas.validar_parametros`) como nova tentativa — o que o
-                       código faz sem o mecanismo de Tool Calling.
+    tool_calling_v3d   descrições v3 (uma chamada: buscar_catalogo ou recusar_consulta, como a v2)
+    tool_calling_v3a   + ferramentas auxiliares (identificar_nome, normalizar_codigo, normalizar_escala,
+                       resolver_periodo) e pedir_esclarecimento com usuário simulado, num laço de chamadas
+    tool_calling_v3    + retorno: buscar_catalogo confere os parâmetros antes de executar e devolve erros e
+                       avisos; a recusa de uma consulta com critério do catálogo é devolvida uma vez
+    saida_estruturada_v3   CONTROLE: Saída Estruturada com as descrições v3 e o MESMO retorno (validação e
+                       recusa contestada) como nova tentativa, sem as ferramentas auxiliares no meio da resposta.
 
-A diferença entre tool_calling_v3 e saida_estruturada_v3 mede o que o mecanismo acrescenta (as
-ferramentas auxiliares no meio da resposta e o diálogo com a validação); a diferença entre as
-variantes de Tool Calling mede o que cada peça acrescenta.
+A diferença entre tool_calling_v3 e saida_estruturada_v3 mede o que o mecanismo acrescenta; a diferença
+entre degraus mede o que cada peça acrescenta.
 
-Usuário simulado: quando o modelo chama pedir_esclarecimento, a resposta é sempre a mesma —
-"não tenho outros detalhes; pode buscar com o que eu disse" —, e o número de perguntas é registrado.
+Usuário simulado: quando o modelo chama pedir_esclarecimento (ou escreve uma pergunta como texto), a
+resposta é sempre a mesma — "não tenho outros detalhes; pode buscar com o que eu disse" —, e o número de
+perguntas é registrado.
+
+Uma variante com orientações escritas a partir dos erros de desenvolvimento (markdowns com frontmatter)
+foi testada no desenvolvimento e descartada: não mudou o resultado (docs/v3_desenvolvimento.md,
+experimentos/orientacoes/).
 """
 
 from __future__ import annotations
@@ -36,15 +39,22 @@ from typing import Any
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from pydantic import ValidationError
 
-from pfc_busca import agent, agent_estruturado, ferramentas, orientacoes, schema, v2
+from pfc_busca import agent, agent_estruturado, ferramentas, schema, v2
 from pfc_busca.agent import Traducao, _classificar_erro
 
 MAX_CHAMADAS_MODELO = 6
 MAX_TENTATIVAS_BUSCA = 3
 MAX_PERGUNTAS = 2
 MAX_NOVAS_TENTATIVAS_SE = 2
+# Contexto do modelo na v3. O padrão do Ollama (4.096 tokens) é suficiente para a v1 e a v2 (1,3 a 2,6 mil tokens
+# de prompt), mas a v3 manda ~3,3 mil tokens só de prompt e ferramentas por chamada, mais os resultados das
+# ferramentas; perto do limite, o Ollama corta o começo do prompt — o prompt de sistema.
+NUM_CTX_V3 = 8192
 RESPOSTA_USUARIO = ("Resposta do usuário: não tenho outros detalhes além do que escrevi; pode buscar com o que eu "
                     "disse.")
+# como o modelo confirma uma recusa contestada (ferramentas.mensagem_recusa)
+CONFIRMAR_RECUSA_TC = "chame recusar_consulta de novo para confirmar a recusa."
+CONFIRMAR_RECUSA_SE = 'responda de novo só com {"fora_do_escopo": true} para confirmar a recusa.'
 
 # ---------------------------------------------------------------------------
 # Especificação v3: v2 com os efeitos colaterais corrigidos
@@ -119,23 +129,18 @@ PERIODO = _funcao("resolver_periodo", "Intervalo ISO (start/end) de uma express�
                   "atual pelas regras do catálogo.", {"expressao": "A expressão de tempo como está na consulta "
                                                                    "(ex.: 'no ano passado', 'últimos 3 meses')."},
                   ["expressao"])
-ORIENTACOES = _funcao("consultar_orientacoes", "Devolve as orientações aprendidas com erros anteriores sobre um campo "
-                      "ou tema (ex.: 'state', 'limit', 'keyword'); com assunto 'consulta', as pertinentes à consulta.",
-                      {"assunto": "Nome de um campo, de uma orientação do índice, ou 'consulta'."}, ["assunto"])
 AUXILIARES = {"identificar_nome": IDENTIFICAR, "normalizar_codigo": CODIGO, "normalizar_escala": ESCALA,
               "resolver_periodo": PERIODO}
 
 VARIANTES = {
-    # abordagem: (ferramentas auxiliares e validação, orientações: None | "injetadas" | "ferramenta")
-    "tool_calling_v3d": (False, None),
-    "tool_calling_v3o": (False, "injetadas"),
-    "tool_calling_v3f": (True, None),
-    "tool_calling_v3": (True, "injetadas"),
-    "tool_calling_v3t": (True, "ferramenta"),
+    # abordagem: (ferramentas auxiliares e laço de chamadas, retorno: validação e recusa contestada)
+    "tool_calling_v3d": (False, False),
+    "tool_calling_v3a": (True, False),
+    "tool_calling_v3": (True, True),
 }
 ABORDAGENS_V3 = tuple(VARIANTES) + ("saida_estruturada_v3",)
-PREFIXOS = {"tool_calling_v3d": "tc3d-", "tool_calling_v3o": "tc3o-", "tool_calling_v3f": "tc3f-",
-            "tool_calling_v3": "tc3-", "tool_calling_v3t": "tc3t-", "saida_estruturada_v3": "se3-"}
+PREFIXOS = {"tool_calling_v3d": "tc3d-", "tool_calling_v3a": "tc3a-", "tool_calling_v3": "tc3-",
+            "saida_estruturada_v3": "se3-"}
 
 # ---------------------------------------------------------------------------
 # Prompts
@@ -156,10 +161,10 @@ Você tem duas ferramentas e deve chamar exatamente uma delas:
 _TC_FERRAMENTAS = v2._CABECALHO + """
 
 Ferramentas:
-- identificar_nome, normalizar_codigo, normalizar_escala e resolver_periodo são auxiliares: antes de buscar, confirme com elas a forma canônica de cada lugar, nome de carta, código, escala e expressão de tempo citados na consulta (pode chamar várias de uma vez).
-- buscar_catalogo faz a busca. Ela confere os parâmetros antes de executar; se devolver erros ou avisos, corrija e chame de novo.
+- identificar_nome, normalizar_codigo, normalizar_escala e resolver_periodo são auxiliares: antes de buscar, confirme com elas a forma canônica de cada lugar, nome de carta, código, escala e expressão de tempo citados na consulta (pode chamar várias de uma vez). Para expressão de tempo, chame resolver_periodo e copie as datas que ela devolver, sem fazer a conta de cabeça.
+- buscar_catalogo faz a busca.{linha_validacao}
 - pedir_esclarecimento: só quando a consulta pedir produtos do acervo sem NENHUM critério (nem lugar, escala, tipo, código, data, projeto ou CGEO). Com qualquer critério, busque.
-- recusar_consulta: quando a consulta não tratar de produtos cartográficos do acervo (outro assunto, lugar fora do Brasil ou fictício, pedido para produzir ou editar um mapa, conversa sem intenção de busca).{linha_orientacoes}
+- recusar_consulta: quando a consulta não tratar de produtos cartográficos do acervo (outro assunto, lugar fora do Brasil ou fictício, pedido para produzir ou editar um mapa, conversa sem intenção de busca). Nome de lugar que você não reconhece não é motivo de recusa: confira com identificar_nome.
 Termine sempre com buscar_catalogo, pedir_esclarecimento ou recusar_consulta.
 
 """ + _REGRAS_V3
@@ -170,7 +175,7 @@ Instruções:
 1. Responda somente com um objeto JSON que siga o schema abaixo. Omita os parâmetros ausentes.
 2. Se a consulta não tratar de produtos cartográficos do acervo do território brasileiro (outro assunto, lugar fora do Brasil ou fictício, pedido para produzir ou editar um mapa, conversa sem intenção de busca), responda {{"fora_do_escopo": true}} e nada mais. Uma consulta vaga sobre o acervo, ou só com uma região, não é fora do escopo: responda com os parâmetros que ela permite preencher, mesmo que nenhum.
 3. """ + _REGRAS_V3.replace("Regras:\n1. ", "").replace("\n2. ", "\n4. ") + """
-{orientacoes}
+
 Schema dos parâmetros (JSON Schema):
 {schema_json}"""
 
@@ -183,25 +188,18 @@ def _datas(hoje: date) -> dict[str, str]:
     return v2._datas(hoje)
 
 
-def prompt_tc(abordagem: str, consulta: str, hoje: date) -> tuple[str, list[str]]:
-    com_ferramentas, modo = VARIANTES[abordagem]
-    injetadas = orientacoes.pertinentes(consulta) if modo == "injetadas" else []
-    bloco = ("\n\n" + orientacoes.bloco_para_prompt(consulta)) if injetadas else ""
-    if not com_ferramentas:
-        return _TC_SIMPLES.format(**_datas(hoje)) + bloco, [o.nome for o in injetadas]
-    linha = ""
-    if modo == "ferramenta":
-        linha = ("\n- consultar_orientacoes: orientações aprendidas com erros anteriores; consulte as pertinentes antes "
-                 "de buscar. Índice:\n" + orientacoes.indice())
-    return _TC_FERRAMENTAS.format(**_datas(hoje), linha_orientacoes=linha) + bloco, [o.nome for o in injetadas]
+LINHA_VALIDACAO = " Ela confere os parâmetros antes de executar; se devolver erros ou avisos, corrija e chame de novo."
 
 
-def prompt_se(consulta: str, hoje: date) -> tuple[str, list[str]]:
-    injetadas = orientacoes.pertinentes(consulta)
-    bloco = orientacoes.bloco_para_prompt(consulta)
-    return (_SE_V3.format(**_datas(hoje), orientacoes=("\n" + bloco + "\n") if bloco else "",
-                          schema_json=json.dumps(PARAMETROS_SE_V3, ensure_ascii=False, indent=2)),
-            [o.nome for o in injetadas])
+def prompt_tc(abordagem: str, hoje: date) -> str:
+    auxiliares, retorno = VARIANTES[abordagem]
+    if not auxiliares:
+        return _TC_SIMPLES.format(**_datas(hoje))
+    return _TC_FERRAMENTAS.format(**_datas(hoje), linha_validacao=LINHA_VALIDACAO if retorno else "")
+
+
+def prompt_se(hoje: date) -> str:
+    return _SE_V3.format(**_datas(hoje), schema_json=json.dumps(PARAMETROS_SE_V3, ensure_ascii=False, indent=2))
 
 
 def _sha_arquivo(p: Path) -> str:
@@ -209,11 +207,11 @@ def _sha_arquivo(p: Path) -> str:
 
 
 def texto_hash(abordagem: str) -> str:
-    """Tudo o que define a configuração: prompts, ferramentas, orientações e o código/dados das ferramentas."""
-    partes = [_TC_SIMPLES, _TC_FERRAMENTAS, _SE_V3, RESPOSTA_USUARIO,
-              json.dumps([BUSCAR_V3, BUSCAR_V3_VALIDADA, PEDIR, ORIENTACOES, *AUXILIARES.values(), v2.FERRAMENTA_RECUSAR],
+    """Tudo o que define a configuração: prompts, ferramentas e o código/dados das ferramentas."""
+    partes = [_TC_SIMPLES, _TC_FERRAMENTAS, LINHA_VALIDACAO, _SE_V3, RESPOSTA_USUARIO,
+              json.dumps([BUSCAR_V3, BUSCAR_V3_VALIDADA, PEDIR, *AUXILIARES.values(), v2.FERRAMENTA_RECUSAR],
                          ensure_ascii=False, sort_keys=True),
-              orientacoes.assinatura(), _sha_arquivo(Path(ferramentas.__file__)), _sha_arquivo(Path(__file__)),
+              _sha_arquivo(Path(ferramentas.__file__)), _sha_arquivo(Path(__file__)),
               _sha_arquivo(ferramentas.DADOS / "municipios_ibge.json"),
               _sha_arquivo(ferramentas.DADOS / "indice_folhas.json"), abordagem]
     return "\n".join(partes)
@@ -222,13 +220,10 @@ def texto_hash(abordagem: str) -> str:
 def ferramentas_da(abordagem: str) -> list[dict[str, Any]]:
     if abordagem == "saida_estruturada_v3":
         return [BUSCAR_V3_VALIDADA]
-    com_ferramentas, modo = VARIANTES[abordagem]
-    if not com_ferramentas:
+    auxiliares, retorno = VARIANTES[abordagem]
+    if not auxiliares:
         return [BUSCAR_V3, v2.FERRAMENTA_RECUSAR]
-    lista = [*AUXILIARES.values(), BUSCAR_V3_VALIDADA, PEDIR, v2.FERRAMENTA_RECUSAR]
-    if modo == "ferramenta":
-        lista.append(ORIENTACOES)
-    return lista
+    return [*AUXILIARES.values(), BUSCAR_V3_VALIDADA if retorno else BUSCAR_V3, PEDIR, v2.FERRAMENTA_RECUSAR]
 
 
 # ---------------------------------------------------------------------------
@@ -265,6 +260,11 @@ def chamadas_em_texto(texto: str, nomes: set[str]) -> list[tuple[str, dict[str, 
                 except (SyntaxError, ValueError):
                     pass
                 break
+    if not saida:   # sintaxe nativa do Gemma: nome{chave:<|"|>valor<|"|>,chave2:3,chave3:{start:<|"|>...<|"|>}}
+        for m in re.finditer(r"\b(" + "|".join(map(re.escape, sorted(nomes))) + r")\s*\{", texto or ""):
+            corpo, fim = _chaves(texto, m.end() - 1)
+            if corpo is not None:
+                saida.append((m.group(1), _argumentos_gemma(corpo)))
     if not saida:
         for m in re.finditer(r"\{[^{}]*\"name\"\s*:\s*\"(\w+)\"[^{}]*\"(?:arguments|parameters)\"\s*:\s*(\{[^{}]*\})",
                              texto or ""):
@@ -274,6 +274,54 @@ def chamadas_em_texto(texto: str, nomes: set[str]) -> list[tuple[str, dict[str, 
                 except ValueError:
                     pass
     return saida
+
+
+ASPAS_GEMMA = '<|"|>'
+
+
+def _chaves(texto: str, inicio: int) -> tuple[str | None, int]:
+    """Conteúdo entre a chave em `inicio` e a que a fecha (respeitando os delimitadores de texto do Gemma)."""
+    profundidade, k, dentro = 0, inicio, False
+    while k < len(texto):
+        if texto.startswith(ASPAS_GEMMA, k):
+            dentro = not dentro
+            k += len(ASPAS_GEMMA)
+            continue
+        if not dentro:
+            if texto[k] == "{":
+                profundidade += 1
+            elif texto[k] == "}":
+                profundidade -= 1
+                if profundidade == 0:
+                    return texto[inicio + 1:k], k
+        k += 1
+    return None, k
+
+
+def _argumentos_gemma(corpo: str) -> dict[str, Any]:
+    """chave:<|"|>texto<|"|>, chave:123, chave:{...} -> dict."""
+    args: dict[str, Any] = {}
+    k = 0
+    while k < len(corpo):
+        m = re.match(r"\s*,?\s*(\w+)\s*:\s*", corpo[k:])
+        if not m:
+            break
+        chave, k = m.group(1), k + m.end()
+        if corpo.startswith(ASPAS_GEMMA, k):
+            fim = corpo.find(ASPAS_GEMMA, k + len(ASPAS_GEMMA))
+            fim = len(corpo) if fim < 0 else fim
+            args[chave] = corpo[k + len(ASPAS_GEMMA):fim]
+            k = fim + len(ASPAS_GEMMA)
+        elif corpo.startswith("{", k):
+            sub, fim = _chaves(corpo, k)
+            args[chave] = _argumentos_gemma(sub or "")
+            k = fim + 1
+        else:
+            v = re.match(r"[^,}]+", corpo[k:])
+            bruto = v.group(0).strip() if v else ""
+            args[chave] = int(bruto) if bruto.isdigit() else {"true": True, "false": False}.get(bruto, bruto)
+            k += v.end() if v else 1
+    return args
 
 
 def executar_auxiliar(nome: str, args: dict[str, Any], consulta: str, hoje: date) -> str:
@@ -287,41 +335,42 @@ def executar_auxiliar(nome: str, args: dict[str, Any], consulta: str, hoje: date
             return ferramentas.normalizar_escala(str(args.get("texto", "")))
         if nome == "resolver_periodo":
             return ferramentas.resolver_periodo(str(args.get("expressao", "")), hoje)
-        if nome == "consultar_orientacoes":
-            return orientacoes.consultar(str(args.get("assunto", "")), consulta)
     except Exception as erro:  # noqa: BLE001 — a ferramenta nunca derruba a rodada
         return f"Erro na ferramenta {nome}: {type(erro).__name__}"
     return f"Ferramenta inexistente: {nome}."
 
 
 class TradutorV3(agent.Tradutor):
-    """Tool Calling v3: laço de ferramentas com validação e usuário simulado."""
+    """Tool Calling v3: laço de ferramentas auxiliares, com ou sem retorno, e usuário simulado."""
 
     def __init__(self, modelo: str, abordagem: str = "tool_calling_v3", **kwargs):
         if abordagem not in VARIANTES:
             raise ValueError(f"abordagem v3 desconhecida: {abordagem!r}")
+        kwargs.setdefault("num_ctx", NUM_CTX_V3)
         super().__init__(modelo, **kwargs)
         self.abordagem = abordagem
-        self.com_ferramentas, self.modo_orientacoes = VARIANTES[abordagem]
+        self.auxiliares, self.retorno = VARIANTES[abordagem]
         self.llm_com_ferramenta = self.llm.bind_tools(ferramentas_da(abordagem))
         self.nomes_ferramentas = {f["function"]["name"] for f in ferramentas_da(abordagem)}
 
     def descricao(self) -> dict[str, Any]:
         return {"abordagem": self.abordagem, "temperature": 0, "num_predict": agent.MAX_TOKENS_SAIDA,
                 "ferramentas": [f["function"]["name"] for f in ferramentas_da(self.abordagem)],
-                "validacao_com_retorno": self.com_ferramentas, "orientacoes": self.modo_orientacoes,
-                "orientacoes_sha256": orientacoes.assinatura(), "max_chamadas_modelo": MAX_CHAMADAS_MODELO,
-                "max_tentativas_busca": MAX_TENTATIVAS_BUSCA, "usuario_simulado": RESPOSTA_USUARIO}
+                "ferramentas_auxiliares": self.auxiliares, "validacao_com_retorno": self.retorno,
+                "max_chamadas_modelo": MAX_CHAMADAS_MODELO,
+                "max_tentativas_busca": MAX_TENTATIVAS_BUSCA, "usuario_simulado": RESPOSTA_USUARIO,
+                "num_ctx": NUM_CTX_V3, "recusa_com_retorno": self.retorno,
+                "pergunta_em_texto_respondida": self.auxiliares}
 
     def traduzir(self, consulta: str, hoje: date) -> Traducao:
         r = Traducao(modelo=self.modelo, hoje=hoje.isoformat(), consulta=consulta)
-        sistema, injetadas = prompt_tc(self.abordagem, consulta, hoje)
+        sistema = prompt_tc(self.abordagem, hoje)
         mensagens: list = [SystemMessage(content=sistema), HumanMessage(content=consulta)]
         traco: list[dict[str, Any]] = []
         usadas: Counter = Counter()
-        chamadas = tentativas = perguntas = avisos_recebidos = chamadas_texto = 0
+        chamadas = tentativas = perguntas = perguntas_texto = avisos_recebidos = chamadas_texto = 0
         avisados: dict | None = None
-        cutucou = False
+        cutucou = contestou = False
         final: tuple[str, Any] | None = None
         r.tokens_prompt = r.tokens_saida = 0
         inicio = time.perf_counter()
@@ -347,7 +396,19 @@ class TradutorV3(agent.Tradutor):
                         pedidos = [(c["name"], c["args"], c["id"], False) for c in falsas]
                 if not pedidos:
                     texto = agent._texto(resposta.content)
-                    if not self.com_ferramentas or cutucou:
+                    if not self.auxiliares:
+                        final = ("texto", texto)
+                        break
+                    if "?" in texto and perguntas < MAX_PERGUNTAS:
+                        # pergunta escrita como texto: numa conversa ela iria ao usuário, que responde o mesmo
+                        # que a pedir_esclarecimento
+                        perguntas += 1
+                        perguntas_texto += 1
+                        traco.append({"ferramenta": "(pergunta em texto)", "args": texto[:200],
+                                      "resultado": RESPOSTA_USUARIO})
+                        mensagens.append(HumanMessage(content=RESPOSTA_USUARIO))
+                        continue
+                    if cutucou:
                         final = ("texto", texto)
                         break
                     cutucou = True
@@ -362,6 +423,14 @@ class TradutorV3(agent.Tradutor):
                         continue
                     if nome == v2.NOME_RECUSA:
                         motivo = (args or {}).get("motivo") if isinstance(args, dict) else None
+                        evidencias = (ferramentas.evidencias_de_catalogo(consulta)
+                                      if self.retorno and not contestou else [])
+                        if evidencias:   # recusa com retorno: uma vez, e só com critério do catálogo na consulta
+                            contestou = True
+                            msg = ferramentas.mensagem_recusa(evidencias, CONFIRMAR_RECUSA_TC)
+                            traco.append({"ferramenta": nome, "args": motivo, "resultado": msg[:300]})
+                            mensagens.append(ToolMessage(content=msg, tool_call_id=id_ or nome))
+                            continue
                         final = ("recusa", motivo)
                         mensagens.append(ToolMessage(content="Consulta recusada.", tool_call_id=id_ or nome))
                     elif nome == schema.NOME_FERRAMENTA:
@@ -373,7 +442,7 @@ class TradutorV3(agent.Tradutor):
                                 final = ("busca", {})
                         else:
                             erros, avisos = (ferramentas.validar_parametros(params, consulta, hoje)
-                                             if self.com_ferramentas else ([], []))
+                                             if self.retorno else ([], []))
                             aceitar = (tentativas >= MAX_TENTATIVAS_BUSCA or not erros
                                        and (not avisos or params == avisados))
                             if aceitar:
@@ -412,8 +481,9 @@ class TradutorV3(agent.Tradutor):
         r.extras = {"traco": traco, "chamadas_modelo": chamadas, "tentativas_busca": tentativas,
                     "perguntas": perguntas, "avisos_recebidos": avisos_recebidos,
                     "recusou": bool(final and final[0] == "recusa"), "sem_final": final is None,
-                    "ferramentas_usadas": dict(usadas), "orientacoes": injetadas, "cutucou": cutucou,
-                    "chamadas_em_texto": chamadas_texto}
+                    "ferramentas_usadas": dict(usadas), "cutucou": cutucou,
+                    "chamadas_em_texto": chamadas_texto, "perguntas_em_texto": perguntas_texto,
+                    "recusa_contestada": contestou}
         return r
 
 
@@ -424,20 +494,21 @@ class TradutorV3(agent.Tradutor):
 class TradutorEstruturadoV3(agent_estruturado.TradutorEstruturado):
     def __init__(self, modelo: str, **kwargs):
         super().__init__(modelo, "saida_estruturada", **kwargs)
+        self.opcoes["num_ctx"] = NUM_CTX_V3
         self.abordagem = "saida_estruturada_v3"
         self.modelo = f"{modelo} [saida-estruturada-v3]"
 
     def descricao(self) -> dict[str, Any]:
         return {**super().descricao(), "abordagem": self.abordagem, "descricoes": "v3",
-                "orientacoes": "injetadas", "orientacoes_sha256": orientacoes.assinatura(),
                 "validacao": "ferramentas.validar_parametros como nova tentativa",
+                "recusa_com_retorno": True,
                 "novas_tentativas": MAX_NOVAS_TENTATIVAS_SE}
 
     def traduzir(self, consulta: str, hoje: date) -> Traducao:
         r = Traducao(modelo=self.modelo, hoje=hoje.isoformat(), consulta=consulta)
-        sistema, injetadas = prompt_se(consulta, hoje)
+        sistema = prompt_se(hoje)
         mensagens = [{"role": "system", "content": sistema}, {"role": "user", "content": consulta}]
-        tentativas, avisados, historico = 0, None, []
+        tentativas, avisados, historico, contestou = 0, None, [], False
         inicio = time.perf_counter()
         try:
             while True:
@@ -451,6 +522,14 @@ class TradutorEstruturadoV3(agent_estruturado.TradutorEstruturado):
                 except ValueError:
                     obj = None
                 if isinstance(obj, dict) and obj.get(v2.CAMPO_FORA_DO_ESCOPO) is True:
+                    evidencias = [] if contestou else ferramentas.evidencias_de_catalogo(consulta)
+                    if evidencias:   # a mesma recusa com retorno do Tool Calling v3
+                        contestou = True
+                        historico.append("fora_do_escopo contestado")
+                        mensagens += [{"role": "assistant", "content": texto},
+                                      {"role": "user", "content": ferramentas.mensagem_recusa(
+                                          evidencias, CONFIRMAR_RECUSA_SE)}]
+                        continue
                     r.chamou_ferramenta, r.predito = False, None
                     historico.append("fora_do_escopo")
                     break
@@ -477,8 +556,8 @@ class TradutorEstruturadoV3(agent_estruturado.TradutorEstruturado):
             if r.classe_erro in ("timeout", "indisponivel"):
                 r.chamou_ferramenta, r.predito = False, None
         r.latencia_llm_ms = (time.perf_counter() - inicio) * 1000
-        r.extras = {"tentativas": tentativas, "historico": historico, "orientacoes": injetadas,
-                    "recusou": r.predito is None and r.classe_erro is None}
+        r.extras = {"tentativas": tentativas, "historico": historico,
+                    "recusou": r.predito is None and r.classe_erro is None, "recusa_contestada": contestou}
         return r
 
 

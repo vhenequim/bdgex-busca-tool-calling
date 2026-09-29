@@ -18,16 +18,16 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
 NOTEBOOKS = [RAIZ / "notebooks" / "avaliacao_colab.ipynb", RAIZ / "notebooks" / "linha_de_base_colab.ipynb",
-             RAIZ / "notebooks" / "lote_validacao_colab.ipynb"]
+             RAIZ / "notebooks" / "lote_validacao_colab.ipynb", RAIZ / "notebooks" / "lote2_v3_colab.ipynb"]
 INCLUIR = ["src", "tests", "scripts", "db", "notebooks", "docs", "data/dataset.json", "data/auditoria",
-           "data/lote_validacao.json",
+           "data/lote_validacao.json", "data/lote_validacao_2.json",
            "pyproject.toml", "README.md", ".env.example", ".gitignore", "docker-compose.yml"]
 
 
-def gravar_hash_no_notebook(sha: str, sha_lote: str | None = None) -> None:
+def gravar_hash_no_notebook(sha: str, sha_lote: str | None = None, sha_lote2: str | None = None) -> None:
     for notebook in NOTEBOOKS:
         if notebook.exists():
-            _gravar_hash(notebook, {"DATASET_SHA256": sha, "LOTE_SHA256": sha_lote})
+            _gravar_hash(notebook, {"DATASET_SHA256": sha, "LOTE_SHA256": sha_lote, "LOTE2_SHA256": sha_lote2})
 
 
 def _gravar_hash(notebook: Path, hashes: dict[str, str | None]) -> None:
@@ -50,7 +50,9 @@ def main() -> None:
     sha = hashlib.sha256((RAIZ / "data" / "dataset.json").read_bytes()).hexdigest()
     lote = RAIZ / "data" / "lote_validacao.json"
     sha_lote = hashlib.sha256(lote.read_bytes()).hexdigest() if lote.exists() else None
-    gravar_hash_no_notebook(sha, sha_lote)
+    lote2 = RAIZ / "data" / "lote_validacao_2.json"
+    sha_lote2 = hashlib.sha256(lote2.read_bytes()).hexdigest() if lote2.exists() else None
+    gravar_hash_no_notebook(sha, sha_lote, sha_lote2)
     arquivos = []
     for item in INCLUIR:
         p = RAIZ / item

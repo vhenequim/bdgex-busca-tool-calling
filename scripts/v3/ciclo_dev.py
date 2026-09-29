@@ -1,6 +1,6 @@
 """Ciclo de desenvolvimento da v3 no conjunto de DESENVOLVIMENTO (160 consultas do lote 1).
 
-    python scripts/v3/ciclo_dev.py --ciclo 1 --rodar tool_calling_v3 tool_calling_v3f ...   # roda e resume
+    python scripts/v3/ciclo_dev.py --ciclo 1 --rodar tool_calling_v3 saida_estruturada_v3 ...   # roda e resume
     python scripts/v3/ciclo_dev.py --ciclo 1                                                 # só resume
 
 As rodadas vão para results/dev_v3/ciclo<N>/ (Gemma 4 E4B local, mesma tag e digest da T4, data de
@@ -50,6 +50,25 @@ def linhas_de(pasta: Path) -> list[dict]:
     return [x for x in validas if not x.get("observacional")]
 
 
+def hibrido(decisor: list[dict], extrator: list[dict]) -> list[dict]:
+    """Arquitetura em duas etapas simulada: o `decisor` decide se busca; quando busca, valem os parâmetros do
+    `extrator`. Latência = soma das duas chamadas quando há busca."""
+    por_id = {x["id"]: x for x in extrator}
+    saida = []
+    for d in decisor:
+        e = por_id.get(d["id"])
+        if e is None:
+            continue
+        x = dict(e)
+        if d["predito"] is None:
+            x.update(predito=None, chamou_ferramenta=False, latencia_llm_ms=d.get("latencia_llm_ms"))
+        else:
+            x["latencia_llm_ms"] = (d.get("latencia_llm_ms") or 0) + (e.get("latencia_llm_ms") or 0)
+        x["extras"] = {}
+        saida.append(x)
+    return saida
+
+
 def medidas(linhas: list[dict]) -> dict:
     avals = [(x, metrics.avaliar_linha(x)) for x in linhas]
     dominio = [(x, a) for x, a in avals if x["espera_tool_call"] and not x.get("aceita_nao_chamar")]
@@ -82,11 +101,17 @@ def main() -> int:
     for abordagem in args.rodar:
         print(f"== {abordagem}", flush=True)
         rodar(abordagem, pasta)
-    tabela = {nome: medidas(linhas_de(p)) for nome, p in REFERENCIAS.items() if p.exists()}
+    ref = {nome: linhas_de(p) for nome, p in REFERENCIAS.items() if p.exists()}
+    tabela = {nome: medidas(linhas) for nome, linhas in ref.items()}
+    if "tc2 (T4)" in ref and "se1 (T4)" in ref:
+        tabela["hib: tc2 decide, se1 extrai (T4)"] = medidas(hibrido(ref["tc2 (T4)"], ref["se1 (T4)"]))
     for abordagem in PREFIXO_ABORDAGEM:
         d = pasta / (PREFIXO_ABORDAGEM[abordagem] + SLUG)
         if (d / "execucoes.jsonl").exists():
             tabela[abordagem] = medidas(linhas_de(d))
+    tc3, se3 = pasta / ("tc3-" + SLUG), pasta / ("se3-" + SLUG)
+    if (tc3 / "execucoes.jsonl").exists() and (se3 / "execucoes.jsonl").exists():
+        tabela["hib: tc3 decide, se3 extrai"] = medidas(hibrido(linhas_de(tc3), linhas_de(se3)))
     linhas = [f"# Ciclo {args.ciclo} — desenvolvimento da v3 (160 consultas do lote 1)", "",
               "| Configuração | n | Acurácia | Domínio | Falsa recusa | Recusa F | F1 | Chamadas/consulta | "
               "Com pergunta | Chamada em texto | Latência mediana (s) | FP mais comuns | FN mais comuns |",

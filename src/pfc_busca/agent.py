@@ -78,7 +78,7 @@ class Tradutor:
     def __init__(self, modelo: str, *, base_url: str = BASE_URL_PADRAO,
                  temperatura: float = 0.0, max_tokens: int = MAX_TOKENS_SAIDA,
                  timeout_s: float = TIMEOUT_S, keep_alive: str = KEEP_ALIVE,
-                 desativar_thinking: bool = True, seed: int | None = None):
+                 desativar_thinking: bool = True, seed: int | None = None, num_ctx: int | None = None):
         self.modelo = modelo
         self.base_url = base_url
         self.capacidades = capacidades(modelo, base_url)
@@ -92,6 +92,8 @@ class Tradutor:
             kwargs["reasoning"] = False
         if seed is not None:
             kwargs["seed"] = seed
+        if num_ctx is not None:   # só a v3 define: prompts com várias ferramentas passam de 3 mil tokens
+            kwargs["num_ctx"] = num_ctx
         self.llm = ChatOllama(
             model=modelo, base_url=base_url, temperature=temperatura,
             num_predict=max_tokens, keep_alive=keep_alive,

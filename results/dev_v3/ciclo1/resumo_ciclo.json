@@ -1,0 +1,168 @@
+{
+ "tc1 (T4)": {
+  "n": 160,
+  "acuracia": 0.58125,
+  "dominio": 0.5037037037037037,
+  "falsa_recusa": 0.31851851851851853,
+  "recusa_f": 1.0,
+  "f1": 0.7616959327764286,
+  "chamadas": 1.0,
+  "perguntas": 0,
+  "texto": 0,
+  "latencia": 0.8471211434999759,
+  "fp": {
+   "keyword": 6,
+   "publicationPeriod": 6,
+   "productType": 5,
+   "sortField": 2,
+   "city": 1,
+   "creationPeriod": 1
+  },
+  "fn": {
+   "productType": 13,
+   "scale": 13,
+   "city": 11,
+   "publicationPeriod": 11,
+   "state": 8,
+   "supplyArea": 7
+  }
+ },
+ "se1 (T4)": {
+  "n": 160,
+  "acuracia": 0.69375,
+  "dominio": 0.7555555555555555,
+  "falsa_recusa": 0.0,
+  "recusa_f": 0.0,
+  "f1": 0.9077315528298944,
+  "chamadas": 1.0,
+  "perguntas": 0,
+  "texto": 0,
+  "latencia": 0.7602431504999458,
+  "fp": {
+   "keyword": 16,
+   "publicationPeriod": 9,
+   "productType": 2,
+   "limit": 2,
+   "state": 2,
+   "creationPeriod": 1
+  },
+  "fn": {
+   "city": 6,
+   "creationPeriod": 4,
+   "state": 2,
+   "sortDirection": 2,
+   "sortField": 2,
+   "scale": 1
+  }
+ },
+ "tc2 (T4)": {
+  "n": 160,
+  "acuracia": 0.58125,
+  "dominio": 0.5185185185185185,
+  "falsa_recusa": 0.022222222222222223,
+  "recusa_f": 1.0,
+  "f1": 0.8407829985635601,
+  "chamadas": 1.0,
+  "perguntas": 0,
+  "texto": 0,
+  "latencia": 0.8806090420000601,
+  "fp": {
+   "keyword": 20,
+   "productType": 20,
+   "state": 14,
+   "limit": 12,
+   "publicationPeriod": 3,
+   "creationPeriod": 3
+  },
+  "fn": {
+   "productType": 4,
+   "city": 3,
+   "scale": 3,
+   "state": 2,
+   "publicationPeriod": 2,
+   "creationPeriod": 1
+  }
+ },
+ "se2 (T4)": {
+  "n": 160,
+  "acuracia": 0.725,
+  "dominio": 0.674074074074074,
+  "falsa_recusa": 0.14074074074074075,
+  "recusa_f": 1.0,
+  "f1": 0.8827652654782917,
+  "chamadas": 1.0,
+  "perguntas": 0,
+  "texto": 0,
+  "latencia": 0.7355943269999443,
+  "fp": {
+   "keyword": 11,
+   "state": 6,
+   "publicationPeriod": 4,
+   "limit": 2,
+   "productType": 1,
+   "creationPeriod": 1
+  },
+  "fn": {
+   "city": 11,
+   "productType": 7,
+   "scale": 6,
+   "state": 5,
+   "creationPeriod": 2,
+   "project": 1
+  }
+ },
+ "hib: tc2 decide, se1 extrai (T4)": {
+  "n": 160,
+  "acuracia": 0.78125,
+  "dominio": 0.7481481481481481,
+  "falsa_recusa": 0.022222222222222223,
+  "recusa_f": 1.0,
+  "f1": 0.9107680711573344,
+  "chamadas": 1.0,
+  "perguntas": 0,
+  "texto": 0,
+  "latencia": 1.5360091380002814,
+  "fp": {
+   "keyword": 11,
+   "publicationPeriod": 8,
+   "productType": 2,
+   "limit": 2,
+   "state": 2,
+   "creationPeriod": 1
+  },
+  "fn": {
+   "city": 6,
+   "creationPeriod": 4,
+   "state": 2,
+   "publicationPeriod": 2,
+   "sortDirection": 2,
+   "sortField": 2
+  }
+ },
+ "tool_calling_v3": {
+  "n": 160,
+  "acuracia": 0.875,
+  "dominio": 0.8518518518518519,
+  "falsa_recusa": 0.037037037037037035,
+  "recusa_f": 1.0,
+  "f1": 0.9478083407082821,
+  "chamadas": 1.99375,
+  "perguntas": 7,
+  "texto": 33,
+  "latencia": 5.997904899995774,
+  "fp": {
+   "publicationPeriod": 9,
+   "keyword": 2,
+   "creationPeriod": 2,
+   "sortDirection": 1
+  },
+  "fn": {
+   "productType": 3,
+   "city": 3,
+   "publicationPeriod": 3,
+   "creationPeriod": 2,
+   "state": 1,
+   "supplyArea": 1
+  }
+ }
+}

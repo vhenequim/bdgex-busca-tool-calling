@@ -133,6 +133,23 @@ def _uf_de(texto: str) -> str | None:
 
 
 def identificar_nome(nome: str) -> str:
+    resposta = _identificar(nome)
+    if "não é UF, município do IBGE nem folha" not in resposta:
+        return resposta
+    # trecho composto ("Cajueiro Alto Alegre, Tesouro", "folha X de Y"): identifica cada parte
+    partes = [p for p in re.split(r"\s*(?:,|;|/|\(|\)|\s-\s|–|\s+de\s+|\s+do\s+|\s+da\s+)\s*", nome or "")
+              if len(norm(p)) >= 3]
+    if len(partes) < 2:
+        return resposta
+    identificadas = [_identificar(p) for p in partes]
+    uteis = [r for r in identificadas if "não é UF, município do IBGE nem folha" not in r]
+    if not uteis:
+        return resposta
+    return (f"'{nome}' não é um nome só; por partes: " + " | ".join(identificadas) +
+            " Preencha cada parte no campo correspondente.")
+
+
+def _identificar(nome: str) -> str:
     bruto = (nome or "").strip()
     t = norm(bruto)
     if not t:
@@ -362,7 +379,11 @@ def resolver_periodo(expressao: str, hoje: date) -> str:
 # Validador de buscar_catalogo
 # ---------------------------------------------------------------------------
 
-RE_ORDEM = re.compile(r"mais recente|mais antig|mais nov|mais velh|\bultim|\bprimeir|ordem|cronolog|recentes|antigas?\b"
+# "últimos 5 anos" e "primeiro CGEO" não pedem ordem: são período e fornecedor
+_QUANTIDADE_DE_TEMPO = (r"(?:\d+|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|doze|quinze|trinta) "
+                        r"(?:dias?|semanas?|mes|meses|anos?)\b|(?:dias?|semanas?|mes|meses|anos?|trimestre|semestre)\b")
+RE_ORDEM = re.compile(r"mais recente|mais antig|mais nov|mais velh|\bultim(?![oa]s? (?:" + _QUANTIDADE_DE_TEMPO + r"))"
+                      r"|\bprimeir(?![oa] (?:cgeo|centro|trimestre|semestre)\b)|ordem|cronolog|recentes|antigas?\b"
                       r"|atualiza|\bnovas?\b|\bvelhas?\b|ordenad")
 # pedido de UM resultado: ordenação no singular ("a carta mais recente", "só a mais antiga", "última atualização")
 RE_SINGULAR_ORDEM = re.compile(r"\bmais recente\b|\bmais antig[ao]\b|\bmais nov[ao]\b|\bmais velh[ao]\b|"
@@ -460,6 +481,11 @@ def validar_parametros(params: dict[str, Any], consulta: str, hoje: date | None 
         k = str(kw).strip()
         if norm(k) in PALAVRAS_GENERICAS or not norm(k):
             erros.append(f"keyword: '{k}' é palavra genérica, não nome de carta nem código; remova keyword.")
+        elif (k.strip().upper() in UFS or norm(k) in NOMES_UF) and not re.search(
+                rf"\b(?:carta|folha)s? {re.escape(norm(k))}\b", q):
+            nome_uf = UFS.get(k.strip().upper()) or NOMES_UF[norm(k)]
+            erros.append(f"keyword: '{k}' é uma UF, não nome de carta nem código: use state='{nome_uf}' e remova "
+                         f"keyword.")
         elif k in schema.TIPOS_PRODUTO or norm(k) in {norm(t) for t in schema.TIPOS_PRODUTO}:
             erros.append(f"keyword: '{k}' é tipo de produto; use productType e remova keyword.")
         else:
@@ -488,8 +514,20 @@ def validar_parametros(params: dict[str, Any], consulta: str, hoje: date | None 
             erros.append(f"{campo}: start depois de end.")
         if not RE_TEMPO.search(q):
             avisos.append(f"{campo}: a consulta não tem expressão de tempo; remova o período.")
-        elif hoje and set(p) == {"start"} and datas["start"] == hoje:
+            continue
+        if hoje and set(p) == {"start"} and datas["start"] == hoje:
             avisos.append(f"{campo}: o intervalo começa hoje e não tem fim; confira a expressão com resolver_periodo.")
+        esperado = leituras_do_tempo(consulta, hoje) if hoje else None
+        if esperado and p not in esperado[1]:
+            avisos.append(f"{campo}: pelas regras do catálogo, '{esperado[0]}' corresponde a {json.dumps(esperado[1][0])}"
+                          f" (resolver_periodo); confira as datas.")
+        verbo = verbo_de_tempo(q)
+        if verbo == "criacao" and campo == "publicationPeriod":
+            avisos.append("a consulta usa verbo de criação (criada, feita, elaborada, produzida): o período vai em "
+                          "creationPeriod, não em publicationPeriod.")
+        elif verbo == "publicacao" and campo == "creationPeriod":
+            avisos.append("a consulta usa verbo de publicação (publicada, lançada): o período vai em publicationPeriod, "
+                          "não em creationPeriod.")
     if params.get("productType") and not any(re.search(pad, q) for _, pad in TIPOS):
         avisos.append(f"productType='{params['productType']}': a consulta não nomeia um tipo de produto; 'cartas', "
                       f"'mapas' e 'folhas' sozinhos não definem tipo — remova productType.")
@@ -518,6 +556,154 @@ RE_CODIGO_NA_CONSULTA = re.compile(r"\b(?:mi|folha|carta)[\s-]*\d{1,4}(?:-[1-4](
 RE_ORDEM_PEDIDA = re.compile(r"mais recente|mais antig|mais nov|mais velh|ordem cronolog|em ordem|\bultim[oa]s? "
                              r"(?!\d|dois|tres|quatro|cinco|seis|sete|oito|nove|dez|quinze|trinta|mes|ano|semana|"
                              r"trimestre|semestre|dias)|\bprimeir[oa]s? (?!cgeo|centro|trimestre|semestre)")
+
+
+RE_VERBO_CRIACAO = re.compile(r"\bcriad|\bfeit[ao]s?\b|\belaborad|\bproduzid(?!\w* pel[oa])")
+RE_VERBO_PUBLICACAO = re.compile(r"\bpublicad|\blancad")
+
+
+def verbo_de_tempo(q: str) -> str | None:
+    """'criacao' | 'publicacao' | None — o verbo que decide o campo do período (manual, períodos)."""
+    criacao, publicacao = bool(RE_VERBO_CRIACAO.search(q)), bool(RE_VERBO_PUBLICACAO.search(q))
+    if criacao and not publicacao:
+        return "criacao"
+    if publicacao and not criacao:
+        return "publicacao"
+    return None
+
+
+def _sem_falsos_tempos(consulta: str) -> str:
+    """Texto normalizado sem escalas, códigos e nomes de projeto, que têm números parecidos com anos."""
+    limpa = norm(re.sub(r"1\s*[:/]\s*[\d.]+|\b\d+\s?(?:k|mil)\b", " ", consulta))
+    for _, padrao in PROJETOS:
+        limpa = re.sub(padrao, " ", limpa)
+    return RE_CODIGO_NA_CONSULTA.sub(" ", limpa)
+
+
+def leituras_do_tempo(consulta: str, hoje: date) -> tuple[str, list[dict]] | None:
+    """(expressão reconhecida, leituras aceitas pela tabela do manual), ou None se não houver expressão."""
+    from pfc_busca.evaluation import relative_time
+
+    limpa = _sem_falsos_tempos(consulta)
+    regra, absoluto = regra_de_tempo(limpa)
+    if regra and relative_time.existe(regra):
+        return relative_time.texto_regra(regra), relative_time.leituras(regra, hoje)
+    if absoluto:
+        return "o ano ou intervalo de anos citado", [absoluto]
+    return None
+
+
+@lru_cache(maxsize=1)
+def _municipios_com_nome_de_uf() -> list[str]:
+    nomes = list(NOMES_UF)
+    return [m for m in municipios() if any(f" {n} " in f" {m} " for n in nomes) and m not in NOMES_UF]
+
+
+def uf_por_nome(consulta: str) -> tuple[str, bool] | None:
+    """(UF, ambígua com a capital) citada pelo NOME na consulta, fora de nomes de município e de projeto."""
+    q = f" {norm(consulta)} "
+    for _, padrao in PROJETOS:
+        q = re.sub(padrao, " ", q)
+    for m in _municipios_com_nome_de_uf():
+        if f" {m} " in q:
+            q = q.replace(f" {m} ", " ")
+    for n in sorted(NOMES_UF, key=len, reverse=True):
+        if f" {n} " not in q:
+            continue
+        if n == "para" and not (re.search(r"\bPará\b", consulta, re.I) or " estado do para " in q):
+            continue
+        return NOMES_UF[n], n in ESTADO_OU_CAPITAL
+    return None
+
+
+def municipio_com_uf(consulta: str) -> tuple[str, str] | None:
+    """('Tesouro', 'Mato Grosso') em 'Tesouro (MT)', 'Campinas, SP', 'Campinas - SP', 'Campinas/SP'."""
+    for m in re.finditer(r"([A-Za-zÀ-ú'][A-Za-zÀ-ú' -]*?)\s*(?:,|\(|/|\s-|–)\s*([A-Za-z]{2})\b\)?", consulta):
+        sigla = m.group(2).upper()
+        if sigla not in UFS:
+            continue
+        palavras = m.group(1).split()
+        for k in range(min(6, len(palavras)), 0, -1):
+            candidato = norm(" ".join(palavras[-k:]))
+            achados = [c for c in municipios().get(candidato, []) if c[1] == sigla]
+            if achados:
+                return achados[0][0], UFS[sigla]
+    return None
+
+
+RE_NOME_PROPRIO = re.compile(r"\b(?:de|do|da|em|no|na)\s+((?:[A-ZÀ-Ú][a-zà-ú'’]+)(?:\s+(?:d[eoa]s?\s+)?[A-ZÀ-Ú][a-zà-ú'’]+){0,3})")
+
+
+def municipio_citado(consulta: str) -> tuple[str, str] | None:
+    """(município, UF) citado com inicial maiúscula depois de 'de/do/da/em/no/na', com nome único no IBGE.
+
+    Fica de fora o nome que também é de UF, o que vem logo depois de 'carta'/'folha' (é nome de folha) e o
+    que é parte de um nome de projeto."""
+    q = norm(consulta)
+    for m in RE_NOME_PROPRIO.finditer(consulta):
+        palavras = m.group(1).split()
+        for k in range(len(palavras), 0, -1):
+            nome = " ".join(palavras[:k])
+            if nome.split()[-1].lower() in ("de", "do", "da", "dos", "das"):
+                continue
+            n = norm(nome)
+            if n in NOMES_UF or any(n in r and r in q for r in REGIOES if r != n):
+                break   # 'do Rio Grande do Sul' é a UF, não o município Rio Grande; 'Sertão nordestino' é região
+            achados = municipios().get(n, [])
+            if len(achados) != 1:
+                continue
+            # com acento, o acento tem de bater ('França' não é Franca, SP); sem acento, o usuário pode tê-lo omitido
+            if nome.lower() != achados[0][0].lower() and nome.lower() != n:
+                continue
+            if re.search(rf"\b(?:carta|folha) {re.escape(n)}\b", q):   # 'carta X' é folha; 'cartas de X' é city
+                break
+            if any(re.search(p, q) and re.search(p, n) for _, p in PROJETOS):
+                break
+            return achados[0]
+    return None
+
+
+def evidencias_de_catalogo(consulta: str) -> list[str]:
+    """Critérios do catálogo que a consulta cita, para contestar uma recusa (a recusa com retorno da v3).
+
+    Só evidência forte: tipo de produto nomeado, código, escala, CGEO, projeto, UF e município. 'Carta' ou
+    'mapa' sozinhos não contam — aparecem em muitas consultas fora do domínio."""
+    q = norm(consulta)
+    ev: list[str] = []
+    tipo = next((nome for nome, padrao in TIPOS if re.search(padrao, q)), None)
+    if tipo:
+        ev.append(f"o tipo de produto {tipo}")
+    if RE_CODIGO_NA_CONSULTA.search(consulta):
+        ev.append("um código MI ou INOM")
+    canon, _ = forma_canonica_escala(consulta)
+    if canon:
+        ev.append(f"a escala {canon}")
+    if RE_CGEO.search(q):
+        ev.append("um Centro de Geoinformação")
+    projeto = next((nome for nome, padrao in PROJETOS if re.search(padrao, q)), None)
+    if projeto:
+        ev.append(f"o projeto {projeto}")
+    # UF pelo nome ou pela sigla em maiúsculas: 'rs' minúsculo no fim da frase costuma ser risada
+    maiuscula = next((n for s, n in UFS.items() if re.search(rf"(?<![A-Za-zÀ-ú\-]){s}(?![A-Za-zÀ-ú\-])", consulta)), None)
+    uf = maiuscula or (uf_por_nome(consulta) or (None,))[0]
+    if uf:
+        ev.append(f"a UF {uf}")
+    mun = municipio_com_uf(consulta) or municipio_citado(consulta)
+    if mun:
+        ev.append(f"o município {mun[0]} ({mun[1]})")
+    folha = re.search(r"\b(?:carta|folha) ([A-ZÀ-Ú][a-zà-ú]+(?:\s+[A-ZÀ-Ú][a-zà-ú]+){0,3})", consulta)
+    if folha:
+        ev.append(f"a folha {folha.group(1)}")
+    return ev
+
+
+def mensagem_recusa(evidencias: list[str], confirmar: str) -> str:
+    """Retorno da recusa contestada; `confirmar` diz como o modelo confirma (varia entre TC e SE)."""
+    return ("RECUSA AINDA NÃO REGISTRADA. A consulta cita " + ", ".join(evidencias) + ", que são critérios do "
+            "catálogo. Se ela pede produtos do acervo, busque com esses critérios: o motivo ou a finalidade que o "
+            "usuário declara (obra, trabalho, prefeitura, pesquisa) não é critério nem impede a busca. Se a consulta "
+            "de fato não pede produtos do acervo (pergunta conceitual, preço, serviço, outro país, outro assunto), "
+            f"{confirmar}")
 
 
 def tem_quantidade(consulta: str) -> bool:
@@ -551,8 +737,22 @@ def campos_faltando(params: dict[str, Any], consulta: str) -> list[str]:
     avisos = []
     if "state" not in params:
         uf = _uf_citada(consulta)
+        por_nome = uf_por_nome(consulta)
         if uf:
             avisos.append(f"a consulta cita a UF {uf}; se ela é critério da busca, preencha state='{uf}'.")
+        elif por_nome and not (por_nome[1] and norm(params.get("city", "")) == norm(por_nome[0])) \
+                and f" {norm(por_nome[0])} " not in f" {norm(params.get('keyword', ''))} " \
+                and not re.search(rf"\b(?:carta|folha)s? {re.escape(norm(por_nome[0]))}\b", norm(consulta)):
+            avisos.append(f"a consulta cita o estado {por_nome[0]}; preencha state='{por_nome[0]}'.")
+    if "city" not in params:
+        mun = municipio_com_uf(consulta)
+        if mun:
+            avisos.append(f"a consulta cita o município {mun[0]} ({mun[1]}); preencha city='{mun[0]}' (e state).")
+        else:
+            citado = municipio_citado(consulta)
+            if citado and f" {norm(citado[0])} " not in f" {norm(str(params.get('keyword', '')))} ":
+                avisos.append(f"a consulta cita o município {citado[0]} ({citado[1]}); se ele é critério da busca, "
+                              f"preencha city='{citado[0]}'.")
     if "supplyArea" not in params and RE_CGEO.search(q):
         avisos.append("a consulta cita um Centro de Geoinformação; preencha supplyArea (ex.: '3° Centro de "
                       "Geoinformação').")
@@ -560,11 +760,7 @@ def campos_faltando(params: dict[str, Any], consulta: str) -> list[str]:
         avisos.append("a consulta cita um código MI ou INOM; preencha keyword com o código (use normalizar_codigo).")
     if not ({"publicationPeriod", "creationPeriod"} & set(params)):
         # anos dentro de escalas ("1:2000"), códigos e nomes de projeto ("rio 2016") não são expressão de tempo
-        limpa = norm(re.sub(r"1\s*[:/]\s*[\d.]+|\b\d+\s?(?:k|mil)\b", " ", consulta))
-        for _, padrao in PROJETOS:
-            limpa = re.sub(padrao, " ", limpa)
-        limpa = RE_CODIGO_NA_CONSULTA.sub(" ", limpa)
-        regra, absoluto = regra_de_tempo(limpa)
+        regra, absoluto = regra_de_tempo(_sem_falsos_tempos(consulta))
         if regra or absoluto:
             avisos.append("a consulta tem uma expressão de tempo; preencha publicationPeriod ou creationPeriod "
                           "(use resolver_periodo).")

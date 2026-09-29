@@ -1,0 +1,342 @@
+[
+ {
+  "id": "BVS0038",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "Mapas de Sergipe",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VS0119"
+  ]
+ },
+ {
+  "id": "BVS0057",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "Há cartas da BCD da Bahia disponíveis para consulta?",
+  "etapa": "anotação às cegas",
+  "motivos": [
+   "leitura do anotador não aceita pelo gabarito: {\"project\": \"Base Cartográfica Digital da Bahia\", \"state\": \"Bahia\"} (FP ['state'], FN [])"
+  ],
+  "anotacao": {
+   "chamar_ferramenta": true,
+   "aceita_nao_chamar": false,
+   "parametros": {
+    "project": "Base Cartográfica Digital da Bahia",
+    "state": "Bahia"
+   },
+   "justificativa": "'BCD da Bahia' → Base Cartográfica Digital da Bahia (seção 2, project); 'Bahia' pode também ser lido como state, que fica opcional (P3)."
+  }
+ },
+ {
+  "id": "BVS0075",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "cartas do terceiro cgeo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VS0101"
+  ]
+ },
+ {
+  "id": "BVS0087",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "mapas do PR",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete GA002"
+  ]
+ },
+ {
+  "id": "BVS0133",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "MDTs disponíveis",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete GS029"
+  ]
+ },
+ {
+  "id": "BVS0134",
+  "familia": "VS",
+  "subtipo": null,
+  "consulta": "cartas do segundo cgeo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete BVS0030"
+  ]
+ },
+ {
+  "id": "BVC0033",
+  "familia": "VC",
+  "subtipo": null,
+  "consulta": "Preciso das cartas em 1:100000 da BCD do Amapá, do 2º CGEO, para o planejamento da operção.",
+  "etapa": "anotação às cegas",
+  "motivos": [
+   "leitura do anotador não aceita pelo gabarito: {\"scale\": \"1:100.000\", \"project\": \"Base Cartográfica Digital do Amapá\", \"supplyArea\": \"2° Centro de Geoinformação\", \"state\": \"Amapá\"} (FP ['state'], FN [])"
+  ],
+  "anotacao": {
+   "chamar_ferramenta": true,
+   "aceita_nao_chamar": false,
+   "parametros": {
+    "scale": "1:100.000",
+    "project": "Base Cartográfica Digital do Amapá",
+    "supplyArea": "2° Centro de Geoinformação",
+    "state": "Amapá"
+   },
+   "justificativa": "'1:100000' → 1:100.000; 'BCD do Amapá' → Base Cartográfica Digital do Amapá (seção 2); '2º CGEO' → supplyArea; 'Amapá' como state fica opcional (P3)."
+  }
+ },
+ {
+  "id": "BVC0052",
+  "familia": "VC",
+  "subtipo": null,
+  "consulta": "cartas Mampituba 1:25.000, projeto copa das confederacoes, do 3º CGEO",
+  "etapa": "anotação às cegas",
+  "motivos": [
+   "leitura do anotador não aceita pelo gabarito: {\"keyword\": \"Mampituba\", \"scale\": \"1:25.000\", \"project\": \"Copa das Confederações\", \"supplyArea\": \"3° Centro de Geoinformação\"} (FP ['keyword'], FN ['city'])"
+  ],
+  "anotacao": {
+   "chamar_ferramenta": true,
+   "aceita_nao_chamar": false,
+   "parametros": {
+    "keyword": "Mampituba",
+    "scale": "1:25.000",
+    "project": "Copa das Confederações",
+    "supplyArea": "3° Centro de Geoinformação"
+   },
+   "justificativa": "Nome logo após 'cartas' → keyword, e coincide com município do IBGE → leitura estrutural city (seções 2 e 6.4); 'projeto copa das confederacoes' → project; '3º CGEO' → supplyArea."
+  }
+ },
+ {
+  "id": "BVC0071",
+  "familia": "VC",
+  "subtipo": null,
+  "consulta": "cartas Anapurus 50k",
+  "etapa": "anotação às cegas",
+  "motivos": [
+   "leitura do anotador não aceita pelo gabarito: {\"keyword\": \"Anapurus\", \"scale\": \"1:50.000\"} (FP ['keyword'], FN ['city'])"
+  ],
+  "anotacao": {
+   "chamar_ferramenta": true,
+   "aceita_nao_chamar": false,
+   "parametros": {
+    "keyword": "Anapurus",
+    "scale": "1:50.000"
+   },
+   "justificativa": "Nome logo após 'cartas' → keyword, e coincide com município do IBGE → leitura estrutural city (seções 2 e 6.4); '50k' → 1:50.000."
+  }
+ },
+ {
+  "id": "BVM0034",
+  "familia": "VM",
+  "subtipo": null,
+  "consulta": "carta MI 1590-1-NO",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete BVM0003"
+  ]
+ },
+ {
+  "id": "BVO0050",
+  "familia": "VO",
+  "subtipo": null,
+  "consulta": "qual a carta mais antiga que voces tem",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VO0085"
+  ]
+ },
+ {
+  "id": "BVA0038",
+  "familia": "VA",
+  "subtipo": "estado_ou_capital",
+  "consulta": "cartas de São Paulo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete N01"
+  ]
+ },
+ {
+  "id": "BVA0091",
+  "familia": "VA",
+  "subtipo": "escala_qualitativa",
+  "consulta": "mapas temáticos média escala",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete BVA0032"
+  ]
+ },
+ {
+  "id": "BVE0009",
+  "familia": "VE",
+  "subtipo": "finalidade",
+  "consulta": "cartas para exercício militar",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0149"
+  ]
+ },
+ {
+  "id": "BVE0014",
+  "familia": "VE",
+  "subtipo": "regiao",
+  "consulta": "mapas do Nordeste",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0017"
+  ]
+ },
+ {
+  "id": "BVE0016",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "Quais cartas vocês têm no acervo?",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0014"
+  ]
+ },
+ {
+  "id": "BVE0018",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "Mapas do acervo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0067"
+  ]
+ },
+ {
+  "id": "BVE0025",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "listar cartas do acervo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0136"
+  ]
+ },
+ {
+  "id": "BVE0026",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "acervo: cartas e mapas disponíveis",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0140"
+  ]
+ },
+ {
+  "id": "BVE0030",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "produtos disponíveis no acervo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete BVE0013"
+  ]
+ },
+ {
+  "id": "BVE0054",
+  "familia": "VE",
+  "subtipo": "regiao",
+  "consulta": "Cartas da região Sul",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete BVE0019"
+  ]
+ },
+ {
+  "id": "BVE0057",
+  "familia": "VE",
+  "subtipo": "finalidade",
+  "consulta": "mapas para aula de geografia",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0056"
+  ]
+ },
+ {
+  "id": "BVE0070",
+  "familia": "VE",
+  "subtipo": "generica",
+  "consulta": "cartas do acervo",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VE0041"
+  ]
+ },
+ {
+  "id": "BVF0020",
+  "familia": "VF",
+  "subtipo": "cotidiano",
+  "consulta": "principais notícias do dia",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0191"
+  ]
+ },
+ {
+  "id": "BVF0054",
+  "familia": "VF",
+  "subtipo": "armadilha_lexical",
+  "consulta": "significado das cartas de tarô",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0332"
+  ]
+ },
+ {
+  "id": "BVF0074",
+  "familia": "VF",
+  "subtipo": "conversa",
+  "consulta": "valeu demais pela ajuda, era isso mesmo que eu precisava",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0243"
+  ]
+ },
+ {
+  "id": "BVF0087",
+  "familia": "VF",
+  "subtipo": "armadilha_lexical",
+  "consulta": "escala de dó maior no violão",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0092"
+  ]
+ },
+ {
+  "id": "BVF0089",
+  "familia": "VF",
+  "subtipo": "ficcao",
+  "consulta": "mapa de Nárnia",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0179"
+  ]
+ },
+ {
+  "id": "BVF0109",
+  "familia": "VF",
+  "subtipo": "servicos",
+  "consulta": "esqueci minha senha, como faco pra recuperar o acesso",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0097"
+  ]
+ },
+ {
+  "id": "BVF0137",
+  "familia": "VF",
+  "subtipo": "conceitual",
+  "consulta": "o que é um MDT e pra que serve",
+  "etapa": "deduplicação",
+  "motivos": [
+   "repete VF0109"
+  ]
+ }
+]

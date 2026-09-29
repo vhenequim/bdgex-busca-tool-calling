@@ -128,6 +128,15 @@ A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a 
 
 \input{tabelas/quadro_adjudicacao}
 
+\section{Lote de validação: resultados complementares}
+\label{apx:lote}
+
+Os artefatos do lote de validação (Seções~\ref{sec:lote-validacao} e~\ref{sec:lote-resultados}) ficam em \texttt{data/lote\_validacao/}: os alvos (\texttt{alvos.json}), as tarefas e saídas de redação e de anotação, o relatório de montagem (\texttt{relatorio.md}), as consultas descartadas com o motivo (\texttt{descartes.json}) e a auditoria dos erros (\texttt{auditoria\_erros.json}, com os critérios alternativos para os gabaritos discutíveis em \texttt{auditoria\_criterios.json}); a metodologia completa está em \texttt{docs/lote\_validacao.md}. As tabelas deste apêndice são geradas por \texttt{python -m pfc\_busca.evaluation.lote}, que calcula também, a partir das rodadas e sem chamada nova ao modelo, as duas configurações simuladas da Tabela~\ref{tab:lote_duas_etapas} e as medidas complementares citadas na Seção~\ref{sec:lote-resultados} (seção 9.5 de \texttt{docs/lote\_validacao.md}).
+
+\tabelagerada{tab_lote_categorias}{Acurácia por categoria no lote}
+
+\tabelagerada{tab_lote_campos}{F1 por campo no lote}
+
 % ----------------------------------------------------------
 % Apêndice B — Especificação dos Ambientes de Execução
 % ----------------------------------------------------------

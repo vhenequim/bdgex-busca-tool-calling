@@ -1,0 +1,29 @@
+\begin{table}[htbp!]
+\centering
+\caption{Arquitetura em duas etapas e regra do objeto vazio, simuladas com as rodadas do Gemma 4 E4B, ao lado das quatro configurações executadas}
+\label{tab:lote_duas_etapas}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+\hline
+\textbf{Conjunto} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Domínio} & \textbf{Recusa F} & \textbf{Precisão da recusa} & \textbf{Falsa recusa} & \textbf{Latência (s)} \\
+\hline
+\multirow{6}{*}{\shortstack[l]{Lote de validação\\(n=1929)}} & Tool Calling v1 & 61,5\% & 59,3\%--63,6\% & 48,9\% & 100,0\% & 42,0\% & 32,1\% & 0,86 \\
+ & Saída Estruturada v1 & 62,2\% & 60,0\%--64,3\% & 75,5\% & 0,0\% & --- & 0,0\% & 0,72 \\
+ & Tool Calling v2 & 62,8\% & 60,7\%--65,0\% & 53,4\% & 99,7\% & 96,3\% & 0,9\% & 0,94 \\
+ & Saída Estruturada v2 & 72,4\% & 70,4\%--74,4\% & 63,2\% & 100,0\% & 56,7\% & 17,8\% & 0,61 \\
+\cline{2-9}
+ & SE v1, objeto vazio como não busca & 75,9\% & 74,0\%--77,8\% & 75,5\% & 78,9\% & 97,4\% & 0,5\% & 0,72 \\
+ & Duas etapas (TC v2 decide, SE v1 extrai) & 79,5\% & 77,7\%--81,3\% & 75,3\% & 99,7\% & 96,3\% & 0,9\% & 1,46 \\
+\hline
+\multirow{6}{*}{\shortstack[l]{310 consultas\\(n=306)}} & Tool Calling v1 & 60,1\% & 54,6\%--65,5\% & 59,1\% & 100,0\% & 12,5\% & 18,8\% & 0,72 \\
+ & Saída Estruturada v1 & 75,2\% & 70,0\%--79,7\% & 77,2\% & 0,0\% & --- & 0,0\% & 0,76 \\
+ & Tool Calling v2 & 47,4\% & 41,9\%--53,0\% & 46,0\% & 100,0\% & 100,0\% & 0,0\% & 0,81 \\
+ & Saída Estruturada v2 & 68,0\% & 62,6\%--73,0\% & 67,1\% & 100,0\% & 15,7\% & 14,4\% & 0,71 \\
+\cline{2-9}
+ & SE v1, objeto vazio como não busca & 77,1\% & 72,1\%--81,5\% & 77,2\% & 75,0\% & 100,0\% & 0,0\% & 0,76 \\
+ & Duas etapas (TC v2 decide, SE v1 extrai) & 77,8\% & 72,8\%--82,1\% & 77,2\% & 100,0\% & 100,0\% & 0,0\% & 1,61 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Gemma 4 E4B, GPU T4. As duas últimas linhas de cada conjunto são simulações \textit{post hoc} sobre as rodadas existentes, sem chamada nova ao modelo. Duas etapas: o \textit{Tool Calling} v2 decide se busca; quando busca, valem os parâmetros da Saída Estruturada v1 na mesma consulta, e a latência é a soma das duas chamadas. Objeto vazio como não busca: a resposta da Saída Estruturada v1 sem nenhum campo do \textit{schema} conta como recusa (regra definida depois de ver os dados). Acurácia com IC de Wilson. Domínio: acurácia fora das categorias F e E. Recusa F: proporção das consultas fora do domínio sem busca. Precisão da recusa: proporção de consultas fora do domínio entre as que ficaram sem busca (---: nenhuma ficou). Falsa recusa: proporção das consultas do domínio sem busca. Latência: mediana. TC: \textit{Tool Calling}; SE: Saída Estruturada.}
+\end{table}

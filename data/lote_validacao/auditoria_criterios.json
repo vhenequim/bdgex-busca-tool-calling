@@ -1,0 +1,15 @@
+{
+ "descricao": "Critérios alternativos para a classe b (gabarito discutível) da auditoria de auditoria_erros.json (160 execuções erradas do lote 1, julgadas pelo manual). O critério do analista é o de auditoria_erros.json. Critério estrito: só é b a resposta cuja forma nenhuma regra escrita do manual (docs/manual_de_anotacao.md) cobre; as execuções abaixo, b para o analista, contrariam uma regra escrita e passam a a. Critério amplo: além das b do analista, é b toda execução da amostra cuja busca é idêntica ou equivalente à de uma leitura aceita (lote.classe_sql, com as aproximações de datas) ou que vira acerto quando o gabarito aceita a leitura natural de uma convenção que a descrição v1 não informa (K1 a K5 de lote._convencoes); o critério amplo é calculado por código em pfc_busca.evaluation.lote.auditoria_complementar, sem julgamento novo. Análise de 29/09/2026 (síntese do lote de validação, dimensão d5).",
+ "criterio_estrito": {
+  "regra": "b só quando nenhuma regra escrita do manual cobre a forma da resposta.",
+  "reclassificados_como_a": {
+   "tc2": {
+    "VT0024": "'últimos 6 meses' tem regra escrita no manual (tabela de expressões relativas: 'últimos N meses' = D − 30·N dias até D, com fim); a resposta omitiu o fim.",
+    "VT0182": "'anteriores a AAAA' tem regra escrita no manual ('antes de AAAA / anteriores a AAAA' = sem limite inicial até (AAAA−1)-12-31); a resposta pôs início sentinela 1900-01-01."
+   }
+  }
+ },
+ "criterio_amplo": {
+  "regra": "b do analista, ou busca idêntica/equivalente à de uma leitura aceita (com as aproximações de datas), ou acerto sob uma das convenções K1 a K5 (calculado por código)."
+ }
+}

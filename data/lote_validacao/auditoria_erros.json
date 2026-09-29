@@ -1,0 +1,687 @@
+{
+ "descricao": "Auditoria adversarial dos erros do lote 1: 40 execuções erradas sorteadas por configuração (semente 20260929, estratificadas por família), julgadas pelo manual por um agente independente (análise de 29/09/2026). a = erro real do modelo; b = gabarito discutível; c = gabarito errado.",
+ "semente": 20260929,
+ "julgamentos": {
+  "tc1": {
+   "VS0192": {
+    "classe": "a",
+    "justificativa": "Não buscou e pediu tipo de produto; 'olimpiadas' é apelido informado na própria ferramenta."
+   },
+   "VS0267": {
+    "classe": "a",
+    "justificativa": "'carta' sozinho não define tipo (manual, productType); Matricial acrescentado."
+   },
+   "VS0159": {
+    "classe": "a",
+    "justificativa": "Não buscou numa consulta com município explícito (instrução 1 do prompt: um parâmetro basta)."
+   },
+   "VS0234": {
+    "classe": "a",
+    "justificativa": "Não buscou; 'folha Rio Comandante Fontoura' é keyword pela regra do manual."
+   },
+   "VS0082": {
+    "classe": "a",
+    "justificativa": "INOM compacto não normalizado para hífens; 'sb18zbv3' não casa com o INOM na SQL."
+   },
+   "VS0223": {
+    "classe": "a",
+    "justificativa": "'cartas' sozinho virou Matricial (tipo inventado)."
+   },
+   "VS0132": {
+    "classe": "a",
+    "justificativa": "Não buscou; 'estado de Roraima' é explícito."
+   },
+   "VS0184": {
+    "classe": "a",
+    "justificativa": "Não buscou; folha nomeada explicitamente."
+   },
+   "VC0342": {
+    "classe": "a",
+    "justificativa": "Tipo inventado sem nenhuma palavra de tipo e omissão de state (MS explícito, manual 6.3)."
+   },
+   "VC0049": {
+    "classe": "a",
+    "justificativa": "Município trocado ('Palmeiras' no lugar de 'Palestina do Pará')."
+   },
+   "VC0360": {
+    "classe": "a",
+    "justificativa": "Não buscou; folha e tipo explícitos."
+   },
+   "VC0003": {
+    "classe": "a",
+    "justificativa": "Omitiu o município explícito 'Tabuleiro do Norte'."
+   },
+   "VC0239": {
+    "classe": "a",
+    "justificativa": "Nome da folha truncado ('Madeirinha'); 'Paraná Madeirinha' é o nome real da folha."
+   },
+   "VC0357": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado sem pista."
+   },
+   "VC0303": {
+    "classe": "a",
+    "justificativa": "Omitiu o município explícito 'Nova Colinas'."
+   },
+   "VM0148": {
+    "classe": "a",
+    "justificativa": "INOM compacto transcrito errado ('SC23YBIIII3SO', quatro I e sem hífens)."
+   },
+   "VM0143": {
+    "classe": "a",
+    "justificativa": "MDS trocado por MDT."
+   },
+   "VT0168": {
+    "classe": "a",
+    "justificativa": "Não buscou; período relativo resolvível com a data do prompt."
+   },
+   "VT0152": {
+    "classe": "a",
+    "justificativa": "Não buscou; 'esta semana' resolvível."
+   },
+   "VT0225": {
+    "classe": "a",
+    "justificativa": "Não buscou; período absoluto explícito."
+   },
+   "VT0041": {
+    "classe": "a",
+    "justificativa": "Não buscou; período explícito."
+   },
+   "VT0232": {
+    "classe": "a",
+    "justificativa": "MDS trocado por MDT (o período só com start é equivalente na SQL, mas o tipo não)."
+   },
+   "VT0258": {
+    "classe": "a",
+    "justificativa": "Não buscou e pediu o ano, que está no prompt."
+   },
+   "VT0019": {
+    "classe": "a",
+    "justificativa": "Não buscou e pediu o ano de 'este ano'."
+   },
+   "VT0059": {
+    "classe": "a",
+    "justificativa": "Tipo inventado e state 'CE' omitido (período aberto seria inócuo)."
+   },
+   "VT0164": {
+    "classe": "a",
+    "justificativa": "Recusou lendo o município 'Diorama' como tipo de produto."
+   },
+   "VT0149": {
+    "classe": "a",
+    "justificativa": "Não buscou; tipo, escala e período explícitos."
+   },
+   "VT0040": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado a 'cartas'."
+   },
+   "VO0044": {
+    "classe": "a",
+    "justificativa": "Não buscou; escala e ordenação explícitas."
+   },
+   "VO0058": {
+    "classe": "a",
+    "justificativa": "Tipo inventado e ordenação omitida."
+   },
+   "VO0138": {
+    "classe": "a",
+    "justificativa": "Não buscou."
+   },
+   "VO0071": {
+    "classe": "a",
+    "justificativa": "Não buscou."
+   },
+   "VO0107": {
+    "classe": "a",
+    "justificativa": "Não buscou; 'cartas vetoriais' mapeia direto no enumerado."
+   },
+   "VO0192": {
+    "classe": "a",
+    "justificativa": "Não buscou."
+   },
+   "VA0029": {
+    "classe": "a",
+    "justificativa": "Recusou por 'maior que 100k' em vez de buscar com o município explícito."
+   },
+   "VA0187": {
+    "classe": "a",
+    "justificativa": "Não buscou; tipo explícito e região não é campo."
+   },
+   "VA0002": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado."
+   },
+   "VA0026": {
+    "classe": "a",
+    "justificativa": "Não buscou; pediu confirmação."
+   },
+   "VA0108": {
+    "classe": "a",
+    "justificativa": "Não buscou; CGEO e escalas explícitos."
+   },
+   "VA0181": {
+    "classe": "a",
+    "justificativa": "Não buscou; tipo e escala qualitativa explícitos."
+   }
+  },
+  "se1": {
+   "VS0102": {
+    "classe": "a",
+    "justificativa": "'mapas de Naviraí' (com 'de') é lugar: city, não keyword."
+   },
+   "VS0158": {
+    "classe": "a",
+    "justificativa": "'Taciba, cartas': município, não nome de folha."
+   },
+   "VS0213": {
+    "classe": "a",
+    "justificativa": "Sigla 'MS' posta em keyword em vez de state."
+   },
+   "VC0185": {
+    "classe": "a",
+    "justificativa": "Omitiu o município explícito 'Colorado'."
+   },
+   "VC0303": {
+    "classe": "a",
+    "justificativa": "Omitiu o município explícito 'Nova Colinas'."
+   },
+   "VC0101": {
+    "classe": "a",
+    "justificativa": "Sigla 'PB' duplicada em keyword."
+   },
+   "VC0283": {
+    "classe": "a",
+    "justificativa": "Nome da folha truncado ('Aiuca' em vez de 'Paraná Aiuca')."
+   },
+   "VM0082": {
+    "classe": "a",
+    "justificativa": "INOM trocado (SF/II no lugar de SC/IV) e AM lido como Amapá."
+   },
+   "VM0124": {
+    "classe": "a",
+    "justificativa": "Omitiu state ('do MS' é explícito)."
+   },
+   "VT0195": {
+    "classe": "a",
+    "justificativa": "Município em keyword e 'esta semana' com início errado (22/09, terça)."
+   },
+   "VT0045": {
+    "classe": "a",
+    "justificativa": "Município em keyword ('de maurilandia' é lugar)."
+   },
+   "VT0203": {
+    "classe": "a",
+    "justificativa": "'elaboradas' é verbo de criação; foi para publicationPeriod."
+   },
+   "VT0004": {
+    "classe": "a",
+    "justificativa": "Município em keyword ('cartas de Cromínia')."
+   },
+   "VT0135": {
+    "classe": "a",
+    "justificativa": "'esta semana' começando hoje (24/09) e indo até 30/09."
+   },
+   "VO0156": {
+    "classe": "a",
+    "justificativa": "Omitiu a ordenação pedida ('atualização mais recente')."
+   },
+   "VO0169": {
+    "classe": "a",
+    "justificativa": "Sigla AM virou o projeto AMAN."
+   },
+   "VO0133": {
+    "classe": "a",
+    "justificativa": "limit 1 num plural sem número ('as cartas mais recentes')."
+   },
+   "VA0121": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'folha'."
+   },
+   "VA0119": {
+    "classe": "b",
+    "justificativa": "'grande escala' não cabe num valor do enumerado; omitir a escala (resultado mais amplo) é tão defensável quanto escolher 1 de 5 escalas, e o manual não prevê a omissão (analogia com P6, valor não representável)."
+   },
+   "VA0131": {
+    "classe": "a",
+    "justificativa": "MDS trocado por MDT."
+   },
+   "VE0102": {
+    "classe": "a",
+    "justificativa": "Região posta em keyword (categoria E aceita só busca sem filtros)."
+   },
+   "VE0034": {
+    "classe": "a",
+    "justificativa": "Região posta em keyword."
+   },
+   "VF0029": {
+    "classe": "a",
+    "justificativa": "estrutural: SE v1 não tem como recusar (emitiu campo 'error' fora do schema)."
+   },
+   "VF0096": {
+    "classe": "a",
+    "justificativa": "estrutural: buscou 'Eldorado' (ficção)."
+   },
+   "VF0251": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros num pedido de produção de mapa."
+   },
+   "VF0225": {
+    "classe": "a",
+    "justificativa": "estrutural: buscou 'Nárnia'."
+   },
+   "VF0065": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (receita de bolo)."
+   },
+   "VF0131": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (pedido de acesso ao sistema)."
+   },
+   "VF0330": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (trânsito)."
+   },
+   "VF0163": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (mapa astral)."
+   },
+   "VF0255": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (população de Campinas)."
+   },
+   "VF0075": {
+    "classe": "a",
+    "justificativa": "estrutural: campo 'error' fora do schema (pergunta conceitual)."
+   },
+   "VF0005": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (Canadá)."
+   },
+   "VF0067": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (atendimento)."
+   },
+   "VF0260": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (GTA)."
+   },
+   "VF0282": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (telefone do IBGE)."
+   },
+   "VF0230": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (escala musical)."
+   },
+   "VF0236": {
+    "classe": "a",
+    "justificativa": "estrutural: buscou 'Westeros'."
+   },
+   "VF0193": {
+    "classe": "a",
+    "justificativa": "estrutural: buscou 'Eldorado'."
+   },
+   "VF0152": {
+    "classe": "a",
+    "justificativa": "estrutural: busca sem filtros (cotação do dólar)."
+   }
+  },
+  "tc2": {
+   "VS0105": {
+    "classe": "a",
+    "justificativa": "state como sigla 'PR' (P2 exige extenso); na SQL, '%PR%' não casa com nenhuma UF."
+   },
+   "VS0149": {
+    "classe": "a",
+    "justificativa": "'olimpíadas' foi para keyword e virou temática; project omitido."
+   },
+   "VS0220": {
+    "classe": "a",
+    "justificativa": "'ortoimagens' omitido (busca sem filtros)."
+   },
+   "VS0087": {
+    "classe": "a",
+    "justificativa": "state 'AC Acre' copiado da lista de siglas da descrição v2; na SQL não casa com nenhuma UF."
+   },
+   "VS0197": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI-', contra a descrição v2 e o manual."
+   },
+   "VS0134": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI '."
+   },
+   "VS0039": {
+    "classe": "a",
+    "justificativa": "state 'DF Distrito Federal' (lista de siglas copiada)."
+   },
+   "VC0304": {
+    "classe": "a",
+    "justificativa": "state como sigla 'RN'."
+   },
+   "VC0167": {
+    "classe": "a",
+    "justificativa": "Município em keyword, city omitida e state 'RN'."
+   },
+   "VC0259": {
+    "classe": "a",
+    "justificativa": "Nome da folha alterado ('SANTA ANA VELHA')."
+   },
+   "VC0342": {
+    "classe": "a",
+    "justificativa": "Tipo inventado e state omitido."
+   },
+   "VC0064": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado sem pista."
+   },
+   "VC0009": {
+    "classe": "a",
+    "justificativa": "state como sigla 'AL'."
+   },
+   "VC0220": {
+    "classe": "a",
+    "justificativa": "state como sigla 'RO'."
+   },
+   "VM0149": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI '."
+   },
+   "VM0127": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI '."
+   },
+   "VM0135": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial a partir de 'carta'."
+   },
+   "VM0129": {
+    "classe": "a",
+    "justificativa": "Sigla 'MA' explícita omitida (sigla é sempre estado)."
+   },
+   "VT0206": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado a 'cartas'."
+   },
+   "VT0185": {
+    "classe": "a",
+    "justificativa": "state 'PA' e limit 5 inventado."
+   },
+   "VT0056": {
+    "classe": "a",
+    "justificativa": "state como sigla 'PI'."
+   },
+   "VT0024": {
+    "classe": "b",
+    "justificativa": "Único desvio: 'últimos 6 meses' sem end; start-só equivale a start..hoje na SQL, e o manual aceita a forma aberta para 'desde AAAA', mas não para 'últimos N meses' (P5)."
+   },
+   "VT0083": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado."
+   },
+   "VT0200": {
+    "classe": "a",
+    "justificativa": "limit 1 inventado num plural (o período aberto seria inócuo)."
+   },
+   "VT0182": {
+    "classe": "b",
+    "justificativa": "Único desvio: 'anteriores a 2014' com start sentinela 1900-01-01; equivale a 'sem limite inicial' (o catálogo real tem 2 registros antes de 1900)."
+   },
+   "VT0055": {
+    "classe": "a",
+    "justificativa": "Keyword 'Cristalândia' duplicando a city sem 'carta'/'folha'."
+   },
+   "VT0111": {
+    "classe": "a",
+    "justificativa": "limit 1000 inventado (na SQL vira 100)."
+   },
+   "VO0175": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial a partir de 'carta'."
+   },
+   "VO0082": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado."
+   },
+   "VO0139": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI '."
+   },
+   "VO0040": {
+    "classe": "a",
+    "justificativa": "limit 1 num plural ('as cartas')."
+   },
+   "VO0007": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial a partir de 'carta'."
+   },
+   "VA0036": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado."
+   },
+   "VA0136": {
+    "classe": "a",
+    "justificativa": "Keyword 'mapa' e tipo inventados."
+   },
+   "VA0143": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial inventado a partir de 'cartografia sistemática'."
+   },
+   "VA0112": {
+    "classe": "a",
+    "justificativa": "Pediu esclarecimento, contra a regra v2."
+   },
+   "VA0115": {
+    "classe": "a",
+    "justificativa": "Tipo Matricial acrescentado."
+   },
+   "VA0177": {
+    "classe": "a",
+    "justificativa": "Tipo inventado e limit 1 num plural."
+   },
+   "VE0084": {
+    "classe": "a",
+    "justificativa": "Finalidade ('relevo') virou tipo temático; E só aceita busca sem filtros."
+   },
+   "VE0059": {
+    "classe": "a",
+    "justificativa": "'região Norte' virou state 'AM'."
+   }
+  },
+  "se2": {
+   "VS0202": {
+    "classe": "a",
+    "justificativa": "Falsa recusa (fora_do_escopo) com município explícito."
+   },
+   "VS0160": {
+    "classe": "a",
+    "justificativa": "'folhas de Mirassol' (com 'de') é lugar: city, não keyword."
+   },
+   "VS0253": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VS0087": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VS0239": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VS0137": {
+    "classe": "a",
+    "justificativa": "Falsa recusa com projeto por apelido informado."
+   },
+   "VS0191": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VS0261": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VS0048": {
+    "classe": "b",
+    "justificativa": "'cartas Camargo' (telegráfico, sem 'de'): o nome vem logo após 'cartas', a forma que o manual e a v2 usam para keyword; o manual não trata do plural sem preposição, e o modelo não tem como saber que Camargo não é nome de folha. As 4 configurações leram keyword."
+   },
+   "VS0012": {
+    "classe": "a",
+    "justificativa": "Falsa recusa ('ortoimagens' é tipo explícito)."
+   },
+   "VC0128": {
+    "classe": "a",
+    "justificativa": "'cartas ... de Chalé, MG' é lugar: city, não keyword."
+   },
+   "VC0216": {
+    "classe": "b",
+    "justificativa": "'cartas Zacarias, 100k' tem a mesma forma telegráfica de VS0048; as 4 configurações leram keyword."
+   },
+   "VC0241": {
+    "classe": "a",
+    "justificativa": "Projeto 'nga-beca' posto em keyword."
+   },
+   "VC0249": {
+    "classe": "a",
+    "justificativa": "Nome da folha truncado ('VILA II')."
+   },
+   "VC0183": {
+    "classe": "a",
+    "justificativa": "Nome da folha alterado ('ACURAUAVA')."
+   },
+   "VC0189": {
+    "classe": "a",
+    "justificativa": "Omitiu 'carta topográfica' (tipo explícito)."
+   },
+   "VC0186": {
+    "classe": "a",
+    "justificativa": "Omitiu 'cartas topográficas'."
+   },
+   "VC0187": {
+    "classe": "a",
+    "justificativa": "Nome da folha com erro ('ENCAVADO')."
+   },
+   "VC0274": {
+    "classe": "a",
+    "justificativa": "Nome da folha deformado com hífens."
+   },
+   "VM0047": {
+    "classe": "a",
+    "justificativa": "INOM compacto mal segmentado ('SA-22-VBV-2SO')."
+   },
+   "VM0034": {
+    "classe": "a",
+    "justificativa": "state como sigla 'PE' e tipo omitido."
+   },
+   "VT0067": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VT0168": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VT0155": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VT0053": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VT0086": {
+    "classe": "a",
+    "justificativa": "'ano passado' virou o dia 2025-09-24."
+   },
+   "VT0212": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VT0112": {
+    "classe": "a",
+    "justificativa": "'ano passado' virou o dia 2025-09-24."
+   },
+   "VO0101": {
+    "classe": "a",
+    "justificativa": "state como sigla 'PA'."
+   },
+   "VO0041": {
+    "classe": "a",
+    "justificativa": "Município em keyword sem 'carta'/'folha'."
+   },
+   "VO0191": {
+    "classe": "a",
+    "justificativa": "Keyword com o prefixo 'MI-' e limit 1 num plural."
+   },
+   "VO0002": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VA0033": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VA0129": {
+    "classe": "a",
+    "justificativa": "Falsa recusa (CGEO explícito)."
+   },
+   "VA0139": {
+    "classe": "a",
+    "justificativa": "Falsa recusa (escala explícita)."
+   },
+   "VA0112": {
+    "classe": "a",
+    "justificativa": "Recusou em vez de buscar CIRC."
+   },
+   "VA0114": {
+    "classe": "a",
+    "justificativa": "Projeto posto em keyword."
+   },
+   "VA0172": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VA0175": {
+    "classe": "a",
+    "justificativa": "Falsa recusa."
+   },
+   "VA0170": {
+    "classe": "a",
+    "justificativa": "Falsa recusa (tipo explícito)."
+   }
+  }
+ },
+ "sql_das_respostas_erradas": {
+  "descricao": "Para cada execução errada do lote 1, a SQL de tools.montar_sql da resposta comparada com a das leituras aceitas (expandindo $um_de e $opcional): 'identica' = mesma SQL; 'equivalente' = mesmo conjunto efetivo de filtros (mesmas UFs e municípios casados, fim do período igual a hoje ou aberto); 'diferente' = o resto; 'nao_buscou' = sem busca.",
+  "por_configuracao": {
+   "tc1": {
+    "nao_buscou": 464,
+    "erradas": 743,
+    "diferente": 251,
+    "equivalente": 28
+   },
+   "se1": {
+    "diferente": 367,
+    "erradas": 729,
+    "equivalente": 22,
+    "sql_identica": 4,
+    "buscou_em_F": 336
+   },
+   "tc2": {
+    "diferente": 666,
+    "erradas": 717,
+    "nao_buscou": 13,
+    "equivalente": 34,
+    "sql_identica": 3,
+    "buscou_em_F": 1
+   },
+   "se2": {
+    "nao_buscou": 257,
+    "erradas": 532,
+    "diferente": 262,
+    "equivalente": 12,
+    "sql_identica": 1
+   }
+  }
+ }
+}
