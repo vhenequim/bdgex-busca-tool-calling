@@ -131,7 +131,7 @@ A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a 
 \section{Lote de validação: resultados complementares}
 \label{apx:lote}
 
-Os artefatos do lote de validação (Seções~\ref{sec:lote-validacao} e~\ref{sec:lote-resultados}) ficam em \texttt{data/lote\_validacao/}: os alvos (\texttt{alvos.json}), as tarefas e saídas de redação e de anotação, o relatório de montagem (\texttt{relatorio.md}), as consultas descartadas com o motivo (\texttt{descartes.json}) e a auditoria dos erros (\texttt{auditoria\_erros.json}, com os critérios alternativos para os gabaritos discutíveis em \texttt{auditoria\_criterios.json}); a metodologia completa está em \texttt{docs/lote\_validacao.md}. As tabelas deste apêndice são geradas por \texttt{python -m pfc\_busca.evaluation.lote}, que calcula também, a partir das rodadas e sem chamada nova ao modelo, as duas configurações simuladas da Tabela~\ref{tab:lote_duas_etapas} e as medidas complementares citadas na Seção~\ref{sec:lote-resultados} (seção 9.5 de \texttt{docs/lote\_validacao.md}).
+Os artefatos do lote de validação (lote 1; Seções~\ref{sec:lote-validacao} e~\ref{sec:lote-resultados}) ficam em \texttt{data/lote\_validacao/}: os alvos (\texttt{alvos.json}), as tarefas e saídas de redação e de anotação, o relatório de montagem (\texttt{relatorio.md}), as consultas descartadas com o motivo (\texttt{descartes.json}) e a auditoria dos erros (\texttt{auditoria\_erros.json}, com os critérios alternativos para os gabaritos discutíveis em \texttt{auditoria\_criterios.json}); a metodologia completa está em \texttt{docs/lote\_validacao.md}. As tabelas deste apêndice são geradas por \texttt{python -m pfc\_busca.evaluation.lote}, que calcula também, a partir das rodadas e sem chamada nova ao modelo, as duas configurações simuladas da Tabela~\ref{tab:lote_duas_etapas} e as medidas complementares citadas na Seção~\ref{sec:lote-resultados} (seção 9.5 de \texttt{docs/lote\_validacao.md}). Os artefatos do lote 2 (Seção~\ref{sec:v3}), construído com os mesmos \textit{scripts}, ficam em \texttt{data/lote\_validacao\_2/}; as rodadas do teste da v3 e o relatório do plano de análise, em \texttt{results/lote2/} (\texttt{consolidado/lote2.md}), gerados por \texttt{python -m pfc\_busca.evaluation.lote2}; e o registro dos ciclos de desenvolvimento da v3, em \texttt{docs/v3\_desenvolvimento.md} e \texttt{results/dev\_v3/}.
 
 \tabelagerada{tab_lote_categorias}{Acurácia por categoria no lote}
 
@@ -229,7 +229,7 @@ Docker version 29.6.1, build 8900f1d
 \section{Rodadas completas em GPU de nuvem}
 \label{apx:specs-colab}
 
-As rodadas completas dos quatro modelos locais foram executadas numa máquina virtual do Google Colab com GPU NVIDIA T4 (16~GB nominais de VRAM, dos quais o \texttt{nvidia-smi} informa 15.360~MiB; Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial, baixa os modelos pelas \textit{tags} do Ollama \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b} --- para o Qwen 3 4B e o Gemma 4 E2B, as mesmas da validação na estação de referência, com o mesmo \textit{digest} registrado nos manifestos ---, instala o pacote do projeto a partir do repositório e executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas. \res{principal}{geral}{frasecobertura} No mesmo ambiente, o caderno \texttt{notebooks/linha\_de\_base\_colab.ipynb} executou as linhas de base com Saída Estruturada e o método do protótipo, com o modelo \texttt{phi4:14b}, uma repetição e a mesma data de referência. Nenhum serviço de LLM em nuvem é usado nesse ambiente: o Ollama executa dentro da máquina virtual, com os pesos baixados nela; somente a GPU é provida pela nuvem.
+As rodadas completas dos quatro modelos locais foram executadas numa máquina virtual do Google Colab com GPU NVIDIA T4 (16~GB nominais de VRAM, dos quais o \texttt{nvidia-smi} informa 15.360~MiB; Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial, baixa os modelos pelas \textit{tags} do Ollama \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b} --- para o Qwen 3 4B e o Gemma 4 E2B, as mesmas da validação na estação de referência, com o mesmo \textit{digest} registrado nos manifestos ---, instala o pacote do projeto a partir do repositório e executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas. \res{principal}{geral}{frasecobertura} No mesmo ambiente, o caderno \texttt{notebooks/linha\_de\_base\_colab.ipynb} executou as linhas de base com Saída Estruturada e o método do protótipo, com o modelo \texttt{phi4:14b}, uma repetição e a mesma data de referência. Os dois lotes de validação também rodaram nesse ambiente, com o Gemma 4 E4B e uma repetição: o caderno \texttt{notebooks/\allowbreak lote\_validacao\_colab.ipynb} executou as configurações v1 e v2 no lote 1 e as duas v2 nas 310, e o \texttt{notebooks/\allowbreak lote2\_v3\_colab.ipynb}, que confere o \textit{hash} da v3 congelada antes de rodar, as configurações do plano de análise no lote 2 e a v3 e o seu controle nas 310. Nenhum serviço de LLM em nuvem é usado nesse ambiente: o Ollama executa dentro da máquina virtual, com os pesos baixados nela; somente a GPU é provida pela nuvem.
 
 \section{Referência em nuvem (Groq)}
 \label{apx:specs-groq}
@@ -253,6 +253,11 @@ bdgex-busca-tool-calling/
     agent.py             traducao via ChatOllama.bind_tools() (modelos locais)
     agent_groq.py        traducao via ChatOpenAI (referencia em nuvem)
     agent_estruturado.py linhas de base com Saida Estruturada
+    v2.py                especificacao v2 (descricoes e recusar_consulta)
+    v3.py                v3: laco de chamadas, retorno, recusa contestada
+                         e controle com Saida Estruturada
+    ferramentas.py       ferramentas auxiliares e validador da v3
+    dados/               lista de municipios do IBGE usada pelas ferramentas
     tools.py, db.py      busca no PostgreSQL/PostGIS (psycopg)
     pipeline.py          ciclo completo: traducao, busca e resposta
     api.py               rotas POST /api/search e GET /api/health (FastAPI)
@@ -267,13 +272,23 @@ bdgex-busca-tool-calling/
       report.py          pfc-relatorio: tabelas, figuras, Wilson, McNemar
       conferencia.py     pfc-conferir: conferencia das rodadas
       comparacao.py      Tool Calling x Saida Estruturada (tabela e macros)
+      lote.py            analise do lote 1 (tabelas e macros)
+      lote2.py           analise do lote 2 (plano de analise da v3)
   scripts/generate_dataset_paper.py   gerador da camada G (semente 42)
+  scripts/lote_validacao/             coleta, alvos, redacao, anotacao e montagem
+  scripts/v3/                         ciclos, autoteste do validador, decomposicao
   docs/manual_de_anotacao.md          manual de anotacao
+  docs/lote_validacao.md              metodologia dos lotes
+  docs/v3.md, docs/v3_desenvolvimento.md   desenho, plano e ciclos da v3
   data/dataset.json                   dataset (310 consultas)
+  data/lote_validacao.json            lote 1
+  data/lote_validacao_2.json          lote 2 (teste da v3)
   data/auditoria/                     artefatos da auditoria
   results/                            registros e manifestos das rodadas
   notebooks/avaliacao_colab.ipynb     rodadas completas em GPU de nuvem
   notebooks/linha_de_base_colab.ipynb linhas de base em GPU de nuvem
+  notebooks/lote_validacao_colab.ipynb   rodadas do lote 1 (v1 e v2)
+  notebooks/lote2_v3_colab.ipynb      rodadas do lote 2 (confere o hash da v3)
   tests/                              testes automatizados (pytest)
   texto/                              fontes LaTeX e PDF deste trabalho
 \end{verbatim}
@@ -296,3 +311,5 @@ pytest                            # testes do calculo das metricas e do dataset
 }
 
 A pontuação é sempre recalculada contra o gabarito vigente, lido do arquivo \texttt{data/dataset.json}: o comando \texttt{pfc-relatorio} relê os registros de execução e reaplica o gabarito, de modo que as tabelas do Capítulo~\ref{cap:resultados} podem ser regeneradas sem nova execução dos modelos.
+
+As rodadas dos lotes e da v3 usam o mesmo \texttt{pfc-avaliar}, com a opção \texttt{-{}-abordagem} (\texttt{tool\_calling\_v2}, \texttt{saida\_estruturada\_v2}, \texttt{tool\_calling\_v3d}, \texttt{tool\_calling\_v3a}, \texttt{tool\_calling\_v3} e \texttt{saida\_estruturada\_v3}) e a opção \texttt{-{}-dataset} apontada para o arquivo do lote, executadas pelos cadernos da Seção~\ref{apx:specs-colab}; as tabelas e as macros saem de \texttt{python -m pfc\_busca.evaluation.lote} e \texttt{python -m pfc\_busca.evaluation.lote2}. O índice de folhas do BDGEx que as ferramentas da v3 consultam é gerado por \texttt{scripts/v3/gerar\_dados\_ferramentas.py} a partir da coleta do catálogo e não é versionado, como a própria coleta, porque a política do BDGEx não trata de redistribuição.

@@ -1,0 +1,28 @@
+\begin{table}[htbp!]
+\centering
+\caption{Gemma 4 E4B no lote 2 (teste): os degraus da v3, o controle e as referências v1/v2}
+\label{tab:lote2_degraus}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Degrau} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Domínio} & \textbf{F1 recusa} & \textbf{Falsa recusa} & \textbf{E} & \textbf{F1 campos} & \textbf{Latência (s)} & \textbf{Chamadas} \\
+\hline
+0 & Tool Calling v1 & 58,6\% & 55,5\%--61,7\% & 45,9\% & 0,562 & 35,4\% & 95,4\% & 0,731 & 0,85 & 1,00 \\
+1 & Tool Calling v2 & 62,1\% & 59,0\%--65,2\% & 53,3\% & 0,991 & 0,4\% & 64,6\% & 0,842 & 0,91 & 1,00 \\
+2 & Tool Calling v3d (descrições v3) & 75,2\% & 72,4\%--77,9\% & 70,3\% & 0,985 & 0,7\% & 67,7\% & 0,896 & 0,90 & 1,01 \\
+3 & Tool Calling v3a (+ ferramentas auxiliares) & 83,1\% & 80,5\%--85,3\% & 79,8\% & 0,943 & 1,8\% & 86,2\% & 0,929 & 1,37 & 1,82 \\
+4 & Tool Calling v3 (+ retorno) & 94,4\% & 92,7\%--95,7\% & 94,4\% & 0,969 & 0,3\% & 92,3\% & 0,981 & 1,47 & 2,06 \\
+\hline
+Controle & Saída Estruturada v3 (controle) & 87,8\% & 85,6\%--89,8\% & 84,4\% & 0,901 & 5,0\% & 95,4\% & 0,946 & 0,78 & 1,23 \\
+\hline
+Referência & Saída Estruturada v1 & 61,3\% & 58,1\%--64,3\% & 74,8\% & 0,000 & 0,0\% & 66,2\% & 0,895 & 0,72 & 1,00 \\
+Referência & Saída Estruturada v2 & 73,8\% & 70,9\%--76,5\% & 65,4\% & 0,738 & 16,2\% & 100,0\% & 0,857 & 0,61 & 1,00 \\
+Simulação & Duas etapas (TC v2 decide, SE v1 extrai) & 78,6\% & 75,9\%--81,1\% & 74,6\% & 0,991 & 0,4\% & 69,2\% & 0,900 & 1,45 & 1,81 \\
+\hline
+310 (desenv.) & Tool Calling v3 (+ retorno) & 97,7\% & 95,4\%--98,9\% & 98,3\% & 0,857 & 0,0\% & --- & 0,993 & 1,38 & 2,14 \\
+310 (desenv.) & Saída Estruturada v3 (controle) & 94,1\% & 90,9\%--96,2\% & 94,0\% & 0,615 & 3,4\% & --- & 0,974 & 0,77 & 1,21 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Gemma 4 E4B (\texttt{gemma4:e4b-it-qat}), GPU T4, uma repetição, data de referência 2026-09-24. Lote 2 (n = 945 consultas; conjunto de teste, nenhuma consulta lida no desenvolvimento): rodadas em \texttt{results/lote2}, repontuadas contra \texttt{lote\_validacao\_2.json}, uma execução por consulta; n=\ldots{} ao lado do nome: rodada com menos consultas que o conjunto. Degraus: cada configuração acrescenta uma peça à anterior (0: v1; 1: v2; 2: descrições v3; 3: ferramentas auxiliares e usuário simulado; 4: retorno do validador e recusa contestada). Controle: Saída Estruturada com as descrições v3 e o mesmo retorno, sem as ferramentas no meio da resposta. Duas etapas: simulação \textit{post hoc} com as rodadas do próprio lote 2 (o \textit{Tool Calling} v2 decide se busca; quando busca, valem os parâmetros da Saída Estruturada v1; latência somada). Acurácia por consulta, com IC de Wilson. Domínio: acurácia fora das categorias F e E. F1 recusa: média harmônica da precisão e do recall da recusa em F. Falsa recusa: proporção das consultas do domínio sem busca. E: acurácia nas subespecificadas (buscar sem filtros ou não buscar). F1 campos: F1 ponderado dos campos. Latência: mediana por consulta, com todas as chamadas ao modelo. Chamadas: média de chamadas ao modelo por consulta (v1 e v2: uma por construção; duas etapas: uma ou duas). As linhas 310 (desenv.) são de desenvolvimento: as 310 consultas (n = 306; rodadas em \texttt{results/v3\_310}) orientaram o desenho das descrições, das ferramentas e do validador, e o resultado nelas é de dentro da amostra, otimista por construção.}
+\end{table}

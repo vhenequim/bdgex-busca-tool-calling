@@ -1,0 +1,27 @@
+\begin{table}[htbp!]
+\centering
+\caption{Decomposição do acerto no lote 2: primeira decisão do modelo e correção pelo retorno do código}
+\label{tab:lote2_decomposicao}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Medida} & \textbf{TC v3a} & \textbf{TC v3} & \textbf{SE v3} & \textbf{TC v3 (310, desenv.)} & \textbf{SE v3 (310, desenv.)} \\
+\hline
+Consultas com traço & 945 & 945 & 945 & 306 & 306 \\
+Acurácia da primeira decisão & 83,0\% & 83,0\% & 74,6\% & 90,5\% & 76,8\% \\
+Acurácia final & 83,1\% & 94,4\% & 87,8\% & 97,7\% & 94,1\% \\
+Final $-$ primeira (p.p.) & +0,1 & +11,4 & +13,2 & +7,2 & +17,3 \\
+\hline
+Consertadas pelo retorno & 1 & 112 & 125 & 23 & 53 \\
+\quad dando o valor & 0 & 60 & 54 & 13 & 35 \\
+\quad mandando remover um campo & 0 & 19 & 20 & 4 & 6 \\
+\quad corrigindo a forma & 1 & 12 & 4 & 3 & 1 \\
+\quad apontando o campo, sem o valor & 0 & 11 & 21 & 3 & 6 \\
+\quad contestando a recusa & 0 & 10 & 26 & 0 & 5 \\
+\hline
+Estragadas pelo retorno & 0 & 4 & 0 & 1 & 0 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Gemma 4 E4B. Lote 2 (n = 945 consultas; conjunto de teste, nenhuma consulta lida no desenvolvimento): rodadas em \texttt{results/lote2}. Primeira decisão: os parâmetros da primeira chamada a \texttt{buscar\_catalogo}, ou a recusa, se veio antes de qualquer busca (no \textit{Tool Calling}, pelo traço gravado; na Saída Estruturada, o primeiro objeto do histórico de tentativas), pontuada com o mesmo gabarito da resposta final. Consertadas: primeira decisão errada e final certa; estragadas: o contrário. Cada consertada é atribuída ao retorno mais informativo que recebeu antes da decisão final, pelas mensagens gravadas do validador: dando o valor (a UF ou o município citados, as datas pela tabela do manual, o código ou a escala na forma canônica, o município do IBGE); mandando remover um campo sem evidência na consulta; corrigindo a forma (valor fora do enumerado, período malformado, objeto fora do \textit{schema}); apontando o campo a preencher ou a trocar, sem o valor; contestando a recusa de uma consulta que cita critério do catálogo. No TC v3a não há validação: o retorno é só o da chamada malformada. Colunas 310: consultas de desenvolvimento, dentro da amostra que orientou a v3 (não é resultado de teste).}
+\end{table}

@@ -1,0 +1,27 @@
+\begin{table}[htbp!]
+\centering
+\caption{Comparações pareadas no lote 2 (Gemma 4 E4B)}
+\label{tab:lote2_pares}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|c|c|c|c|c|}
+\hline
+\textbf{Comparação} & \textbf{Par (A $\times$ B)} & \textbf{n} & \textbf{Só A} & \textbf{Só B} & \textbf{\textit{p}} & \textbf{B $-$ A, acurácia (IC)} & \textbf{B $-$ A, F1 (IC)} \\
+\hline
+Principal & TC v3 $\times$ SE v3 & 945 & 95 & 33 & $<$\,0,001 & -6,6 p.p. (-8,9 a -4,2) & -0,035 (-0,047 a -0,025) \\
+\hline
+Degraus & TC v1 $\times$ TC v2 & 945 & 126 & 159 & 0,058 & +3,5 p.p. (0,0 a +7,0) & 0,111 (0,083 a 0,142) \\
+Degraus & TC v2 $\times$ TC v3d & 945 & 26 & 150 & $<$\,0,001 & +13,1 p.p. (+10,5 a +15,8) & 0,053 (0,042 a 0,066) \\
+Degraus & TC v3d $\times$ TC v3a & 945 & 55 & 129 & $<$\,0,001 & +7,8 p.p. (+5,1 a +10,5) & 0,033 (0,018 a 0,047) \\
+Degraus & TC v3a $\times$ TC v3 & 945 & 12 & 119 & $<$\,0,001 & +11,3 p.p. (+9,1 a +13,8) & 0,052 (0,042 a 0,064) \\
+\hline
+Secundárias & Melhor v1/v2 isolada (SE v2) $\times$ TC v3 & 945 & 29 & 224 & $<$\,0,001 & +20,6 p.p. (+17,8 a +23,7) & 0,124 (0,107 a 0,143) \\
+Secundárias & Duas etapas $\times$ TC v3 & 945 & 25 & 174 & $<$\,0,001 & +15,8 p.p. (+13,1 a +18,4) & 0,081 (0,068 a 0,096) \\
+Secundárias & Duas etapas $\times$ SE v3 & 945 & 53 & 140 & $<$\,0,001 & +9,2 p.p. (+6,6 a +12,1) & 0,046 (0,031 a 0,061) \\
+Secundárias & Melhor v1/v2 isolada (SE v2) $\times$ SE v3 & 945 & 29 & 162 & $<$\,0,001 & +14,1 p.p. (+11,4 a +16,9) & 0,089 (0,072 a 0,106) \\
+\hline
+310 (desenv.) & TC v3 $\times$ SE v3 & 306 & 15 & 4 & 0,019 & -3,6 p.p. (-6,5 a -1,0) & -0,018 (-0,031 a -0,007) \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Plano de análise fixado antes da rodada (\texttt{docs/v3.md}). Lote 2 (n = 945 consultas; conjunto de teste, nenhuma consulta lida no desenvolvimento): rodadas em \texttt{results/lote2}; n: consultas presentes nas duas configurações (as comparações usam só essas). Só A / Só B: consultas em que só uma das configurações acerta. \textit{p}: McNemar exato, uma observação por consulta. IC: bootstrap pareado (2.000 reamostragens das consultas, semente 42), percentis 2,5 e 97,5; F1: F1 ponderado dos campos. Melhor v1/v2 isolada: a de maior acurácia no lote 2 entre TC v1, SE v1, TC v2 e SE v2 (Saída Estruturada v2). Duas etapas: simulação \textit{post hoc} (TC v2 decide, SE v1 extrai). TC: \textit{Tool Calling}; SE: Saída Estruturada. 310 (desenv.): as 310 consultas de desenvolvimento, dentro da amostra que orientou a v3 (não é resultado de teste).}
+\end{table}
