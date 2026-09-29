@@ -1,0 +1,28 @@
+\begin{table}[htbp!]
+\centering
+\caption{F1 por campo no lote de validação (Gemma 4 E4B)}
+\label{tab:lote_campos}
+\footnotesize
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Campo} & \textbf{Ocorr.} & \textbf{Tool Calling v1} & \textbf{Saída Estruturada v1} & \textbf{Tool Calling v2} & \textbf{Saída Estruturada v2} \\
+\hline
+\texttt{keyword} & 492 & 0,869 & 0,773 & 0,743 & 0,850 \\
+\texttt{scale} & 415 & 0,821 & 0,969 & 0,963 & 0,925 \\
+\texttt{productType} & 386 & 0,689 & 0,962 & 0,733 & 0,882 \\
+\texttt{state} & 307 & 0,794 & 0,865 & 0,651 & 0,709 \\
+\texttt{city} & 211 & 0,601 & 0,649 & 0,803 & 0,437 \\
+\texttt{supplyArea} & 346 & 0,882 & 0,999 & 0,999 & 0,979 \\
+\texttt{project} & 181 & 0,925 & 0,978 & 0,964 & 0,943 \\
+\texttt{publicationPeriod} & 214 & 0,415 & 0,839 & 0,829 & 0,830 \\
+\texttt{creationPeriod} & 106 & 0,538 & 0,545 & 0,829 & 0,845 \\
+\texttt{sortField} & 199 & 0,699 & 0,941 & 0,959 & 0,977 \\
+\texttt{sortDirection} & 199 & 0,748 & 0,977 & 0,959 & 0,980 \\
+\texttt{limit} & 150 & 0,800 & 0,972 & 0,721 & 0,924 \\
+\hline
+\textbf{Ponderado} & & \textbf{0,761} & \textbf{0,892} & \textbf{0,840} & \textbf{0,860} \\
+\textbf{Macro} & & 0,732 & 0,872 & 0,846 & 0,857 \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelos autores. Ocorr.: ocorrências do campo no gabarito (a maior entre as configurações, porque os campos opcionais contam quando emitidos).}
+\end{table}

@@ -1,6 +1,6 @@
 # Lote de validação — relatório de montagem
 
-Gerado em 2026-09-28 20:31 por `scripts/lote_validacao/montar_lote.py`. Metodologia: `docs/lote_validacao.md`.
+Gerado em 2026-09-29 09:15 por `scripts/lote_validacao/montar_lote.py`. Metodologia: `docs/lote_validacao.md`.
 
 ## Funil
 

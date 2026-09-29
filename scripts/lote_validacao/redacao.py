@@ -17,12 +17,15 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
-DIR = RAIZ / "data" / "lote_validacao"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import config_lote  # noqa: E402
+
+DIR = config_lote.DIR
 DIR_REDACAO = DIR / "redacao"
 ARQ_ALVOS = DIR / "alvos.json"
 ARQ_SAIDA = DIR / "consultas_redigidas.json"
-N_TAREFAS = 15
-SEMENTE_TAREFAS = 2027
+N_TAREFAS = config_lote.N_TAREFAS
+SEMENTE_TAREFAS = config_lote.SEMENTES["tarefas"]
 
 INSTRUCOES_REDATOR = """Você vai escrever consultas de usuários reais ao assistente de busca do acervo de produtos cartográficos do Exército Brasileiro (BDGEx, Diretoria de Serviço Geográfico). O assistente recebe a mensagem do usuário e a transforma em uma busca no catálogo. As consultas vão compor um conjunto de avaliação: cada uma precisa dizer exatamente o que o alvo pede, nem mais nem menos.
 

@@ -1,0 +1,810 @@
+[
+ {
+  "id": "Q0632",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem"
+  },
+  "justificativa": "'cartas ortoimagem' é sinônimo informado de SCN Carta Ortoimagem (seção 2, productType); critério único exige busca (6.1)."
+ },
+ {
+  "id": "Q0853",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "productType": "Cartas Temáticas Não SCN"
+  },
+  "justificativa": "'temáticos' pelo nome → Cartas Temáticas Não SCN e '1:25000' é escala explícita (seção 2, productType e scale)."
+ },
+ {
+  "id": "Q0021",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Rio de Janeiro"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Rio de Janeiro"
+   }
+  ],
+  "justificativa": "'Rio de Janeiro' sem qualificador é ambíguo entre estado e capital: leituras state e city (seção 2, state e city)."
+ },
+ {
+  "id": "Q0113",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "São Paulo",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "São Paulo",
+    "supplyArea": "3° Centro de Geoinformação"
+   }
+  ],
+  "justificativa": "'São Paulo' sem qualificador tem leituras state e city; '3º CGEO' → 3° Centro de Geoinformação (seção 2, state/city e supplyArea)."
+ },
+ {
+  "id": "Q0011",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "state": "Pará"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:25.000",
+     "1:10.000",
+     "1:5.000",
+     "1:2.000",
+     "1:1.000"
+    ]
+   }
+  ],
+  "justificativa": "'grande escala' aceita {1:25.000, 1:10.000, 1:5.000, 1:2.000, 1:1.000} e 'Pará' é estado (seção 2, scale e state)."
+ },
+ {
+  "id": "Q0353",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Bahia",
+   "project": "Mapeamento Sistemático"
+  },
+  "campos_opcionais": [
+   "project"
+  ],
+  "justificativa": "'Bahia' é estado; 'cartografia sistemática' designa o projeto só pelo termo distintivo → project opcional (seção 2, project)."
+ },
+ {
+  "id": "Q0561",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SA-20-X-C-I-2",
+   "scale": "1:50.000"
+  },
+  "justificativa": "Código INOM na forma com hífens em keyword e '50k' → 1:50.000 (seção 2, keyword e scale)."
+ },
+ {
+  "id": "Q0522",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem"
+  },
+  "justificativa": "'cartas ortoimagem' → SCN Carta Ortoimagem (seção 2, productType); critério único exige busca (6.1)."
+ },
+ {
+  "id": "Q0051",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SC-24-X-C-I-2-SE",
+   "state": "Espírito Santo"
+  },
+  "justificativa": "Código INOM com sufixo em keyword e 'do Espírito Santo' como estado (seção 2, keyword e state; 6.3 não usa homônimos de UF como município); escala não se infere do código (P1)."
+ },
+ {
+  "id": "Q0779",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Topográfica Matricial",
+   "state": "Pará",
+   "project": "NGA-BECA"
+  },
+  "justificativa": "'topográficas' → SCN Carta Topográfica Matricial, 'NGA-BECA' pelo nome do projeto e 'Pará' estado (seção 2)."
+ },
+ {
+  "id": "Q0692",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "1064"
+  },
+  "justificativa": "Código MI sem o prefixo 'MI' em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0637",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:50.000",
+   "state": "Bahia"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:50.000",
+     "1:25.000",
+     "1:10.000",
+     "1:5.000",
+     "1:2.000",
+     "1:1.000"
+    ]
+   }
+  ],
+  "justificativa": "'BA' é sigla de estado → Bahia; 'maior que 100k' aceita {1:50.000 ... 1:1.000} (seção 2, state e scale)."
+ },
+ {
+  "id": "Q0321",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:50.000",
+   "productType": "MDS — RAM",
+   "project": "Base Cartográfica Digital de Rondônia"
+  },
+  "justificativa": "'MDSs' pelo nome → MDS — RAM, '50 mil' → 1:50.000 e 'BCD de Rondônia' → Base Cartográfica Digital de Rondônia (seção 2, productType, scale e project)."
+ },
+ {
+  "id": "Q0704",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "1441-4-SO",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "Código MI com sufixos em keyword e '3º Centro de Geoinformação' → 3° Centro de Geoinformação (seção 2, keyword e supplyArea)."
+ },
+ {
+  "id": "Q0104",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Igarapé Canário",
+   "productType": "SCN Carta Topográfica Vetorial",
+   "city": "Tunas do Paraná"
+  },
+  "justificativa": "'vetoriais' pelo nome → SCN Carta Topográfica Vetorial, nome próprio após 'folha' em keyword e Tunas do Paraná é município do IBGE (seção 2; 6.3/6.4); estado não se infere (P1)."
+ },
+ {
+  "id": "Q0329",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Córrego Lagoa Seca"
+  },
+  "justificativa": "Nome próprio precedido de 'carta', que não é município do IBGE, vai em keyword (seção 2, keyword; 6.4)."
+ },
+ {
+  "id": "Q0626",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SA-19-Z-C-III-4",
+   "state": "Bahia"
+  },
+  "justificativa": "Código INOM em keyword e 'da Bahia' como estado (seção 2, keyword e state)."
+ },
+ {
+  "id": "Q0006",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "1029"
+  },
+  "justificativa": "Código MI sem o prefixo 'MI' em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0248",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Capão da Mortandade"
+  },
+  "justificativa": "Nome próprio precedido de 'folha', que não é município do IBGE, vai em keyword (seção 2, keyword; 6.4)."
+ },
+ {
+  "id": "Q0019",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta conceitual sobre leitura de curvas de nível, sem intenção de busca no acervo: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0922",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem Banda P Pol HH",
+   "state": "Pernambuco",
+   "city": "Jucati"
+  },
+  "justificativa": "'ortoimagem banda P polarização HH' pelo nome → SCN Carta Ortoimagem Banda P Pol HH; Jucati é município do IBGE e 'PE' anota state (seção 2; 6.3)."
+ },
+ {
+  "id": "Q0888",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Serra de São Pedro"
+  },
+  "justificativa": "Nome próprio precedido de 'folha', que não é município do IBGE, vai em keyword com acentos (seção 2, keyword; P2; 6.4)."
+ },
+ {
+  "id": "Q0347",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "323",
+   "scale": "1:250.000",
+   "productType": "SCN Carta Topográfica Matricial"
+  },
+  "justificativa": "Código MI sem prefixo em keyword, 'topo' → SCN Carta Topográfica Matricial e '250 mil' → 1:250.000 (seção 2)."
+ },
+ {
+  "id": "Q0369",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "SCN Carta Ortoimagem",
+   "publicationPeriod": {
+    "start": "2026-01-01",
+    "end": "2026-03-31"
+   }
+  },
+  "justificativa": "'ortoimg' → SCN Carta Ortoimagem; 'lançadas' é verbo de publicação e '1º trimestre deste ano' = janeiro a março de 2026 (seção 2, tabela de tempo)."
+ },
+ {
+  "id": "Q0080",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "0449-2"
+  },
+  "justificativa": "Código MI com sufixo, sem o prefixo 'mi', em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0559",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "0213-3"
+  },
+  "justificativa": "Código MI com sufixo, sem o prefixo 'mi', em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0142",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Costa Marques"
+  },
+  "leituras_estruturais": [
+   {
+    "city": "Costa Marques"
+   }
+  ],
+  "justificativa": "Nome precedido de 'carta' em keyword; coincide com município do IBGE (RO), então vale também a leitura estrutural city (seção 2, keyword; 6.4)."
+ },
+ {
+  "id": "Q0889",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'carta de crédito' é armadilha de vocabulário, outro assunto: fora do domínio (seção 3; 6.5)."
+ },
+ {
+  "id": "Q0465",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2692-2"
+  },
+  "justificativa": "Código MI com sufixo, sem o prefixo 'MI', em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0453",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "creationPeriod": {
+    "start": "2026-09-24",
+    "end": "2026-09-24"
+   }
+  },
+  "justificativa": "'produzidos' é verbo de criação → creationPeriod; 'hoje' = D até D (seção 2, tabela de tempo)."
+ },
+ {
+  "id": "Q0075",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Território fora do Brasil (Tóquio): fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0545",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SB-18-Z-C-VI-3"
+  },
+  "justificativa": "Código INOM na forma com hífens em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0070",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Mensagem de teste, sem intenção de busca: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0552",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SF-23-Y-C-IV-2"
+  },
+  "justificativa": "Código INOM na forma com hífens em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0269",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Goiás"
+  },
+  "justificativa": "'estado de Goiás' com qualificador → state Goiás (seção 2, state)."
+ },
+ {
+  "id": "Q0110",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Receita culinária, outro assunto: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0683",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "SB-19-V-A-IV-4"
+  },
+  "justificativa": "Código INOM na forma com hífens em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0638",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "publicationPeriod": {
+    "start": "2019-01-01",
+    "end": "2019-12-31"
+   }
+  },
+  "leituras_estruturais": [
+   {
+    "creationPeriod": {
+     "start": "2019-01-01",
+     "end": "2019-12-31"
+    }
+   }
+  ],
+  "justificativa": "'de 2019' tem leitura única (6.2); sem verbo que desempate → publicationPeriod preferencial e creationPeriod estrutural (seção 2)."
+ },
+ {
+  "id": "Q0904",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "publicationDate",
+   "sortDirection": "ASC"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "justificativa": "'das mais antigas para as mais novas' → ASC; sem pista de campo → sortField {publicationDate, creationDate}; plural sem número, sem limit (seção 2, ordenação)."
+ },
+ {
+  "id": "Q0296",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Natalândia"
+  },
+  "justificativa": "'município de Natalândia' → city, município do IBGE (seção 2; 6.3)."
+ },
+ {
+  "id": "Q0591",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "MDS — RAM",
+   "state": "Rio de Janeiro"
+  },
+  "leituras_estruturais": [
+   {
+    "productType": "MDS — RAM",
+    "city": "Rio de Janeiro"
+   }
+  ],
+  "justificativa": "'modelos digitais de superfície' pelo nome → MDS — RAM; 'Rio de Janeiro' sem qualificador → leituras state e city (seção 2)."
+ },
+ {
+  "id": "Q0007",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Estimativa de tempo de viagem, outro assunto: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0844",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'litoral brasileiro' é região, não campo do schema: pedido de busca sem critério representável, categoria E (seção 2, regiões; 6.1)."
+ },
+ {
+  "id": "Q0741",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pedido de rota de carro, outro assunto: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0566",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pergunta conceitual sobre escala, sem intenção de busca no acervo: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0169",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Finalidade ('p/ orientação') não é campo: pedido de mapas sem critério representável, categoria E (6.1)."
+ },
+ {
+  "id": "Q0759",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "state": "Rio Grande do Sul",
+   "city": "Tuparendi",
+   "project": "Copa do Mundo 2014"
+  },
+  "justificativa": "Tuparendi é município do IBGE e '(RS)' anota state; 'projeto da copa 2014' identifica sem ambiguidade Copa do Mundo 2014 (seção 2, project; 6.3)."
+ },
+ {
+  "id": "Q0787",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "Ilha Amatachiro",
+   "productType": "SCN Carta Topográfica Matricial",
+   "project": "Copa das Confederações"
+  },
+  "justificativa": "Nome após 'folha' em keyword, 'topográficas' → SCN Carta Topográfica Matricial e 'projeto copa das confederações' → Copa das Confederações (seção 2)."
+ },
+ {
+  "id": "Q0503",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:25.000",
+   "city": "Curralinho",
+   "supplyArea": "3° Centro de Geoinformação",
+   "project": "Mapeamento Sistemático"
+  },
+  "justificativa": "Curralinho é município do IBGE, '1:25000' escala explícita, 'mapeamento sistemático' é o nome do projeto e '3º CGEO' → 3° Centro de Geoinformação (seção 2; 6.3)."
+ },
+ {
+  "id": "Q0594",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pedido de explicação conceitual sobre o SCN, sem intenção de busca: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0970",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "3010-1"
+  },
+  "justificativa": "Código MI com sufixo após 'folha' em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0569",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:100.000",
+   "supplyArea": "2° Centro de Geoinformação"
+  },
+  "valores_alternativos": [
+   {
+    "campo": "scale",
+    "valores": [
+     "1:100.000",
+     "1:250.000"
+    ]
+   }
+  ],
+  "justificativa": "'segundo Centro de Geoinformação' → 2° Centro de Geoinformação; duas escalas explícitas ('1:100000 ou 250k') aceitam qualquer uma (seção 2, supplyArea e scale)."
+ },
+ {
+  "id": "Q0811",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Pede cartas do acervo sem nenhum critério representável: categoria E (6.1)."
+ },
+ {
+  "id": "Q0828",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "Cartas Temáticas Não SCN",
+   "supplyArea": "3° Centro de Geoinformação"
+  },
+  "justificativa": "'mapas temáticos' pelo nome → Cartas Temáticas Não SCN e '3º Centro de Geoinformação' → 3° Centro de Geoinformação (seção 2)."
+ },
+ {
+  "id": "Q0096",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "creationDate",
+   "sortDirection": "DESC"
+  },
+  "justificativa": "'pela data de criação' → creationDate e 'das mais novas para as mais antigas' → DESC; plural sem número, sem limit (seção 2, ordenação)."
+ },
+ {
+  "id": "Q0972",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'escala de plantão' é armadilha de vocabulário: fora do domínio (6.5)."
+ },
+ {
+  "id": "Q0826",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "sortField": "publicationDate",
+   "sortDirection": "DESC",
+   "limit": 5
+  },
+  "valores_alternativos": [
+   {
+    "campo": "sortField",
+    "valores": [
+     "publicationDate",
+     "creationDate"
+    ]
+   }
+  ],
+  "justificativa": "'as cinco cartas mais recentes' → DESC, limit 5; sem pista de campo → sortField {publicationDate, creationDate} (seção 2, ordenação)."
+ },
+ {
+  "id": "Q0766",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "city": "Guarani",
+   "publicationPeriod": {
+    "start": "2026-03-28",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2026-03-28",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2026-03-24",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "leituras_estruturais": [
+   {
+    "city": "Guarani",
+    "creationPeriod": {
+     "start": "2026-03-28",
+     "end": "2026-09-24"
+    }
+   },
+   {
+    "city": "Guarani",
+    "creationPeriod": {
+     "start": "2026-03-24",
+     "end": "2026-09-24"
+    }
+   }
+  ],
+  "justificativa": "Guarani é município do IBGE (city, 6.3); 'últimos seis meses' aceita D−180 dias ou mesmo dia 6 meses antes, e sem verbo → publicationPeriod com creationPeriod estrutural (seção 2; 6.2)."
+ },
+ {
+  "id": "Q0657",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "scale": "1:50.000",
+   "publicationPeriod": {
+    "start": "2019-01-01",
+    "end": "2024-12-31"
+   }
+  },
+  "justificativa": "'1:50.000' escala explícita; 'publicadas de 2019 a 2024' → publicationPeriod 2019-01-01 a 2024-12-31, leitura única (seção 2; 6.2)."
+ },
+ {
+  "id": "Q0530",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "productType": "CIRC",
+   "publicationPeriod": {
+    "start": "2021-09-24",
+    "end": "2026-09-24"
+   }
+  },
+  "valores_alternativos": [
+   {
+    "campo": "publicationPeriod",
+    "valores": [
+     {
+      "start": "2021-09-24",
+      "end": "2026-09-24"
+     },
+     {
+      "start": "2021-01-01",
+      "end": "2026-09-24"
+     }
+    ]
+   }
+  ],
+  "justificativa": "'CIRC' pelo nome; 'publicadas' → publicationPeriod e 'últimos 5 anos' aceita D−5 anos ou 1º/jan de 2021 até D (seção 2, tabela de tempo)."
+ },
+ {
+  "id": "Q0422",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'mapa mental' é armadilha de vocabulário: fora do domínio (6.5)."
+ },
+ {
+  "id": "Q0818",
+  "chamar_ferramenta": false,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "Horário de ônibus, outro assunto: fora do domínio (P4, seção 3)."
+ },
+ {
+  "id": "Q0565",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2390",
+   "productType": "MDT — RAM",
+   "sortField": "creationDate",
+   "sortDirection": "DESC",
+   "limit": 4
+  },
+  "justificativa": "'MDTs' → MDT — RAM, 'MI-2390' → keyword 2390, 'quatro ... mais recentes' → DESC e limit 4, 'data de criação' → creationDate (seção 2)."
+ },
+ {
+  "id": "Q0469",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": false,
+  "observacional": false,
+  "parametros": {
+   "keyword": "2672-2"
+  },
+  "justificativa": "Código MI com sufixo, sem o prefixo 'MI', em keyword (seção 2, keyword)."
+ },
+ {
+  "id": "Q0009",
+  "chamar_ferramenta": true,
+  "aceita_nao_chamar": true,
+  "observacional": false,
+  "parametros": {},
+  "justificativa": "'sudeste' é região, não campo do schema: pedido de mapas sem critério representável, categoria E (seção 2, regiões; 6.1)."
+ }
+]

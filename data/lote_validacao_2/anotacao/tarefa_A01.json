@@ -1,0 +1,496 @@
+{
+ "tarefa": "A01",
+ "saida": "data/lote_validacao_2/anotacao/saida_A01.json",
+ "data_referencia": "2026-09-24",
+ "instrucoes": "Você é anotador independente do gabarito de um conjunto de avaliação. Cada item é a mensagem de um usuário ao assistente de busca do acervo cartográfico da DSG, que transforma a mensagem numa chamada da ferramenta buscar_catalogo. Anote, para cada mensagem, a chamada correta — ou que a ferramenta não deve ser chamada.\n\nReferências (leia-as inteiras antes de começar e siga-as à risca; em caso de dúvida, o manual decide):\n- o manual de anotação, docs/manual_de_anotacao.md (princípios P1–P6, regras por campo, seção 3 e as extensões da seção 6);\n- a definição da ferramenta, FERRAMENTA_BUSCAR_CATALOGO em src/pfc_busca/schema.py (enumerados e descrições dos parâmetros).\nPara saber se um nome é de município brasileiro (seções 6.3 e 6.4), você pode consultar a lista oficial do IBGE em data/lote_validacao/ibge_municipios.json (campo \"nome\").\n\nData de referência D = 2026-09-24 (quinta-feira). Escreva períodos como datas ISO concretas resolvidas com D.\n\nFormato de cada anotação (um objeto por mensagem):\n{\n  \"id\": \"<id da mensagem>\",\n  \"chamar_ferramenta\": true | false,\n  \"aceita_nao_chamar\": true | false,   // true só na categoria E (seção 6.1): buscar sem filtros e não buscar são ambos corretos\n  \"observacional\": true | false,       // P6\n  \"parametros\": {<campo>: <valor canônico da leitura preferencial>},\n  \"valores_alternativos\": [{\"campo\": \"<campo>\", \"valores\": [<todos os valores aceitos, o preferencial primeiro>]}],\n  \"campos_opcionais\": [\"<campo>\", ...],\n  \"leituras_estruturais\": [{<leitura completa alternativa, com todos os campos>}],\n  \"justificativa\": \"<uma frase citando a regra do manual>\"\n}\nOmita \"valores_alternativos\", \"campos_opcionais\" e \"leituras_estruturais\" quando não houver. Fora do domínio: \"chamar_ferramenta\": false e \"parametros\": {}. Categoria E: \"chamar_ferramenta\": true, \"aceita_nao_chamar\": true e \"parametros\": {} (se não houver nenhum critério representável). Expressões de tempo com mais de uma leitura (tabelas das seções 2 e 6.2) vão em \"valores_alternativos\"; período sem verbo que desempate vai também em \"leituras_estruturais\" com o campo trocado.\n\nAnote pelo que o TEXTO diz, não pelo que o usuário provavelmente quis. Não invente nada que o texto não sustente (P1); não deixe de fora nada que ele sustente.\n\nEntregue um único arquivo JSON, no caminho indicado na tarefa, com a lista de anotações [{...}, {...}], uma por id, na mesma ordem da tarefa.",
+ "consultas": [
+  {
+   "id": "Q0001",
+   "consulta": "ortoimagens anteriores a 2013"
+  },
+  {
+   "id": "Q0002",
+   "consulta": "Quero as dez cartas 1:1.000 do ES com a atualização mais antiga, por favro."
+  },
+  {
+   "id": "Q0003",
+   "consulta": "tem algo do 3o cgeo do projeto copa do mundo pra novo progresso (pa)?"
+  },
+  {
+   "id": "Q0004",
+   "consulta": "Para um artigo que estou escrevendo, preciso das 4 cartas mais recentes em escala detalhada."
+  },
+  {
+   "id": "Q0005",
+   "consulta": "Gostaria de saber como faço para emitir a folha de pagamento dos funcionários da obra por meio deste sistema. Poderiam me orientar?"
+  },
+  {
+   "id": "Q0006",
+   "consulta": "Onde encontro a carta MI 1029? É pra uma obra que estamos tocando."
+  },
+  {
+   "id": "Q0007",
+   "consulta": "quanto tempo leva de carro daqui até o outro lado da serra se pegar a estrada velha? me passa uma estimativa aí"
+  },
+  {
+   "id": "Q0008",
+   "consulta": "cartas de Itaju em média escala"
+  },
+  {
+   "id": "Q0009",
+   "consulta": "tem mapas do sudeste? preciso pra minha pesquisa"
+  },
+  {
+   "id": "Q0010",
+   "consulta": "Venho solicitar a folha Igarapé Madalena do projeto olimpíadas, caso esteja disponível no acervo. Agradeço a atenção."
+  },
+  {
+   "id": "Q0011",
+   "consulta": "cartas em grande escala do Pará"
+  },
+  {
+   "id": "Q0012",
+   "consulta": "Onde encontro a minha folha de pagamento? Preciso conferir os descontos que vieram no contracheque."
+  },
+  {
+   "id": "Q0013",
+   "consulta": "Caros, a coordenadoria necessita das cartas do município de Pedro Teixeira. Agradeço a colaboração."
+  },
+  {
+   "id": "Q0014",
+   "consulta": "Bom dia. Poderiam, por gentileza, me encaminhar os produtos referentes à folha sd23xavi2se?"
+  },
+  {
+   "id": "Q0015",
+   "consulta": "Alguém me passa a escala de plantão do laboratório? Não sei se fico no sábado ou no domingo."
+  },
+  {
+   "id": "Q0016",
+   "consulta": "receita de bolo de fubá"
+  },
+  {
+   "id": "Q0017",
+   "consulta": "quais cartas foram criadas nos ultimos 7 dias?"
+  },
+  {
+   "id": "Q0018",
+   "consulta": "que horas passa o ônibus pro centro? tô no ponto aqui"
+  },
+  {
+   "id": "Q0019",
+   "consulta": "Como faço para ler as curvas de nível de uma carta?"
+  },
+  {
+   "id": "Q0020",
+   "consulta": "e aí, tem cartas em grande escala de Farroupilha? queria dar uma olhada"
+  },
+  {
+   "id": "Q0021",
+   "consulta": "Olá, com licença. Seria possível consultar os mapas do Rio de Janeiro?"
+  },
+  {
+   "id": "Q0022",
+   "consulta": "opa, preciso da carta MI 1396-1 do 5º CGEO pra uma ocorrência, tem aí?"
+  },
+  {
+   "id": "Q0023",
+   "consulta": "mapas do Pantanal"
+  },
+  {
+   "id": "Q0024",
+   "consulta": "Presciso das cartas publicadas no ano de 2025."
+  },
+  {
+   "id": "Q0025",
+   "consulta": "Tem cartas de 25 mil do projeto copa 2014 no acervo?"
+  },
+  {
+   "id": "Q0026",
+   "consulta": "Gostaria de solicitar as cartas do município de Ibiaí."
+  },
+  {
+   "id": "Q0027",
+   "consulta": "quero ver as cartas topograficas publicadas apos 2016"
+  },
+  {
+   "id": "Q0028",
+   "consulta": "Existem cartas do Nordeste no acervo? Estou reunindo material para planejar uma operação."
+  },
+  {
+   "id": "Q0029",
+   "consulta": "cartas Sudeste"
+  },
+  {
+   "id": "Q0030",
+   "consulta": "Queria ver os dados vetoriais por ordem de publicação, só os dez mais recentes, tem como?"
+  },
+  {
+   "id": "Q0031",
+   "consulta": "quanto ta a cotacao do dolar hoje?"
+  },
+  {
+   "id": "Q0032",
+   "consulta": "cartas criadas esta semana"
+  },
+  {
+   "id": "Q0033",
+   "consulta": "Requisito, por favor, as ortoimagens banda X HH de Capivari, SP, referentes ao projeto copa das confederacoes."
+  },
+  {
+   "id": "Q0034",
+   "consulta": "Qual é o telefone de contato de vocês? Preciso falar com alguém do atendimento."
+  },
+  {
+   "id": "Q0035",
+   "consulta": "produtos do terceiro cgeo"
+  },
+  {
+   "id": "Q0036",
+   "consulta": "Há cartas da BCD da Bahia disponíveis para consulta?"
+  },
+  {
+   "id": "Q0037",
+   "consulta": "cartas topográficas publicadas, ano de 2023"
+  },
+  {
+   "id": "Q0038",
+   "consulta": "quantos eleitores votaram na ultima eleicao pra prefeito aqui na minha cidade?"
+  },
+  {
+   "id": "Q0039",
+   "consulta": "Estou organizando o material da seção e preciso ver as cartas por data de publicação, começando pelas mais recentes."
+  },
+  {
+   "id": "Q0040",
+   "consulta": "qeuro as cartas topográficas vetoriais em 100k ou 250 mil"
+  },
+  {
+   "id": "Q0041",
+   "consulta": "Dá para consultar os mapas de vocês? Queria ver o que existe."
+  },
+  {
+   "id": "Q0042",
+   "consulta": "a carta MI 0227-3 do 2o cgeo em ortoimg, vocês têm? queria baixar"
+  },
+  {
+   "id": "Q0043",
+   "consulta": "alguem sabe onde acho a folha eldorado"
+  },
+  {
+   "id": "Q0044",
+   "consulta": "Americano do Brasil (GO), projeto AMAN"
+  },
+  {
+   "id": "Q0045",
+   "consulta": "Preciso das cartas 250 mil mais antigas do acrevo."
+  },
+  {
+   "id": "Q0046",
+   "consulta": "mapas para exercício militar"
+  },
+  {
+   "id": "Q0047",
+   "consulta": "Senhores, solicito a gentileza de disponibilizar as cartas do 3º Centro de Geoinformação. Atenciosamente."
+  },
+  {
+   "id": "Q0048",
+   "consulta": "Como eu vejo o mapa de assentos do avião? Quero escolher um lugar na janela."
+  },
+  {
+   "id": "Q0049",
+   "consulta": "folha Labrea ortoimg"
+  },
+  {
+   "id": "Q0050",
+   "consulta": "topográficas INOM SA-22-X-B-V-4"
+  },
+  {
+   "id": "Q0051",
+   "consulta": "Alguém sabe se tem a folha SC-24-X-C-I-2-SE do Espírito Santo por aqui?"
+  },
+  {
+   "id": "Q0052",
+   "consulta": "Tem mapas temáticos do terceiro cgeo no mapeamento sistemático?"
+  },
+  {
+   "id": "Q0053",
+   "consulta": "Quais são as cartas 1:25.000 do primeiro Centro de Geoinformação em ordem de data de criação, das mais antigas para as mais novas?"
+  },
+  {
+   "id": "Q0054",
+   "consulta": "Cartas da região Sul"
+  },
+  {
+   "id": "Q0055",
+   "consulta": "MDTs disponíveis"
+  },
+  {
+   "id": "Q0056",
+   "consulta": "Vocês possuem cartas 1:50000 da região Sul?"
+  },
+  {
+   "id": "Q0057",
+   "consulta": "modelos digitais de superfície"
+  },
+  {
+   "id": "Q0058",
+   "consulta": "Onde encontro a folha 1673-1?"
+  },
+  {
+   "id": "Q0059",
+   "consulta": "Cara, o que é esse tal de MI que aparece nas cartas? Pra que serve esse número?"
+  },
+  {
+   "id": "Q0060",
+   "consulta": "folha INOM SH-21-Z-B-I-3, ES"
+  },
+  {
+   "id": "Q0061",
+   "consulta": "Pedi umas coisas pelo site de vocês e tô sem notícia, qual é o prazo de entrega?"
+  },
+  {
+   "id": "Q0062",
+   "consulta": "Quais cartas do mapeamento sistemático do 2º Centro de Geoinformação vocês têm?"
+  },
+  {
+   "id": "Q0063",
+   "consulta": "cartas 25k elaboradas após 2010"
+  },
+  {
+   "id": "Q0064",
+   "consulta": "Onde acho a escala de sol maior em partitura? Quero treinar no violão antes do ensaio da banda."
+  },
+  {
+   "id": "Q0065",
+   "consulta": "Há dados vetoriais dos últimos 5 anos disponíveis para consulta?"
+  },
+  {
+   "id": "Q0066",
+   "consulta": "Preciso das cartas em 1:100000 da BCD do Amapá, do 2º CGEO, para o planejamento da operção."
+  },
+  {
+   "id": "Q0067",
+   "consulta": "ortoimagens lançadas nos últimos 6 meses"
+  },
+  {
+   "id": "Q0068",
+   "consulta": "oi, tem mapas de Pernambuco aí? queria ver"
+  },
+  {
+   "id": "Q0069",
+   "consulta": "o que e o sistema cartografico nacional e como ele funciona?"
+  },
+  {
+   "id": "Q0070",
+   "consulta": "Senhores, esta é apenas uma mensagem de teste para verificar se o sistema está respondendo corretamente."
+  },
+  {
+   "id": "Q0071",
+   "consulta": "Prezados, gostaria de saber onde posso obter o índice de chuva acumulada deste mês para um trabalho da faculdade."
+  },
+  {
+   "id": "Q0072",
+   "consulta": "preicso das cartas em ordem de data de criação, as mais recentes primeiro"
+  },
+  {
+   "id": "Q0073",
+   "consulta": "Onde eu consigo o índice de chuva acumulado deste mês para o nosso município?"
+  },
+  {
+   "id": "Q0074",
+   "consulta": "Tem como conseguir ortoimagens da folha sb19xdiv1, de Sergipe?"
+  },
+  {
+   "id": "Q0075",
+   "consulta": "mapas de Tóquio"
+  },
+  {
+   "id": "Q0076",
+   "consulta": "Estamos montando um plano de contingência para enchentes e preciso da carta Santa Cruz-no em 50k do 1º Centro de Geoinformação."
+  },
+  {
+   "id": "Q0077",
+   "consulta": "qual o pib do mato grosso?"
+  },
+  {
+   "id": "Q0078",
+   "consulta": "cartas do estado do Amapá"
+  },
+  {
+   "id": "Q0079",
+   "consulta": "Caros, para o meu trabalho de conclusão de curso, solicito as cartas do 2º Centro de Geoinformação referentes ao município de Tururu elaboradas nos últimos 10 anos."
+  },
+  {
+   "id": "Q0080",
+   "consulta": "onde acho a mi 0449-2"
+  },
+  {
+   "id": "Q0081",
+   "consulta": "Seria possível que o sistema desenhasse um mapa do meu bairro, com as ruas e os pontos de ônibus, para uma apresentação interna?"
+  },
+  {
+   "id": "Q0082",
+   "consulta": "Venho por meio desta parabenizar a equipe pela excelente qualidade do sistema e pelo atendimento. Muito obrigado."
+  },
+  {
+   "id": "Q0083",
+   "consulta": "Carta mais recente de Itapicuru"
+  },
+  {
+   "id": "Q0084",
+   "consulta": "Cartas do 3o cgeo nesta semana"
+  },
+  {
+   "id": "Q0085",
+   "consulta": "Opa, queria ver os mapas que foram feitos nos últimos cinco anos, tem?"
+  },
+  {
+   "id": "Q0086",
+   "consulta": "bora ver as 3 cartas mais antigas em ordem de publicação?"
+  },
+  {
+   "id": "Q0087",
+   "consulta": "Vou sair para um trabalho de campo e preciso de uma referência de base: qual é a carta 50 mil mais antiga pela data de criação?"
+  },
+  {
+   "id": "Q0088",
+   "consulta": "O que vocês oferecem de produtos cartográficos?"
+  },
+  {
+   "id": "Q0089",
+   "consulta": "Queria dar uma olhada em mapas da região Sul, rola?"
+  },
+  {
+   "id": "Q0090",
+   "consulta": "O que significa um tremor de magnitude 5 na escala Richter? É forte?"
+  },
+  {
+   "id": "Q0091",
+   "consulta": "folhas NA-22-Y-C-V-2 ou 2970-3-NO"
+  },
+  {
+   "id": "Q0092",
+   "consulta": "cartas 1:50.000 da Paraíba publicadas nos últimos 4 meses"
+  },
+  {
+   "id": "Q0093",
+   "consulta": "folha mi 1518-3-se em escala detalhada"
+  },
+  {
+   "id": "Q0094",
+   "consulta": "Oi, me mostra aí o que vocês têm de mapas?"
+  },
+  {
+   "id": "Q0095",
+   "consulta": "cartas de Lagoa do Barro do Piauí"
+  },
+  {
+   "id": "Q0096",
+   "consulta": "Consegue listar as cartas pela data de criação, das mais novas para as mais antigas?"
+  },
+  {
+   "id": "Q0097",
+   "consulta": "cartas do terceiro Centro de Geoinformação publicadas nos últimos 10 anos"
+  },
+  {
+   "id": "Q0098",
+   "consulta": "Gostaria de consultar as cartas publicadas após 2018 do 3o cgeo, poderiam me indicr onde estão?"
+  },
+  {
+   "id": "Q0099",
+   "consulta": "MI 0105 do 4º Centro de Geoinformação"
+  },
+  {
+   "id": "Q0100",
+   "consulta": "mapas publicados de 2010 a 2011"
+  },
+  {
+   "id": "Q0101",
+   "consulta": "Tem como ver os produtos da folha 1658-1-NO do 1o cgeo em ordem de publicação, dos mais antigos para os mais novos?"
+  },
+  {
+   "id": "Q0102",
+   "consulta": "Manda aí as 5 cartas mais recentes da MI 0202-1-NO, lá de Craíbas."
+  },
+  {
+   "id": "Q0103",
+   "consulta": "Fala, queria ver o que tem de mapa do Distrito Federal, me passa?"
+  },
+  {
+   "id": "Q0104",
+   "consulta": "dados vetoriais da folha Igarapé Canário, Tunas do Paraná"
+  },
+  {
+   "id": "Q0105",
+   "consulta": "Posso deixar um elogio? A ferramenta de vocês é muito prática, parabéns à equipe!"
+  },
+  {
+   "id": "Q0106",
+   "consulta": "A carta Rio Catetinho está entre as topográficas do mapeamento sistematico?"
+  },
+  {
+   "id": "Q0107",
+   "consulta": "cartas para exercício militar"
+  },
+  {
+   "id": "Q0108",
+   "consulta": "tem cartas 1:25.000 do 1º cgeo? preciso pra pesquisa"
+  },
+  {
+   "id": "Q0109",
+   "consulta": "Aqui na defesa civil vamos cruzar as áreas de risco de enchente no nosso SIG e precisamos de cartas vetoriais pra isso."
+  },
+  {
+   "id": "Q0110",
+   "consulta": "me passa uma receita de bolo de cenoura com cobertura de chocolate"
+  },
+  {
+   "id": "Q0111",
+   "consulta": "Mapas do acervo"
+  },
+  {
+   "id": "Q0112",
+   "consulta": "Bom dia. Poderiam informar se há carta topográfica nos últimos três meses? Agradeço a atenção."
+  },
+  {
+   "id": "Q0113",
+   "consulta": "precsio das cartas de São Paulo do 3º CGEO"
+  },
+  {
+   "id": "Q0114",
+   "consulta": "Tem CIRC em grande escala? Tô precisando pra equipe."
+  },
+  {
+   "id": "Q0115",
+   "consulta": "os três MDSs mais recentes"
+  },
+  {
+   "id": "Q0116",
+   "consulta": "cartas topográficas da copa das confederações do quarto Centro de Geoinformação"
+  },
+  {
+   "id": "Q0117",
+   "consulta": "mapas, catálogo geral"
+  },
+  {
+   "id": "Q0118",
+   "consulta": "produtos disponíveis no acervo"
+  },
+  {
+   "id": "Q0119",
+   "consulta": "mapas São Paulo"
+  },
+  {
+   "id": "Q0120",
+   "consulta": "Alô, é só um teste. O sistema está recebendo as mensagens?"
+  },
+  {
+   "id": "Q0121",
+   "consulta": "cartas escala detalhada no ano de 2025"
+  },
+  {
+   "id": "Q0122",
+   "consulta": "Prezados, poderiam me informar o horóscopo de hoje para o signo de Libra?"
+  }
+ ]
+}

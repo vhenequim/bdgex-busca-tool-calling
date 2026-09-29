@@ -1,0 +1,99 @@
+{
+  "modelo": "gemma4:e4b-it-qat",
+  "provedor": "ollama",
+  "abordagem": "saida_estruturada_v2",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-29 01:14:34.245834+00:00",
+    "digest": "ee665637121887cf3befff38abbb1be4ee117c7db867d97a67e29049ecd7e15f",
+    "tamanho_bytes": 6146501801
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada_v2",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON; descrição do schema no prompt (Instructor JSON_SCHEMA com Ollama)",
+    "zero_shot": false,
+    "few_shot": true,
+    "dicionario_normalizacao": true,
+    "fallback": true,
+    "novas_tentativas": 3,
+    "temperatura_do_prototipo": 0.6,
+    "ordenacao_padrao_contada": false,
+    "validacao_de_local_no_banco": false,
+    "descricoes": "v2 (convenções do manual explícitas)",
+    "recusa": "campo fora_do_escopo no schema",
+    "pedir_esclarecimento": "proibido pelo prompt",
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "da5592d693a4db0791fbd3c98ccaee3a55f1f016a14910b8e73c5979a7d97d69",
+  "prompt_sha256": "c6cef658e94aa13a518aae8295edd6f6f0f5167bf8802c109e902cbe5710ab93",
+  "codigo": "7d6b46c",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.34.4",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.5",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "34191652ee44"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-29T03:10:09",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-29T03:10:09",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "gemma4:e4b-it-qat"
+      ],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 6
+      },
+      "aquecimento_ms": 9652.974192000329,
+      "ollama_ps": {
+        "tamanho_bytes": 3086242282,
+        "na_vram_bytes": 3086242282,
+        "fracao_na_gpu": 1.0,
+        "contexto": 4096
+      },
+      "encerrado_em": "2026-09-29T03:14:10",
+      "executadas": 310
+    }
+  ],
+  "aquecimento_ms": 9652.974192000329,
+  "encerrado_em": "2026-09-29T03:14:10"
+}

@@ -51,7 +51,7 @@ from rich.progress import (
 )
 from rich.text import Text
 
-from pfc_busca import agent, agent_estruturado, db, prompts, schema, tools, v2
+from pfc_busca import agent, agent_estruturado, db, prompts, schema, tools, v2, v3
 from pfc_busca.evaluation import metrics
 from pfc_busca.evaluation.dataset_builder import caminho_dataset, carregar_dataset
 from pfc_busca.evaluation.gabarito import resolver_gabarito, resolver_leituras
@@ -63,8 +63,9 @@ CONSULTA_AQUECIMENTO = "cartas de São Paulo"
 
 
 PREFIXO_ABORDAGEM = {"tool_calling": "", "saida_estruturada": "se-", "prototipo": "prototipo-",
-                     "tool_calling_v2": "tc2-", "saida_estruturada_v2": "se2-"}
+                     "tool_calling_v2": "tc2-", "saida_estruturada_v2": "se2-", **v3.PREFIXOS}
 ABORDAGENS = list(PREFIXO_ABORDAGEM)
+SO_OLLAMA = ("prototipo", *v2.ABORDAGENS_V2, *v3.ABORDAGENS_V3)
 
 
 def slug(modelo: str, provedor: str = "ollama", abordagem: str = "tool_calling") -> str:
@@ -89,6 +90,8 @@ def criar_tradutor(args, registrar=print):
         return TradutorGroq(args.modelo, registrar=registrar)
     if args.abordagem in v2.ABORDAGENS_V2:
         return v2.criar(args.modelo, args.abordagem, base_url=args.base_url)
+    if args.abordagem in v3.ABORDAGENS_V3:
+        return v3.criar(args.modelo, args.abordagem, base_url=args.base_url)
     if args.abordagem != "tool_calling":
         return agent_estruturado.TradutorEstruturado(args.modelo, args.abordagem, base_url=args.base_url)
     return agent.Tradutor(args.modelo, base_url=args.base_url)
@@ -199,6 +202,8 @@ def hash_prompt(abordagem: str = "tool_calling") -> str:
         texto = agent_estruturado._PROMPT_PROTOTIPO + agent_estruturado.instrucao_instructor()
     elif abordagem in v2.ABORDAGENS_V2:
         texto = v2.texto_hash(abordagem)
+    elif abordagem in v3.ABORDAGENS_V3:
+        texto = v3.texto_hash(abordagem)
     else:
         texto = prompts._MODELO
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
@@ -209,6 +214,8 @@ def hash_ferramenta(abordagem: str = "tool_calling") -> str:
         definicao = [v2.FERRAMENTA_BUSCAR_CATALOGO_V2, v2.FERRAMENTA_RECUSAR]
     elif abordagem == "saida_estruturada_v2":
         definicao = v2.FERRAMENTA_BUSCAR_CATALOGO_V2
+    elif abordagem in v3.ABORDAGENS_V3:
+        definicao = v3.ferramentas_da(abordagem)
     else:
         definicao = schema.FERRAMENTA_BUSCAR_CATALOGO
     return hashlib.sha256(json.dumps(definicao, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
@@ -662,7 +669,7 @@ def main(argv: list[str] | None = None) -> int:
         args.intervalo = 11.0 if args.provedor == "groq" else 0.0
     if args.provedor == "groq":
         args.sem_sql = True  # a nuvem só traduz; a demonstração ponta a ponta é local
-        if args.abordagem == "prototipo" or args.abordagem in v2.ABORDAGENS_V2:
+        if args.abordagem in SO_OLLAMA:
             print(f"a abordagem {args.abordagem} roda só no Ollama")
             return 2
     _carregar_env()

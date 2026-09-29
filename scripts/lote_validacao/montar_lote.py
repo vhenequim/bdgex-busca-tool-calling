@@ -43,12 +43,15 @@ from pfc_busca.evaluation.dataset_builder import (  # noqa: E402
     validar,
 )
 
-DIR = RAIZ / "data" / "lote_validacao"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import config_lote  # noqa: E402
+
+DIR = config_lote.DIR
 ARQ_ALVOS = DIR / "alvos.json"
 ARQ_REDIGIDAS = DIR / "consultas_redigidas.json"
 ARQ_ANOT_A = DIR / "anotacao" / "anotacao_A.json"
 ARQ_ANOT_B = DIR / "anotacao" / "anotacao_B.json"
-DESTINO = RAIZ / "data" / "lote_validacao.json"
+DESTINO = config_lote.DATASET
 ARQ_RELATORIO = DIR / "relatorio.md"
 ARQ_DESCARTES = DIR / "descartes.json"
 PAPER = RAIZ.parent / "paper_revisado"   # se existir, as tabelas e macros vão também para PAPER/tabelas
@@ -234,6 +237,8 @@ def main() -> int:
     anot_a = json.loads(ARQ_ANOT_A.read_text(encoding="utf-8"))
     anot_b = json.loads(ARQ_ANOT_B.read_text(encoding="utf-8")) if ARQ_ANOT_B.exists() else {}
     textos_310 = {norm(c["consulta"]): c["id"] for c in carregar_dataset(CAMINHO_SAIDA)}
+    for outro in config_lote.OUTROS_DATASETS:   # lote 2: também não pode repetir o lote 1
+        textos_310.update({norm(c["consulta"]): c["id"] for c in carregar_dataset(outro)})
 
     etapas = Counter()
     descartes: list[dict] = []
@@ -438,7 +443,8 @@ def main() -> int:
                     compatBfinalabs=compat_b_aceitos)
     macros = ["% AUTO-GERADO por scripts/lote_validacao/montar_lote.py — não editar à mão",
               r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}"]
-    macros += [f"\\expandafter\\def\\csname res@lotedados@geral@{k}\\endcsname"
+    rodada_tex = f"lote{config_lote.SUFIXO_TEX}dados"
+    macros += [f"\\expandafter\\def\\csname res@{rodada_tex}@geral@{k}\\endcsname"
                f"{{{milhar(v) if isinstance(v, int) else v}}}" for k, v in sorted(defs.items())]
     nomes_fam = {"VS": "Simples (um critério)", "VC": "Compostas", "VM": "Códigos MI/INOM", "VT": "Tempo",
                  "VO": "Ordenação", "VA": "Leituras múltiplas", "VE": "Subespecificadas", "VF": "Fora do domínio"}
@@ -477,8 +483,13 @@ def main() -> int:
                  r"as mesmas da auditoria das 310 consultas, sobre todas as consultas redigidas (antes do filtro). "
                  r"A: anotação de todas as consultas; B: segunda anotação independente de uma amostra aleatória de 20\%.}",
                  r"\end{table}", ""]
-    saidas_tex = {"numeros_lote_dados.tex": "\n".join(macros) + "\n", "tab_lote_composicao.tex": "\n".join(tab),
-                  "tab_lote_concordancia.tex": "\n".join(tab_conc)}
+    sufixo = config_lote.SUFIXO_TEX
+    if sufixo:   # rótulos distintos para as tabelas do lote 2
+        tab = [x.replace("tab:lote_composicao", f"tab:lote{sufixo}_composicao") for x in tab]
+        tab_conc = [x.replace("tab:lote_concordancia", f"tab:lote{sufixo}_concordancia") for x in tab_conc]
+    saidas_tex = {f"numeros_lote{sufixo}_dados.tex": "\n".join(macros) + "\n",
+                  f"tab_lote{sufixo}_composicao.tex": "\n".join(tab),
+                  f"tab_lote{sufixo}_concordancia.tex": "\n".join(tab_conc)}
     for nome, conteudo in saidas_tex.items():
         (DIR / nome).write_text(conteudo, encoding="utf-8", newline="\n")
         if PAPER.is_dir():

@@ -22,12 +22,15 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
-DIR = RAIZ / "data" / "lote_validacao"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import config_lote  # noqa: E402
+
+DIR = config_lote.DIR
 DIR_ANOTACAO = DIR / "anotacao"
 ARQ_REDIGIDAS = DIR / "consultas_redigidas.json"
-SEMENTE_IDS = 2028
-SEMENTE_AMOSTRA_B = 2029
-N_TAREFAS_A = 15
+SEMENTE_IDS = config_lote.SEMENTES["ids"]
+SEMENTE_AMOSTRA_B = config_lote.SEMENTES["amostra_b"]
+N_TAREFAS_A = config_lote.N_TAREFAS
 FRACAO_B = 0.20
 TAMANHO_TAREFA_B = 130
 DATA_REFERENCIA = "2026-09-24"

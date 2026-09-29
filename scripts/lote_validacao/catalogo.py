@@ -22,7 +22,7 @@ from collections import Counter
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
-DIR = RAIZ / "data" / "lote_validacao"
+DIR = RAIZ / "data" / "lote_validacao"   # catálogos: os mesmos para todos os lotes
 DIR_CSW = DIR / "bdgex_csw"
 ARQ_IBGE = DIR / "ibge_municipios.json"
 ARQ_RESUMO = DIR / "bdgex_resumo.json"

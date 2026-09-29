@@ -35,13 +35,16 @@ _spec = importlib.util.spec_from_file_location("gerador_g", RAIZ / "scripts" / "
 G = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(G)
 
-SEMENTE = 2026
-DESTINO = RAIZ / "data" / "lote_validacao" / "alvos.json"
+import config_lote  # noqa: E402
+
+SEMENTE = config_lote.SEMENTES["alvos"]
+DESTINO = config_lote.DIR / "alvos.json"
 UM_DE, OPCIONAL = "$um_de", "$opcional"
 
 # VS simples · VC compostas · VM códigos · VT tempo · VO ordenação · VA leituras múltiplas/ambíguas
 # VE subespecificadas · VF fora do domínio
-CONTAGENS = {"VS": 280, "VC": 360, "VM": 160, "VT": 260, "VO": 200, "VA": 200, "VE": 150, "VF": 340}
+CONTAGENS_LOTE_1 = {"VS": 280, "VC": 360, "VM": 160, "VT": 260, "VO": 200, "VA": 200, "VE": 150, "VF": 340}
+CONTAGENS = {f: round(n * config_lote.FATOR) for f, n in CONTAGENS_LOTE_1.items()}
 
 # ---------------------------------------------------------------------------
 # Registros de linguagem (distribuição das consultas no domínio)
@@ -642,7 +645,7 @@ class Gerador:
                                         "expressões de tempo")
                 persona = self.rng.choice(PERSONAS)
                 alvos.append({
-                    "id": f"{fam}{i:04d}", "familia": fam, "categorias": self.categorias(a),
+                    "id": f"{config_lote.PREFIXO_ID}{fam}{i:04d}", "familia": fam, "categorias": self.categorias(a),
                     "registro": registro, "registro_descricao": REGISTROS[registro][0], "persona": persona,
                     "superficies": a.superficies, "verbo_periodo": a.verbo,
                     "subtipo": a.subtipo, "pedido": a.pedido, "proibido": proibido,
