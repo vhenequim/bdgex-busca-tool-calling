@@ -57,7 +57,9 @@ def test_pares_declarados(tmp_path):
         ("lote2/tc3-gemma4-e4b-it-qat", "lote2/se3-gemma4-e4b-it-qat")
     assert por_chave["basegroqgptoss20v1"].se.name == "groq-se-openai-gpt-oss-20b"
     assert por_chave["baseestacaoe2bv1"].tc.relative_to(tmp_path).as_posix() == "estacao/gemma4-e2b-it-qat"
-    assert {p.chave for p in ps if p.desenvolvimento} == {"basee4bv2", "basee4bv3"}
+    # desenvolvimento: v2 e v3 nas 310 e a v3 nas 62 consultas P e N da estação (parte das 310)
+    assert {p.chave for p in ps if p.desenvolvimento} == {"basee4bv2", "basee4bv3", "baseestacaoe2bv3",
+                                                        "baseestacaoe4bv3"}
 
 
 def test_hardware_comparavel():
