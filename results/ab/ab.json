@@ -1,11 +1,6 @@
 {
  "dir": "results",
- "avisos": [
-  "lote2e2bv1: sem rodada TC (results/lote2/gemma4-e2b-it-qat) e SE (results/lote2/se-gemma4-e2b-it-qat) (fora)",
-  "lote2e2bv3: sem rodada TC (results/lote2/tc3-gemma4-e2b-it-qat) e SE (results/lote2/se3-gemma4-e2b-it-qat) (fora)",
-  "lote2qwenv1: sem rodada TC (results/lote2/qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se-qwen3-4b-instruct-2507-q4_K_M) (fora)",
-  "lote2qwenv3: sem rodada TC (results/lote2/tc3-qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se3-qwen3-4b-instruct-2507-q4_K_M) (fora)"
- ],
+ "avisos": [],
  "pares": [
   {
    "chave": "basee2bv1",
@@ -1648,6 +1643,350 @@
     ]
    },
    "veredito": "tc"
+  },
+  {
+   "chave": "lote2e2bv1",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "gemma4:e2b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/gemma4-e2b-it-qat",
+    "results/lote2/se-gemma4-e2b-it-qat"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.580952380952381,
+    "ic": [
+     0.5492278668324855,
+     0.6120213869944968
+    ],
+    "accdominio": 0.4783821478382148,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 153,
+     "fp": 69,
+     "fn": 10,
+     "tn": 648,
+     "precisao": 0.6891891891891891,
+     "recall": 0.9386503067484663,
+     "f1": 0.7948051948051948,
+     "falsa": 0.09623430962343096,
+     "n_fora": 163
+    },
+    "f1": 0.758973256349426,
+    "latmed": 500.27972900034,
+    "latp95": 880.3751860000375,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.36507936507936506,
+    "ic": [
+     0.33498612635050407,
+     0.39626511727119207
+    ],
+    "accdominio": 0.4421199442119944,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 163,
+     "tn": 717,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 163
+    },
+    "f1": 0.6826595501464787,
+    "latmed": 438.71570999999676,
+    "latp95": 912.6653849998547,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 294,
+    "so_b": 90,
+    "p": 2.2438576335874528e-26,
+    "dif_acc": -0.21587301587301594,
+    "ic_dif_acc": [
+     -0.2529100529100529,
+     -0.1777513227513229
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "lote2e2bv3",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "gemma4:e2b-it-qat",
+   "espec": "v3",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/tc3-gemma4-e2b-it-qat",
+    "results/lote2/se3-gemma4-e2b-it-qat"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.8042328042328042,
+    "ic": [
+     0.7777234219883805,
+     0.8282786757274024
+    ],
+    "accdominio": 0.793584379358438,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 149,
+     "fp": 31,
+     "fn": 14,
+     "tn": 686,
+     "precisao": 0.8277777777777777,
+     "recall": 0.9141104294478528,
+     "f1": 0.8688046647230321,
+     "falsa": 0.043235704323570434,
+     "n_fora": 163
+    },
+    "f1": 0.9197821400583001,
+    "latmed": 998.1997900001716,
+    "latp95": 2982.1985350001796,
+    "chamadas": 2.367195767195767,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.653968253968254,
+    "ic": [
+     0.6230696383176813,
+     0.6836201189610891
+    ],
+    "accdominio": 0.5536959553695955,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 161,
+     "fp": 96,
+     "fn": 2,
+     "tn": 621,
+     "precisao": 0.6264591439688716,
+     "recall": 0.9877300613496932,
+     "f1": 0.7666666666666666,
+     "falsa": 0.13389121338912133,
+     "n_fora": 163
+    },
+    "f1": 0.7856869746342819,
+    "latmed": 440.7070490001388,
+    "latp95": 1525.6109199999628,
+    "chamadas": 1.6211640211640213,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 211,
+    "so_b": 69,
+    "p": 6.6708291920764805e-18,
+    "dif_acc": -0.1502645502645502,
+    "ic_dif_acc": [
+     -0.18306878306878308,
+     -0.11851851851851852
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "lote2qwenv1",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/qwen3-4b-instruct-2507-q4_K_M",
+    "results/lote2/se-qwen3-4b-instruct-2507-q4_K_M"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.5661375661375662,
+    "ic": [
+     0.5343334103582268,
+     0.5974061761017261
+    ],
+    "accdominio": 0.46443514644351463,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 163,
+     "fp": 35,
+     "fn": 0,
+     "tn": 682,
+     "precisao": 0.8232323232323232,
+     "recall": 1.0,
+     "f1": 0.9030470914127424,
+     "falsa": 0.04881450488145049,
+     "n_fora": 163
+    },
+    "f1": 0.6639395810448577,
+    "latmed": 1048.3941229995253,
+    "latp95": 2220.007744999748,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.5142857142857142,
+    "ic": [
+     0.48242600958506937,
+     0.5460297410902804
+    ],
+    "accdominio": 0.6248256624825662,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 163,
+     "tn": 717,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 163
+    },
+    "f1": 0.8283709798318206,
+    "latmed": 885.1450210004259,
+    "latp95": 1530.377873999896,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 216,
+    "so_b": 167,
+    "p": 0.014073718204752218,
+    "dif_acc": -0.05185185185185193,
+    "ic_dif_acc": [
+     -0.09417989417989418,
+     -0.012671957671957817
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "lote2qwenv3",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+   "espec": "v3",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/tc3-qwen3-4b-instruct-2507-q4_K_M",
+    "results/lote2/se3-qwen3-4b-instruct-2507-q4_K_M"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.7354497354497355,
+    "ic": [
+     0.7064136794420455,
+     0.7625792483553868
+    ],
+    "accdominio": 0.6722454672245467,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 159,
+     "fp": 46,
+     "fn": 4,
+     "tn": 671,
+     "precisao": 0.775609756097561,
+     "recall": 0.9754601226993865,
+     "f1": 0.8641304347826088,
+     "falsa": 0.06415620641562064,
+     "n_fora": 163
+    },
+    "f1": 0.7887277813913256,
+    "latmed": 3150.3086419998,
+    "latp95": 11629.271101000086,
+    "chamadas": 2.859259259259259,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.8825396825396825,
+    "ic": [
+     0.8604457269017819,
+     0.9015360411825853
+    ],
+    "accdominio": 0.8479776847977685,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 161,
+     "fp": 49,
+     "fn": 2,
+     "tn": 668,
+     "precisao": 0.7666666666666667,
+     "recall": 0.9877300613496932,
+     "f1": 0.8632707774798928,
+     "falsa": 0.06834030683403068,
+     "n_fora": 163
+    },
+    "f1": 0.9413551262965062,
+    "latmed": 652.3046709999107,
+    "latp95": 2510.6656730004033,
+    "chamadas": 1.33015873015873,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 46,
+    "so_b": 185,
+    "p": 6.066225081292346e-21,
+    "dif_acc": 0.14708994708994705,
+    "ic_dif_acc": [
+     0.11746031746031746,
+     0.17989417989417988
+    ]
+   },
+   "veredito": "se"
   }
  ],
  "conferencia": [

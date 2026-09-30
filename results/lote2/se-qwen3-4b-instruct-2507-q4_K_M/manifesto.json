@@ -1,0 +1,90 @@
+{
+  "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+  "provedor": "ollama",
+  "abordagem": "saida_estruturada",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "4.0B",
+      "quantization_level": "Q4_K_M"
+    },
+    "capabilities": [
+      "tools",
+      "thinking",
+      "completion"
+    ],
+    "modified_at": "2026-09-30 11:40:46.213911+00:00",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "tamanho_bytes": 2497293803
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON do Ollama; schema dos parâmetros no prompt",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false,
+    "fallback": false,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-24",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/lote_validacao_2.json",
+    "sha256": "ba5130cbbf898dc6f8bbe8bc17d8d03cec29b032df39b88979b76d3b34f69b92"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "prompt_sha256": "70d651a6a248145ba13354ed58674ab15329406b89cf491e98d99d4ff50240b8",
+  "codigo": "8c21fd6",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.35.0",
+    "ollama_python": "0.6.3",
+    "langchain_core": "1.6.6",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "bf97c71ed718"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-30T14:12:59",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-30T14:12:59",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "qwen3:4b-instruct-2507-q4_K_M"
+      ],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 17
+      },
+      "aquecimento_ms": 4627.137862000382,
+      "ollama_ps": {
+        "tamanho_bytes": 3178149969,
+        "na_vram_bytes": 3178149969,
+        "fracao_na_gpu": 1.0,
+        "contexto": 4096
+      },
+      "encerrado_em": "2026-09-30T14:27:26",
+      "executadas": 945
+    }
+  ],
+  "aquecimento_ms": 4627.137862000382,
+  "encerrado_em": "2026-09-30T14:27:26"
+}

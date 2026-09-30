@@ -1,0 +1,97 @@
+{
+  "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+  "provedor": "ollama",
+  "abordagem": "saida_estruturada_v3",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "4.0B",
+      "quantization_level": "Q4_K_M"
+    },
+    "capabilities": [
+      "tools",
+      "thinking",
+      "completion"
+    ],
+    "modified_at": "2026-09-30 11:40:46.213911+00:00",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "tamanho_bytes": 2497293803
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada_v3",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON; descrição do schema no prompt (Instructor JSON_SCHEMA com Ollama)",
+    "zero_shot": false,
+    "few_shot": true,
+    "dicionario_normalizacao": true,
+    "fallback": true,
+    "novas_tentativas": 2,
+    "temperatura_do_prototipo": 0.6,
+    "ordenacao_padrao_contada": false,
+    "validacao_de_local_no_banco": false,
+    "descricoes": "v3",
+    "validacao": "ferramentas.validar_parametros como nova tentativa",
+    "recusa_com_retorno": true,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-24",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/lote_validacao_2.json",
+    "sha256": "ba5130cbbf898dc6f8bbe8bc17d8d03cec29b032df39b88979b76d3b34f69b92"
+  },
+  "ferramenta_sha256": "9f4513fa57c62c1512c635a384e7596e4e1dbb7ba944fcb82bc7bae8e23e446f",
+  "prompt_sha256": "fb71acc6fdde7dbf3db18466b9ec3ac2caabd7f6a84050f752d24fe4530e8b5e",
+  "codigo": "8c21fd6",
+  "software": {
+    "python": "3.13.15",
+    "ollama_servidor": "0.35.0",
+    "ollama_python": "0.6.3",
+    "langchain_core": "1.6.6",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "hardware": {
+    "gpu": "Tesla T4, 15360 MiB, 580.82.07",
+    "maquina": "bf97c71ed718"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-30T13:40:03",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-30T13:40:03",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "qwen3:4b-instruct-2507-q4_K_M"
+      ],
+      "vram_inicio": {
+        "usada_mib": 0,
+        "livre_mib": 14913,
+        "utilizacao_pct": 0
+      },
+      "aquecimento_ms": 6312.379513999986,
+      "ollama_ps": {
+        "tamanho_bytes": 3873366343,
+        "na_vram_bytes": 3873366343,
+        "fracao_na_gpu": 1.0,
+        "contexto": 8192
+      },
+      "encerrado_em": "2026-09-30T13:54:23",
+      "executadas": 945
+    }
+  ],
+  "aquecimento_ms": 6312.379513999986,
+  "encerrado_em": "2026-09-30T13:54:23"
+}

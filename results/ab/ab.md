@@ -23,8 +23,12 @@ Gerado por `python -m pfc_busca.evaluation.ab`, com as funções de `lote.py`, `
 | `lote2e4bv1` | Lote 2 | Gemma 4 E4B | v1 | T4 | 945 | 58,6% / 61,3% | +2,6 [-1,6 a +6,9] | 210 / 235 | 0,255 | 45,9% / 74,8% | 0,562 / 0,000 | 0,85 / 0,72 | 1,41 / 1,44 | 1,00 / 1,00 |
 | `lote2e4bv2` | Lote 2 | Gemma 4 E4B | v2 | T4 | 945 | 62,1% / 73,8% | +11,6 [+7,9 a +14,9] | 83 / 193 | < 0,001 | 53,3% / 65,4% | 0,991 / 0,738 | 0,91 / 0,61 | 1,40 / 1,47 | 1,00 / 1,00 |
 | `lote2e4bv3` | Lote 2 | Gemma 4 E4B | v3 | T4 | 945 | 94,4% / 87,8% | -6,6 [-8,9 a -4,2] | 95 / 33 | < 0,001 | 94,4% / 84,4% | 0,969 / 0,901 | 1,47 / 0,78 | 4,96 / 2,55 | 2,06 / 1,23 |
+| `lote2e2bv1` | Lote 2 | Gemma 4 E2B | v1 | T4 | 945 | 58,1% / 36,5% | -21,6 [-25,3 a -17,8] | 294 / 90 | < 0,001 | 47,8% / 44,2% | 0,795 / 0,000 | 0,50 / 0,44 | 0,88 / 0,91 | 1,00 / 1,00 |
+| `lote2e2bv3` | Lote 2 | Gemma 4 E2B | v3 | T4 | 945 | 80,4% / 65,4% | -15,0 [-18,3 a -11,9] | 211 / 69 | < 0,001 | 79,4% / 55,4% | 0,869 / 0,767 | 1,00 / 0,44 | 2,98 / 1,53 | 2,37 / 1,62 |
+| `lote2qwenv1` | Lote 2 | Qwen 3 4B | v1 | T4 | 945 | 56,6% / 51,4% | -5,2 [-9,4 a -1,3] | 216 / 167 | 0,014 | 46,4% / 62,5% | 0,903 / 0,000 | 1,05 / 0,89 | 2,22 / 1,53 | 1,00 / 1,00 |
+| `lote2qwenv3` | Lote 2 | Qwen 3 4B | v3 | T4 | 945 | 73,5% / 88,3% | +14,7 [+11,7 a +18,0] | 46 / 185 | < 0,001 | 67,2% / 84,8% | 0,864 / 0,863 | 3,15 / 0,65 | 11,63 / 2,51 | 2,86 / 1,33 |
 
-Resumo (McNemar, p < 0,05): 19 pares — SE melhor em 6, TC melhor em 5, empate em 8; fora do desenvolvimento, 15 pares — SE melhor em 5, TC melhor em 2, empate em 8.
+Resumo (McNemar, p < 0,05): 23 pares — SE melhor em 7, TC melhor em 8, empate em 8; fora do desenvolvimento, 19 pares — SE melhor em 6, TC melhor em 5, empate em 8.
 
 ## Rodadas de cada par
 
@@ -49,13 +53,10 @@ Resumo (McNemar, p < 0,05): 19 pares — SE melhor em 6, TC melhor em 5, empate 
 | `lote2e4bv1` | `results/lote2/gemma4-e4b-it-qat` | `results/lote2/se-gemma4-e4b-it-qat` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina |
 | `lote2e4bv2` | `results/lote2/tc2-gemma4-e4b-it-qat` | `results/lote2/se2-gemma4-e4b-it-qat` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina |
 | `lote2e4bv3` | `results/lote2/tc3-gemma4-e4b-it-qat` | `results/lote2/se3-gemma4-e4b-it-qat` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina |
-
-Avisos:
-
-- lote2e2bv1: sem rodada TC (results/lote2/gemma4-e2b-it-qat) e SE (results/lote2/se-gemma4-e2b-it-qat) (fora)
-- lote2e2bv3: sem rodada TC (results/lote2/tc3-gemma4-e2b-it-qat) e SE (results/lote2/se3-gemma4-e2b-it-qat) (fora)
-- lote2qwenv1: sem rodada TC (results/lote2/qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se-qwen3-4b-instruct-2507-q4_K_M) (fora)
-- lote2qwenv3: sem rodada TC (results/lote2/tc3-qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se3-qwen3-4b-instruct-2507-q4_K_M) (fora)
+| `lote2e2bv1` | `results/lote2/gemma4-e2b-it-qat` | `results/lote2/se-gemma4-e2b-it-qat` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina |
+| `lote2e2bv3` | `results/lote2/tc3-gemma4-e2b-it-qat` | `results/lote2/se3-gemma4-e2b-it-qat` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina |
+| `lote2qwenv1` | `results/lote2/qwen3-4b-instruct-2507-q4_K_M` | `results/lote2/se-qwen3-4b-instruct-2507-q4_K_M` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina |
+| `lote2qwenv3` | `results/lote2/tc3-qwen3-4b-instruct-2507-q4_K_M` | `results/lote2/se3-qwen3-4b-instruct-2507-q4_K_M` | 945 / 945 | 1 / 1 | Tesla T4, 15360 MiB; Ollama 0.35.0; 100% na GPU; mesma máquina |
 
 ## Conferência com as macros já existentes
 
@@ -74,6 +75,6 @@ Referências: `../paper_revisado/tabelas`.
 
 Verificações sem a macro correspondente na referência (o par ou a medida não existem nas análises existentes): `lote2e4bv1` 6; `lote2e4bv2` 6.
 
-Números da tabela sem equivalente em nenhuma macro existente (novos da A/B; os demais foram conferidos): `basee2bv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseqwenv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `basee4bv1`: chamadastc, chamadasse; `basemistralv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoe2bv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoqwenv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoe4bv1`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `baseestacaoe2bv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `baseestacaoe4bv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `basegroqgptoss20v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basegroqqwen38v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basegroqgptoss120v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basee4bv2`: chamadastc, chamadasse; `lotee4bv1`: chamadastc, chamadasse; `lotee4bv2`: chamadastc, chamadasse; `lote2e4bv1`: dif, icdif, p; `lote2e4bv2`: dif, icdif, p.
+Números da tabela sem equivalente em nenhuma macro existente (novos da A/B; os demais foram conferidos): `basee2bv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseqwenv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `basee4bv1`: chamadastc, chamadasse; `basemistralv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoe2bv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoqwenv1`: icdif, recusaftc, recusafse, latmedse, latp95se, chamadastc, chamadasse; `baseestacaoe4bv1`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `baseestacaoe2bv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `baseestacaoe4bv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `basegroqgptoss20v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basegroqqwen38v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basegroqgptoss120v1`: icdif, recusaftc, recusafse, chamadastc, chamadasse; `basee4bv2`: chamadastc, chamadasse; `lotee4bv1`: chamadastc, chamadasse; `lotee4bv2`: chamadastc, chamadasse; `lote2e4bv1`: dif, icdif, p; `lote2e4bv2`: dif, icdif, p; `lote2e2bv1`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `lote2e2bv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `lote2qwenv1`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse; `lote2qwenv3`: n, acctc, accse, dif, icdif, p, domtc, domse, recusaftc, recusafse, latmedtc, latmedse, latp95tc, latp95se, chamadastc, chamadasse.
 
 Iguais por par: `basee2bv1` 16; `baseqwenv1` 16; `basee4bv1` 29; `basemistralv1` 16; `baseestacaoe2bv1` 16; `baseestacaoqwenv1` 16; `basegroqgptoss20v1` 13; `basegroqqwen38v1` 13; `basegroqgptoss120v1` 13; `basee4bv2` 19; `basee4bv3` 22; `lotee4bv1` 19; `lotee4bv2` 19; `lote2e4bv1` 16; `lote2e4bv2` 16; `lote2e4bv3` 22.
