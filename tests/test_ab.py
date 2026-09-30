@@ -47,8 +47,8 @@ def _medir(refs=(), man_se=None) -> dict:
 def test_pares_declarados(tmp_path):
     ps = ab.pares(tmp_path)
     chaves = [p.chave for p in ps]
-    # 16 do teste principal + 3 da estação (30/09) + 4 da extensão a outros modelos (entram quando houver rodada)
-    assert len(chaves) == len(set(chaves)) == 23
+    # 16 do teste principal + 4 da estação (30/09; o Qwen v3 entra quando houver rodada) + 4 da extensão
+    assert len(chaves) == len(set(chaves)) == 24
     assert {"baseestacaoe4bv1", "baseestacaoe2bv3", "lote2e2bv3", "lote2qwenv1"} <= set(chaves)
     assert all(re.fullmatch(r"[A-Za-z0-9]+", k) for k in chaves)
     por_chave = {p.chave: p for p in ps}
@@ -58,7 +58,7 @@ def test_pares_declarados(tmp_path):
     assert por_chave["basegroqgptoss20v1"].se.name == "groq-se-openai-gpt-oss-20b"
     assert por_chave["baseestacaoe2bv1"].tc.relative_to(tmp_path).as_posix() == "estacao/gemma4-e2b-it-qat"
     # desenvolvimento: v2 e v3 nas 310 e a v3 nas 62 consultas P e N da estação (parte das 310)
-    assert {p.chave for p in ps if p.desenvolvimento} == {"basee4bv2", "basee4bv3", "baseestacaoe2bv3",
+    assert {p.chave for p in ps if p.desenvolvimento} == {"basee4bv2", "basee4bv3", "baseestacaoe2bv3", "baseestacaoqwenv3",
                                                         "baseestacaoe4bv3"}
 
 
