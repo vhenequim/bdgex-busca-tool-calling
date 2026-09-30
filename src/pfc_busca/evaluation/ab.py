@@ -52,6 +52,7 @@ E4B = "gemma4:e4b-it-qat"
 LOCAIS_T4 = [m for m in comparacao.ORDEM if m in comparacao.LOCAIS]
 ESTACAO = [m for m in comparacao.ORDEM if m in ("gemma4:e2b-it-qat", "qwen3:4b-instruct-2507-q4_K_M")]
 NUVEM = [m for m in comparacao.ORDEM if "/" in m]
+EXTENSAO = ["gemma4:e2b-it-qat", "qwen3:4b-instruct-2507-q4_K_M"]
 # especificação -> (config TC, config SE) nos nomes de lote/lote2 e (abordagem TC, abordagem SE) de run_evaluation
 ESPECS = {"v1": ("tc1", "se1", "tool_calling", "saida_estruturada"),
           "v2": ("tc2", "se2", "tool_calling_v2", "saida_estruturada_v2"),
@@ -136,6 +137,10 @@ def pares(dir_resultados: Path = DIR_RESULTADOS) -> list[Par]:
         tc, se = ESPECS[espec][:2]
         saida.append(Par("lote2", "t4", E4B, espec, *pastas(R / "lote2", E4B, espec),
                          refs=(Ref("lote2", lote2.SUFIXO_PADRAO, tc=tc, se=se, par=tc + se),)))
+    # extensão a outros modelos (docs/v3.md, "Extensão a outros modelos"): entram quando as rodadas existirem
+    for m in EXTENSAO:
+        for espec in ("v1", "v3"):
+            saida.append(Par("lote2", "t4", m, espec, *pastas(R / "lote2", m, espec)))
     return saida
 
 

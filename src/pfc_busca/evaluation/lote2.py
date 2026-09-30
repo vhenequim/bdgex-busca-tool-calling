@@ -51,7 +51,7 @@ from typing import Any
 from pfc_busca import ferramentas, schema, v2, v3
 from pfc_busca.evaluation import lote, metrics, report
 from pfc_busca.evaluation.dataset_builder import CAMINHO_SAIDA as DATASET_310
-from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, RAIZ_REPO, carregar_execucoes
+from pfc_busca.evaluation.run_evaluation import DIR_RESULTADOS, RAIZ_REPO, carregar_execucoes, slug
 
 MODELO = lote.MODELO
 # chave: (prefixo da pasta, nome na tabela, nome curto, degrau)
@@ -76,6 +76,10 @@ PAR_PRINCIPAL = [("tc3", "se3")]
 PARES_DEGRAUS = [("tc1", "tc2"), ("tc2", "tc3d"), ("tc3d", "tc3a"), ("tc3a", "tc3")]
 PARES_SECUNDARIOS = [("melhor", "tc3"), (HIB, "tc3"), (HIB, "se3"), ("melhor", "se3")]
 GRUPOS_PARES = (("principal", PAR_PRINCIPAL), ("degraus", PARES_DEGRAUS), ("secundarios", PARES_SECUNDARIOS))
+# extensão a outros modelos (docs/v3.md, "Extensão a outros modelos"): a comparação principal, o ganho da v3 sobre
+# a solução do Cap. 4 e o A/B da v1
+GRUPOS_PARES_EXTENSAO = (("principal", PAR_PRINCIPAL), ("extensao", [("tc1", "tc3"), ("tc1", "se1")]))
+DECOMPOSTAS_EXTENSAO = ("tc3", "se3")
 SUFIXO_PADRAO = "lote2"
 ROTULO_310 = "v3base"
 
@@ -526,13 +530,17 @@ def analisar(dados: dict[str, dict], grupos, decompostas, avisos: list[str],
                                "f1": medidas[melhor]["f1"]} if melhor else None}
 
 
-def gerar(diretorio: Path, dataset: Path, dir_310: Path | None, dataset_310: Path = DATASET_310) -> dict[str, Any]:
+def gerar(diretorio: Path, dataset: Path, dir_310: Path | None, dataset_310: Path = DATASET_310,
+          extensao: bool = False) -> dict[str, Any]:
     avisos: list[str] = []
     dados = carregar_rodadas(diretorio, dataset, CONFIGS, avisos)
     res: dict[str, Any] = {"dir": _mostrar(diretorio), "dataset": _mostrar(dataset),
                            "n_conjunto": next((v["n_conjunto"] for v in dados.values()), None),
                            "presentes": list(dados), "ausentes": [k for k in CONFIGS if k not in dados]}
-    res.update(analisar(dados, GRUPOS_PARES, DECOMPOSTAS, avisos))
+    if extensao:
+        res.update(analisar(dados, GRUPOS_PARES_EXTENSAO, DECOMPOSTAS_EXTENSAO, avisos, derivar=False))
+    else:
+        res.update(analisar(dados, GRUPOS_PARES, DECOMPOSTAS, avisos))
     res["avisos"] = avisos
     if dir_310 is not None:
         av310: list[str] = []
@@ -953,13 +961,23 @@ def main(argv: list[str] | None = None) -> int:
                    help="diretório do texto (grava as .tex também em DIR/tabelas; só com o dataset do lote 2)")
     p.add_argument("--sufixo-macro", default=SUFIXO_PADRAO,
                    help="rótulo das macros \\res{<sufixo>}{...}; o das 310 é v3base + o que vier depois de 'lote2'")
+    p.add_argument("--modelo", default=None,
+                   help="tag de outro modelo (extensão; ex.: gemma4:e2b-it-qat): só a comparação principal, o ganho "
+                        "sobre a v1 e o A/B da v1; grava só numeros_<sufixo>.tex, sem as tabelas do teste principal")
     args = p.parse_args(argv)
+    global MODELO
+    extensao = bool(args.modelo) and slug(args.modelo) != lote.MODELO
+    if extensao:
+        MODELO = slug(args.modelo)
+        if args.sufixo_macro == SUFIXO_PADRAO:
+            args.sufixo_macro = SUFIXO_PADRAO + re.sub(r"[^a-z0-9]", "", MODELO.split("-it")[0].split("-instruct")[0])
+        args.dir_310 = None
     if not args.dataset.exists():
         print(f"dataset não encontrado: {args.dataset}")
         return 2
     sufixo = args.sufixo_macro
     rotulo_310 = ROTULO_310 + (sufixo[len(SUFIXO_PADRAO):] if sufixo.startswith(SUFIXO_PADRAO) else sufixo)
-    res = gerar(args.dir, args.dataset, args.dir_310)
+    res = gerar(args.dir, args.dataset, args.dir_310, extensao=extensao)
     for a in res["avisos"]:
         print(f"aviso: {a}")
     if args.paper and not _eh_lote2(res):
@@ -971,16 +989,19 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     saida = args.dir / "consolidado"
     saida.mkdir(parents=True, exist_ok=True)
-    arquivos = {f"numeros_{sufixo}.tex": macros(res, sufixo, rotulo_310), "tab_lote2_degraus.tex": tabela_degraus(res),
-                "tab_lote2_pares.tex": tabela_pares(res), "tab_lote2_decomposicao.tex": tabela_decomposicao(res)}
+    arquivos = {f"numeros_{sufixo}.tex": macros(res, sufixo, rotulo_310)}
+    if not extensao:
+        arquivos |= {"tab_lote2_degraus.tex": tabela_degraus(res), "tab_lote2_pares.tex": tabela_pares(res),
+                     "tab_lote2_decomposicao.tex": tabela_decomposicao(res)}
     for nome_arq, conteudo in arquivos.items():
         (saida / nome_arq).write_text(conteudo, encoding="utf-8")
         if args.paper:
             (args.paper / "tabelas").mkdir(parents=True, exist_ok=True)
             shutil.copyfile(saida / nome_arq, args.paper / "tabelas" / nome_arq)
-    (saida / "lote2.md").write_text(relatorio_md(res), encoding="utf-8")
-    (saida / "lote2.json").write_text(json.dumps(lote._serializavel(res), ensure_ascii=False, indent=1),
-                                      encoding="utf-8")
+    base = "lote2" if not extensao else sufixo
+    (saida / f"{base}.md").write_text(relatorio_md(res), encoding="utf-8")
+    (saida / f"{base}.json").write_text(json.dumps(lote._serializavel(res), ensure_ascii=False, indent=1),
+                                        encoding="utf-8")
     resumo = ", ".join(f"{k} {m['n']}" for k, m in res["medidas"].items())
     d = res.get("desenvolvimento_310")
     if d:

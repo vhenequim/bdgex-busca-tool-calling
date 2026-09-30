@@ -53,6 +53,10 @@ Resumo (McNemar, p < 0,05): 19 pares — SE melhor em 6, TC melhor em 5, empate 
 Avisos:
 
 - basegroqqwen38v1: rodadas com consultas diferentes (TC 306, SE 293); o par usa só as 293 presentes nas duas
+- lote2e2bv1: sem rodada TC (results/lote2/gemma4-e2b-it-qat) e SE (results/lote2/se-gemma4-e2b-it-qat) (fora)
+- lote2e2bv3: sem rodada TC (results/lote2/tc3-gemma4-e2b-it-qat) e SE (results/lote2/se3-gemma4-e2b-it-qat) (fora)
+- lote2qwenv1: sem rodada TC (results/lote2/qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se-qwen3-4b-instruct-2507-q4_K_M) (fora)
+- lote2qwenv3: sem rodada TC (results/lote2/tc3-qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se3-qwen3-4b-instruct-2507-q4_K_M) (fora)
 
 ## Conferência com as macros já existentes
 

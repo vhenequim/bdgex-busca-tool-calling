@@ -47,7 +47,9 @@ def _medir(refs=(), man_se=None) -> dict:
 def test_pares_declarados(tmp_path):
     ps = ab.pares(tmp_path)
     chaves = [p.chave for p in ps]
-    assert len(chaves) == len(set(chaves)) == 16
+    # 16 do teste principal + 3 da estação (30/09) + 4 da extensão a outros modelos (entram quando houver rodada)
+    assert len(chaves) == len(set(chaves)) == 23
+    assert {"baseestacaoe4bv1", "baseestacaoe2bv3", "lote2e2bv3", "lote2qwenv1"} <= set(chaves)
     assert all(re.fullmatch(r"[A-Za-z0-9]+", k) for k in chaves)
     por_chave = {p.chave: p for p in ps}
     v3 = por_chave["lote2e4bv3"]
