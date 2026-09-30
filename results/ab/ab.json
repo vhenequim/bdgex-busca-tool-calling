@@ -1,7 +1,7 @@
 {
  "dir": "results",
  "avisos": [
-  "basegroqqwen38v1: rodadas com consultas diferentes (TC 306, SE 285); o par usa só as 285 presentes nas duas"
+  "basegroqqwen38v1: rodadas com consultas diferentes (TC 306, SE 293); o par usa só as 293 presentes nas duas"
  ],
  "pares": [
   {
@@ -529,6 +529,264 @@
    "veredito": "empate"
   },
   {
+   "chave": "baseestacaoe4bv1",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/estacao/gemma4-e4b-it-qat",
+    "results/estacao/se-gemma4-e4b-it-qat"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 24% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.5254237288135594,
+    "ic": [
+     0.4003957675731271,
+     0.6473433097259869
+    ],
+    "accdominio": 0.5087719298245614,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 14,
+     "fn": 0,
+     "tn": 43,
+     "precisao": 0.125,
+     "recall": 1.0,
+     "f1": 0.2222222222222222,
+     "falsa": 0.24561403508771928,
+     "n_fora": 2
+    },
+    "f1": 0.7021672146635614,
+    "latmed": 3419.6602000156417,
+    "latp95": 6625.54999999702,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.6101694915254238,
+    "ic": [
+     0.4826610956186712,
+     0.724208239344156
+    ],
+    "accdominio": 0.631578947368421,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 2,
+     "tn": 57,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.8750073039007004,
+    "latmed": 3287.955299951136,
+    "latp95": 7128.520800033584,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 5,
+    "so_b": 10,
+    "p": 0.3017578125,
+    "dif_acc": 0.0847457627118644,
+    "ic_dif_acc": [
+     -0.03389830508474576,
+     0.2033898305084746
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "baseestacaoe2bv3",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "gemma4:e2b-it-qat",
+   "espec": "v3",
+   "desenvolvimento": true,
+   "pastas": [
+    "results/estacao/tc3-gemma4-e2b-it-qat",
+    "results/estacao/se3-gemma4-e2b-it-qat"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 37% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.7796610169491526,
+    "ic": [
+     0.6586705755334912,
+     0.8664592747567625
+    ],
+    "accdominio": 0.7894736842105263,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 1,
+     "fp": 5,
+     "fn": 1,
+     "tn": 52,
+     "precisao": 0.16666666666666666,
+     "recall": 0.5,
+     "f1": 0.25,
+     "falsa": 0.08771929824561403,
+     "n_fora": 2
+    },
+    "f1": 0.8789136833536834,
+    "latmed": 1752.521299989894,
+    "latp95": 4620.839099981822,
+    "chamadas": 2.457627118644068,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.559322033898305,
+    "ic": [
+     0.4328913027042265,
+     0.6784998776603726
+    ],
+    "accdominio": 0.543859649122807,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 14,
+     "fn": 0,
+     "tn": 43,
+     "precisao": 0.125,
+     "recall": 1.0,
+     "f1": 0.2222222222222222,
+     "falsa": 0.24561403508771928,
+     "n_fora": 2
+    },
+    "f1": 0.752995479582547,
+    "latmed": 804.5363000128418,
+    "latp95": 2167.2841999679804,
+    "chamadas": 1.5932203389830508,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 17,
+    "so_b": 4,
+    "p": 0.007197380065917969,
+    "dif_acc": -0.22033898305084754,
+    "ic_dif_acc": [
+     -0.3559322033898305,
+     -0.06779661016949153
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "baseestacaoe4bv3",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v3",
+   "desenvolvimento": true,
+   "pastas": [
+    "results/estacao/tc3-gemma4-e4b-it-qat",
+    "results/estacao/se3-gemma4-e4b-it-qat"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 24% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.9830508474576272,
+    "ic": [
+     0.9100406253761469,
+     0.9970018433070186
+    ],
+    "accdominio": 0.9824561403508771,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "tn": 57,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.9919646330680812,
+    "latmed": 5629.891899996437,
+    "latp95": 15432.497299974784,
+    "chamadas": 2.169491525423729,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.847457627118644,
+    "ic": [
+     0.7348177673118977,
+     0.9176162891093264
+    ],
+    "accdominio": 0.8421052631578947,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 5,
+     "fn": 0,
+     "tn": 52,
+     "precisao": 0.2857142857142857,
+     "recall": 1.0,
+     "f1": 0.4444444444444445,
+     "falsa": 0.08771929824561403,
+     "n_fora": 2
+    },
+    "f1": 0.9365596491580743,
+    "latmed": 3378.5786000080407,
+    "latp95": 13084.201199992094,
+    "chamadas": 1.2372881355932204,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 8,
+    "so_b": 0,
+    "p": 0.0078125,
+    "dif_acc": -0.13559322033898313,
+    "ic_dif_acc": [
+     -0.22033898305084745,
+     -0.05084745762711865
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
    "chave": "basegroqgptoss20v1",
    "conjunto": "base",
    "ambiente": "groq",
@@ -625,77 +883,77 @@
     "results/groq-qwen-qwen3.8-27b",
     "results/groq-se-qwen-qwen3.8-27b"
    ],
-   "n": 285,
+   "n": 293,
    "ntc": 306,
-   "nse": 285,
+   "nse": 293,
    "incompleto": true,
    "latencia_comparavel": false,
    "hardware": "nuvem: hardware do provedor, não controlado",
    "tc": {
-    "n": 285,
-    "acuracia": 0.9473684210526315,
+    "n": 293,
+    "acuracia": 0.9488054607508533,
     "ic": [
-     0.9149880932297972,
-     0.9678487280591029
+     0.917260933944219,
+     0.9687334819328011
     ],
-    "accdominio": 0.950530035335689,
-    "n_dominio": 283,
+    "accdominio": 0.9518900343642611,
+    "n_dominio": 291,
     "recusa": {
      "tp": 1,
      "fp": 0,
      "fn": 1,
-     "tn": 283,
+     "tn": 291,
      "precisao": 1.0,
      "recall": 0.5,
      "f1": 0.6666666666666666,
      "falsa": 0.0,
      "n_fora": 2
     },
-    "f1": 0.9833584821618988,
-    "latmed": 700.5471000011312,
-    "latp95": 1388.1197000009706,
+    "f1": 0.9836738122787447,
+    "latmed": 698.6902999924496,
+    "latp95": 1365.3653000001214,
     "chamadas": 1.0,
     "repeticoes": [
      1
     ]
    },
    "se": {
-    "n": 285,
-    "acuracia": 0.9438596491228071,
+    "n": 293,
+    "acuracia": 0.9453924914675768,
     "ic": [
-     0.910760731610241,
-     0.9651518793156092
+     0.9131455702907876,
+     0.9661112454654945
     ],
-    "accdominio": 0.950530035335689,
-    "n_dominio": 283,
+    "accdominio": 0.9518900343642611,
+    "n_dominio": 291,
     "recusa": {
      "tp": 0,
      "fp": 0,
      "fn": 2,
-     "tn": 283,
+     "tn": 291,
      "precisao": 0.0,
      "recall": 0.0,
      "f1": 0.0,
      "falsa": 0.0,
      "n_fora": 2
     },
-    "f1": 0.9821628911722422,
+    "f1": 0.9825007410930044,
     "latmed": 483.0069999443367,
-    "latp95": 1126.3990000006743,
+    "latp95": 1012.5115999835543,
     "chamadas": 1.0,
     "repeticoes": [
      1
     ]
    },
    "par_tc_se": {
-    "n": 285,
+    "n": 293,
     "so_a": 6,
     "so_b": 5,
     "p": 1.0,
-    "dif_acc": -0.0035087719298244613,
+    "dif_acc": -0.0034129692832765013,
     "ic_dif_acc": [
-     -0.028070175438596492,
-     0.021052631578947368
+     -0.023890784982935155,
+     0.017064846416382253
     ]
    },
    "veredito": "empate"
@@ -2675,7 +2933,7 @@
    "medida": "acurácia TC",
    "campo": "acctc",
    "macro": "res@abordagens@qwen38@acuraciatc",
-   "nosso": "94,7\\%",
+   "nosso": "94,9\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2685,7 +2943,7 @@
    "medida": "IC TC",
    "campo": "ictc",
    "macro": "res@abordagens@qwen38@ictc",
-   "nosso": "91,5\\% a 96,8\\%",
+   "nosso": "91,7\\% a 96,9\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2695,7 +2953,7 @@
    "medida": "domínio (sem F) TC",
    "campo": "domtc",
    "macro": "res@abordagens@qwen38@accsemftc",
-   "nosso": "95,1\\%",
+   "nosso": "95,2\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2705,7 +2963,7 @@
    "medida": "acurácia SE",
    "campo": "accse",
    "macro": "res@abordagens@qwen38@acuraciase",
-   "nosso": "94,4\\%",
+   "nosso": "94,5\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2715,7 +2973,7 @@
    "medida": "IC SE",
    "campo": "icse",
    "macro": "res@abordagens@qwen38@icse",
-   "nosso": "91,1\\% a 96,5\\%",
+   "nosso": "91,3\\% a 96,6\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2725,7 +2983,7 @@
    "medida": "domínio (sem F) SE",
    "campo": "domse",
    "macro": "res@abordagens@qwen38@accsemfse",
-   "nosso": "95,1\\%",
+   "nosso": "95,2\\%",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2735,7 +2993,7 @@
    "medida": "n",
    "campo": "n",
    "macro": "res@abordagens@qwen38@n",
-   "nosso": "285",
+   "nosso": "293",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2775,7 +3033,7 @@
    "medida": "TC − SE",
    "campo": "dif",
    "macro": "res@abordagens@qwen38@difpp",
-   "nosso": "0,4",
+   "nosso": "0,3",
    "existente": null,
    "situacao": "sem_referencia",
    "causa": ""
@@ -2785,20 +3043,20 @@
    "medida": "acurácia TC",
    "campo": "acctc",
    "macro": "res@groq@qwen38@acuracia",
-   "nosso": "94,7\\%",
+   "nosso": "94,9\\%",
    "existente": "95,1\\%",
    "situacao": "explicada",
-   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 285); a A/B, só as 285 presentes nas duas"
+   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 293); a A/B, só as 293 presentes nas duas"
   },
   {
    "par": "basegroqqwen38v1",
    "medida": "IC TC",
    "campo": "ictc",
    "macro": "res@groq@qwen38@ic",
-   "nosso": "91,5\\% a 96,8\\%",
+   "nosso": "91,7\\% a 96,9\\%",
    "existente": "92,1\\% a 97,0\\%",
    "situacao": "explicada",
-   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 285); a A/B, só as 285 presentes nas duas"
+   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 293); a A/B, só as 293 presentes nas duas"
   },
   {
    "par": "basegroqgptoss120v1",

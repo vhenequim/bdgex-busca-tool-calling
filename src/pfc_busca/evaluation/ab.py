@@ -115,6 +115,11 @@ def pares(dir_resultados: Path = DIR_RESULTADOS) -> list[Par]:
         c = report.CHAVES[m]
         saida.append(Par("base", "estacao", m, "v1", *pastas(R / "estacao", m, "v1"),
                          refs=(Ref("comparacao", "abordagensestacao", chave=c), Ref("report", "estacao", chave=c))))
+    # estação de referência, rodadas de 30/09 (scripts/v3/rodar_estacao_v3.sh): o E4B com a v1, que não fora medido
+    # na estação, e a v3 com o E2B e o E4B (as 62 consultas P e N fazem parte das 310: dentro da amostra da v3)
+    saida.append(Par("base", "estacao", E4B, "v1", *pastas(R / "estacao", E4B, "v1")))
+    for m in ("gemma4:e2b-it-qat", E4B):
+        saida.append(Par("base", "estacao", m, "v3", *pastas(R / "estacao", m, "v3"), desenvolvimento=True))
     for m in NUVEM:
         c = report.CHAVES[m]
         saida.append(Par("base", "groq", m, "v1", *pastas(R, m, "v1", "groq"),

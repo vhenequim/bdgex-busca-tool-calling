@@ -1,0 +1,99 @@
+{
+  "modelo": "gemma4:e2b-it-qat",
+  "provedor": "ollama",
+  "abordagem": "saida_estruturada_v3",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "4.6B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-14 11:52:21.962097-03:00",
+    "digest": "07ea59a474013479c8b6b802bef095c40e964a1d776ba02f264c0e30e1aede0c",
+    "tamanho_bytes": 4336358185
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada_v3",
+    "temperature": 0.0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON; descrição do schema no prompt (Instructor JSON_SCHEMA com Ollama)",
+    "zero_shot": false,
+    "few_shot": true,
+    "dicionario_normalizacao": true,
+    "fallback": true,
+    "novas_tentativas": 2,
+    "temperatura_do_prototipo": 0.6,
+    "ordenacao_padrao_contada": false,
+    "validacao_de_local_no_banco": false,
+    "descricoes": "v3",
+    "validacao": "ferramentas.validar_parametros como nova tentativa",
+    "recusa_com_retorno": true,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "9f4513fa57c62c1512c635a384e7596e4e1dbb7ba944fcb82bc7bae8e23e446f",
+  "prompt_sha256": "fb71acc6fdde7dbf3db18466b9ec3ac2caabd7f6a84050f752d24fe4530e8b5e",
+  "codigo": "2bb71fa",
+  "software": {
+    "python": "3.14.4",
+    "ollama_servidor": "0.34.0",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.4",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Windows-11-10.0.26200-SP0"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 616.64",
+    "maquina": "vhenequim"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-30T00:08:03",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-30T00:08:03",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "gemma4:e2b-it-qat"
+      ],
+      "vram_inicio": {
+        "usada_mib": 1166,
+        "livre_mib": 2797,
+        "utilizacao_pct": 3
+      },
+      "aquecimento_ms": 12885.014200001024,
+      "ollama_ps": {
+        "tamanho_bytes": 3959884346,
+        "na_vram_bytes": 1464116181,
+        "fracao_na_gpu": 0.37,
+        "contexto": 8192
+      },
+      "encerrado_em": "2026-09-30T00:09:27",
+      "executadas": 62
+    }
+  ],
+  "aquecimento_ms": 12885.014200001024,
+  "encerrado_em": "2026-09-30T00:09:27"
+}

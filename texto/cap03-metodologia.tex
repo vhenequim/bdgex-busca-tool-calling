@@ -23,7 +23,7 @@ O projeto entregou:
   \item um \textit{dataset} de avaliação com 310 consultas de referência (\textit{ground truth}), distribuídas em seis categorias de consulta e uma de consultas fora do domínio, acompanhado de um manual de anotação e de um relatório de auditoria;
   \item um \textit{pipeline} de avaliação automatizado, que executa o \textit{dataset} sobre cada modelo e produz as métricas de acurácia, precisão, \textit{recall}, F1-\textit{score} e latência, com os testes estatísticos correspondentes;
   \item um relatório comparativo entre quatro modelos de LLM com suporte a \textit{Tool Calling}, executados localmente, com a recomendação fundamentada do modelo mais adequado para uso operacional sobre o acervo da DSG, complementado por uma referência paralela com modelos maiores servidos em nuvem;
-  \item dois lotes de validação independentes (Seções~\ref{sec:lote-validacao} e~\ref{sec:v3}) e a v3 do \textit{Tool Calling}, com ferramentas auxiliares e validação com retorno, desenvolvida sobre as 310 consultas e o primeiro lote e testada no segundo contra um controle com Saída Estruturada; a v3 está implementada no pacote e no avaliador (\texttt{src/pfc\_busca/v3.py}), mas ainda não integrada à API do \textit{backend}.
+  \item dois lotes de validação independentes (Seções~\ref{sec:lote-validacao} e~\ref{sec:v3}) e a v3 do \textit{Tool Calling}, com ferramentas auxiliares e validação com retorno, desenvolvida sobre as 310 consultas e o primeiro lote e testada no segundo contra um controle com Saída Estruturada; a v3 está implementada no pacote (\texttt{src/pfc\_busca/v3.py}), no avaliador e na API do \textit{backend}, em que é a abordagem padrão.
 \end{itemize}
 
 \subsection{Exclusões}
@@ -308,3 +308,32 @@ Para medir o que a troca da Saída Estruturada pelo \textit{Tool Calling} rendeu
 \label{sec:reprodutibilidade}
 
 Cada rodada registra em manifesto: \textit{tag} e \textit{digest} do modelo no Ollama, versões do Ollama e do LangChain, configuração de inferência, data de referência, \textit{hardware} e os \textit{hashes} SHA-256 do \textit{dataset} e da definição da ferramenta. A pontuação é sempre recalculada contra o gabarito vigente: uma correção de gabarito não exige nova execução dos modelos, e uma consulta cujo texto tenha mudado é descartada da pontuação, com registro. O \textit{dataset}, o gerador, o manual, os relatórios de auditoria, os registros de execução e os \textit{scripts} estão no repositório do projeto (Apêndice~\ref{apendice:codigo}).
+
+
+% ---
+\section{Uso de Ferramentas de Inteligência Artificial}
+\label{sec:uso-ia}
+% ---
+
+Os modelos de linguagem avaliados (Seção~\ref{sec:selecao-modelos}) são o objeto do estudo. Além deles, ferramentas de inteligência artificial foram empregadas como apoio nos processos metodológicos do trabalho, listados na Tabela~\ref{tab:uso-ia} com a ferramenta, a finalidade e a forma de controle do resultado. Em nenhum desses processos a ferramenta definiu o gabarito: nas 310 consultas, ele foi definido pelos autores segundo o manual de anotação, e a anotação por modelo serviu para medir a concordância e apontar divergências, adjudicadas pelos autores; nos lotes, o gabarito foi fixado por construção, antes da redação, a partir de catálogos reais sorteados por código. Os agentes que redigiram e anotaram as consultas dos lotes são de uma família de modelos que não integra os modelos avaliados, e essa dependência é uma limitação registrada (Seção~\ref{sec:lote-validacao}). Todos os números de resultado vêm de macros geradas por código a partir dos registros das rodadas.
+
+\begin{table}[htbp!]
+\centering
+\caption{Ferramentas de inteligência artificial empregadas como apoio nos processos metodológicos}
+\label{tab:uso-ia}
+\small
+\begin{tabular}{|p{3.6cm}|p{2.9cm}|p{4.2cm}|p{4.2cm}|}
+\hline
+\textbf{Processo} & \textbf{Ferramenta} & \textbf{Finalidade} & \textbf{Controle do resultado} \\
+\hline
+Desenvolvimento do \textit{software} (\textit{backend}, \textit{pipeline} de avaliação, especificações v2 e v3) & Claude Code, com o modelo Claude Opus 5.5 (Anthropic) & escrita e depuração de código e de testes, a partir da especificação dos autores & testes automatizados, revisão pelos autores, manifestos de cada rodada e repositório público \\
+\hline
+Anotação independente das 310 consultas (Seção~\ref{sec:auditoria}) & Claude Opus 5.5 & segunda anotação, às cegas, só com o manual e a definição da ferramenta & concordância medida contra o gabarito; divergências adjudicadas pelos autores; revisão humana de uma amostra \\
+\hline
+Redação e anotação das consultas dos lotes de validação (Seção~\ref{sec:lote-validacao}) & agentes com Claude Opus 5.5 & redigir consultas a partir de alvos com gabarito fixado antes; anotá-las às cegas & checagens automáticas, anotação às cegas com filtro de compatibilidade e segunda anotação de uma amostra \\
+\hline
+Auditoria e análise dos erros das rodadas & agentes com Claude Opus 5.5 & classificar erros e propor causas, com verificação por agentes independentes & todos os números recalculados por código; causas não testadas registradas como hipóteses \\
+\hline
+\end{tabular}
+\fonte{Elaborado pelos autores.}
+\end{table}

@@ -1,0 +1,103 @@
+{
+  "modelo": "gemma4:e4b-it-qat",
+  "provedor": "ollama",
+  "abordagem": "tool_calling_v3",
+  "execucao": "local (Ollama)",
+  "modelo_info": {
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_0"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "modified_at": "2026-09-29 09:20:38.469440-03:00",
+    "digest": "ee665637121887cf3befff38abbb1be4ee117c7db867d97a67e29049ecd7e15f",
+    "tamanho_bytes": 6146501801
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "tool_calling_v3",
+    "temperature": 0,
+    "num_predict": 1024,
+    "ferramentas": [
+      "identificar_nome",
+      "normalizar_codigo",
+      "normalizar_escala",
+      "resolver_periodo",
+      "buscar_catalogo",
+      "pedir_esclarecimento",
+      "recusar_consulta"
+    ],
+    "ferramentas_auxiliares": true,
+    "validacao_com_retorno": true,
+    "max_chamadas_modelo": 6,
+    "max_tentativas_busca": 3,
+    "usuario_simulado": "Resposta do usuário: não tenho outros detalhes além do que escrevi; pode buscar com o que eu disse.",
+    "num_ctx": 8192,
+    "recusa_com_retorno": true,
+    "pergunta_em_texto_respondida": true,
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-14",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "fc57b33412d7318333f2a05122a4fac99addcfabb7c24289ab3c55c54e492376",
+  "prompt_sha256": "c6bfce53a1f6d566d22a24ea84fc786984ecb9b67ea48619661622743ffaea37",
+  "codigo": "2bb71fa",
+  "software": {
+    "python": "3.14.4",
+    "ollama_servidor": "0.34.0",
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.4",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": null,
+    "so": "Windows-11-10.0.26200-SP0"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 616.64",
+    "maquina": "vhenequim"
+  },
+  "intervalo_entre_chamadas_s": 0.0,
+  "iniciado_em": "2026-09-30T00:18:31",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-30T00:18:31",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [
+        "gemma4:e4b-it-qat"
+      ],
+      "vram_inicio": {
+        "usada_mib": 1100,
+        "livre_mib": 2863,
+        "utilizacao_pct": 2
+      },
+      "aquecimento_ms": 17502.379299956374,
+      "ollama_ps": {
+        "tamanho_bytes": 6083670178,
+        "na_vram_bytes": 1480840969,
+        "fracao_na_gpu": 0.243,
+        "contexto": 8192
+      },
+      "encerrado_em": "2026-09-30T00:26:12",
+      "executadas": 62
+    }
+  ],
+  "aquecimento_ms": 17502.379299956374,
+  "encerrado_em": "2026-09-30T00:26:12"
+}
