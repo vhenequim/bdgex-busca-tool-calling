@@ -10,8 +10,9 @@
 # v1, v3 e controle com o Gemma 4 E4B, que não fora medido na estação.
 set -u
 cd "$(dirname "$0")/../.."
-AVALIAR=".venv/Scripts/pfc-avaliar.exe"
-[ -x "$AVALIAR" ] || AVALIAR="pfc-avaliar"
+PY=".venv/Scripts/python.exe"
+[ -x "$PY" ] || PY="python"
+export PYTHONPATH="src${PYTHONPATH:+:$PYTHONPATH}"   # não depende do pacote instalado
 RODADAS=(
   "gemma4:e2b-it-qat tool_calling_v3"
   "gemma4:e2b-it-qat saida_estruturada_v3"
@@ -23,7 +24,7 @@ RODADAS=(
 for r in "${RODADAS[@]}"; do
   set -- $r
   echo "== $1 · $2 · $(date +%H:%M:%S)"
-  PYTHONIOENCODING=utf-8 "$AVALIAR" --modelo "$1" --abordagem "$2" --origem P,N --hoje 2026-09-14 \
+  PYTHONIOENCODING=utf-8 "$PY" -m pfc_busca.evaluation.run_evaluation --modelo "$1" --abordagem "$2" --origem P,N --hoje 2026-09-14 \
     --sem-sql --repeticoes 1 --saida results/estacao 2>&1 | grep -E "^[✓·×] r|rro|Traceback|→" | tail -3
 done
 echo "fim $(date +%H:%M:%S)"
