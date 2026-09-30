@@ -1,0 +1,4384 @@
+{
+ "dir": "results",
+ "avisos": [
+  "basegroqqwen38v1: rodadas com consultas diferentes (TC 306, SE 285); o par usa só as 285 presentes nas duas"
+ ],
+ "pares": [
+  {
+   "chave": "basee2bv1",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "gemma4:e2b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/gemma4-e2b-it-qat",
+    "results/se-gemma4-e2b-it-qat"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; sessões (máquinas) diferentes",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.565359477124183,
+    "ic": [
+     0.5093463945989168,
+     0.6197518284931406
+    ],
+    "accdominio": 0.5637583892617449,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 5,
+     "fp": 29,
+     "fn": 3,
+     "tn": 269,
+     "precisao": 0.14705882352941177,
+     "recall": 0.625,
+     "f1": 0.2380952380952381,
+     "falsa": 0.09731543624161074,
+     "n_fora": 8
+    },
+    "f1": 0.7646759170352683,
+    "latmed": 397.3195619996659,
+    "latp95": 703.1451840002774,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1,
+     2,
+     3
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.5392156862745098,
+    "ic": [
+     0.48322435616900994,
+     0.5942345776862243
+    ],
+    "accdominio": 0.5536912751677853,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.792327348418848,
+    "latmed": 466.1768809999103,
+    "latp95": 863.7544190000881,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 55,
+    "so_b": 47,
+    "p": 0.48843446453263284,
+    "dif_acc": -0.02614379084967322,
+    "ic_dif_acc": [
+     -0.08831699346405229,
+     0.042483660130718956
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "baseqwenv1",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/qwen3-4b-instruct-2507-q4_K_M",
+    "results/se-qwen3-4b-instruct-2507-q4_K_M"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; sessões (máquinas) diferentes",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.5424836601307189,
+    "ic": [
+     0.4864812697670357,
+     0.5974325752428014
+    ],
+    "accdominio": 0.5302013422818792,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 13,
+     "fn": 0,
+     "tn": 285,
+     "precisao": 0.38095238095238093,
+     "recall": 1.0,
+     "f1": 0.5517241379310345,
+     "falsa": 0.0436241610738255,
+     "n_fora": 8
+    },
+    "f1": 0.6659480562216221,
+    "latmed": 828.1205025000418,
+    "latp95": 1402.7632030001769,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1,
+     2,
+     3
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.6013071895424836,
+    "ic": [
+     0.5455169367553427,
+     0.6545853090373461
+    ],
+    "accdominio": 0.6174496644295302,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.8077754367655636,
+    "latmed": 686.7800845000147,
+    "latp95": 1968.521383000052,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 25,
+    "so_b": 43,
+    "p": 0.038460053348927506,
+    "dif_acc": 0.05882352941176472,
+    "ic_dif_acc": [
+     0.006535947712418301,
+     0.10792483660130675
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "basee4bv1",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/gemma4-e4b-it-qat",
+    "results/se-gemma4-e4b-it-qat"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; sessões (máquinas) diferentes",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.6013071895424836,
+    "ic": [
+     0.5455169367553427,
+     0.6545853090373461
+    ],
+    "accdominio": 0.5906040268456376,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 56,
+     "fn": 0,
+     "tn": 242,
+     "precisao": 0.125,
+     "recall": 1.0,
+     "f1": 0.2222222222222222,
+     "falsa": 0.18791946308724833,
+     "n_fora": 8
+    },
+    "f1": 0.7934262155916667,
+    "latmed": 724.8180189999403,
+    "latp95": 1229.51872899921,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1,
+     2,
+     3
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.7516339869281046,
+    "ic": [
+     0.7003030080879232,
+     0.7967251508164975
+    ],
+    "accdominio": 0.7718120805369127,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.901636779507321,
+    "latmed": 761.5168035000579,
+    "latp95": 1604.848254999979,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 16,
+    "so_b": 62,
+    "p": 1.5129781377543385e-07,
+    "dif_acc": 0.15032679738562094,
+    "ic_dif_acc": [
+     0.09803921568627451,
+     0.20588235294117646
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "basemistralv1",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "mistral-nemo:12b",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/mistral-nemo-12b",
+    "results/se-mistral-nemo-12b"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; sessões (máquinas) diferentes",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.2679738562091503,
+    "ic": [
+     0.2214499252571709,
+     0.3202513827660255
+    ],
+    "accdominio": 0.2483221476510067,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 187,
+     "fn": 0,
+     "tn": 111,
+     "precisao": 0.041025641025641026,
+     "recall": 1.0,
+     "f1": 0.07881773399014778,
+     "falsa": 0.62751677852349,
+     "n_fora": 8
+    },
+    "f1": 0.4508734635392027,
+    "latmed": 2390.5115544998807,
+    "latp95": 5859.659379999357,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1,
+     2,
+     3
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.5196078431372549,
+    "ic": [
+     0.4637325433000955,
+     0.5749969236275217
+    ],
+    "accdominio": 0.5335570469798657,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.7269435092086934,
+    "latmed": 998.3729484999913,
+    "latp95": 3386.4648839999063,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 32,
+    "so_b": 109,
+    "p": 5.02296156526002e-11,
+    "dif_acc": 0.2516339869281046,
+    "ic_dif_acc": [
+     0.18292483660130718,
+     0.3202614379084967
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "baseestacaoe2bv1",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "gemma4:e2b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/estacao/gemma4-e2b-it-qat",
+    "results/estacao/se-gemma4-e2b-it-qat"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 38% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.4745762711864407,
+    "ic": [
+     0.35265669027401325,
+     0.5996042324268729
+    ],
+    "accdominio": 0.45614035087719296,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 8,
+     "fn": 0,
+     "tn": 49,
+     "precisao": 0.2,
+     "recall": 1.0,
+     "f1": 0.33333333333333337,
+     "falsa": 0.14035087719298245,
+     "n_fora": 2
+    },
+    "f1": 0.7187748742485585,
+    "latmed": 708.704000004218,
+    "latp95": 1197.672499998589,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.4576271186440678,
+    "ic": [
+     0.3370110214024243,
+     0.583423849765719
+    ],
+    "accdominio": 0.47368421052631576,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 2,
+     "tn": 57,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.7824507968266734,
+    "latmed": 760.2375000133179,
+    "latp95": 1553.8704000064172,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 10,
+    "so_b": 9,
+    "p": 1.0,
+    "dif_acc": -0.01694915254237289,
+    "ic_dif_acc": [
+     -0.15254237288135594,
+     0.11864406779661017
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "baseestacaoqwenv1",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/estacao/qwen3-4b-instruct-2507-q4_K_M",
+    "results/estacao/se-qwen3-4b-instruct-2507-q4_K_M"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 66% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.4915254237288136,
+    "ic": [
+     0.3684362544481631,
+     0.6156507197854656
+    ],
+    "accdominio": 0.47368421052631576,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "tn": 51,
+     "precisao": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "falsa": 0.10526315789473684,
+     "n_fora": 2
+    },
+    "f1": 0.7332464554496083,
+    "latmed": 2596.172800003842,
+    "latp95": 5702.445200004149,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.5084745762711864,
+    "ic": [
+     0.3843492802145344,
+     0.6315637455518369
+    ],
+    "accdominio": 0.5263157894736842,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 2,
+     "tn": 57,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.8148643368802814,
+    "latmed": 1974.5046999887563,
+    "latp95": 5115.488100040238,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 9,
+    "so_b": 10,
+    "p": 1.0,
+    "dif_acc": 0.016949152542372836,
+    "ic_dif_acc": [
+     -0.13559322033898305,
+     0.1694915254237288
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "basegroqgptoss20v1",
+   "conjunto": "base",
+   "ambiente": "groq",
+   "modelo": "openai/gpt-oss-20b",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/groq-openai-gpt-oss-20b",
+    "results/groq-se-openai-gpt-oss-20b"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": false,
+   "hardware": "nuvem: hardware do provedor, não controlado",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.8921568627450981,
+    "ic": [
+     0.8524156394023948,
+     0.9221736991499495
+    ],
+    "accdominio": 0.889261744966443,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 2,
+     "fn": 0,
+     "tn": 296,
+     "precisao": 0.8,
+     "recall": 1.0,
+     "f1": 0.888888888888889,
+     "falsa": 0.006711409395973154,
+     "n_fora": 8
+    },
+    "f1": 0.9457068845884601,
+    "latmed": 529.7285500018916,
+    "latp95": 1496.2904000058188,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.7745098039215687,
+    "ic": [
+     0.7244487016171629,
+     0.8177638353694782
+    ],
+    "accdominio": 0.7953020134228188,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.9187691674819253,
+    "latmed": 461.8326500058174,
+    "latp95": 1155.6510000373237,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 50,
+    "so_b": 14,
+    "p": 7.069487542545679e-06,
+    "dif_acc": -0.11764705882352944,
+    "ic_dif_acc": [
+     -0.16666666666666666,
+     -0.07181372549019652
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "basegroqqwen38v1",
+   "conjunto": "base",
+   "ambiente": "groq",
+   "modelo": "qwen/qwen3.8-27b",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/groq-qwen-qwen3.8-27b",
+    "results/groq-se-qwen-qwen3.8-27b"
+   ],
+   "n": 285,
+   "ntc": 306,
+   "nse": 285,
+   "incompleto": true,
+   "latencia_comparavel": false,
+   "hardware": "nuvem: hardware do provedor, não controlado",
+   "tc": {
+    "n": 285,
+    "acuracia": 0.9473684210526315,
+    "ic": [
+     0.9149880932297972,
+     0.9678487280591029
+    ],
+    "accdominio": 0.950530035335689,
+    "n_dominio": 283,
+    "recusa": {
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "tn": 283,
+     "precisao": 1.0,
+     "recall": 0.5,
+     "f1": 0.6666666666666666,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.9833584821618988,
+    "latmed": 700.5471000011312,
+    "latp95": 1388.1197000009706,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 285,
+    "acuracia": 0.9438596491228071,
+    "ic": [
+     0.910760731610241,
+     0.9651518793156092
+    ],
+    "accdominio": 0.950530035335689,
+    "n_dominio": 283,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 2,
+     "tn": 283,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 2
+    },
+    "f1": 0.9821628911722422,
+    "latmed": 483.0069999443367,
+    "latp95": 1126.3990000006743,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 285,
+    "so_a": 6,
+    "so_b": 5,
+    "p": 1.0,
+    "dif_acc": -0.0035087719298244613,
+    "ic_dif_acc": [
+     -0.028070175438596492,
+     0.021052631578947368
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "basegroqgptoss120v1",
+   "conjunto": "base",
+   "ambiente": "groq",
+   "modelo": "openai/gpt-oss-120b",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/groq-openai-gpt-oss-120b",
+    "results/groq-se-openai-gpt-oss-120b"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": false,
+   "hardware": "nuvem: hardware do provedor, não controlado",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.8986928104575164,
+    "ic": [
+     0.8597899928679369,
+     0.9277091679936131
+    ],
+    "accdominio": 0.8959731543624161,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 6,
+     "fn": 0,
+     "tn": 292,
+     "precisao": 0.5714285714285714,
+     "recall": 1.0,
+     "f1": 0.7272727272727273,
+     "falsa": 0.020134228187919462,
+     "n_fora": 8
+    },
+    "f1": 0.9560189040630457,
+    "latmed": 655.2422000022489,
+    "latp95": 1610.9703999973135,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.8725490196078431,
+    "ic": [
+     0.8305113691367473,
+     0.9053485024879798
+    ],
+    "accdominio": 0.8959731543624161,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 8,
+     "tn": 298,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.9637111029189354,
+    "latmed": 601.264849974541,
+    "latp95": 1365.130299993325,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 24,
+    "so_b": 16,
+    "p": 0.26818725105476915,
+    "dif_acc": -0.02614379084967322,
+    "ic_dif_acc": [
+     -0.06535947712418301,
+     0.013071895424836602
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "basee4bv2",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v2",
+   "desenvolvimento": true,
+   "pastas": [
+    "results/v2_310/tc2-gemma4-e4b-it-qat",
+    "results/v2_310/se2-gemma4-e4b-it-qat"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.4738562091503268,
+    "ic": [
+     0.4185810838400951,
+     0.529779626923082
+    ],
+    "accdominio": 0.4597315436241611,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 0,
+     "fn": 0,
+     "tn": 298,
+     "precisao": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.7964791021197672,
+    "latmed": 811.3237390002723,
+    "latp95": 1306.7891239998062,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.6797385620915033,
+    "ic": [
+     0.6255094199566403,
+     0.7295106935465175
+    ],
+    "accdominio": 0.6711409395973155,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 43,
+     "fn": 0,
+     "tn": 255,
+     "precisao": 0.1568627450980392,
+     "recall": 1.0,
+     "f1": 0.2711864406779661,
+     "falsa": 0.14429530201342283,
+     "n_fora": 8
+    },
+    "f1": 0.8590625390075054,
+    "latmed": 714.6525529997234,
+    "latp95": 1470.0142350002352,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 30,
+    "so_b": 93,
+    "p": 1.0837914423674377e-08,
+    "dif_acc": 0.20588235294117652,
+    "ic_dif_acc": [
+     0.14052287581699346,
+     0.27124183006535946
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "basee4bv3",
+   "conjunto": "base",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v3",
+   "desenvolvimento": true,
+   "pastas": [
+    "results/v3_310/tc3-gemma4-e4b-it-qat",
+    "results/v3_310/se3-gemma4-e4b-it-qat"
+   ],
+   "n": 306,
+   "ntc": 306,
+   "nse": 306,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 306,
+    "acuracia": 0.9771241830065359,
+    "ic": [
+     0.9535411752777504,
+     0.9888758532942684
+    ],
+    "accdominio": 0.9832214765100671,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 6,
+     "fp": 0,
+     "fn": 2,
+     "tn": 298,
+     "precisao": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571428571428571,
+     "falsa": 0.0,
+     "n_fora": 8
+    },
+    "f1": 0.9925273665457374,
+    "latmed": 1384.761199499735,
+    "latp95": 2659.263681000084,
+    "chamadas": 2.1437908496732025,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 306,
+    "acuracia": 0.9411764705882353,
+    "ic": [
+     0.9089418273467762,
+     0.962471178524611
+    ],
+    "accdominio": 0.9395973154362416,
+    "n_dominio": 298,
+    "recusa": {
+     "tp": 8,
+     "fp": 10,
+     "fn": 0,
+     "tn": 288,
+     "precisao": 0.4444444444444444,
+     "recall": 1.0,
+     "f1": 0.6153846153846153,
+     "falsa": 0.03355704697986577,
+     "n_fora": 8
+    },
+    "f1": 0.9743135105969514,
+    "latmed": 772.2923555002126,
+    "latp95": 2672.7978119997715,
+    "chamadas": 1.2058823529411764,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 306,
+    "so_a": 15,
+    "so_b": 4,
+    "p": 0.0192108154296875,
+    "dif_acc": -0.03594771241830064,
+    "ic_dif_acc": [
+     -0.06535947712418301,
+     -0.00980392156862745
+    ]
+   },
+   "veredito": "tc"
+  },
+  {
+   "chave": "lotee4bv1",
+   "conjunto": "lote",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote/gemma4-e4b-it-qat",
+    "results/lote/se-gemma4-e4b-it-qat"
+   ],
+   "n": 1929,
+   "ntc": 1929,
+   "nse": 1929,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 1929,
+    "acuracia": 0.6148263348885433,
+    "ic": [
+     0.592901772298875,
+     0.63629445361017
+    ],
+    "accdominio": 0.4892881824464409,
+    "n_dominio": 1447,
+    "recusa": {
+     "tp": 336,
+     "fp": 464,
+     "fn": 0,
+     "tn": 983,
+     "precisao": 0.42,
+     "recall": 1.0,
+     "f1": 0.5915492957746479,
+     "falsa": 0.3206634416033172,
+     "n_fora": 336
+    },
+    "f1": 0.7611674906556182,
+    "latmed": 864.0215559998978,
+    "latp95": 1479.139552000106,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 1929,
+    "acuracia": 0.6220839813374806,
+    "ic": [
+     0.600223735430563,
+     0.6434589336510627
+    ],
+    "accdominio": 0.7546648237733241,
+    "n_dominio": 1447,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 336,
+     "tn": 1447,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 336
+    },
+    "f1": 0.8917392141044936,
+    "latmed": 722.3359589997926,
+    "latp95": 1448.479844999838,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 1929,
+    "so_a": 419,
+    "so_b": 433,
+    "p": 0.6560757515837062,
+    "dif_acc": 0.007257646448937227,
+    "ic_dif_acc": [
+     -0.023846552617936754,
+     0.03784344219803007
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "lotee4bv2",
+   "conjunto": "lote",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v2",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote/tc2-gemma4-e4b-it-qat",
+    "results/lote/se2-gemma4-e4b-it-qat"
+   ],
+   "n": 1929,
+   "ntc": 1929,
+   "nse": 1929,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 1929,
+    "acuracia": 0.6283048211508554,
+    "ic": [
+     0.606503792103956,
+     0.6495958282684533
+    ],
+    "accdominio": 0.5335176226675881,
+    "n_dominio": 1447,
+    "recusa": {
+     "tp": 335,
+     "fp": 13,
+     "fn": 1,
+     "tn": 1434,
+     "precisao": 0.9626436781609196,
+     "recall": 0.9970238095238095,
+     "f1": 0.97953216374269,
+     "falsa": 0.008984105044920525,
+     "n_fora": 336
+    },
+    "f1": 0.8401778343502052,
+    "latmed": 936.8916249995891,
+    "latp95": 1451.7516329997306,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 1929,
+    "acuracia": 0.7242094349403836,
+    "ic": [
+     0.7038346801937075,
+     0.7436929392449468
+    ],
+    "accdominio": 0.6323427781617139,
+    "n_dominio": 1447,
+    "recusa": {
+     "tp": 336,
+     "fp": 257,
+     "fn": 0,
+     "tn": 1190,
+     "precisao": 0.5666104553119731,
+     "recall": 1.0,
+     "f1": 0.7233584499461787,
+     "falsa": 0.17760884588804424,
+     "n_fora": 336
+    },
+    "f1": 0.8600750869874169,
+    "latmed": 607.6814780008135,
+    "latp95": 1478.2343349997973,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 1929,
+    "so_a": 153,
+    "so_b": 338,
+    "p": 4.286080344293237e-17,
+    "dif_acc": 0.09590461378952819,
+    "ic_dif_acc": [
+     0.07413167444271643,
+     0.11767755313634007
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "lote2e4bv1",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v1",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/gemma4-e4b-it-qat",
+    "results/lote2/se-gemma4-e4b-it-qat"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.5862433862433862,
+    "ic": [
+     0.5545543092085805,
+     0.617234111535198
+    ],
+    "accdominio": 0.45885634588563456,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 163,
+     "fp": 254,
+     "fn": 0,
+     "tn": 463,
+     "precisao": 0.3908872901678657,
+     "recall": 1.0,
+     "f1": 0.5620689655172414,
+     "falsa": 0.3542538354253835,
+     "n_fora": 163
+    },
+    "f1": 0.730750285093655,
+    "latmed": 848.4433599996919,
+    "latp95": 1410.1153009996779,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.6126984126984127,
+    "ic": [
+     0.5812426569007854,
+     0.6432415984269744
+    ],
+    "accdominio": 0.7475592747559274,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 163,
+     "tn": 717,
+     "precisao": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "falsa": 0.0,
+     "n_fora": 163
+    },
+    "f1": 0.8949412111497537,
+    "latmed": 720.4729149998457,
+    "latp95": 1444.2423039999994,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 210,
+    "so_b": 235,
+    "p": 0.2552159961522813,
+    "dif_acc": 0.02645502645502651,
+    "ic_dif_acc": [
+     -0.015899470899470896,
+     0.06878306878306878
+    ]
+   },
+   "veredito": "empate"
+  },
+  {
+   "chave": "lote2e4bv2",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v2",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/tc2-gemma4-e4b-it-qat",
+    "results/lote2/se2-gemma4-e4b-it-qat"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.6211640211640211,
+    "ic": [
+     0.5898030219133991,
+     0.6515439004812346
+    ],
+    "accdominio": 0.5327754532775453,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 163,
+     "fp": 3,
+     "fn": 0,
+     "tn": 714,
+     "precisao": 0.9819277108433735,
+     "recall": 1.0,
+     "f1": 0.9908814589665653,
+     "falsa": 0.0041841004184100415,
+     "n_fora": 163
+    },
+    "f1": 0.8421198229313082,
+    "latmed": 912.586530000226,
+    "latp95": 1396.3830689999668,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.7375661375661375,
+    "ic": [
+     0.7085934771194851,
+     0.7646151174446656
+    ],
+    "accdominio": 0.6541143654114365,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 163,
+     "fp": 116,
+     "fn": 0,
+     "tn": 601,
+     "precisao": 0.5842293906810035,
+     "recall": 1.0,
+     "f1": 0.7375565610859728,
+     "falsa": 0.16178521617852162,
+     "n_fora": 163
+    },
+    "f1": 0.857413412457617,
+    "latmed": 611.0544660004962,
+    "latp95": 1471.6350359994976,
+    "chamadas": 1.0,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 83,
+    "so_b": 193,
+    "p": 2.942445308906361e-11,
+    "dif_acc": 0.1164021164021164,
+    "ic_dif_acc": [
+     0.07936507936507936,
+     0.1492063492063492
+    ]
+   },
+   "veredito": "se"
+  },
+  {
+   "chave": "lote2e4bv3",
+   "conjunto": "lote2",
+   "ambiente": "t4",
+   "modelo": "gemma4:e4b-it-qat",
+   "espec": "v3",
+   "desenvolvimento": false,
+   "pastas": [
+    "results/lote2/tc3-gemma4-e4b-it-qat",
+    "results/lote2/se3-gemma4-e4b-it-qat"
+   ],
+   "n": 945,
+   "ntc": 945,
+   "nse": 945,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "Tesla T4, 15360 MiB; Ollama 0.34.4; 100% na GPU; mesma máquina",
+   "tc": {
+    "n": 945,
+    "acuracia": 0.9439153439153439,
+    "ic": [
+     0.9273679179067252,
+     0.9568681864124783
+    ],
+    "accdominio": 0.9442119944211994,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 155,
+     "fp": 2,
+     "fn": 8,
+     "tn": 715,
+     "precisao": 0.9872611464968153,
+     "recall": 0.950920245398773,
+     "f1": 0.9687500000000001,
+     "falsa": 0.002789400278940028,
+     "n_fora": 163
+    },
+    "f1": 0.9814749067392444,
+    "latmed": 1473.663151999972,
+    "latp95": 4962.28842399978,
+    "chamadas": 2.055026455026455,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 945,
+    "acuracia": 0.8783068783068783,
+    "ic": [
+     0.855916414031126,
+     0.8976340205198043
+    ],
+    "accdominio": 0.8437935843793585,
+    "n_dominio": 717,
+    "recusa": {
+     "tp": 163,
+     "fp": 36,
+     "fn": 0,
+     "tn": 681,
+     "precisao": 0.8190954773869347,
+     "recall": 1.0,
+     "f1": 0.9005524861878452,
+     "falsa": 0.0502092050209205,
+     "n_fora": 163
+    },
+    "f1": 0.9464020586771271,
+    "latmed": 780.9634139998707,
+    "latp95": 2552.5767089998226,
+    "chamadas": 1.2253968253968255,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 945,
+    "so_a": 95,
+    "so_b": 33,
+    "p": 3.8109453870922303e-08,
+    "dif_acc": -0.06560846560846567,
+    "ic_dif_acc": [
+     -0.08888888888888889,
+     -0.042328042328042326
+    ]
+   },
+   "veredito": "tc"
+  }
+ ],
+ "conferencia": [
+  {
+   "par": "basee2bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@e2b@acuraciatc",
+   "nosso": "56,5\\%",
+   "existente": "56,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@e2b@ictc",
+   "nosso": "50,9\\% a 62,0\\%",
+   "existente": "50,9\\% a 62,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@e2b@accsemftc",
+   "nosso": "56,4\\%",
+   "existente": "56,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@e2b@acuraciase",
+   "nosso": "53,9\\%",
+   "existente": "53,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@e2b@icse",
+   "nosso": "48,3\\% a 59,4\\%",
+   "existente": "48,3\\% a 59,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@e2b@accsemfse",
+   "nosso": "55,4\\%",
+   "existente": "55,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@e2b@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@e2b@sotc",
+   "nosso": "55",
+   "existente": "55",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@e2b@sose",
+   "nosso": "47",
+   "existente": "47",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@e2b@p",
+   "nosso": "0,488",
+   "existente": "0,488",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@e2b@difpp",
+   "nosso": "2,6",
+   "existente": "2,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@principal@e2b@acuracia",
+   "nosso": "56,5\\%",
+   "existente": "56,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@principal@e2b@ic",
+   "nosso": "50,9\\% a 62,0\\%",
+   "existente": "50,9\\% a 62,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@principal@e2b@latmed",
+   "nosso": "397",
+   "existente": "397",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@principal@e2b@latmeds",
+   "nosso": "0,4",
+   "existente": "0,4",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee2bv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@principal@e2b@latpnoventaecinco",
+   "nosso": "0,7",
+   "existente": "0,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@qwen@acuraciatc",
+   "nosso": "54,2\\%",
+   "existente": "54,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@qwen@ictc",
+   "nosso": "48,6\\% a 59,7\\%",
+   "existente": "48,6\\% a 59,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@qwen@accsemftc",
+   "nosso": "53,0\\%",
+   "existente": "53,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@qwen@acuraciase",
+   "nosso": "60,1\\%",
+   "existente": "60,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@qwen@icse",
+   "nosso": "54,6\\% a 65,5\\%",
+   "existente": "54,6\\% a 65,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@qwen@accsemfse",
+   "nosso": "61,7\\%",
+   "existente": "61,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@qwen@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@qwen@sotc",
+   "nosso": "25",
+   "existente": "25",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@qwen@sose",
+   "nosso": "43",
+   "existente": "43",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@qwen@p",
+   "nosso": "0,038",
+   "existente": "0,038",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@qwen@difpp",
+   "nosso": "-5,9",
+   "existente": "-5,9",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@principal@qwen@acuracia",
+   "nosso": "54,2\\%",
+   "existente": "54,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@principal@qwen@ic",
+   "nosso": "48,6\\% a 59,7\\%",
+   "existente": "48,6\\% a 59,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@principal@qwen@latmed",
+   "nosso": "828",
+   "existente": "828",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@principal@qwen@latmeds",
+   "nosso": "0,8",
+   "existente": "0,8",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseqwenv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@principal@qwen@latpnoventaecinco",
+   "nosso": "1,4",
+   "existente": "1,4",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@e4b@acuraciatc",
+   "nosso": "60,1\\%",
+   "existente": "60,2\\%",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@e4b@ictc",
+   "nosso": "54,6\\% a 65,5\\%",
+   "existente": "54,7\\% a 65,6\\%",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@e4b@accsemftc",
+   "nosso": "59,1\\%",
+   "existente": "59,2\\%",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@e4b@acuraciase",
+   "nosso": "75,2\\%",
+   "existente": "75,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@e4b@icse",
+   "nosso": "70,0\\% a 79,7\\%",
+   "existente": "70,0\\% a 79,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@e4b@accsemfse",
+   "nosso": "77,2\\%",
+   "existente": "77,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@e4b@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@e4b@sotc",
+   "nosso": "16",
+   "existente": "16",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@e4b@sose",
+   "nosso": "62",
+   "existente": "62",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@e4b@p",
+   "nosso": "inferior a 0,001",
+   "existente": "inferior a 0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@e4b@difpp",
+   "nosso": "-15,0",
+   "existente": "-14,9",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@principal@e4b@acuracia",
+   "nosso": "60,1\\%",
+   "existente": "60,2\\%",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@principal@e4b@ic",
+   "nosso": "54,6\\% a 65,5\\%",
+   "existente": "54,7\\% a 65,6\\%",
+   "situacao": "explicada",
+   "causa": "a fonte pontua a média das execuções (TC com 3 repetições); a A/B, uma observação por consulta, pela maioria das repetições"
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@principal@e4b@latmed",
+   "nosso": "725",
+   "existente": "725",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@principal@e4b@latmeds",
+   "nosso": "0,7",
+   "existente": "0,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@principal@e4b@latpnoventaecinco",
+   "nosso": "1,2",
+   "existente": "1,2",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@base@tc1@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@base@tc1@acuracia",
+   "nosso": "60,1\\%",
+   "existente": "60,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@base@tc1@ic",
+   "nosso": "54,6\\% a 65,5\\%",
+   "existente": "54,6\\% a 65,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@base@tc1@accdominio",
+   "nosso": "59,1\\%",
+   "existente": "59,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@base@tc1@recusaf",
+   "nosso": "0,222",
+   "existente": "0,222",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@base@tc1@latmed",
+   "nosso": "0,72",
+   "existente": "0,72",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@base@tc1@latp95",
+   "nosso": "1,23",
+   "existente": "1,23",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@base@se1@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@base@se1@acuracia",
+   "nosso": "75,2\\%",
+   "existente": "75,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@base@se1@ic",
+   "nosso": "70,0\\% a 79,7\\%",
+   "existente": "70,0\\% a 79,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@base@se1@accdominio",
+   "nosso": "77,2\\%",
+   "existente": "77,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@base@se1@recusaf",
+   "nosso": "0,000",
+   "existente": "0,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@base@se1@latmed",
+   "nosso": "0,76",
+   "existente": "0,76",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@base@se1@latp95",
+   "nosso": "1,60",
+   "existente": "1,60",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@base@tc1se1@soa",
+   "nosso": "16",
+   "existente": "16",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@base@tc1se1@sob",
+   "nosso": "62",
+   "existente": "62",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@base@tc1se1@p",
+   "nosso": "$<$\\,0,001",
+   "existente": "$<$\\,0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@base@tc1se1@difacc",
+   "nosso": "+15,0",
+   "existente": "+15,0",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv1",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@base@tc1se1@icdifacc",
+   "nosso": "+9,8 a +20,6",
+   "existente": "+9,8 a +20,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@mistral@acuraciatc",
+   "nosso": "26,8\\%",
+   "existente": "26,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@mistral@ictc",
+   "nosso": "22,1\\% a 32,0\\%",
+   "existente": "22,1\\% a 32,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@mistral@accsemftc",
+   "nosso": "24,8\\%",
+   "existente": "24,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@mistral@acuraciase",
+   "nosso": "52,0\\%",
+   "existente": "52,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@mistral@icse",
+   "nosso": "46,4\\% a 57,5\\%",
+   "existente": "46,4\\% a 57,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@mistral@accsemfse",
+   "nosso": "53,4\\%",
+   "existente": "53,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@mistral@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@mistral@sotc",
+   "nosso": "32",
+   "existente": "32",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@mistral@sose",
+   "nosso": "109",
+   "existente": "109",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@mistral@p",
+   "nosso": "inferior a 0,001",
+   "existente": "inferior a 0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@mistral@difpp",
+   "nosso": "-25,2",
+   "existente": "-25,2",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@principal@mistral@acuracia",
+   "nosso": "26,8\\%",
+   "existente": "26,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@principal@mistral@ic",
+   "nosso": "22,1\\% a 32,0\\%",
+   "existente": "22,1\\% a 32,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@principal@mistral@latmed",
+   "nosso": "2391",
+   "existente": "2391",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@principal@mistral@latmeds",
+   "nosso": "2,4",
+   "existente": "2,4",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basemistralv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@principal@mistral@latpnoventaecinco",
+   "nosso": "5,9",
+   "existente": "5,9",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagensestacao@e2b@acuraciatc",
+   "nosso": "47,5\\%",
+   "existente": "47,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagensestacao@e2b@ictc",
+   "nosso": "35,3\\% a 60,0\\%",
+   "existente": "35,3\\% a 60,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagensestacao@e2b@accsemftc",
+   "nosso": "45,6\\%",
+   "existente": "45,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagensestacao@e2b@acuraciase",
+   "nosso": "45,8\\%",
+   "existente": "45,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagensestacao@e2b@icse",
+   "nosso": "33,7\\% a 58,3\\%",
+   "existente": "33,7\\% a 58,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagensestacao@e2b@accsemfse",
+   "nosso": "47,4\\%",
+   "existente": "47,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagensestacao@e2b@n",
+   "nosso": "59",
+   "existente": "59",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagensestacao@e2b@sotc",
+   "nosso": "10",
+   "existente": "10",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagensestacao@e2b@sose",
+   "nosso": "9",
+   "existente": "9",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagensestacao@e2b@p",
+   "nosso": "1,000",
+   "existente": "1,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagensestacao@e2b@difpp",
+   "nosso": "1,7",
+   "existente": "1,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@estacao@e2b@acuracia",
+   "nosso": "47,5\\%",
+   "existente": "47,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@estacao@e2b@ic",
+   "nosso": "35,3\\% a 60,0\\%",
+   "existente": "35,3\\% a 60,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@estacao@e2b@latmed",
+   "nosso": "709",
+   "existente": "709",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@estacao@e2b@latmeds",
+   "nosso": "0,7",
+   "existente": "0,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoe2bv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@estacao@e2b@latpnoventaecinco",
+   "nosso": "1,2",
+   "existente": "1,2",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagensestacao@qwen@acuraciatc",
+   "nosso": "49,2\\%",
+   "existente": "49,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagensestacao@qwen@ictc",
+   "nosso": "36,8\\% a 61,6\\%",
+   "existente": "36,8\\% a 61,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagensestacao@qwen@accsemftc",
+   "nosso": "47,4\\%",
+   "existente": "47,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagensestacao@qwen@acuraciase",
+   "nosso": "50,8\\%",
+   "existente": "50,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagensestacao@qwen@icse",
+   "nosso": "38,4\\% a 63,2\\%",
+   "existente": "38,4\\% a 63,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagensestacao@qwen@accsemfse",
+   "nosso": "52,6\\%",
+   "existente": "52,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagensestacao@qwen@n",
+   "nosso": "59",
+   "existente": "59",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagensestacao@qwen@sotc",
+   "nosso": "9",
+   "existente": "9",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagensestacao@qwen@sose",
+   "nosso": "10",
+   "existente": "10",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagensestacao@qwen@p",
+   "nosso": "1,000",
+   "existente": "1,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagensestacao@qwen@difpp",
+   "nosso": "-1,7",
+   "existente": "-1,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@estacao@qwen@acuracia",
+   "nosso": "49,2\\%",
+   "existente": "49,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@estacao@qwen@ic",
+   "nosso": "36,8\\% a 61,6\\%",
+   "existente": "36,8\\% a 61,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "latência TC (ms)",
+   "campo": "latmedtc",
+   "macro": "res@estacao@qwen@latmed",
+   "nosso": "2596",
+   "existente": "2596",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "latência TC (s)",
+   "campo": "latmedtc",
+   "macro": "res@estacao@qwen@latmeds",
+   "nosso": "2,6",
+   "existente": "2,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "baseestacaoqwenv1",
+   "medida": "p95 TC (s)",
+   "campo": "latp95tc",
+   "macro": "res@estacao@qwen@latpnoventaecinco",
+   "nosso": "5,7",
+   "existente": "5,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@gptoss20@acuraciatc",
+   "nosso": "89,2\\%",
+   "existente": "89,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@gptoss20@ictc",
+   "nosso": "85,2\\% a 92,2\\%",
+   "existente": "85,2\\% a 92,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@gptoss20@accsemftc",
+   "nosso": "88,9\\%",
+   "existente": "88,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@gptoss20@acuraciase",
+   "nosso": "77,5\\%",
+   "existente": "77,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@gptoss20@icse",
+   "nosso": "72,4\\% a 81,8\\%",
+   "existente": "72,4\\% a 81,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@gptoss20@accsemfse",
+   "nosso": "79,5\\%",
+   "existente": "79,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@gptoss20@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@gptoss20@sotc",
+   "nosso": "50",
+   "existente": "50",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@gptoss20@sose",
+   "nosso": "14",
+   "existente": "14",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@gptoss20@p",
+   "nosso": "inferior a 0,001",
+   "existente": "inferior a 0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@gptoss20@difpp",
+   "nosso": "11,8",
+   "existente": "11,8",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@groq@gptoss20@acuracia",
+   "nosso": "89,2\\%",
+   "existente": "89,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss20v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@groq@gptoss20@ic",
+   "nosso": "85,2\\% a 92,2\\%",
+   "existente": "85,2\\% a 92,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@qwen38@acuraciatc",
+   "nosso": "94,7\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@qwen38@ictc",
+   "nosso": "91,5\\% a 96,8\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@qwen38@accsemftc",
+   "nosso": "95,1\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@qwen38@acuraciase",
+   "nosso": "94,4\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@qwen38@icse",
+   "nosso": "91,1\\% a 96,5\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@qwen38@accsemfse",
+   "nosso": "95,1\\%",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@qwen38@n",
+   "nosso": "285",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@qwen38@sotc",
+   "nosso": "6",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@qwen38@sose",
+   "nosso": "5",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@qwen38@p",
+   "nosso": "1,000",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@qwen38@difpp",
+   "nosso": "0,4",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@groq@qwen38@acuracia",
+   "nosso": "94,7\\%",
+   "existente": "95,1\\%",
+   "situacao": "explicada",
+   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 285); a A/B, só as 285 presentes nas duas"
+  },
+  {
+   "par": "basegroqqwen38v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@groq@qwen38@ic",
+   "nosso": "91,5\\% a 96,8\\%",
+   "existente": "92,1\\% a 97,0\\%",
+   "situacao": "explicada",
+   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 285); a A/B, só as 285 presentes nas duas"
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@abordagens@gptoss120@acuraciatc",
+   "nosso": "89,9\\%",
+   "existente": "89,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@abordagens@gptoss120@ictc",
+   "nosso": "86,0\\% a 92,8\\%",
+   "existente": "86,0\\% a 92,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "domínio (sem F) TC",
+   "campo": "domtc",
+   "macro": "res@abordagens@gptoss120@accsemftc",
+   "nosso": "89,6\\%",
+   "existente": "89,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@abordagens@gptoss120@acuraciase",
+   "nosso": "87,3\\%",
+   "existente": "87,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@abordagens@gptoss120@icse",
+   "nosso": "83,1\\% a 90,5\\%",
+   "existente": "83,1\\% a 90,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "domínio (sem F) SE",
+   "campo": "domse",
+   "macro": "res@abordagens@gptoss120@accsemfse",
+   "nosso": "89,6\\%",
+   "existente": "89,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "n",
+   "campo": "n",
+   "macro": "res@abordagens@gptoss120@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@abordagens@gptoss120@sotc",
+   "nosso": "24",
+   "existente": "24",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@abordagens@gptoss120@sose",
+   "nosso": "16",
+   "existente": "16",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@abordagens@gptoss120@p",
+   "nosso": "0,268",
+   "existente": "0,268",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "TC − SE",
+   "campo": "dif",
+   "macro": "res@abordagens@gptoss120@difpp",
+   "nosso": "2,6",
+   "existente": "2,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@groq@gptoss120@acuracia",
+   "nosso": "89,9\\%",
+   "existente": "89,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basegroqgptoss120v1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@groq@gptoss120@ic",
+   "nosso": "86,0\\% a 92,8\\%",
+   "existente": "86,0\\% a 92,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@base@tc2@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@base@tc2@acuracia",
+   "nosso": "47,4\\%",
+   "existente": "47,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@base@tc2@ic",
+   "nosso": "41,9\\% a 53,0\\%",
+   "existente": "41,9\\% a 53,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@base@tc2@accdominio",
+   "nosso": "46,0\\%",
+   "existente": "46,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@base@tc2@recusaf",
+   "nosso": "1,000",
+   "existente": "1,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@base@tc2@latmed",
+   "nosso": "0,81",
+   "existente": "0,81",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@base@tc2@latp95",
+   "nosso": "1,31",
+   "existente": "1,31",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@base@se2@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@base@se2@acuracia",
+   "nosso": "68,0\\%",
+   "existente": "68,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@base@se2@ic",
+   "nosso": "62,6\\% a 73,0\\%",
+   "existente": "62,6\\% a 73,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@base@se2@accdominio",
+   "nosso": "67,1\\%",
+   "existente": "67,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@base@se2@recusaf",
+   "nosso": "0,271",
+   "existente": "0,271",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@base@se2@latmed",
+   "nosso": "0,71",
+   "existente": "0,71",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@base@se2@latp95",
+   "nosso": "1,47",
+   "existente": "1,47",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@base@tc2se2@soa",
+   "nosso": "30",
+   "existente": "30",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@base@tc2se2@sob",
+   "nosso": "93",
+   "existente": "93",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@base@tc2se2@p",
+   "nosso": "$<$\\,0,001",
+   "existente": "$<$\\,0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@base@tc2se2@difacc",
+   "nosso": "+20,6",
+   "existente": "+20,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv2",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@base@tc2se2@icdifacc",
+   "nosso": "+14,1 a +27,1",
+   "existente": "+14,1 a +27,1",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@v3base@tc3@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@v3base@tc3@acuracia",
+   "nosso": "97,7\\%",
+   "existente": "97,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@v3base@tc3@ic",
+   "nosso": "95,4\\% a 98,9\\%",
+   "existente": "95,4\\% a 98,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@v3base@tc3@accdominio",
+   "nosso": "98,3\\%",
+   "existente": "98,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@v3base@tc3@recusaf",
+   "nosso": "0,857",
+   "existente": "0,857",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@v3base@tc3@latmed",
+   "nosso": "1,38",
+   "existente": "1,38",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@v3base@tc3@latp95",
+   "nosso": "2,66",
+   "existente": "2,66",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "chamadas TC",
+   "campo": "chamadastc",
+   "macro": "res@v3base@tc3@chamadas",
+   "nosso": "2,14",
+   "existente": "2,14",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@v3base@se3@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@v3base@se3@acuracia",
+   "nosso": "94,1\\%",
+   "existente": "94,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@v3base@se3@ic",
+   "nosso": "90,9\\% a 96,2\\%",
+   "existente": "90,9\\% a 96,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@v3base@se3@accdominio",
+   "nosso": "94,0\\%",
+   "existente": "94,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@v3base@se3@recusaf",
+   "nosso": "0,615",
+   "existente": "0,615",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@v3base@se3@latmed",
+   "nosso": "0,77",
+   "existente": "0,77",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@v3base@se3@latp95",
+   "nosso": "2,67",
+   "existente": "2,67",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "chamadas SE",
+   "campo": "chamadasse",
+   "macro": "res@v3base@se3@chamadas",
+   "nosso": "1,21",
+   "existente": "1,21",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@v3base@tc3se3@soa",
+   "nosso": "15",
+   "existente": "15",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@v3base@tc3se3@sob",
+   "nosso": "4",
+   "existente": "4",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@v3base@tc3se3@p",
+   "nosso": "0,019",
+   "existente": "0,019",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@v3base@tc3se3@difacc",
+   "nosso": "-3,6",
+   "existente": "-3,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@v3base@tc3se3@icdifacc",
+   "nosso": "-6,5 a -1,0",
+   "existente": "-6,5 a -1,0",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "basee4bv3",
+   "medida": "n do par",
+   "campo": "n",
+   "macro": "res@v3base@tc3se3@n",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@lote@tc1@n",
+   "nosso": "1.929",
+   "existente": "1.929",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@lote@tc1@acuracia",
+   "nosso": "61,5\\%",
+   "existente": "61,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@lote@tc1@ic",
+   "nosso": "59,3\\% a 63,6\\%",
+   "existente": "59,3\\% a 63,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@lote@tc1@accdominio",
+   "nosso": "48,9\\%",
+   "existente": "48,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@lote@tc1@recusaf",
+   "nosso": "0,592",
+   "existente": "0,592",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@lote@tc1@latmed",
+   "nosso": "0,86",
+   "existente": "0,86",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@lote@tc1@latp95",
+   "nosso": "1,48",
+   "existente": "1,48",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@lote@se1@n",
+   "nosso": "1.929",
+   "existente": "1.929",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@lote@se1@acuracia",
+   "nosso": "62,2\\%",
+   "existente": "62,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@lote@se1@ic",
+   "nosso": "60,0\\% a 64,3\\%",
+   "existente": "60,0\\% a 64,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@lote@se1@accdominio",
+   "nosso": "75,5\\%",
+   "existente": "75,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@lote@se1@recusaf",
+   "nosso": "0,000",
+   "existente": "0,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@lote@se1@latmed",
+   "nosso": "0,72",
+   "existente": "0,72",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@lote@se1@latp95",
+   "nosso": "1,45",
+   "existente": "1,45",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@lote@tc1se1@soa",
+   "nosso": "419",
+   "existente": "419",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@lote@tc1se1@sob",
+   "nosso": "433",
+   "existente": "433",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@lote@tc1se1@p",
+   "nosso": "0,656",
+   "existente": "0,656",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@lote@tc1se1@difacc",
+   "nosso": "+0,7",
+   "existente": "+0,7",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv1",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@lote@tc1se1@icdifacc",
+   "nosso": "-2,4 a +3,8",
+   "existente": "-2,4 a +3,8",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@lote@tc2@n",
+   "nosso": "1.929",
+   "existente": "1.929",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@lote@tc2@acuracia",
+   "nosso": "62,8\\%",
+   "existente": "62,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@lote@tc2@ic",
+   "nosso": "60,7\\% a 65,0\\%",
+   "existente": "60,7\\% a 65,0\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@lote@tc2@accdominio",
+   "nosso": "53,4\\%",
+   "existente": "53,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@lote@tc2@recusaf",
+   "nosso": "0,980",
+   "existente": "0,980",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@lote@tc2@latmed",
+   "nosso": "0,94",
+   "existente": "0,94",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@lote@tc2@latp95",
+   "nosso": "1,45",
+   "existente": "1,45",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@lote@se2@n",
+   "nosso": "1.929",
+   "existente": "1.929",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@lote@se2@acuracia",
+   "nosso": "72,4\\%",
+   "existente": "72,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@lote@se2@ic",
+   "nosso": "70,4\\% a 74,4\\%",
+   "existente": "70,4\\% a 74,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@lote@se2@accdominio",
+   "nosso": "63,2\\%",
+   "existente": "63,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@lote@se2@recusaf",
+   "nosso": "0,723",
+   "existente": "0,723",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@lote@se2@latmed",
+   "nosso": "0,61",
+   "existente": "0,61",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@lote@se2@latp95",
+   "nosso": "1,48",
+   "existente": "1,48",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@lote@tc2se2@soa",
+   "nosso": "153",
+   "existente": "153",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@lote@tc2se2@sob",
+   "nosso": "338",
+   "existente": "338",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@lote@tc2se2@p",
+   "nosso": "$<$\\,0,001",
+   "existente": "$<$\\,0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@lote@tc2se2@difacc",
+   "nosso": "+9,6",
+   "existente": "+9,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lotee4bv2",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@lote@tc2se2@icdifacc",
+   "nosso": "+7,4 a +11,8",
+   "existente": "+7,4 a +11,8",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@lote2@tc1@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@lote2@tc1@acuracia",
+   "nosso": "58,6\\%",
+   "existente": "58,6\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@lote2@tc1@ic",
+   "nosso": "55,5\\% a 61,7\\%",
+   "existente": "55,5\\% a 61,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@lote2@tc1@accdominio",
+   "nosso": "45,9\\%",
+   "existente": "45,9\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@lote2@tc1@recusaf",
+   "nosso": "0,562",
+   "existente": "0,562",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@lote2@tc1@latmed",
+   "nosso": "0,85",
+   "existente": "0,85",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@lote2@tc1@latp95",
+   "nosso": "1,41",
+   "existente": "1,41",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "chamadas TC",
+   "campo": "chamadastc",
+   "macro": "res@lote2@tc1@chamadas",
+   "nosso": "1,00",
+   "existente": "1,00",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@lote2@se1@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@lote2@se1@acuracia",
+   "nosso": "61,3\\%",
+   "existente": "61,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@lote2@se1@ic",
+   "nosso": "58,1\\% a 64,3\\%",
+   "existente": "58,1\\% a 64,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@lote2@se1@accdominio",
+   "nosso": "74,8\\%",
+   "existente": "74,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@lote2@se1@recusaf",
+   "nosso": "0,000",
+   "existente": "0,000",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@lote2@se1@latmed",
+   "nosso": "0,72",
+   "existente": "0,72",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@lote2@se1@latp95",
+   "nosso": "1,44",
+   "existente": "1,44",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "chamadas SE",
+   "campo": "chamadasse",
+   "macro": "res@lote2@se1@chamadas",
+   "nosso": "1,00",
+   "existente": "1,00",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@lote2@tc1se1@soa",
+   "nosso": "210",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@lote2@tc1se1@sob",
+   "nosso": "235",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@lote2@tc1se1@p",
+   "nosso": "0,255",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@lote2@tc1se1@difacc",
+   "nosso": "+2,6",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@lote2@tc1se1@icdifacc",
+   "nosso": "-1,6 a +6,9",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv1",
+   "medida": "n do par",
+   "campo": "n",
+   "macro": "res@lote2@tc1se1@n",
+   "nosso": "945",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@lote2@tc2@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@lote2@tc2@acuracia",
+   "nosso": "62,1\\%",
+   "existente": "62,1\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@lote2@tc2@ic",
+   "nosso": "59,0\\% a 65,2\\%",
+   "existente": "59,0\\% a 65,2\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@lote2@tc2@accdominio",
+   "nosso": "53,3\\%",
+   "existente": "53,3\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@lote2@tc2@recusaf",
+   "nosso": "0,991",
+   "existente": "0,991",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@lote2@tc2@latmed",
+   "nosso": "0,91",
+   "existente": "0,91",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@lote2@tc2@latp95",
+   "nosso": "1,40",
+   "existente": "1,40",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "chamadas TC",
+   "campo": "chamadastc",
+   "macro": "res@lote2@tc2@chamadas",
+   "nosso": "1,00",
+   "existente": "1,00",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@lote2@se2@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@lote2@se2@acuracia",
+   "nosso": "73,8\\%",
+   "existente": "73,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@lote2@se2@ic",
+   "nosso": "70,9\\% a 76,5\\%",
+   "existente": "70,9\\% a 76,5\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@lote2@se2@accdominio",
+   "nosso": "65,4\\%",
+   "existente": "65,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@lote2@se2@recusaf",
+   "nosso": "0,738",
+   "existente": "0,738",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@lote2@se2@latmed",
+   "nosso": "0,61",
+   "existente": "0,61",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@lote2@se2@latp95",
+   "nosso": "1,47",
+   "existente": "1,47",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "chamadas SE",
+   "campo": "chamadasse",
+   "macro": "res@lote2@se2@chamadas",
+   "nosso": "1,00",
+   "existente": "1,00",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@lote2@tc2se2@soa",
+   "nosso": "83",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@lote2@tc2se2@sob",
+   "nosso": "193",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@lote2@tc2se2@p",
+   "nosso": "$<$\\,0,001",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@lote2@tc2se2@difacc",
+   "nosso": "+11,6",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@lote2@tc2se2@icdifacc",
+   "nosso": "+7,9 a +14,9",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv2",
+   "medida": "n do par",
+   "campo": "n",
+   "macro": "res@lote2@tc2se2@n",
+   "nosso": "945",
+   "existente": null,
+   "situacao": "sem_referencia",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "n TC",
+   "campo": "n",
+   "macro": "res@lote2@tc3@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "acurácia TC",
+   "campo": "acctc",
+   "macro": "res@lote2@tc3@acuracia",
+   "nosso": "94,4\\%",
+   "existente": "94,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "IC TC",
+   "campo": "ictc",
+   "macro": "res@lote2@tc3@ic",
+   "nosso": "92,7\\% a 95,7\\%",
+   "existente": "92,7\\% a 95,7\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "domínio TC",
+   "campo": "domtc",
+   "macro": "res@lote2@tc3@accdominio",
+   "nosso": "94,4\\%",
+   "existente": "94,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "F1 recusa TC",
+   "campo": "recusaftc",
+   "macro": "res@lote2@tc3@recusaf",
+   "nosso": "0,969",
+   "existente": "0,969",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "latência TC",
+   "campo": "latmedtc",
+   "macro": "res@lote2@tc3@latmed",
+   "nosso": "1,47",
+   "existente": "1,47",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "p95 TC",
+   "campo": "latp95tc",
+   "macro": "res@lote2@tc3@latp95",
+   "nosso": "4,96",
+   "existente": "4,96",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "chamadas TC",
+   "campo": "chamadastc",
+   "macro": "res@lote2@tc3@chamadas",
+   "nosso": "2,06",
+   "existente": "2,06",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "n SE",
+   "campo": "n",
+   "macro": "res@lote2@se3@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "acurácia SE",
+   "campo": "accse",
+   "macro": "res@lote2@se3@acuracia",
+   "nosso": "87,8\\%",
+   "existente": "87,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "IC SE",
+   "campo": "icse",
+   "macro": "res@lote2@se3@ic",
+   "nosso": "85,6\\% a 89,8\\%",
+   "existente": "85,6\\% a 89,8\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "domínio SE",
+   "campo": "domse",
+   "macro": "res@lote2@se3@accdominio",
+   "nosso": "84,4\\%",
+   "existente": "84,4\\%",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "F1 recusa SE",
+   "campo": "recusafse",
+   "macro": "res@lote2@se3@recusaf",
+   "nosso": "0,901",
+   "existente": "0,901",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "latência SE",
+   "campo": "latmedse",
+   "macro": "res@lote2@se3@latmed",
+   "nosso": "0,78",
+   "existente": "0,78",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "p95 SE",
+   "campo": "latp95se",
+   "macro": "res@lote2@se3@latp95",
+   "nosso": "2,55",
+   "existente": "2,55",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "chamadas SE",
+   "campo": "chamadasse",
+   "macro": "res@lote2@se3@chamadas",
+   "nosso": "1,23",
+   "existente": "1,23",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "só TC",
+   "campo": "sotc",
+   "macro": "res@lote2@tc3se3@soa",
+   "nosso": "95",
+   "existente": "95",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "só SE",
+   "campo": "sose",
+   "macro": "res@lote2@tc3se3@sob",
+   "nosso": "33",
+   "existente": "33",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "p",
+   "campo": "p",
+   "macro": "res@lote2@tc3se3@p",
+   "nosso": "$<$\\,0,001",
+   "existente": "$<$\\,0,001",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "SE − TC",
+   "campo": "dif",
+   "macro": "res@lote2@tc3se3@difacc",
+   "nosso": "-6,6",
+   "existente": "-6,6",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "IC SE − TC",
+   "campo": "icdif",
+   "macro": "res@lote2@tc3se3@icdifacc",
+   "nosso": "-8,9 a -4,2",
+   "existente": "-8,9 a -4,2",
+   "situacao": "igual",
+   "causa": ""
+  },
+  {
+   "par": "lote2e4bv3",
+   "medida": "n do par",
+   "campo": "n",
+   "macro": "res@lote2@tc3se3@n",
+   "nosso": "945",
+   "existente": "945",
+   "situacao": "igual",
+   "causa": ""
+  }
+ ]
+}

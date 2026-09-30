@@ -17,5 +17,32 @@ services:
       timeout: 3s
       retries: 20
 
+  # API do PFC (Dockerfile). docker compose up -d --build   (README, "Subir a API")
+  api:
+    build: .
+    image: pfc-busca-api
+    container_name: pfc_api
+    depends_on:
+      postgis:
+        condition: service_healthy
+    environment:
+      # abordagem e modelo (pfc abordagens lista as abordagens); os mesmos padrões da API local
+      PFC_ABORDAGEM: ${PFC_ABORDAGEM:-tool_calling_v3}
+      PFC_MODELO_PADRAO: ${PFC_MODELO_PADRAO:-gemma4:e4b-it-qat}
+      PFC_PERMITIR_MODELO: ${PFC_PERMITIR_MODELO:-0}
+      # URL completa do Ollama do host, vista de dentro do contêiner. Variável própria de propósito: o
+      # OLLAMA_HOST do shell é o endereço em que o servidor do Ollama escuta (ex.: 0.0.0.0), não uma URL.
+      OLLAMA_BASE_URL: ${PFC_OLLAMA_URL_DOCKER:-http://host.docker.internal:11434}
+      PFC_DB_DSN: postgresql://postgres:pfc@postgis:5432/geospatial_search
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # no Linux; o Docker Desktop já resolve esse nome
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # dados das ferramentas da v3, com o índice de folhas do BDGEx se ele existir no disco (não vai na imagem)
+      - ./src/pfc_busca/dados:/app/src/pfc_busca/dados:ro
+      # manifestos das rodadas: o /api/health lista as rodadas feitas com a mesma configuração
+      - ./results:/app/results:ro
+
 volumes:
   pfc_pgdata:

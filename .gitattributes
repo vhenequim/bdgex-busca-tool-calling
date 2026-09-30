@@ -1,0 +1,8 @@
+# Arquivos cujos bytes entram em hashes de pré-registro (v3.texto_hash) ou de conferência dos conjuntos
+# (DATASET_SHA256, LOTE_SHA256, LOTE2_SHA256): o git nunca converte o fim de linha deles, em nenhum sistema.
+src/pfc_busca/v3.py -text
+src/pfc_busca/ferramentas.py -text
+src/pfc_busca/dados/*.json -text
+data/dataset.json -text
+data/lote_validacao.json -text
+data/lote_validacao_2.json -text

@@ -51,7 +51,7 @@ from rich.progress import (
 )
 from rich.text import Text
 
-from pfc_busca import agent, agent_estruturado, db, prompts, schema, tools, v2, v3
+from pfc_busca import abordagens, agent, db, schema, tools
 from pfc_busca.evaluation import metrics
 from pfc_busca.evaluation.dataset_builder import caminho_dataset, carregar_dataset
 from pfc_busca.evaluation.gabarito import resolver_gabarito, resolver_leituras
@@ -62,10 +62,10 @@ FALHAS_INFRA_PARA_ABORTAR = 3
 CONSULTA_AQUECIMENTO = "cartas de São Paulo"
 
 
-PREFIXO_ABORDAGEM = {"tool_calling": "", "saida_estruturada": "se-", "prototipo": "prototipo-",
-                     "tool_calling_v2": "tc2-", "saida_estruturada_v2": "se2-", **v3.PREFIXOS}
+# Nomes, prefixos e fábricas vêm do registro único (pfc_busca.abordagens); uma versão nova entra só lá.
+PREFIXO_ABORDAGEM = {a.nome: a.prefixo for a in abordagens.REGISTRO.values()}
 ABORDAGENS = list(PREFIXO_ABORDAGEM)
-SO_OLLAMA = ("prototipo", *v2.ABORDAGENS_V2, *v3.ABORDAGENS_V3)
+SO_OLLAMA = tuple(a.nome for a in abordagens.REGISTRO.values() if a.so_ollama)
 
 
 def slug(modelo: str, provedor: str = "ollama", abordagem: str = "tool_calling") -> str:
@@ -82,19 +82,8 @@ def _carregar_env() -> None:
 
 
 def criar_tradutor(args, registrar=print):
-    if args.provedor == "groq":
-        from pfc_busca.agent_groq import TradutorEstruturadoGroq, TradutorGroq
-
-        if args.abordagem == "saida_estruturada":
-            return TradutorEstruturadoGroq(args.modelo, registrar=registrar)
-        return TradutorGroq(args.modelo, registrar=registrar)
-    if args.abordagem in v2.ABORDAGENS_V2:
-        return v2.criar(args.modelo, args.abordagem, base_url=args.base_url)
-    if args.abordagem in v3.ABORDAGENS_V3:
-        return v3.criar(args.modelo, args.abordagem, base_url=args.base_url)
-    if args.abordagem != "tool_calling":
-        return agent_estruturado.TradutorEstruturado(args.modelo, args.abordagem, base_url=args.base_url)
-    return agent.Tradutor(args.modelo, base_url=args.base_url)
+    return abordagens.criar_tradutor(args.abordagem, args.modelo, provedor=args.provedor,
+                                     base_url=args.base_url, registrar=registrar)
 
 
 # ---------------------------------------------------------------------------
@@ -195,30 +184,18 @@ def versao_codigo() -> str | None:
         return None
 
 
+def _para_hash(abordagem: str) -> str:
+    # um nome fora do registro (manifesto antigo, ex.: tc3f do desenvolvimento) cai na v1, como sempre caiu:
+    # pfc-conferir acusa a divergência em vez de quebrar
+    return abordagem if abordagem in abordagens.REGISTRO else "tool_calling"
+
+
 def hash_prompt(abordagem: str = "tool_calling") -> str:
-    if abordagem == "saida_estruturada":
-        texto = agent_estruturado._MODELO_SE + json.dumps(agent_estruturado.PARAMETROS, ensure_ascii=False, sort_keys=True)
-    elif abordagem == "prototipo":
-        texto = agent_estruturado._PROMPT_PROTOTIPO + agent_estruturado.instrucao_instructor()
-    elif abordagem in v2.ABORDAGENS_V2:
-        texto = v2.texto_hash(abordagem)
-    elif abordagem in v3.ABORDAGENS_V3:
-        texto = v3.texto_hash(abordagem)
-    else:
-        texto = prompts._MODELO
-    return hashlib.sha256(texto.encode("utf-8")).hexdigest()
+    return abordagens.hash_prompt(_para_hash(abordagem))
 
 
 def hash_ferramenta(abordagem: str = "tool_calling") -> str:
-    if abordagem == "tool_calling_v2":
-        definicao = [v2.FERRAMENTA_BUSCAR_CATALOGO_V2, v2.FERRAMENTA_RECUSAR]
-    elif abordagem == "saida_estruturada_v2":
-        definicao = v2.FERRAMENTA_BUSCAR_CATALOGO_V2
-    elif abordagem in v3.ABORDAGENS_V3:
-        definicao = v3.ferramentas_da(abordagem)
-    else:
-        definicao = schema.FERRAMENTA_BUSCAR_CATALOGO
-    return hashlib.sha256(json.dumps(definicao, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    return abordagens.hash_ferramenta(_para_hash(abordagem))
 
 
 def _info_modelo(modelo: str, base_url: str) -> dict:
@@ -632,9 +609,9 @@ def analisar(argv: list[str] | None = None):
     p.add_argument("--provedor", choices=["ollama", "groq"], default="ollama",
                    help="ollama = local (configuração avaliada); groq = nuvem (resultado paralelo)")
     p.add_argument("--abordagem", choices=ABORDAGENS, default="tool_calling",
-                   help="tool_calling = solução avaliada; saida_estruturada e prototipo = linhas de base "
-                        "(prototipo só no Ollama); tool_calling_v2 e saida_estruturada_v2 = especificação v2 "
-                        "(lote de validação; só no Ollama)")
+                   help="abordagem do registro (lista completa: pfc abordagens). tool_calling = solução do Cap. 4; "
+                        "saida_estruturada e prototipo = linhas de base; *_v2 e *_v3 = especificações dos lotes de "
+                        f"validação; {abordagens.RECOMENDADA} = a recomendada. Só no Ollama: {', '.join(SO_OLLAMA)}")
     p.add_argument("--intervalo", type=float, default=None,
                    help="segundos entre chamadas (padrão: 0 no Ollama, 11 no Groq por causa do limite por minuto)")
     p.add_argument("--dataset", type=Path, help="dataset alternativo (ex.: data/lote_validacao.json); "

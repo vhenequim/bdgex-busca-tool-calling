@@ -1,0 +1,87 @@
+# Integração contínua: lint e testes em cada push e pull request, e a imagem da API.
+#
+# Os testes não dependem do Ollama, do Groq, do banco nem de src/pfc_busca/dados/indice_folhas.json
+# (não versionado): sem o índice, os 4 testes de hash da v3 em tests/test_regressao_abordagens.py
+# são pulados (skip condicional), porque o arquivo entra no texto do hash das rodadas da v3.
+name: testes
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: testes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    name: ruff e pytest (Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Instala o pacote com as dependências de teste
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: ruff
+        run: python -m ruff check src tests scripts
+
+      - name: pytest
+        run: python -m pytest -q -rs tests/
+
+  imagem:
+    name: imagem da API (docker build e /api/health)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Confere o docker-compose.yml
+        run: docker compose config --quiet
+
+      - name: Constrói a imagem
+        run: docker build -t pfc-busca-api .
+
+      - name: Sobe a API sem Ollama e sem banco
+        run: |
+          # nada escuta nessas portas dentro do contêiner: a API tem de subir mesmo assim
+          docker run -d --name api -p 127.0.0.1:8000:8000 \
+            -e OLLAMA_BASE_URL=http://127.0.0.1:11434 pfc-busca-api
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8000/api/health -o health.json; then break; fi
+            sleep 2
+          done
+          cat health.json
+          python3 - <<'EOF'
+          import json
+          h = json.load(open("health.json", encoding="utf-8"))
+          assert h["abordagem"] == "tool_calling_v3" and h["modelo"] == "gemma4:e4b-it-qat", h
+          assert h["ollama"] is None and h["banco"] is False, h
+          # a imagem não leva o índice de folhas do BDGEx (não versionado): modo degradado, com aviso
+          assert h["degradada"] and any("indice_folhas.json" in a for a in h["avisos"]), h
+          EOF
+
+      - name: Sem Ollama, a busca responde 503
+        run: |
+          codigo=$(curl -s -o busca.json -w '%{http_code}' -X POST http://127.0.0.1:8000/api/search \
+            -H 'Content-Type: application/json' -d '{"query": "cartas de São Paulo"}')
+          cat busca.json; echo
+          test "$codigo" = "503"
+
+      - name: Log da API
+        if: always()
+        run: docker logs api || true

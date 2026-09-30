@@ -1,0 +1,35 @@
+\begin{table}[htbp!]
+\centering
+\caption{Teste A/B: \textit{Tool Calling} (A) e Saída Estruturada (B) com o mesmo modelo, as mesmas consultas, a mesma especificação e o mesmo ambiente}
+\label{tab:ab}
+\footnotesize
+\ajustartabela{%
+\begin{tabular}{|l|l|c|r|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Conjunto} & \textbf{Modelo} & \textbf{Espec.} & \textbf{n} & \textbf{\shortstack{Acurácia (\%)\\TC / SE}} & \textbf{\shortstack{SE $-$ TC, p.p.\\(IC 95\%)}} & \textbf{\textit{p}} & \textbf{\shortstack{Domínio (\%)\\TC / SE}} & \textbf{\shortstack{F1 recusa\\TC / SE}} & \textbf{\shortstack{Latência (s)\\TC / SE}} & \textbf{\shortstack{p95 (s)\\TC / SE}} & \textbf{\shortstack{Chamadas\\TC / SE}} \\
+\hline
+\multirow{4}{*}{\shortstack[l]{310\\T4}} & Gemma 4 E2B & v1 & 306 & 56,5 / 53,9 & -2,6 (-8,8 a +4,2) & 0,488 & 56,4 / 55,4 & 0,238 / 0,000 & 0,40 / 0,47 & 0,70 / 0,86 & 1,00 / 1,00 \\
+ & Qwen 3 4B & v1 & 306 & 54,2 / 60,1 & +5,9 (+0,7 a +10,8) & 0,038 & 53,0 / 61,7 & 0,552 / 0,000 & 0,83 / 0,69 & 1,40 / 1,97 & 1,00 / 1,00 \\
+ & Gemma 4 E4B & v1 & 306 & 60,1 / 75,2 & +15,0 (+9,8 a +20,6) & $<$\,0,001 & 59,1 / 77,2 & 0,222 / 0,000 & 0,72 / 0,76 & 1,23 / 1,60 & 1,00 / 1,00 \\
+ & Mistral Nemo 12B & v1 & 306 & 26,8 / 52,0 & +25,2 (+18,3 a +32,0) & $<$\,0,001 & 24,8 / 53,4 & 0,079 / 0,000 & 2,39 / 1,00 & 5,86 / 3,39 & 1,00 / 1,00 \\
+\hline
+\multirow{2}{*}{\shortstack[l]{310 (P e N)\\Estação}} & Gemma 4 E2B & v1 & 59 & 47,5 / 45,8 & -1,7 (-15,3 a +11,9) & 1,000 & 45,6 / 47,4 & 0,333 / 0,000 & 0,71 / 0,76 & 1,20 / 1,55 & 1,00 / 1,00 \\
+ & Qwen 3 4B & v1 & 59 & 49,2 / 50,8 & +1,7 (-13,6 a +16,9) & 1,000 & 47,4 / 52,6 & 0,400 / 0,000 & 2,60 / 1,97 & 5,70 / 5,12 & 1,00 / 1,00 \\
+\hline
+\multirow{3}{*}{\shortstack[l]{310\\Groq}} & GPT-OSS 20B & v1 & 306 & 89,2 / 77,5 & -11,8 (-16,7 a -7,2) & $<$\,0,001 & 88,9 / 79,5 & 0,889 / 0,000 & --- / --- & --- / --- & 1,00 / 1,00 \\
+ & Qwen 3.8 27B & v1 & 285$^{*}$ & 94,7 / 94,4 & -0,4 (-2,8 a +2,1) & 1,000 & 95,1 / 95,1 & 0,667 / 0,000 & --- / --- & --- / --- & 1,00 / 1,00 \\
+ & GPT-OSS 120B & v1 & 306 & 89,9 / 87,3 & -2,6 (-6,5 a +1,3) & 0,268 & 89,6 / 89,6 & 0,727 / 0,000 & --- / --- & --- / --- & 1,00 / 1,00 \\
+\hline
+\multirow{2}{*}{\shortstack[l]{310\\T4}} & Gemma 4 E4B & v2$^\dagger$ & 306 & 47,4 / 68,0 & +20,6 (+14,1 a +27,1) & $<$\,0,001 & 46,0 / 67,1 & 1,000 / 0,271 & 0,81 / 0,71 & 1,31 / 1,47 & 1,00 / 1,00 \\
+ & Gemma 4 E4B & v3$^\dagger$ & 306 & 97,7 / 94,1 & -3,6 (-6,5 a -1,0) & 0,019 & 98,3 / 94,0 & 0,857 / 0,615 & 1,38 / 0,77 & 2,66 / 2,67 & 2,14 / 1,21 \\
+\hline
+\multirow{2}{*}{\shortstack[l]{Lote 1\\T4}} & Gemma 4 E4B & v1 & 1.929 & 61,5 / 62,2 & +0,7 (-2,4 a +3,8) & 0,656 & 48,9 / 75,5 & 0,592 / 0,000 & 0,86 / 0,72 & 1,48 / 1,45 & 1,00 / 1,00 \\
+ & Gemma 4 E4B & v2 & 1.929 & 62,8 / 72,4 & +9,6 (+7,4 a +11,8) & $<$\,0,001 & 53,4 / 63,2 & 0,980 / 0,723 & 0,94 / 0,61 & 1,45 / 1,48 & 1,00 / 1,00 \\
+\hline
+\multirow{3}{*}{\shortstack[l]{Lote 2\\T4}} & Gemma 4 E4B & v1 & 945 & 58,6 / 61,3 & +2,6 (-1,6 a +6,9) & 0,255 & 45,9 / 74,8 & 0,562 / 0,000 & 0,85 / 0,72 & 1,41 / 1,44 & 1,00 / 1,00 \\
+ & Gemma 4 E4B & v2 & 945 & 62,1 / 73,8 & +11,6 (+7,9 a +14,9) & $<$\,0,001 & 53,3 / 65,4 & 0,991 / 0,738 & 0,91 / 0,61 & 1,40 / 1,47 & 1,00 / 1,00 \\
+ & Gemma 4 E4B & v3 & 945 & 94,4 / 87,8 & -6,6 (-8,9 a -4,2) & $<$\,0,001 & 94,4 / 84,4 & 0,969 / 0,901 & 1,47 / 0,78 & 4,96 / 2,55 & 2,06 / 1,23 \\
+\hline
+\end{tabular}}
+\fonte{Elaborado pelos autores. Cada linha é um par de rodadas do mesmo modelo, sobre as mesmas consultas, com a mesma especificação e no mesmo ambiente: A, \textit{Tool Calling} (TC); B, Saída Estruturada (SE); na v3, o TC completo (descrições, ferramentas auxiliares e retorno do validador) e o controle SE v3, com as mesmas descrições e o mesmo retorno. Linhas: 310, T4: rodadas completas dos modelos locais na GPU T4 (\texttt{results/<modelo>/} e \texttt{results/se-<modelo>/}), \textit{Tool Calling} com três repetições e Saída Estruturada com uma; 310 (P e N), estação: estação de referência (RTX 3050 Laptop, 4096 MiB), camadas P e N (\texttt{results/estacao/}); 310, Groq: referência em nuvem (\texttt{results/groq-<modelo>/} e \texttt{results/groq-se-<modelo>/}); Lote 1: lote de validação (1.929 consultas pontuadas; \texttt{results/lote/}), independente do desenho da v2; Lote 2: conjunto de teste da v3 (945 consultas pontuadas; \texttt{results/lote2/}), nenhuma delas lida no desenvolvimento; $^\dagger$ desenvolvimento: as 310 consultas (\texttt{results/v2\_310/} e \texttt{results/v3\_310/}) orientaram o desenho da v2 e da v3, e o resultado nelas é de dentro da amostra, otimista por construção; $^{*}$ Qwen 3.8 27B (Groq): rodada de Saída Estruturada incompleta (285 das 306 consultas pontuadas com \textit{Tool Calling}); a linha usa só as 285 presentes nas duas. Acurácia por consulta; com repetições, cada consulta vale pela maioria delas. SE $-$ TC: diferença de acurácia, com IC 95\% por \textit{bootstrap} pareado (2.000 reamostragens das consultas, semente 42). \textit{p}: McNemar exato, uma observação por consulta. Domínio: acurácia fora das categorias F e E. F1 recusa: média harmônica da precisão e do \textit{recall} da recusa nas consultas fora do domínio (na v1, a SE não tem como recusar). Latência: mediana e percentil 95 da tradução, por execução e com todas as chamadas ao modelo, só nos pares cujas duas rodadas têm, nos manifestos, a mesma GPU, a mesma versão do Ollama e a mesma parcela do modelo na GPU (em quatro deles, TC e SE rodaram em sessões diferentes, com a mesma GPU); ---: nuvem, com \textit{hardware} do provedor, não controlado. Chamadas: média de chamadas ao modelo por consulta (v1 e v2: uma, por construção).}
+\end{table}

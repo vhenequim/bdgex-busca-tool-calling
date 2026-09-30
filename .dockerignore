@@ -1,0 +1,16 @@
+# Lista de permissão: o contexto da imagem da API leva só o que o Dockerfile copia.
+*
+!pyproject.toml
+!README.md
+!LICENSE
+!src
+
+# nunca na imagem: segredos (o .env tem a GROQ_API_KEY) e o índice de folhas do BDGEx, que não é
+# versionado nem redistribuído (o docker-compose monta src/pfc_busca/dados/ do disco)
+**/.env
+**/.env.*
+**/*.env
+src/pfc_busca/dados/indice_folhas.json
+**/__pycache__
+**/*.pyc
+src/*.egg-info
