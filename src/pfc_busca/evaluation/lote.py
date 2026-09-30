@@ -1443,7 +1443,7 @@ def tabela_categorias(res: dict[str, Any]) -> str:
         rf"\textbf{{{report._pct(cfgs[k]['acuracia'])}}}" for k in cols) + r" \\", r"\hline", r"\end{tabular}",
           r"\fonte{Elaborado pelos autores. Uma consulta pode pertencer a mais de uma categoria. Subespecificadas: "
           r"buscar sem filtros ou não buscar são ambos corretos.}", r"\end{table}", ""]
-    return "\n".join(L)
+    return report.ajustar_largura("\n".join(L))
 
 
 def tabela_campos(res: dict[str, Any]) -> str:
@@ -1464,7 +1464,7 @@ def tabela_campos(res: dict[str, Any]) -> str:
           r"\hline", r"\end{tabular}", r"\fonte{Elaborado pelos autores. Ocorr.: ocorrências do campo no gabarito "
           r"(a maior entre as configurações, porque os campos opcionais contam quando emitidos).}",
           r"\end{table}", ""]
-    return "\n".join(L)
+    return report.ajustar_largura("\n".join(L))
 
 
 def tabela_pares(res: dict[str, Any]) -> str:

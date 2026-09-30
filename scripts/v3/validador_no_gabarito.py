@@ -47,7 +47,9 @@ def escrever_tex() -> None:
     lote1, n1 = contar(RAIZ / "data" / "lote_validacao.json")
     base, n310 = contar(RAIZ / "data" / "dataset.json")
     hist = json.loads(HISTORICO.read_text(encoding="utf-8"))
-    valores = {"n": n1, "final": lote1, "n310": n310, "final310": base, "inicial": hist["lote1_inicial"]}
+    milhar = lambda n: f"{n:,}".replace(",", ".")   # noqa: E731 — como o resto do texto (1.929)
+    valores = {"n": milhar(n1), "final": lote1, "n310": n310, "final310": base,
+               "inicial": hist["lote1_inicial"]}
     # recusa com retorno: quantas consultas fora do domínio do lote 1 teriam a recusa contestada
     fora = [c for c in carregar_dataset(RAIZ / "data" / "lote_validacao.json") if not c["espera_tool_call"]]
     recusa = {"nF": len(fora), "contestadasF": sum(bool(ferramentas.evidencias_de_catalogo(c["consulta"])) for c in fora)}

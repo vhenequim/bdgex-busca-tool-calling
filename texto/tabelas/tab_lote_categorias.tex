@@ -3,6 +3,7 @@
 \caption{Acurácia por categoria no lote de validação (Gemma 4 E4B)}
 \label{tab:lote_categorias}
 \footnotesize
+\ajustartabela{%
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \textbf{Categoria} & \textbf{n} & \textbf{Tool Calling v1} & \textbf{Saída Estruturada v1} & \textbf{Tool Calling v2} & \textbf{Saída Estruturada v2} \\
@@ -18,6 +19,6 @@ Fora do domínio & 336 & 100,0\% & 0,0\% & 99,7\% & 100,0\% \\
 \hline
 \textbf{Todas} & 1929 & \textbf{61,5\%} & \textbf{62,2\%} & \textbf{62,8\%} & \textbf{72,4\%} \\
 \hline
-\end{tabular}
+\end{tabular}}
 \fonte{Elaborado pelos autores. Uma consulta pode pertencer a mais de uma categoria. Subespecificadas: buscar sem filtros ou não buscar são ambos corretos.}
 \end{table}
