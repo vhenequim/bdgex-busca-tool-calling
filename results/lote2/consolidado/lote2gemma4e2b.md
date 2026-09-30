@@ -1,4 +1,4 @@
-# Lote 2 — teste da v3 (Gemma 4 E4B)
+# Lote 2 — teste da v3 (gemma4-e2b-it-qat)
 
 Gerado por `python -m pfc_busca.evaluation.lote2`. Plano de análise: `docs/v3.md`, seção 3 (fixado antes da rodada). Regras da decomposição: `pfc_busca/evaluation/lote2.py`.
 

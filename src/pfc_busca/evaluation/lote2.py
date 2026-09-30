@@ -917,7 +917,7 @@ def _md_decomposicao(dec: dict[str, dict]) -> list[str]:
 
 def relatorio_md(res: dict[str, Any]) -> str:
     melhor = (res.get("melhor_isolada") or {}).get("config")
-    titulo = "# Lote 2 — teste da v3 (Gemma 4 E4B)"
+    titulo = f"# Lote 2 — teste da v3 ({MODELO})"
     if not _eh_lote2(res):
         titulo += f" — SIMULAÇÃO com {Path(res['dataset']).name}, não é o lote 2"
     L = [titulo, "", "Gerado por `python -m pfc_busca.evaluation.lote2`. Plano de análise: `docs/v3.md`, seção 3 "
