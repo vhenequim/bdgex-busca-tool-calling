@@ -18,7 +18,8 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
 NOTEBOOKS = [RAIZ / "notebooks" / "avaliacao_colab.ipynb", RAIZ / "notebooks" / "linha_de_base_colab.ipynb",
-             RAIZ / "notebooks" / "lote_validacao_colab.ipynb", RAIZ / "notebooks" / "lote2_v3_colab.ipynb"]
+             RAIZ / "notebooks" / "lote_validacao_colab.ipynb", RAIZ / "notebooks" / "lote2_v3_colab.ipynb",
+             RAIZ / "notebooks" / "lote2_v3_modelos_colab.ipynb"]
 INCLUIR = ["src", "tests", "scripts", "db", "notebooks", "docs", "data/dataset.json", "data/auditoria",
            "data/lote_validacao.json", "data/lote_validacao_2.json",
            "pyproject.toml", "README.md", ".env.example", ".gitignore", "docker-compose.yml"]
