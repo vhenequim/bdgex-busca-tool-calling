@@ -1,0 +1,563 @@
+{
+  "modelo": "qwen/qwen3.8-27b [saida-estruturada]",
+  "n_execucoes": 310,
+  "repeticoes": [
+    1
+  ],
+  "geral": {
+    "n_consultas": 306,
+    "acuracia": 0.9281045751633987,
+    "precisao_ponderada": 0.9695100224806307,
+    "recall_ponderado": 0.9906175418615513,
+    "f1_ponderado": 0.9792272110237912,
+    "f1_macro": 0.9708945139570595,
+    "micro": {
+      "precisao": 0.9686924493554327,
+      "recall": 0.9905838041431262,
+      "f1": 0.9795158286778398,
+      "tp": 526,
+      "fp": 17,
+      "fn": 5
+    },
+    "por_campo": {
+      "keyword": {
+        "tp": 62,
+        "fp": 4,
+        "fn": 0,
+        "ocorrencias": 62,
+        "precisao": 0.9393939393939394,
+        "recall": 1.0,
+        "f1": 0.96875
+      },
+      "scale": {
+        "tp": 82,
+        "fp": 1,
+        "fn": 1,
+        "ocorrencias": 84,
+        "precisao": 0.9879518072289156,
+        "recall": 0.9879518072289156,
+        "f1": 0.9879518072289156
+      },
+      "productType": {
+        "tp": 44,
+        "fp": 1,
+        "fn": 0,
+        "ocorrencias": 44,
+        "precisao": 0.9777777777777777,
+        "recall": 1.0,
+        "f1": 0.9887640449438202
+      },
+      "state": {
+        "tp": 130,
+        "fp": 1,
+        "fn": 0,
+        "ocorrencias": 130,
+        "precisao": 0.9923664122137404,
+        "recall": 1.0,
+        "f1": 0.9961685823754789
+      },
+      "city": {
+        "tp": 27,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 27,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "supplyArea": {
+        "tp": 40,
+        "fp": 1,
+        "fn": 0,
+        "ocorrencias": 40,
+        "precisao": 0.975609756097561,
+        "recall": 1.0,
+        "f1": 0.9876543209876543
+      },
+      "project": {
+        "tp": 11,
+        "fp": 1,
+        "fn": 0,
+        "ocorrencias": 11,
+        "precisao": 0.9166666666666666,
+        "recall": 1.0,
+        "f1": 0.9565217391304348
+      },
+      "publicationPeriod": {
+        "tp": 46,
+        "fp": 7,
+        "fn": 0,
+        "ocorrencias": 51,
+        "precisao": 0.8679245283018868,
+        "recall": 1.0,
+        "f1": 0.9292929292929293
+      },
+      "creationPeriod": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 2,
+        "ocorrencias": 10,
+        "precisao": 1.0,
+        "recall": 0.8,
+        "f1": 0.888888888888889
+      },
+      "sortField": {
+        "tp": 27,
+        "fp": 1,
+        "fn": 1,
+        "ocorrencias": 29,
+        "precisao": 0.9642857142857143,
+        "recall": 0.9642857142857143,
+        "f1": 0.9642857142857143
+      },
+      "sortDirection": {
+        "tp": 28,
+        "fp": 0,
+        "fn": 1,
+        "ocorrencias": 29,
+        "precisao": 1.0,
+        "recall": 0.9655172413793104,
+        "f1": 0.9824561403508771
+      },
+      "limit": {
+        "tp": 21,
+        "fp": 0,
+        "fn": 0,
+        "ocorrencias": 21,
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "por_categoria": {
+      "S": {
+        "n": 100,
+        "n_consultas": 100,
+        "acuracia": 0.98,
+        "f1_ponderado": 0.9900207039337474
+      },
+      "C": {
+        "n": 180,
+        "n_consultas": 180,
+        "acuracia": 0.9333333333333333,
+        "f1_ponderado": 0.9814252296063543
+      },
+      "M": {
+        "n": 57,
+        "n_consultas": 57,
+        "acuracia": 1.0,
+        "f1_ponderado": 1.0
+      },
+      "T": {
+        "n": 60,
+        "n_consultas": 60,
+        "acuracia": 0.8833333333333333,
+        "f1_ponderado": 0.9616312314325892
+      },
+      "O": {
+        "n": 29,
+        "n_consultas": 29,
+        "acuracia": 0.896551724137931,
+        "f1_ponderado": 0.9864518753022907
+      },
+      "A": {
+        "n": 197,
+        "n_consultas": 197,
+        "acuracia": 0.949238578680203,
+        "f1_ponderado": 0.9845783356160518
+      },
+      "F": {
+        "n": 8,
+        "n_consultas": 8,
+        "acuracia": 0.0,
+        "f1_ponderado": 0.0
+      },
+      "E": {
+        "n": 0,
+        "n_consultas": 0,
+        "acuracia": null,
+        "f1_ponderado": 0.0
+      }
+    },
+    "por_origem": {
+      "P": {
+        "n": 22,
+        "n_consultas": 22,
+        "acuracia": 0.8636363636363636
+      },
+      "N": {
+        "n": 37,
+        "n_consultas": 37,
+        "acuracia": 0.8378378378378378
+      },
+      "G": {
+        "n": 247,
+        "n_consultas": 247,
+        "acuracia": 0.9473684210526315
+      }
+    },
+    "latencia_llm_ms": {
+      "n": 306,
+      "min": 343.7320000375621,
+      "max": 7024.552799994126,
+      "media": 641.6305630713978,
+      "mediana": 482.44829996838234,
+      "desvio": 618.8693243481032,
+      "p95": 1108.706999977585
+    },
+    "latencia_tool_ms": {},
+    "latencia_total_ms": {
+      "n": 306,
+      "min": 343.7320000375621,
+      "max": 7024.552799994126,
+      "media": 641.6305630713978,
+      "mediana": 482.44829996838234,
+      "desvio": 618.8693243481032,
+      "p95": 1108.706999977585
+    },
+    "diagnosticos": {
+      "tipos_erro": {
+        "campo_omitido": 2,
+        "campo_inventado": 3,
+        "valor_errado": 7,
+        "chamou_sem_dever": 8,
+        "misto": 2
+      },
+      "campos_fora_do_schema": {},
+      "iou_periodos_medio": {
+        "publicationPeriod": 0.9560685529709685,
+        "creationPeriod": 1.0
+      },
+      "chamadas_com_erro": 0,
+      "classes_de_erro": {},
+      "respostas_fora_do_schema": 0,
+      "classes_fora_do_schema": {},
+      "nao_chamou_quando_devia": 0,
+      "acertos_em_leitura_alternativa": 0
+    },
+    "observacionais": {
+      "n": 4,
+      "acuracia": 0.25,
+      "chamou_sem_dever": 2,
+      "por_caso": [
+        {
+          "id": "N38",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "scale": "1:10.000"
+          }
+        },
+        {
+          "id": "N39",
+          "correto": false,
+          "tipo_erro": "campo_inventado",
+          "predito": {
+            "keyword": "oceano atlântico",
+            "productType": "SCN Carta Topográfica Matricial"
+          }
+        },
+        {
+          "id": "N40",
+          "correto": true,
+          "tipo_erro": null,
+          "predito": {
+            "publicationPeriod": {
+              "start": "2050-01-01",
+              "end": "2050-12-31"
+            }
+          }
+        },
+        {
+          "id": "GF007",
+          "correto": false,
+          "tipo_erro": "chamou_sem_dever",
+          "predito": {
+            "state": "Rio Grande do Sul"
+          }
+        }
+      ]
+    }
+  },
+  "por_repeticao": {
+    "1": {
+      "n_consultas": 306,
+      "acuracia": 0.9281045751633987,
+      "precisao_ponderada": 0.9695100224806307,
+      "recall_ponderado": 0.9906175418615513,
+      "f1_ponderado": 0.9792272110237912,
+      "f1_macro": 0.9708945139570595,
+      "micro": {
+        "precisao": 0.9686924493554327,
+        "recall": 0.9905838041431262,
+        "f1": 0.9795158286778398,
+        "tp": 526,
+        "fp": 17,
+        "fn": 5
+      },
+      "por_campo": {
+        "keyword": {
+          "tp": 62,
+          "fp": 4,
+          "fn": 0,
+          "ocorrencias": 62,
+          "precisao": 0.9393939393939394,
+          "recall": 1.0,
+          "f1": 0.96875
+        },
+        "scale": {
+          "tp": 82,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 84,
+          "precisao": 0.9879518072289156,
+          "recall": 0.9879518072289156,
+          "f1": 0.9879518072289156
+        },
+        "productType": {
+          "tp": 44,
+          "fp": 1,
+          "fn": 0,
+          "ocorrencias": 44,
+          "precisao": 0.9777777777777777,
+          "recall": 1.0,
+          "f1": 0.9887640449438202
+        },
+        "state": {
+          "tp": 130,
+          "fp": 1,
+          "fn": 0,
+          "ocorrencias": 130,
+          "precisao": 0.9923664122137404,
+          "recall": 1.0,
+          "f1": 0.9961685823754789
+        },
+        "city": {
+          "tp": 27,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 27,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "supplyArea": {
+          "tp": 40,
+          "fp": 1,
+          "fn": 0,
+          "ocorrencias": 40,
+          "precisao": 0.975609756097561,
+          "recall": 1.0,
+          "f1": 0.9876543209876543
+        },
+        "project": {
+          "tp": 11,
+          "fp": 1,
+          "fn": 0,
+          "ocorrencias": 11,
+          "precisao": 0.9166666666666666,
+          "recall": 1.0,
+          "f1": 0.9565217391304348
+        },
+        "publicationPeriod": {
+          "tp": 46,
+          "fp": 7,
+          "fn": 0,
+          "ocorrencias": 51,
+          "precisao": 0.8679245283018868,
+          "recall": 1.0,
+          "f1": 0.9292929292929293
+        },
+        "creationPeriod": {
+          "tp": 8,
+          "fp": 0,
+          "fn": 2,
+          "ocorrencias": 10,
+          "precisao": 1.0,
+          "recall": 0.8,
+          "f1": 0.888888888888889
+        },
+        "sortField": {
+          "tp": 27,
+          "fp": 1,
+          "fn": 1,
+          "ocorrencias": 29,
+          "precisao": 0.9642857142857143,
+          "recall": 0.9642857142857143,
+          "f1": 0.9642857142857143
+        },
+        "sortDirection": {
+          "tp": 28,
+          "fp": 0,
+          "fn": 1,
+          "ocorrencias": 29,
+          "precisao": 1.0,
+          "recall": 0.9655172413793104,
+          "f1": 0.9824561403508771
+        },
+        "limit": {
+          "tp": 21,
+          "fp": 0,
+          "fn": 0,
+          "ocorrencias": 21,
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "por_categoria": {
+        "S": {
+          "n": 100,
+          "n_consultas": 100,
+          "acuracia": 0.98,
+          "f1_ponderado": 0.9900207039337474
+        },
+        "C": {
+          "n": 180,
+          "n_consultas": 180,
+          "acuracia": 0.9333333333333333,
+          "f1_ponderado": 0.9814252296063543
+        },
+        "M": {
+          "n": 57,
+          "n_consultas": 57,
+          "acuracia": 1.0,
+          "f1_ponderado": 1.0
+        },
+        "T": {
+          "n": 60,
+          "n_consultas": 60,
+          "acuracia": 0.8833333333333333,
+          "f1_ponderado": 0.9616312314325892
+        },
+        "O": {
+          "n": 29,
+          "n_consultas": 29,
+          "acuracia": 0.896551724137931,
+          "f1_ponderado": 0.9864518753022907
+        },
+        "A": {
+          "n": 197,
+          "n_consultas": 197,
+          "acuracia": 0.949238578680203,
+          "f1_ponderado": 0.9845783356160518
+        },
+        "F": {
+          "n": 8,
+          "n_consultas": 8,
+          "acuracia": 0.0,
+          "f1_ponderado": 0.0
+        },
+        "E": {
+          "n": 0,
+          "n_consultas": 0,
+          "acuracia": null,
+          "f1_ponderado": 0.0
+        }
+      },
+      "por_origem": {
+        "P": {
+          "n": 22,
+          "n_consultas": 22,
+          "acuracia": 0.8636363636363636
+        },
+        "N": {
+          "n": 37,
+          "n_consultas": 37,
+          "acuracia": 0.8378378378378378
+        },
+        "G": {
+          "n": 247,
+          "n_consultas": 247,
+          "acuracia": 0.9473684210526315
+        }
+      },
+      "latencia_llm_ms": {
+        "n": 306,
+        "min": 343.7320000375621,
+        "max": 7024.552799994126,
+        "media": 641.6305630713978,
+        "mediana": 482.44829996838234,
+        "desvio": 618.8693243481032,
+        "p95": 1108.706999977585
+      },
+      "latencia_tool_ms": {},
+      "latencia_total_ms": {
+        "n": 306,
+        "min": 343.7320000375621,
+        "max": 7024.552799994126,
+        "media": 641.6305630713978,
+        "mediana": 482.44829996838234,
+        "desvio": 618.8693243481032,
+        "p95": 1108.706999977585
+      },
+      "diagnosticos": {
+        "tipos_erro": {
+          "campo_omitido": 2,
+          "campo_inventado": 3,
+          "valor_errado": 7,
+          "chamou_sem_dever": 8,
+          "misto": 2
+        },
+        "campos_fora_do_schema": {},
+        "iou_periodos_medio": {
+          "publicationPeriod": 0.9560685529709685,
+          "creationPeriod": 1.0
+        },
+        "chamadas_com_erro": 0,
+        "classes_de_erro": {},
+        "respostas_fora_do_schema": 0,
+        "classes_fora_do_schema": {},
+        "nao_chamou_quando_devia": 0,
+        "acertos_em_leitura_alternativa": 0
+      },
+      "observacionais": {
+        "n": 4,
+        "acuracia": 0.25,
+        "chamou_sem_dever": 2,
+        "por_caso": [
+          {
+            "id": "N38",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "scale": "1:10.000"
+            }
+          },
+          {
+            "id": "N39",
+            "correto": false,
+            "tipo_erro": "campo_inventado",
+            "predito": {
+              "keyword": "oceano atlântico",
+              "productType": "SCN Carta Topográfica Matricial"
+            }
+          },
+          {
+            "id": "N40",
+            "correto": true,
+            "tipo_erro": null,
+            "predito": {
+              "publicationPeriod": {
+                "start": "2050-01-01",
+                "end": "2050-12-31"
+              }
+            }
+          },
+          {
+            "id": "GF007",
+            "correto": false,
+            "tipo_erro": "chamou_sem_dever",
+            "predito": {
+              "state": "Rio Grande do Sul"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "gerado_em": "2026-09-30T03:10:37",
+  "dataset_na_pontuacao": "data/dataset.json",
+  "dataset_sha256_na_pontuacao": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42",
+  "linhas_descartadas_texto_alterado": []
+}

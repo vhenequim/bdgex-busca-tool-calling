@@ -1,6 +1,6 @@
 # gemma4:e4b-it-qat [saida-estruturada-v3] — resumo da avaliação
 
-62 execuções · repetições [1] · gerado em 2026-09-30T00:31:35
+62 execuções · repetições [1] · gerado em 2026-09-30T03:08:27
 
 ## Geral (métricas principais)
 

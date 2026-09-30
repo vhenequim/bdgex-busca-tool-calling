@@ -1,0 +1,75 @@
+{
+  "modelo": "qwen/qwen3.8-27b",
+  "provedor": "groq",
+  "abordagem": "saida_estruturada",
+  "execucao": "nuvem (resultado paralelo, fora do requisito RNF1)",
+  "modelo_info": {
+    "base_url": "https://api.groq.com/openai/v1",
+    "esforco_de_raciocinio": "none"
+  },
+  "thinking_desativado": true,
+  "configuracao": {
+    "abordagem": "saida_estruturada",
+    "temperature": 0,
+    "num_predict": 1024,
+    "ferramenta": false,
+    "formato": "modo JSON do Groq (json_object); schema dos parâmetros no prompt",
+    "zero_shot": true,
+    "few_shot": false,
+    "dicionario_normalizacao": false,
+    "fallback": false,
+    "esforco_de_raciocinio": "none",
+    "timeout_s": 180.0,
+    "keep_alive": "15m"
+  },
+  "hoje": "2026-09-24",
+  "repeticoes": 1,
+  "executar_sql": false,
+  "dataset": {
+    "caminho": "data/dataset.json",
+    "sha256": "07bf424a40d68392cad4a190c334b3b6144676d2927a75ae6b0b5328abf0ba42"
+  },
+  "ferramenta_sha256": "10a0108d671fa358496d925f281d42b42b4b54c0ff4da4c1be4509caa95ef4f6",
+  "prompt_sha256": "70d651a6a248145ba13354ed58674ab15329406b89cf491e98d99d4ff50240b8",
+  "codigo": "fbf466e",
+  "software": {
+    "python": "3.14.4",
+    "ollama_servidor": null,
+    "ollama_python": "0.6.2",
+    "langchain_core": "1.6.4",
+    "langchain_ollama": "1.1.0",
+    "langchain_openai": "1.6.6",
+    "so": "Windows-11-10.0.26200-SP0"
+  },
+  "hardware": {
+    "gpu": null,
+    "maquina": "servidores do provedor"
+  },
+  "intervalo_entre_chamadas_s": 11.0,
+  "iniciado_em": "2026-09-29T16:36:40",
+  "sessoes": [
+    {
+      "iniciado_em": "2026-09-28T15:06:39",
+      "ja_feitas_no_inicio": 0,
+      "descarregados": [],
+      "vram_inicio": null
+    },
+    {
+      "iniciado_em": "2026-09-29T09:33:20",
+      "ja_feitas_no_inicio": 220,
+      "descarregados": [],
+      "vram_inicio": null
+    },
+    {
+      "iniciado_em": "2026-09-29T16:36:40",
+      "ja_feitas_no_inicio": 232,
+      "descarregados": [],
+      "vram_inicio": null,
+      "aquecimento_ms": 628.750299976673,
+      "encerrado_em": "2026-09-30T03:07:08",
+      "executadas": 78
+    }
+  ],
+  "aquecimento_ms": 628.750299976673,
+  "encerrado_em": "2026-09-30T03:07:08"
+}

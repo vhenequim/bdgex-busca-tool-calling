@@ -150,11 +150,20 @@ def correcao_por_consulta(linhas: list[dict]) -> dict[tuple[str, int], bool]:
 # Carga
 # ---------------------------------------------------------------------------
 
-def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[str, dict]:
+ABORDAGENS_V1 = ("tool_calling", "saida_estruturada", "prototipo")
+
+
+def carregar_modelos(dir_resultados: Path, modelos: list[str] | None,
+                     abordagens: tuple[str, ...] | None = ABORDAGENS_V1) -> dict[str, dict]:
     """{modelo: {"resumo": ..., "linhas": [...]}} para cada diretório com execucoes.jsonl.
 
     O resumo é SEMPRE recalculado (`resumir`) contra o gabarito vigente, e não lido
     de um resumo.json possivelmente anterior a uma correção do gabarito.
+
+    Só entram as rodadas das `abordagens` pedidas, pelo manifesto (manifestos antigos sem o campo são da solução
+    v1, `tool_calling`): a mesma pasta de resultados pode ter rodadas das especificações v2 e v3 com o mesmo nome
+    de modelo (a estação, por exemplo), e elas não podem substituir as rodadas da solução avaliada e das suas
+    linhas de base.
     """
     saida = {}
     if not dir_resultados.is_dir():
@@ -162,6 +171,10 @@ def carregar_modelos(dir_resultados: Path, modelos: list[str] | None) -> dict[st
     for pasta in sorted(dir_resultados.iterdir()):
         if not pasta.is_dir() or not (pasta / "execucoes.jsonl").exists():
             continue
+        if abordagens and (pasta / "manifesto.json").exists():
+            man = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
+            if (man.get("abordagem") or "tool_calling") not in abordagens:
+                continue
         r = resumir(pasta)
         if not r:
             continue

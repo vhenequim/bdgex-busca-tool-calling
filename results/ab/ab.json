@@ -1,7 +1,6 @@
 {
  "dir": "results",
  "avisos": [
-  "basegroqqwen38v1: rodadas com consultas diferentes (TC 306, SE 293); o par usa só as 293 presentes nas duas",
   "lote2e2bv1: sem rodada TC (results/lote2/gemma4-e2b-it-qat) e SE (results/lote2/se-gemma4-e2b-it-qat) (fora)",
   "lote2e2bv3: sem rodada TC (results/lote2/tc3-gemma4-e2b-it-qat) e SE (results/lote2/se3-gemma4-e2b-it-qat) (fora)",
   "lote2qwenv1: sem rodada TC (results/lote2/qwen3-4b-instruct-2507-q4_K_M) e SE (results/lote2/se-qwen3-4b-instruct-2507-q4_K_M) (fora)",
@@ -887,34 +886,34 @@
     "results/groq-qwen-qwen3.8-27b",
     "results/groq-se-qwen-qwen3.8-27b"
    ],
-   "n": 293,
+   "n": 306,
    "ntc": 306,
-   "nse": 293,
-   "incompleto": true,
+   "nse": 306,
+   "incompleto": false,
    "latencia_comparavel": false,
    "hardware": "nuvem: hardware do provedor, não controlado",
    "tc": {
-    "n": 293,
-    "acuracia": 0.9488054607508533,
+    "n": 306,
+    "acuracia": 0.9509803921568627,
     "ic": [
-     0.917260933944219,
-     0.9687334819328011
+     0.9207059513793225,
+     0.9700717879558731
     ],
-    "accdominio": 0.9518900343642611,
-    "n_dominio": 291,
+    "accdominio": 0.9530201342281879,
+    "n_dominio": 298,
     "recusa": {
-     "tp": 1,
+     "tp": 7,
      "fp": 0,
      "fn": 1,
-     "tn": 291,
+     "tn": 298,
      "precisao": 1.0,
-     "recall": 0.5,
-     "f1": 0.6666666666666666,
+     "recall": 0.875,
+     "f1": 0.9333333333333333,
      "falsa": 0.0,
-     "n_fora": 2
+     "n_fora": 8
     },
-    "f1": 0.9836738122787447,
-    "latmed": 698.6902999924496,
+    "f1": 0.98397748041127,
+    "latmed": 695.0301000033505,
     "latp95": 1365.3653000001214,
     "chamadas": 1.0,
     "repeticoes": [
@@ -922,42 +921,42 @@
     ]
    },
    "se": {
-    "n": 293,
-    "acuracia": 0.9453924914675768,
+    "n": 306,
+    "acuracia": 0.9281045751633987,
     "ic": [
-     0.9131455702907876,
-     0.9661112454654945
+     0.8935479516777126,
+     0.9520454095752632
     ],
-    "accdominio": 0.9518900343642611,
-    "n_dominio": 291,
+    "accdominio": 0.9530201342281879,
+    "n_dominio": 298,
     "recusa": {
      "tp": 0,
      "fp": 0,
-     "fn": 2,
-     "tn": 291,
+     "fn": 8,
+     "tn": 298,
      "precisao": 0.0,
      "recall": 0.0,
      "f1": 0.0,
      "falsa": 0.0,
-     "n_fora": 2
+     "n_fora": 8
     },
-    "f1": 0.9825007410930044,
-    "latmed": 483.0069999443367,
-    "latp95": 1012.5115999835543,
+    "f1": 0.9792272110237912,
+    "latmed": 482.44829996838234,
+    "latp95": 1108.706999977585,
     "chamadas": 1.0,
     "repeticoes": [
      1
     ]
    },
    "par_tc_se": {
-    "n": 293,
-    "so_a": 6,
+    "n": 306,
+    "so_a": 12,
     "so_b": 5,
-    "p": 1.0,
-    "dif_acc": -0.0034129692832765013,
+    "p": 0.143463134765625,
+    "dif_acc": -0.02287581699346397,
     "ic_dif_acc": [
-     -0.023890784982935155,
-     0.017064846416382253
+     -0.049019607843137254,
+     0.0032679738562091504
     ]
    },
    "veredito": "empate"
@@ -2937,9 +2936,9 @@
    "medida": "acurácia TC",
    "campo": "acctc",
    "macro": "res@abordagens@qwen38@acuraciatc",
-   "nosso": "94,9\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "95,1\\%",
+   "existente": "95,1\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2947,9 +2946,9 @@
    "medida": "IC TC",
    "campo": "ictc",
    "macro": "res@abordagens@qwen38@ictc",
-   "nosso": "91,7\\% a 96,9\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "92,1\\% a 97,0\\%",
+   "existente": "92,1\\% a 97,0\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2957,9 +2956,9 @@
    "medida": "domínio (sem F) TC",
    "campo": "domtc",
    "macro": "res@abordagens@qwen38@accsemftc",
-   "nosso": "95,2\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "95,3\\%",
+   "existente": "95,3\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2967,9 +2966,9 @@
    "medida": "acurácia SE",
    "campo": "accse",
    "macro": "res@abordagens@qwen38@acuraciase",
-   "nosso": "94,5\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "92,8\\%",
+   "existente": "92,8\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2977,9 +2976,9 @@
    "medida": "IC SE",
    "campo": "icse",
    "macro": "res@abordagens@qwen38@icse",
-   "nosso": "91,3\\% a 96,6\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "89,4\\% a 95,2\\%",
+   "existente": "89,4\\% a 95,2\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2987,9 +2986,9 @@
    "medida": "domínio (sem F) SE",
    "campo": "domse",
    "macro": "res@abordagens@qwen38@accsemfse",
-   "nosso": "95,2\\%",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "95,3\\%",
+   "existente": "95,3\\%",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -2997,9 +2996,9 @@
    "medida": "n",
    "campo": "n",
    "macro": "res@abordagens@qwen38@n",
-   "nosso": "293",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "306",
+   "existente": "306",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -3007,9 +3006,9 @@
    "medida": "só TC",
    "campo": "sotc",
    "macro": "res@abordagens@qwen38@sotc",
-   "nosso": "6",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "12",
+   "existente": "12",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -3018,8 +3017,8 @@
    "campo": "sose",
    "macro": "res@abordagens@qwen38@sose",
    "nosso": "5",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "existente": "5",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -3027,9 +3026,9 @@
    "medida": "p",
    "campo": "p",
    "macro": "res@abordagens@qwen38@p",
-   "nosso": "1,000",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "0,143",
+   "existente": "0,143",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -3037,9 +3036,9 @@
    "medida": "TC − SE",
    "campo": "dif",
    "macro": "res@abordagens@qwen38@difpp",
-   "nosso": "0,3",
-   "existente": null,
-   "situacao": "sem_referencia",
+   "nosso": "2,3",
+   "existente": "2,3",
+   "situacao": "igual",
    "causa": ""
   },
   {
@@ -3047,20 +3046,20 @@
    "medida": "acurácia TC",
    "campo": "acctc",
    "macro": "res@groq@qwen38@acuracia",
-   "nosso": "94,9\\%",
+   "nosso": "95,1\\%",
    "existente": "95,1\\%",
-   "situacao": "explicada",
-   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 293); a A/B, só as 293 presentes nas duas"
+   "situacao": "igual",
+   "causa": ""
   },
   {
    "par": "basegroqqwen38v1",
    "medida": "IC TC",
    "campo": "ictc",
    "macro": "res@groq@qwen38@ic",
-   "nosso": "91,7\\% a 96,9\\%",
+   "nosso": "92,1\\% a 97,0\\%",
    "existente": "92,1\\% a 97,0\\%",
-   "situacao": "explicada",
-   "causa": "a fonte usa todas as consultas de cada rodada (TC 306, SE 293); a A/B, só as 293 presentes nas duas"
+   "situacao": "igual",
+   "causa": ""
   },
   {
    "par": "basegroqgptoss120v1",

@@ -139,3 +139,26 @@ def test_repeticoes_identicas_nao_estreitam_o_ic_nem_inflam_o_mcnemar(tmp_path):
     n_consultas = len({x["id"] for x in lin if not x.get("observacional")})
     assert report.ic_acuracia(lin) == pytest.approx(report.wilson(n_consultas, n_consultas))
     assert set(report.correcao_por_id(lin).values()) == {True} and len(report.correcao_por_id(lin)) == n_consultas
+
+
+def test_rodada_de_outra_especificacao_nao_substitui_a_da_v1(tmp_path):
+    """Na mesma pasta de resultados, a rodada da v3 do mesmo modelo (tc3-...) não pode tomar o lugar da v1."""
+    import json
+    import shutil
+
+    res = tmp_path / "results"
+    _rodada_sintetica(res, "gemma4:e2b-it-qat")                        # v1: todas certas
+    v1 = next(res.iterdir())
+    v3 = res / ("tc3-" + v1.name)
+    shutil.copytree(v1, v3)
+    linhas = [json.loads(x) for x in (v3 / "execucoes.jsonl").read_text(encoding="utf-8").splitlines()]
+    (v3 / "execucoes.jsonl").write_text("\n".join(json.dumps({**x, "predito": None, "chamou_ferramenta": False},
+                                                             ensure_ascii=False) for x in linhas) + "\n",
+                                        encoding="utf-8")
+    man = json.loads((v3 / "manifesto.json").read_text(encoding="utf-8"))
+    (v3 / "manifesto.json").write_text(json.dumps({**man, "abordagem": "tool_calling_v3"}), encoding="utf-8")
+    dados = report.carregar_modelos(res, None)
+    assert list(dados) == ["gemma4:e2b-it-qat"]
+    assert all(x["predito"] is not None for x in dados["gemma4:e2b-it-qat"]["linhas"])
+    assert report.carregar_modelos(res, None, abordagens=("tool_calling_v3",))["gemma4:e2b-it-qat"]["linhas"][0][
+        "predito"] is None
