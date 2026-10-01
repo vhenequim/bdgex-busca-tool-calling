@@ -1,6 +1,6 @@
 % AUTO-GERADO por pfc-dataset --apendice a partir de manual_cases.py — não editar à mão
 
-\dtcasenota{N01}{S}{cartas de São Paulo}{state: "São Paulo"\newline aceita-se também city no lugar de state}{'São Paulo' sem qualificador: estado ou capital}
+\dtcasenota{N01}{S}{cartas de São Paulo}{state: "São Paulo"\newline aceita-se também city no lugar de state}{`São Paulo' sem qualificador: estado ou capital}
 \dtcase{N02}{S}{produtos em escala 1:50.000}{scale: "1:50.000"}
 \dtcase{N03}{S}{ortoimagens}{productType: "SCN Carta Ortoimagem"}
 \dtcase{N04}{S · A}{mapas do rj}{state: "Rio de Janeiro"}
@@ -23,17 +23,17 @@
 \dtcasenota{N21}{T · A}{qualquer coisa de hoje}{publicationPeriod: dia da execução\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
 \dtcasenota{N22}{T · C · A}{ortoimagens de 2 anos atrás}{productType: "SCN Carta Ortoimagem"\newline publicationPeriod: ano de dois anos antes\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
 \dtcasenota{N23}{T · C · A}{produtos do trimestre passado do 4º CGEO}{supplyArea: "4$^\circ$ Centro de Geoinformação"\newline publicationPeriod: trimestre anterior\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida publicação ou criação}
-\dtcasenota{N24}{O · C}{3 cartas mais recentes de Curitiba}{city: "Curitiba"\newline limit: 3\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"}{'mais recentes' sem pista: aceita-se publicationDate ou creationDate}
-\dtcasenota{N25}{O · C}{10 primeiras ortoimagens do Nordeste}{productType: "SCN Carta Ortoimagem"\newline limit: 10\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{'Nordeste' é região (nada a anotar); 'primeiras' sem pista}
-\dtcasenota{N26}{O · C · A}{mais antigas em rondonia}{state: "Rondônia"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{'mais antigas' sem pista}
+\dtcasenota{N24}{O · C}{3 cartas mais recentes de Curitiba}{city: "Curitiba"\newline limit: 3\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"}{`mais recentes' sem pista: aceita-se publicationDate ou creationDate}
+\dtcasenota{N25}{O · C}{10 primeiras ortoimagens do Nordeste}{productType: "SCN Carta Ortoimagem"\newline limit: 10\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{`Nordeste' é região (nada a anotar); `primeiras' sem pista}
+\dtcasenota{N26}{O · C · A}{mais antigas em rondonia}{state: "Rondônia"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"}{`mais antigas' sem pista}
 \dtcase{N27}{O · C}{últimas 5 publicações}{limit: 5\newline sortField: "publicationDate"\newline sortDirection: "DESC"}
-\dtcasenota{N28}{O · M · C}{carta MI 2901 mais recente}{keyword: "2901"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"\newline limit: 1 (opcional)}{singular sem número: limit 1 opcional; 'mais recente' sem pista}
-\dtcasenota{N29}{O · C · T}{três produtos mais antigos deste ano}{limit: 3\newline publicationPeriod: ano corrente\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida o período; 'mais antigos' sem pista}
+\dtcasenota{N28}{O · M · C}{carta MI 2901 mais recente}{keyword: "2901"\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "DESC"\newline limit: 1 (opcional)}{singular sem número: limit 1 opcional; `mais recente' sem pista}
+\dtcasenota{N29}{O · C · T}{três produtos mais antigos deste ano}{limit: 3\newline publicationPeriod: ano corrente\newline sortField: "publicationDate" ou "creationDate"\newline sortDirection: "ASC"\newline aceita-se também creationPeriod no lugar de publicationPeriod}{sem verbo que decida o período; `mais antigos' sem pista}
 \dtcase{N30}{A · C}{cartas topo do primeiro cgeo}{productType: "SCN Carta Topográfica Matricial"\newline supplyArea: "1$^\circ$ Centro de Geoinformação"}
 \dtcase{N31}{A · S}{orto banda p}{productType: "SCN Carta Ortoimagem Banda P Pol HH"}
-\dtcasenota{N32}{A · C}{mapas do rio em cem k}{state: "Rio de Janeiro"\newline scale: "1:100.000"\newline aceita-se também city no lugar de state}{'rio' é ambíguo entre o estado e a capital}
-\dtcasenota{N33}{A · C}{cartografia sistematica sp}{project: "Mapeamento Sistemático" (opcional)\newline state: "São Paulo"}{'cartografia sistemática' designa o programa pelo termo distintivo do nome, sem ser nome nem apelido informado na ferramenta: project é opcional (regra de project; adjudicação)}
-\dtcasenota{N34}{A · C}{ortos da amazonia legal}{productType: "SCN Carta Ortoimagem"}{'Amazônia Legal' é região (nove estados), não estado: nada a anotar para ela}
+\dtcasenota{N32}{A · C}{mapas do rio em cem k}{state: "Rio de Janeiro"\newline scale: "1:100.000"\newline aceita-se também city no lugar de state}{`rio' é ambíguo entre o estado e a capital}
+\dtcasenota{N33}{A · C}{cartografia sistematica sp}{project: "Mapeamento Sistemático" (opcional)\newline state: "São Paulo"}{`cartografia sistemática' designa o programa pelo termo distintivo do nome, sem ser nome nem apelido informado na ferramenta: project é opcional (regra de project; adjudicação)}
+\dtcasenota{N34}{A · C}{ortos da amazonia legal}{productType: "SCN Carta Ortoimagem"}{`Amazônia Legal' é região (nove estados), não estado: nada a anotar para ela}
 \dtcase{N35}{A · M · C}{sf22yd do dois cgeo}{keyword: "SF-22-Y-D"\newline supplyArea: "2$^\circ$ Centro de Geoinformação"}
 \dtcase{N36}{F}{cartas fora do brasil}{não chamar a ferramenta (fora do território brasileiro, P4)}
 \dtcase{N37}{F}{quero um mapa bonito}{não chamar a ferramenta (sem critério de busca, P4)}

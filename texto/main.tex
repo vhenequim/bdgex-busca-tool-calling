@@ -31,7 +31,7 @@
 % ---
 % Pacotes de citações (ABNT autor-data)
 % ---
-\usepackage[alf,abnt-etal-list=0,bibjustif]{./abntex2cite}
+\usepackage[alf,abnt-etal-list=0]{./abntex2cite}
 
 % ---
 % Customizações do IME
@@ -70,12 +70,16 @@
 \renewcommand{\cftquadroname}{\quadroname\space}
 \renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
 \setfloatlocations{quadro}{hbtp}
+\setpnumwidth{2.2em}
+\setrmarg{3.2em}
 
 % ---
 % Posiciona floats no topo da página
 % ---
 \makeatletter
 \setlength{\@fptop}{5pt}
+\setlength{\@fpsep}{\floatsep}
+\setlength{\@fpbot}{0pt plus 1fil}
 \makeatother
 
 % ---

@@ -53,11 +53,11 @@ Um número é chamado \textbf{dentro da amostra} quando foi medido num conjunto 
 \hline
 \end{tabular}%
 \fonte{Elaborado pelos autores.}
-\nota{As rodadas dos lotes usaram a T4, com uma repetição. As quatro configurações v1 e v2 do Gemma 4 E4B rodaram também no lote 2, como referências.}
+\nota{A T4 é a GPU NVIDIA T4 do Google Colab, e a estação é a estação de referência (Seção~\ref{sec:ambiente}). As rodadas dos lotes usaram a T4, com uma repetição. As quatro configurações v1 e v2 do Gemma 4 E4B rodaram também no lote 2, como referências.}
 \end{quadro}
 
-% ---
 \clearpage
+% ---
 \section{Modelos Avaliados}
 \label{sec:selecao-modelos}
 % ---
@@ -337,7 +337,7 @@ Convenções do manual escolhidas pelos autores & manual publicado, com regras p
 Gabarito ajustado às respostas dos modelos & gabarito definido pelo manual e pelo texto; adjudicações vindas da anotação independente e das checagens, com o gabarito anterior registrado; toda correção repontua todas as rodadas & parte das rodadas é anterior à adjudicação; a garantia é o registro de cada decisão, que pode ser revisto \\ \hline
 Consultas regulares demais (camada G) & três camadas; acurácia por camada; lotes redigidos em oito registros de linguagem, com personas & a camada G é a maior parte das 310, e as métricas agregadas podem superestimar o desempenho \\ \hline
 Consultas sintéticas, que podem não representar o uso real & valores de catálogos reais; redação controlada, com registros e personas sorteados, checagens automáticas e deduplicação & nenhuma consulta foi coletada de usuários; a distribuição das formulações é a que os redatores produzem \\ \hline
-Um só modelo para anotar, redigir e julgar & redação e anotação em sessões independentes, sem acesso ao gabarito; segunda anotação fora do filtro; modelos avaliados de outras famílias & o anotador das 310, os redatores e anotadores dos lotes e o juiz dos erros são modelos da mesma família, também usada no desenvolvimento; leituras próprias dele passam pela auditoria e pelo filtro \\ \hline
+Uma só família de modelos para anotar, redigir e julgar & redação e anotação em sessões independentes, sem acesso ao gabarito; segunda anotação fora do filtro; modelos avaliados de outras famílias & o anotador das 310, os redatores e anotadores dos lotes e o juiz dos erros são modelos da mesma família, também usada no desenvolvimento; leituras próprias dele passam pela auditoria e pelo filtro \\ \hline
 Filtro que remove as consultas difíceis & descartes relatados por motivo; a segunda anotação mede o gabarito que ficou & os lotes medem consultas de gabarito defensável, não toda a variedade possível \\ \hline
 Data de referência fixa & regras de tempo nomeadas, resolvidas na data de cada rodada, que o \textit{prompt} informa ao modelo; resolução conferida em datas diversas, com anos bissextos e viradas de ano & cada rodada usou uma só data; o comportamento dos modelos em outras datas, como numa virada de mês ou de ano, não foi medido \\ \hline
 \end{tabular}
@@ -354,7 +354,7 @@ Data de referência fixa & regras de tempo nomeadas, resolvidas na data de cada 
 \textbf{Ameaça à validade} & \textbf{Como foi tratada} & \textbf{O que fica como limitação} \\
 \hline
 Comparação estrita que conta respostas inócuas como erro & leituras aceitas explícitas; auditoria das execuções erradas do lote 1; comparação das SQL & um único juiz, sem conferência humana; os erros do lote 2 não tiveram auditoria equivalente \\ \hline
-Sobreajuste da especificação às consultas de desenvolvimento & teste em conjunto não lido; congelamento por \textit{hash}; checagem de contaminação; números de desenvolvimento marcados & o lote 2 segue a receita do lote 1: mede consultas novas, não outra distribuição de consultas \\ \hline
+Sobreajuste da especificação às consultas de desenvolvimento & teste em conjunto não lido; congelamento por \textit{hash}; checagem de contaminação; números de desenvolvimento marcados & o lote 2 segue a receita do lote 1 e mede consultas novas, não outra distribuição de consultas \\ \hline
 Análises e critérios escolhidos depois de ver os dados & plano versionado antes das rodadas, com a métrica, o teste e as comparações; análises fora do plano marcadas como exploratórias & o nível de significância e a ordem dos desempates não estavam no plano; as duas etapas e a regra do objeto vazio são simulações \textit{post hoc} \\ \hline
 Significância exagerada & uma observação por consulta; McNemar exato; correção de Holm nas nove comparações do plano do lote 2 & comparações fora do plano e por subgrupo sem correção; empate não demonstra equivalência \\ \hline
 Vencedor decidido pela composição do conjunto & acurácia no domínio e recusa reportadas à parte; ponto de equilíbrio & as proporções de F e E nos lotes são de desenho, e a real é desconhecida; em E, qualquer não busca conta como acerto \\ \hline
@@ -367,7 +367,6 @@ Qualidade e latência dependentes do ambiente & qualidade medida na T4 e conferi
 \fonte{Elaborada pelos autores.}
 \end{table}
 
-\clearpage
 % ---
 \section{Uso de Ferramentas de Inteligência Artificial}
 \label{sec:uso-ia}

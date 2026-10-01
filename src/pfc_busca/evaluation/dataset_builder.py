@@ -264,13 +264,21 @@ def tabelas_latex(casos: list[dict]) -> dict[str, str]:
 # Apêndice A
 # ---------------------------------------------------------------------------
 
+def _tipografia(texto: str) -> str:
+    """Aspas simples retas viram aspas tipográficas do LaTeX ('x' -> `x'), e o rótulo (G-M) não quebra no sumário."""
+    texto = re.sub(r"(?<![\w`'])'([^'\n{}\\]{1,60})'(?![\w])", r"`\1'", texto)
+    return texto.replace(r"\textit{templates} (G-M)}", r"\textit{templates} \texorpdfstring{\mbox{(G-M)}}{(G-M)}}")
+
+
 def emitir_apendice(gerador: ModuleType, casos: list[dict], familias: dict[str, list[dict]], destino: Path) -> None:
     destino.mkdir(parents=True, exist_ok=True)
     for origem, nome in (("P", "apendice_dataset_P.tex"), ("N", "apendice_dataset_N.tex")):
         blocos = ["% AUTO-GERADO por pfc-dataset --apendice a partir de manual_cases.py — não editar à mão", ""]
         blocos += [gerador.dtcase(c) for c in casos if c["origem"] == origem]
-        (destino / nome).write_text("\n".join(blocos) + "\n", encoding="utf-8")
-    gerador.emitir_apendice(familias, destino / "apendice_dataset_gerado.tex")
+        (destino / nome).write_text(_tipografia("\n".join(blocos) + "\n"), encoding="utf-8")
+    gerado = destino / "apendice_dataset_gerado.tex"
+    gerador.emitir_apendice(familias, gerado)
+    gerado.write_text(_tipografia(gerado.read_text(encoding="utf-8")), encoding="utf-8")
     (destino / "tabelas").mkdir(exist_ok=True)
     for nome, conteudo in tabelas_latex(casos).items():
         (destino / "tabelas" / nome).write_text(conteudo, encoding="utf-8")
