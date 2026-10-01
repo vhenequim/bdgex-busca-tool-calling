@@ -777,7 +777,35 @@ def tabelas_latex(r: dict) -> dict[str, str]:
     linhas += [r"\end{tabular}", r"\fonte{Elaborado pelos autores a partir de \texttt{data/auditoria/adjudicacao.json}.}",
                r"\end{quadro}"]
     adjud = "\n".join(linhas) + "\n"
-    return {"tab_auditoria.tex": resumo, "tab_auditoria_campos.tex": campos, "quadro_adjudicacao.tex": adjud}
+    return {"tab_auditoria.tex": resumo, "tab_auditoria_campos.tex": campos, "quadro_adjudicacao.tex": adjud,
+            "numeros_auditoria.tex": macros_latex(r)}
+
+
+def macros_latex(r: dict) -> str:
+    """Macros \\res{auditoria310}{antes|depois}{...} da concordância e \\res{auditoria310}{adjudicacao}{n}, para que os
+    números da auditoria citados no texto venham do mesmo cálculo da Tabela tab:auditoria."""
+    def pct(x: int, n: int) -> str:
+        return f"{100 * x / n:.1f}".replace(".", ",") + r"\%" if n else "---"
+
+    defs: dict[str, str] = {}
+    for nome, c in (("antes", r["concordancia_antes"]), ("depois", r["concordancia"])):
+        valores = {
+            "n": c["n"], "nambos": c["n_ambos_chamam"],
+            "decisaoconcorda": c["decisao_concorda"], "decisaokappa": _k(c["decisao_kappa"]),
+            "compat": c["compativeis"], "compatpct": pct(c["compativeis"], c["n"]),
+            "identica": c["preferencial_identica"], "identicapct": pct(c["preferencial_identica"], c["n_ambos_chamam"]),
+            "presencakappa": _k(c["presenca_campos_kappa"]),
+            "valoresiguais": c["valores_iguais"], "valoresn": c["valores_n"],
+            "valorespct": pct(c["valores_iguais"], c["valores_n"]),
+            "ambiguidadekappa": _k(c["ambiguidade_kappa"]),
+        }
+        defs.update({f"res@auditoria310@{nome}@{k}": str(v) for k, v in valores.items()})
+    defs["res@auditoria310@adjudicacao@n"] = str(len({d["id"] for d in r["adjudicacao"]}))
+    linhas = ["% AUTO-GERADO por pfc_busca.evaluation.audit — não editar à mão",
+              r"\providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname"
+              r"\else\textbf{??}\fi}"]
+    linhas += [rf"\expandafter\def\csname {k}\endcsname{{{v}}}" for k, v in sorted(defs.items())]
+    return "\n".join(linhas) + "\n"
 
 
 # ---------------------------------------------------------------------------

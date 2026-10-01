@@ -785,6 +785,92 @@
    "veredito": "tc"
   },
   {
+   "chave": "baseestacaoqwenv3",
+   "conjunto": "base",
+   "ambiente": "estacao",
+   "modelo": "qwen3:4b-instruct-2507-q4_K_M",
+   "espec": "v3",
+   "desenvolvimento": true,
+   "pastas": [
+    "results/estacao/tc3-qwen3-4b-instruct-2507-q4_K_M",
+    "results/estacao/se3-qwen3-4b-instruct-2507-q4_K_M"
+   ],
+   "n": 59,
+   "ntc": 59,
+   "nse": 59,
+   "incompleto": false,
+   "latencia_comparavel": true,
+   "hardware": "RTX 3050 Laptop, 4096 MiB; Ollama 0.34.0; 58% na GPU; mesma máquina",
+   "tc": {
+    "n": 59,
+    "acuracia": 0.5932203389830508,
+    "ic": [
+     0.46593171365564306,
+     0.7091115697744415
+    ],
+    "accdominio": 0.5789473684210527,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 8,
+     "fn": 0,
+     "tn": 49,
+     "precisao": 0.2,
+     "recall": 1.0,
+     "f1": 0.33333333333333337,
+     "falsa": 0.14035087719298245,
+     "n_fora": 2
+    },
+    "f1": 0.7435406857063608,
+    "latmed": 11330.290600017179,
+    "latp95": 64926.730199949816,
+    "chamadas": 3.2033898305084745,
+    "repeticoes": [
+     1
+    ]
+   },
+   "se": {
+    "n": 59,
+    "acuracia": 0.864406779661017,
+    "ic": [
+     0.7546010154508226,
+     0.9296590925031444
+    ],
+    "accdominio": 0.8596491228070176,
+    "n_dominio": 57,
+    "recusa": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "tn": 55,
+     "precisao": 0.5,
+     "recall": 1.0,
+     "f1": 0.6666666666666666,
+     "falsa": 0.03508771929824561,
+     "n_fora": 2
+    },
+    "f1": 0.9503171592211651,
+    "latmed": 3210.6437000329606,
+    "latp95": 13648.70180003345,
+    "chamadas": 1.271186440677966,
+    "repeticoes": [
+     1
+    ]
+   },
+   "par_tc_se": {
+    "n": 59,
+    "so_a": 3,
+    "so_b": 19,
+    "p": 0.0008554458618164062,
+    "dif_acc": 0.27118644067796616,
+    "ic_dif_acc": [
+     0.13559322033898305,
+     0.423728813559322
+    ]
+   },
+   "veredito": "se"
+  },
+  {
    "chave": "basegroqgptoss20v1",
    "conjunto": "base",
    "ambiente": "groq",
