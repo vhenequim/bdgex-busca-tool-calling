@@ -16,7 +16,7 @@ modelos abertos executados localmente pelo Ollama:
 - **Saída Estruturada (SE)**: o modelo responde um JSON com os mesmos parâmetros, como no
   protótipo.
 
-Cada uma é avaliada em três especificações (v1, a solução do Cap. 4; v2; v3) e em três
+Cada uma é avaliada em três especificações (v1, a solução do Cap. 3; v2; v3) e em três
 conjuntos: as 310 consultas auditadas, o lote 1 (1.929 consultas) e o lote 2 (945 consultas,
 o conjunto de teste da v3).
 
@@ -69,7 +69,7 @@ acurácia) ou Gemma 4 E2B com o *Tool Calling* v3 (menor latência medida na est
 
 ## Produtos do PFC
 
-Os entregáveis da Seção 3.1.1 do texto, e onde estão:
+Os entregáveis da Seção 1.5.3 do texto, e onde estão:
 
 | Produto | Onde |
 |---|---|
@@ -85,7 +85,7 @@ Os entregáveis da Seção 3.1.1 do texto, e onde estão:
 
 | Caminho | Conteúdo |
 |---|---|
-| `src/pfc_busca/schema.py`, `prompts.py`, `agent.py` | v1 do Tool Calling (Cap. 4): a ferramenta `buscar_catalogo` (12 campos), o *prompt* com a data de referência e a tradução por `ChatOllama.bind_tools()` |
+| `src/pfc_busca/schema.py`, `prompts.py`, `agent.py` | v1 do Tool Calling (Cap. 3): a ferramenta `buscar_catalogo` (12 campos), o *prompt* com a data de referência e a tradução por `ChatOllama.bind_tools()` |
 | `src/pfc_busca/agent_estruturado.py` | linhas de base com Saída Estruturada (mesmo modelo e *prompt*) e o método do protótipo |
 | `src/pfc_busca/agent_groq.py` | a mesma tradução pelo Groq (referência em nuvem) |
 | `src/pfc_busca/v2.py`, `v3.py`, `ferramentas.py` | especificações v2 e v3 (degraus da v3, ferramentas auxiliares, validador e o controle com Saída Estruturada) |
@@ -176,7 +176,7 @@ abordagens do registro:
 
 | Abordagem | Família | Especificação | Pasta das rodadas |
 |---|---|---|---|
-| `tool_calling` | TC | v1, a solução do Cap. 4 | `results/<modelo>/` |
+| `tool_calling` | TC | v1, a solução do Cap. 3 | `results/<modelo>/` |
 | `saida_estruturada` | SE | v1 (linha de base) | `se-` |
 | `prototipo` | SE | método do protótipo (linha de base) | `prototipo-` |
 | `tool_calling_v2`, `saida_estruturada_v2` | TC, SE | v2 | `tc2-`, `se2-` |
@@ -189,7 +189,7 @@ abordagens do registro:
 ```bash
 docker compose up -d postgis     # opcional: o banco com a semente sintética
 pfc api                          # = uvicorn pfc_busca.api:app --port 8000 (a recomendada)
-pfc api --abordagem tool_calling --modelo qwen3:4b-instruct-2507-q4_K_M   # a v1 do Cap. 4
+pfc api --abordagem tool_calling --modelo qwen3:4b-instruct-2507-q4_K_M   # a v1 do Cap. 3
 curl http://127.0.0.1:8000/api/health
 curl -X POST http://127.0.0.1:8000/api/search -H "Content-Type: application/json" \
      -d '{"query": "cartas de São Paulo em 25k"}'

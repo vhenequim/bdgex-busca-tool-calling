@@ -683,8 +683,8 @@ def _linha_degrau(k: str, m: dict, rotulo_degrau: str, n_conjunto: int | None) -
 def tabela_degraus(res: dict[str, Any]) -> str:
     med, n = res["medidas"], res.get("n_conjunto")
     L = [r"\begin{table}[htbp!]", r"\centering",
-         r"\caption{" + _simulacao(res) + r"Gemma 4 E4B no lote 2 (teste): os degraus da v3, o controle e as "
-         r"referências v1/v2}", r"\label{tab:lote2_degraus}", r"\footnotesize", r"\ajustartabela{%",
+         r"\caption{" + _simulacao(res) + r"Degraus da v3, controle e referências v1/v2 com o Gemma 4 E4B "
+         r"no lote 2 (teste)}", r"\label{tab:lote2_degraus}", r"\footnotesize", r"\ajustartabela{%",
          r"\begin{tabular}{|l|l|c|c|c|c|c|c|c|c|c|}", r"\hline",
          r"\textbf{Degrau} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{Domínio} & "
          r"\textbf{F1 recusa} & \textbf{Falsa recusa} & \textbf{E} & \textbf{F1 campos} & \textbf{Latência (s)} & "
@@ -795,8 +795,8 @@ def tabela_decomposicao(res: dict[str, Any]) -> str:
                 for k in CONFIGS_310 if k in (d310.get("decomposicao") or {})]
     colunas = [(c, d) for c, d in colunas if d.get("n")]
     L = [r"\begin{table}[htbp!]", r"\centering",
-         r"\caption{" + _simulacao(res) + r"Decomposição do acerto no lote 2: primeira decisão do modelo e "
-         r"correção pelo retorno do código}", r"\label{tab:lote2_decomposicao}", r"\footnotesize",
+         r"\caption{" + _simulacao(res) + r"Decomposição do acerto no lote 2 entre a primeira decisão do modelo e "
+         r"a correção pelo retorno do código}", r"\label{tab:lote2_decomposicao}", r"\footnotesize",
          r"\ajustartabela{%", r"\begin{tabular}{|l|" + "c|" * max(1, len(colunas)) + "}", r"\hline",
          r"\textbf{Medida} & " + (" & ".join(rf"\textbf{{{c}}}" for c, _ in colunas) or "---") + r" \\", r"\hline"]
     for rotulo, f in _LINHAS_DECOMPOSICAO:

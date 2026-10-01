@@ -1375,7 +1375,7 @@ def macros(res: dict[str, Any]) -> str:
 
 def tabela_principal(res: dict[str, Any]) -> str:
     L = [r"\begin{table}[htbp!]", r"\centering",
-         r"\caption{Gemma 4 E4B no lote de validação e nas 310 consultas: especificações v1 e v2}",
+         r"\caption{Especificações v1 e v2 com o Gemma 4 E4B no lote de validação e nas 310 consultas}",
          r"\label{tab:lote}", r"\footnotesize", r"\ajustartabela{%",
          r"\begin{tabular}{|l|l|c|c|c|c|c|c|c|}", r"\hline",
          r"\textbf{Conjunto} & \textbf{Configuração} & \textbf{Acurácia} & \textbf{IC 95\%} & \textbf{F1} & "

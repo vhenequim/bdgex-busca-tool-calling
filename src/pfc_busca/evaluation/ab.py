@@ -461,7 +461,7 @@ def _origens(resultados: list[dict]) -> list[str]:
 
 def tabela(resultados: list[dict]) -> str:
     L = [r"\begin{table}[htbp!]", r"\centering",
-         r"\caption{Teste A/B: \textit{Tool Calling} (A) e Saída Estruturada (B) com o mesmo modelo, as mesmas "
+         r"\caption{Teste A/B entre o \textit{Tool Calling} (A) e a Saída Estruturada (B), com o mesmo modelo, as mesmas "
          r"consultas, a mesma especificação e o mesmo ambiente}", r"\label{tab:ab}", r"\footnotesize",
          r"\ajustartabela{%", r"\begin{tabular}{|l|l|c|r|c|c|c|c|c|c|c|c|}", r"\hline",
          r"\textbf{Conjunto} & \textbf{Modelo} & \textbf{Espec.} & \textbf{n} & "

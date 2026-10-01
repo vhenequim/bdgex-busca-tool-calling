@@ -6,11 +6,11 @@
 \chapter{Dataset de Avaliação}
 \label{apendice:dataset}
 
-Este apêndice documenta integralmente o \textit{dataset} de avaliação descrito na Seção~\ref{sec:dataset}: o manual de anotação que define o gabarito, as 310 consultas com as respectivas leituras aceitas, o mapeamento das consultas aos requisitos funcionais e o registro da auditoria. As mesmas informações estão, em formato legível por máquina, no arquivo \texttt{data/dataset.json} do repositório (Apêndice~\ref{apendice:codigo}). As listagens deste apêndice são geradas pelo comando \texttt{pfc-dataset -{}-apendice <diretório-do-texto>}, a partir das mesmas fontes que produzem esse arquivo (\texttt{manual\_cases.py} e o gerador da camada G), sem transcrição manual.
+Este apêndice documenta o \textit{dataset} de avaliação da Seção~\ref{sec:dataset}, com o manual de anotação que define o gabarito, as 310 consultas com as leituras aceitas, o mapeamento das consultas aos requisitos, o registro da auditoria e as tabelas de estrutura, composição e concordância dos conjuntos. O arquivo \texttt{data/dataset.json} do repositório (Apêndice~\ref{apendice:codigo}) guarda as mesmas informações em formato legível por máquina. As listagens deste apêndice são geradas das mesmas fontes que produzem esse arquivo (\texttt{manual\_cases.py} e o gerador da camada G), sem transcrição manual.
 
-\paragraph{Como ler as entradas.} Cada consulta traz o identificador, as categorias (Seção~\ref{sec:dataset}), o texto exatamente como é enviado ao modelo e as \textbf{leituras aceitas} do gabarito, na forma canônica da ferramenta. A notação segue o princípio P3 do manual: ``\texttt{A} ou \texttt{B}'' indica valor alternativo; ``(opcional)'' indica campo que pode faltar sem erro, mas que, se presente, precisa ter o valor indicado; ``aceita-se também \texttt{city} no lugar de \texttt{state}'' indica leitura estrutural alternativa. Expressões de tempo relativo aparecem pelo nome da regra (``ano corrente'', ``semana passada'') e são resolvidas na data de referência da execução, segundo o Quadro~\ref{quadro:tempo-relativo}. Na camada P, uma nota registra a linha de origem no arquivo do protótipo; nas camadas P e N, a nota registra também, quando há, a justificativa das leituras alternativas.
+\paragraph{Como ler as entradas.} Cada consulta traz o identificador, as categorias (Seção~\ref{sec:dataset}), o texto exatamente como é enviado ao modelo e as \textbf{leituras aceitas} do gabarito, na forma canônica da ferramenta. A notação segue o princípio P3 do manual (Seção~\ref{apx:manual}). Nela, ``\texttt{A} ou \texttt{B}'' indica valor alternativo, e ``(opcional)'' indica campo que pode faltar sem erro, mas que, se presente, precisa ter o valor indicado. A forma ``aceita-se também \texttt{city} no lugar de \texttt{state}'' indica leitura estrutural alternativa. As expressões de tempo relativo aparecem pelo nome da regra (``ano corrente'', ``semana passada'') e são resolvidas na data de referência da execução, segundo o Quadro~\ref{quadro:tempo-relativo}. Na camada P, uma nota registra a linha de origem no arquivo do protótipo. Nas camadas P e N, a nota registra também, quando há, a justificativa das leituras alternativas.
 
-\paragraph{Escopo do gabarito.} O gabarito descreve os \textbf{parâmetros} que a consulta deve produzir, e não o conjunto de produtos que a busca resultante devolveria. A avaliação de recuperação em nível de produto está fora do escopo do trabalho (Seção~\ref{sec:exclusoes-avaliacao}).
+\paragraph{Escopo do gabarito.} O gabarito descreve os \textbf{parâmetros} que a consulta deve produzir. A recuperação de produtos fica fora do escopo do trabalho (Seção~\ref{sec:exclusoes-avaliacao}).
 
 % \dtcase / \dtcasenota: bloco inline (não é float) para cada entrada do dataset.
 % Não usa \begin{quadro}[htbp!] porque isso exigiria o pacote `float`, que
@@ -46,7 +46,7 @@ Este apêndice documenta integralmente o \textit{dataset} de avaliação descrit
 \section{Consultas do protótipo (P01--P22)}
 \label{apx:dataset-p}
 
-As 22 consultas do arquivo de testes do protótipo do 1º CGEO (\texttt{backend/\allowbreak evaluation/\allowbreak test-cases.ts}), na ordem do arquivo. A anotação original da equipe do 1º CGEO é mantida como leitura preferencial; as leituras alternativas acrescentadas seguem o manual. Os períodos relativos, que no arquivo original estavam fixados em datas calculadas para o início de 2025 (por exemplo, 2024-10-01 a 2024-12-31 para o ``último trimestre do ano passado'' de P15), são expressos pelas regras nomeadas do Quadro~\ref{quadro:tempo-relativo}.
+As 22 consultas do arquivo de testes do protótipo do 1º CGEO (\texttt{backend/\allowbreak evaluation/\allowbreak test-cases.ts}) aparecem na ordem do arquivo. A anotação original da equipe do 1º CGEO é a leitura preferencial, e as leituras alternativas acrescentadas seguem o manual. No arquivo original, os períodos relativos estavam fixados em datas calculadas para o início de 2025 (por exemplo, 2024-10-01 a 2024-12-31 para o ``último trimestre do ano passado'' de P15). Aqui, eles são expressos pelas regras nomeadas do Quadro~\ref{quadro:tempo-relativo}.
 
 % Nas listagens, a aspa reta é literal: sem isto, o atalho " do babel (brazil) engole o espaço seguinte.
 \shorthandoff{"}
@@ -55,16 +55,16 @@ As 22 consultas do arquivo de testes do protótipo do 1º CGEO (\texttt{backend/
 \section{Consultas redigidas pelos autores (N01--N40)}
 \label{apx:dataset-n}
 
-Consultas redigidas para preencher lacunas de distribuição --- em especial a categoria Simples, ausente na camada P ---, exercitar as ambiguidades previstas no manual (estado ou capital, ordenação sem pista, regiões e grafias informais de escala, como ``25k'' e ``cem k'') e cobrir a fronteira do domínio: N36 e N37 estão fora do domínio (categoria F), e N38 a N40 são observacionais.
+Os autores redigiram estas consultas para preencher lacunas de distribuição, em especial a categoria Simples, ausente na camada P. Elas exercitam também as ambiguidades previstas no manual (estado ou capital, ordenação sem pista, regiões e grafias informais de escala, como ``25k'' e ``cem k'') e a fronteira do domínio. N36 e N37 estão fora do domínio (categoria F), e N38 a N40 são observacionais.
 
 \input{apendice_dataset_N}
 
 \section{Geração programática da camada G}
 \label{sec:dataset-gerado}
 
-As 248 consultas da camada G são produzidas pelo \textit{script} \texttt{scripts/\allowbreak generate\_dataset\_paper.py} do repositório (Apêndice~\ref{apendice:codigo}), a partir de catálogos fechados do domínio: as 27 unidades da federação (com preposição, grafias usuais e, exceto para Sergipe, sigla), 12 municípios de referência sem homônimo entre as UFs, as 8 escalas do SCN (com apelidos como ``25k'', ``25 mil'' e as convenções ``detalhada'' e ``pequena escala''), os 9 tipos de produto da ET-PCDG, os 5 CGEOs, os 9 projetos institucionais, 12 códigos MI e 10 códigos INOM, 15 expressões de tempo (14 relativas e o intervalo absoluto ``entre 2022 e 2023'') e os padrões de ordenação. Oito funções geradoras, uma por família, combinam esses catálogos em modelos de frase do português corrente.
+O \textit{script} \texttt{scripts/\allowbreak generate\_dataset\_paper.py} do repositório (Apêndice~\ref{apendice:codigo}) produz as 248 consultas da camada G a partir de catálogos fechados do domínio. São as 27 unidades da federação (com preposição, grafias usuais e, exceto para Sergipe, sigla), 12 municípios de referência sem homônimo entre as UFs, as 8 escalas do SCN (com apelidos como ``25k'', ``25 mil'' e as convenções ``detalhada'' e ``pequena escala''), os 9 tipos de produto e os 9 projetos institucionais aceitos pela ferramenta, os 5 CGEOs, 12 códigos MI e 10 códigos INOM, 15 expressões de tempo (14 relativas e o intervalo absoluto ``entre 2022 e 2023'') e os padrões de ordenação. Oito funções geradoras, uma por família, combinam esses catálogos em modelos de frase do português corrente.
 
-Três propriedades tornam a camada auditável. A geração é \textbf{determinística}: um único gerador pseudoaleatório, com semente 42, consumido em ordem fixa, de modo que a mesma versão do \textit{script} produz sempre as mesmas consultas. O gabarito é conhecido \textbf{por construção}: a frase é montada a partir dos parâmetros que deve produzir, e cada consulta registra no \textit{dataset} a função geradora e o modelo de frase que a originaram. E \textbf{nenhuma consulta se repete}: a comparação é feita após normalização de caixa, acentos e pontuação, dentro da camada e em relação às camadas P e N. As convenções de anotação são as mesmas do manual; em particular, ``São Paulo'' e ``Rio de Janeiro'' por extenso recebem as leituras estado ou município, e frases sem verbo de publicação ou criação aceitam os dois campos de período.
+Três propriedades tornam a camada auditável. A geração é \textbf{determinística}, porque um único gerador pseudoaleatório, com semente 42, é consumido em ordem fixa, e a mesma versão do \textit{script} produz sempre as mesmas consultas. O gabarito é conhecido \textbf{por construção}, porque a frase é montada a partir dos parâmetros que deve produzir, e cada consulta registra no \textit{dataset} a função geradora e o modelo de frase que a originaram. \textbf{Nenhuma consulta se repete} depois da normalização de caixa, acentos e pontuação, dentro da camada e em relação às camadas P e N. Valem as convenções do manual, como as leituras estado ou município para ``São Paulo'' e ``Rio de Janeiro'' por extenso e os dois campos de período nas frases sem verbo de publicação ou criação.
 
 As seções seguintes listam as 248 consultas por família. Os identificadores seguem o padrão \texttt{G\{família\}\{sequência\}}, em que a família é S (simples), C (compostas), M (código MI/INOM), T (tempo relativo), O (ordenação), A (informais), P (amplas, com muitos produtos) ou F (fronteira do domínio).
 
@@ -74,7 +74,7 @@ As seções seguintes listam as 248 consultas por família. Os identificadores s
 \section{Requisitos exercitados pelas consultas}
 \label{apx:dataset-requisitos}
 
-O Quadro~\ref{quadro:requisitos-por-consulta} relaciona os grupos de consultas aos requisitos funcionais da Seção~\ref{sec:requisitos}. Todas as consultas exercitam a tradução (RF2) e o registro dos traços de execução (RF5), pois cada rodada do \textit{pipeline} de avaliação grava um registro por consulta; a troca do modelo entre rodadas, por parâmetro do \textit{pipeline}, exercita ainda a substituibilidade de modelo por configuração (RNF6). O recebimento pela rota REST (RF1), a execução da busca no banco (RF3) e a seleção do modelo por requisição (RF4) são exercitados pela API e pela demonstração ponta a ponta descritas no Capítulo~\ref{cap:aprimoramento}, e não entram nas métricas, que avaliam a camada de tradução.
+O Quadro~\ref{quadro:requisitos-por-consulta} relaciona os grupos de consultas aos requisitos da Seção~\ref{sec:requisitos}. Todas as consultas exercitam a tradução (RF2) e o registro dos traços de execução (RF5), pois cada rodada do \textit{pipeline} de avaliação grava um registro por consulta. A troca do modelo entre rodadas, por parâmetro do \textit{pipeline}, exercita a substituição do modelo por configuração (RNF6). A rota REST (RF1), a busca no banco (RF3) e a seleção do modelo por requisição (RF4) ficam fora das métricas, que avaliam a tradução (Quadro~\ref{quadro:requisitos-resumo}).
 
 \begin{quadro}[htbp!]
 \centering
@@ -106,39 +106,55 @@ Observacionais (4) & Comportamento diante de valores impossíveis ou de pedidos 
 \section{Auditoria do \textit{dataset}}
 \label{apx:auditoria}
 
-A auditoria segue o procedimento descrito no manual de anotação (Seção~\ref{apx:manual}, subseção ``Procedimento de auditoria'') e é reproduzível a partir do repositório. Seus artefatos ficam em \texttt{data/auditoria/}:
+A auditoria segue o procedimento do manual de anotação (Seção~\ref{apx:manual}, subseção ``Procedimento de auditoria'') e é reproduzível a partir do repositório. Os artefatos ficam em \texttt{data/auditoria/}. Eles guardam o resultado das checagens automáticas e das medidas de concordância, uma linha por consulta com as evidências e as divergências, a anotação às cegas com a justificativa de cada consulta, as decisões de adjudicação com o gabarito anterior a cada uma e a amostra estratificada de 40 consultas (semente 42) conferida por um dos autores. O comando \texttt{pfc-auditar} (Seção~\ref{apx:comandos}) refaz a auditoria e regenera as Tabelas~\ref{tab:auditoria} e~\ref{tab:auditoria-campos} e o Quadro~\ref{quadro:adjudicacao}.
 
-\begin{itemize}
-  \item \texttt{relatorio\_auditoria.md} e \texttt{auditoria.json}: resultado das checagens automáticas (estrutura, rastreabilidade, anotador por regras e consistência), das medidas de concordância e da adjudicação;
-  \item \texttt{auditoria\_casos.csv}: uma linha por consulta, com o gabarito legível, as evidências localizadas pelo anotador por regras, os apontamentos e as divergências com a anotação independente;
-  \item \texttt{anotacao\_independente.json}: a anotação às cegas das 310 consultas, com a justificativa de cada uma;
-  \item \texttt{adjudicacao.json}: as decisões de adjudicação, com o gabarito anterior a cada decisão;
-  \item \texttt{revisao\_humana\_amostra.csv}: amostra estratificada por origem (40 consultas, semente 42), conferida manualmente por um dos autores.
-\end{itemize}
-
-O comando que refaz a auditoria e regenera as tabelas correspondentes (Tabelas~\ref{tab:auditoria} e~\ref{tab:auditoria-campos} e Quadro~\ref{quadro:adjudicacao}) é:
-
-{\footnotesize
-\begin{verbatim}
-pfc-auditar --anotacao-independente data/auditoria/anotacao_independente.json \
-            --paper <diretorio-do-texto>
-\end{verbatim}
-}
-
-A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a leitura preferencial do gabarito e a da anotação independente, e o Quadro~\ref{quadro:adjudicacao} lista todas as decisões de adjudicação. Das quatro consultas com leitura preferencial divergente (Tabela~\ref{tab:auditoria}), três --- P13, P21 e P22 --- decorrem da regra que mantém, na camada P, a anotação original da equipe do 1º CGEO como preferencial; na quarta, N33, o gabarito inclui na leitura preferencial o campo opcional \texttt{project}, que o anotador deixou de fora. Em todas, a leitura do anotador está entre as leituras aceitas.
+A Tabela~\ref{tab:auditoria-campos} detalha, por campo, a concordância entre a leitura preferencial do gabarito e a da anotação independente. O Quadro~\ref{quadro:adjudicacao} lista todas as decisões de adjudicação. Quatro consultas tiveram leitura preferencial divergente (Tabela~\ref{tab:auditoria}). Em P13, P21 e P22, a divergência decorre da regra que mantém, na camada P, a anotação original da equipe do 1º CGEO como preferencial. Em N33, o gabarito inclui na leitura preferencial o campo opcional \texttt{project}, que o anotador deixou de fora. Nas quatro, a leitura do anotador está entre as leituras aceitas.
 
 \input{tabelas/tab_auditoria_campos}
 
 \input{tabelas/quadro_adjudicacao}
 
-\section{Lote de validação: resultados complementares}
-\label{apx:lote}
+\clearpage
+\section{Estrutura, composição e concordância dos conjuntos}
+\label{apx:dataset-tabelas}
 
-Os artefatos do lote de validação (lote 1; Seções~\ref{sec:lote-validacao} e~\ref{sec:lote-resultados}) ficam em \texttt{data/lote\_validacao/}: os alvos (\texttt{alvos.json}), as tarefas e saídas de redação e de anotação, o relatório de montagem (\texttt{relatorio.md}), as consultas descartadas com o motivo (\texttt{descartes.json}) e a auditoria dos erros (\texttt{auditoria\_erros.json}, com os critérios alternativos para os gabaritos discutíveis em \texttt{auditoria\_criterios.json}); a metodologia completa está em \texttt{docs/lote\_validacao.md}. As tabelas deste apêndice são geradas por \texttt{python -m pfc\_busca.evaluation.lote}, que calcula também, a partir das rodadas e sem chamada nova ao modelo, as duas configurações simuladas da Tabela~\ref{tab:lote_duas_etapas} e as medidas complementares citadas na Seção~\ref{sec:lote-resultados} (seção 9.5 de \texttt{docs/lote\_validacao.md}). Os artefatos do lote 2 (Seção~\ref{sec:v3}), construído com os mesmos \textit{scripts}, ficam em \texttt{data/lote\_validacao\_2/}; as rodadas do teste da v3 e o relatório do plano de análise, em \texttt{results/lote2/} (\texttt{consolidado/lote2.md}), gerados por \texttt{python -m pfc\_busca.evaluation.lote2}; e o registro dos ciclos de desenvolvimento da v3, em \texttt{docs/v3\_desenvolvimento.md} e \texttt{results/dev\_v3/}.
+Esta seção reúne as tabelas que descrevem as 310 consultas e os dois lotes (Seção~\ref{sec:dataset}). Além dos campos da Tabela~\ref{tab:estrutura-dataset}, cada entrada traz os campos \texttt{origem} (P, N ou G), \texttt{familia} (P, N, GS \ldots GF) e \texttt{trocas}, com as leituras estruturais alternativas que o campo \texttt{alternativas} expande. Os valores alternativos e os campos opcionais ficam marcados no próprio \texttt{esperado}.
 
-\tabelagerada{tab_lote_categorias}{Acurácia por categoria no lote}
+\begin{table}[htbp!]
+\centering
+\caption{Estrutura de cada entrada do \textit{dataset} de avaliação}
+\label{tab:estrutura-dataset}
+\small
+\begin{tabular}{|l|p{10.5cm}|}
+\hline
+\textbf{Campo} & \textbf{Descrição} \\
+\hline
+\texttt{id} & Identificador (P01--P22, N01--N40, GS001 \ldots GF007) \\ \hline
+\texttt{fonte} & Rastreabilidade: arquivo e linha de origem (camada P), autores (camada N) ou função geradora, modelo de frase e semente (camada G) \\ \hline
+\texttt{categorias} & Uma ou mais das categorias S, C, M, T, O, A; ou F (fora do domínio), que não se combina com as demais \\ \hline
+\texttt{consulta} & Texto em linguagem natural \\ \hline
+\texttt{esperado} & Leitura preferencial do gabarito: parâmetros de busca na forma canônica, com períodos relativos expressos por regras nomeadas \\ \hline
+\texttt{alternativas} & Demais leituras aceitas, quando a consulta admite mais de uma (Seção~\ref{sec:manual-anotacao}) \\ \hline
+\texttt{espera\_tool\_call} & Falso quando o comportamento correto é não chamar a ferramenta \\ \hline
+\texttt{observacional} & Verdadeiro quando o caso fica fora das métricas principais \\ \hline
+\texttt{notas} & Justificativa das leituras alternativas e observações do anotador \\ \hline
+\end{tabular}%
+\fonte{Elaborada pelos autores.}
+\end{table}
 
-\tabelagerada{tab_lote_campos}{F1 por campo no lote}
+\input{tabelas/tab_dataset_categorias}
+
+\input{tabelas/tab_dataset_campos}
+
+O lote 1 (validação) e o lote 2 (teste) foram construídos com a mesma receita (Seção~\ref{sec:lote-validacao}). As Tabelas~\ref{tab:lote_composicao} e~\ref{tab:lote2_composicao} dão a composição de cada lote, e as Tabelas~\ref{tab:lote_concordancia} e~\ref{tab:lote2_concordancia}, a concordância da anotação às cegas.
+
+\input{tabelas/tab_lote_composicao}
+
+\input{tabelas/tab_lote_concordancia}
+
+\input{tabelas/tab_lote2_composicao}
+
+\input{tabelas/tab_lote2_concordancia}
 
 % ----------------------------------------------------------
 % Apêndice B — Especificação dos Ambientes de Execução
@@ -146,12 +162,24 @@ Os artefatos do lote de validação (lote 1; Seções~\ref{sec:lote-validacao} e
 \chapter{Especificação dos Ambientes de Execução}
 \label{apx:specs}
 
-Este apêndice documenta o \textit{hardware} e o \textit{software} dos ambientes de execução descritos na Seção~\ref{sec:ambiente}. Em todos eles, cada rodada grava um manifesto (\texttt{results/<modelo>/manifesto.json}) com as versões de \textit{software}, a configuração de inferência, a data de referência e os \textit{hashes} do \textit{dataset} e da definição da ferramenta.
+\begin{sloppypar}
+Este apêndice documenta o \textit{hardware} e o \textit{software} dos ambientes de execução da Seção~\ref{sec:ambiente}. Em todos eles, cada rodada grava um manifesto (\texttt{results/<modelo>/manifesto.json}; Seção~\ref{sec:reprodutibilidade}).
+\end{sloppypar}
 
 \section{Estação de referência}
 \label{apx:specs-estacao}
 
-Os dados da estação foram coletados executando-se, no próprio equipamento, os comandos PowerShell da Seção~\ref{apx:specs-comandos}, em setembro de 2026, com o \textit{driver} NVIDIA usado nas rodadas da estação; a saída é transcrita, de forma condensada, na Seção~\ref{apx:specs-resultado}. O banco usado na demonstração ponta a ponta roda num contêiner Docker com a imagem \texttt{postgis/postgis:16-3.4} (PostgreSQL 16 com PostGIS 3.4), definida no \texttt{docker-compose.yml} do repositório; o \texttt{psql} listado é o cliente instalado na estação.
+A estação de referência tem a seguinte configuração:
+\begin{itemize}
+  \item \textbf{CPU}. Intel Core i7-12700H (12.ª geração, 14 núcleos / 20 \textit{threads}, base 2,3~GHz).
+  \item \textbf{RAM}. 32~GB DDR4 a 3200~MHz.
+  \item \textbf{GPU dedicada}. NVIDIA GeForce RTX 3050 Laptop GPU com 4~GB de VRAM.
+  \item \textbf{Disco}. SSD NVMe de 512~GB.
+  \item \textbf{Sistema operacional}. Microsoft Windows 11 Pro (versão 10.0.26200, 64 bits).
+  \item \textbf{Software}. Python 3.14.4; Ollama 0.34.0; LangChain 1.x (\texttt{langchain-core} 1.6.4, \texttt{langchain-ollama} 1.1.0, cliente \texttt{ollama} 0.6.2); PostgreSQL 16.4 com PostGIS 3.4 em contêiner Docker, usado apenas na demonstração ponta a ponta.
+\end{itemize}
+
+Os dados foram coletados no próprio equipamento, em setembro de 2026, pelos comandos PowerShell da Seção~\ref{apx:specs-comandos}, com o mesmo \textit{driver} NVIDIA das rodadas da estação. A Seção~\ref{apx:specs-resultado} transcreve a saída de forma condensada. A imagem Docker do banco da demonstração, \texttt{postgis/postgis:16-3.4}, está definida no \texttt{docker-compose.yml} do repositório. O \texttt{psql} listado é o cliente instalado na estação.
 
 \subsection{Comandos PowerShell de coleta}
 \label{apx:specs-comandos}
@@ -229,15 +257,25 @@ Docker version 29.6.1, build 8900f1d
 \end{verbatim}
 }
 
+A Tabela~\ref{tab:ambiente_estacao} transcreve dos manifestos o ambiente das duas rodadas de validação na estação, com o Qwen 3 4B e o Gemma 4 E2B (Seção~\ref{sec:validacao-local}). As rodadas feitas depois na estação, para o teste A/B, têm as condições de \textit{hardware} nos próprios manifestos, resumidas em \texttt{results/\allowbreak ab/\allowbreak ab.md}.
+
+\tabelagerada{tab_ambiente_estacao}{ambiente da validação na estação}
+
 \section{Rodadas completas em GPU de nuvem}
 \label{apx:specs-colab}
 
-As rodadas completas dos quatro modelos locais foram executadas numa máquina virtual do Google Colab com GPU NVIDIA T4 (16~GB nominais de VRAM, dos quais o \texttt{nvidia-smi} informa 15.360~MiB; Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial, baixa os modelos pelas \textit{tags} do Ollama \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b} --- para o Qwen 3 4B e o Gemma 4 E2B, as mesmas da validação na estação de referência, com o mesmo \textit{digest} registrado nos manifestos ---, recebe o pacote do projeto (\texttt{pfc\_busca\_colab.zip}, gerado a partir do repositório por \texttt{scripts/\allowbreak empacotar\_colab.py}), confere o \textit{hash} SHA-256 do conjunto de consultas gravado no próprio caderno, recusando-se a rodar com outro pacote, instala-o e executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas. \res{principal}{geral}{frasecobertura} No mesmo ambiente, o caderno \texttt{notebooks/linha\_de\_base\_colab.ipynb} executou as linhas de base com Saída Estruturada e o método do protótipo, com o modelo \texttt{phi4:14b}, uma repetição e a mesma data de referência. Os dois lotes de validação também rodaram nesse ambiente, com o Gemma 4 E4B e uma repetição: o caderno \texttt{notebooks/\allowbreak lote\_validacao\_colab.ipynb} executou as configurações v1 e v2 no lote 1 e as duas v2 nas 310, e o \texttt{notebooks/\allowbreak lote2\_v3\_colab.ipynb}, que confere o \textit{hash} da v3 congelada antes de rodar, as configurações do plano de análise no lote 2 e a v3 e o seu controle nas 310; o \texttt{notebooks/\allowbreak lote2\_v3\_modelos\_colab.ipynb} executou a extensão do plano ao Gemma 4 E2B e ao Qwen 3 4B no lote 2. Nenhum serviço de LLM em nuvem é usado nesse ambiente: o Ollama executa dentro da máquina virtual, com os pesos baixados nela; somente a GPU é provida pela nuvem.
+As rodadas completas dos quatro modelos locais foram feitas numa máquina virtual do Google Colab com GPU NVIDIA T4 (16~GB nominais de VRAM, dos quais o \texttt{nvidia-smi} informa 15.360~MiB; Tabela~\ref{tab:ambiente}), pelo caderno \texttt{notebooks/avaliacao\_colab.ipynb} do repositório. O caderno instala o Ollama pelo instalador oficial e baixa os modelos pelas \textit{tags} \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M}, \texttt{gemma4:\allowbreak e4b-it-qat}, \texttt{gemma4:\allowbreak e2b-it-qat} e \texttt{mistral-nemo:12b}. As \textit{tags} do Qwen 3 4B, do Gemma 4 E4B e do Gemma 4 E2B são as mesmas usadas na estação de referência, com o mesmo \textit{digest} registrado nos manifestos. O caderno recebe o pacote do projeto (\texttt{pfc\_busca\_colab.zip}, gerado por \texttt{scripts/\allowbreak empacotar\_colab.py}), confere o \textit{hash} SHA-256 do conjunto de consultas gravado no próprio caderno e recusa-se a rodar com outro pacote. Depois, executa \texttt{pfc-avaliar} com três repetições por modelo, data de referência fixa (14 de setembro de 2026) e sem execução de SQL, pois a busca no banco não entra nas métricas.
+
+No mesmo ambiente, o caderno \texttt{notebooks/linha\_de\_base\_colab.ipynb} executou, com uma repetição e a mesma data de referência, a Saída Estruturada v1 nos quatro modelos locais e o método do protótipo no \texttt{phi4:14b}. Os lotes 1 (validação) e 2 (teste) também rodaram nesse ambiente, com o Gemma 4 E4B e uma repetição. O caderno \texttt{notebooks/\allowbreak lote\_validacao\_colab.ipynb} executou as configurações v1 e v2 no lote 1 e as duas v2 nas 310. O \texttt{notebooks/\allowbreak lote2\_v3\_colab.ipynb} conferiu o \textit{hash} da v3 congelada antes de rodar e executou as configurações do plano de análise no lote 2 e a v3 e o controle nas 310. O \texttt{notebooks/\allowbreak lote2\_v3\_modelos\_colab.ipynb} executou a extensão ao Gemma 4 E2B e ao Qwen 3 4B no lote 2. Nenhum serviço de LLM em nuvem é usado nesse ambiente. O Ollama executa dentro da máquina virtual, com os pesos baixados nela, e só a GPU vem da nuvem.
+
+\tabelagerada{tab_ambiente}{ambiente das rodadas completas}
 
 \section{Referência em nuvem (Groq)}
 \label{apx:specs-groq}
 
-A referência em nuvem usa a API do Groq, compatível com a da OpenAI, por meio da classe \texttt{ChatOpenAI} do pacote \texttt{langchain-openai} (versão 1.6.6), com \texttt{langchain-core} 1.6.4, a partir da estação de referência. O \textit{prompt} de sistema, a definição da ferramenta, a temperatura (zero) e o limite de 1024 \textit{tokens} de saída são os mesmos das rodadas locais. O esforço de raciocínio foi fixado em \res{groq}{geral}{esforcos}, o menor valor aceito por cada modelo; o valor \texttt{none} desliga o raciocínio. Cada modelo executou as \res{groq}{geral}{nexecutadas} consultas uma vez, com data de referência de 24 de setembro de 2026 e intervalo mínimo de 11~s entre chamadas; quando o provedor sinaliza o esgotamento do limite de taxa do plano gratuito, a execução aguarda o tempo indicado e retoma a mesma consulta, sem contá-la como erro. Uma chamada de ferramenta rejeitada pelo provedor por argumentos inválidos é registrada como erro do modelo. A linha de base com Saída Estruturada usa o mesmo cliente, sem ferramenta e com o modo JSON do provedor (\texttt{response\_format} do tipo \texttt{json\_object}), a data de referência de 24 de setembro de 2026 e o mesmo esforço de raciocínio de cada modelo.
+A referência em nuvem usa a API do Groq, compatível com a da OpenAI, pela classe \texttt{ChatOpenAI} do pacote \texttt{langchain-openai} (versão 1.6.6), com \texttt{langchain-core} 1.6.4, a partir da estação de referência. O \textit{prompt} de sistema, a definição da ferramenta, a temperatura (zero) e o limite de 1024 \textit{tokens} de saída são os mesmos das rodadas locais. O esforço de raciocínio foi fixado no menor valor aceito por cada modelo, \res{groq}{geral}{esforcos}. O valor \texttt{none} desliga o raciocínio. Cada modelo executou as \res{groq}{geral}{nexecutadas} consultas uma vez, com data de referência de 24 de setembro de 2026 e intervalo mínimo de 11~s entre chamadas.
+
+Quando o provedor sinaliza o esgotamento do limite de taxa do plano gratuito, a execução aguarda o tempo indicado e retoma a mesma consulta, sem contá-la como erro. As falhas transitórias de conexão ou do servidor são repetidas até três vezes antes de contarem como erro de infraestrutura, e só a latência da tentativa respondida é registrada. O servidor valida os argumentos contra o \textit{schema}, e uma chamada de ferramenta rejeitada por argumentos inválidos conta como erro do modelo. Quando os argumentos podem ser recuperados da mensagem de rejeição, eles são avaliados campo a campo, como na execução local. A linha de base com Saída Estruturada usa o mesmo cliente, sem ferramenta, com o modo JSON do provedor (\texttt{response\_format} do tipo \texttt{json\_object}), a mesma data de referência e o mesmo esforço de raciocínio de cada modelo.
 
 % ----------------------------------------------------------
 % Apêndice C — Repositório de Código e Reprodução
@@ -245,7 +283,7 @@ A referência em nuvem usa a API do Groq, compatível com a da OpenAI, por meio 
 \chapter{Repositório de Código e Reprodução dos Experimentos}
 \label{apendice:codigo}
 
-O código-fonte, o \textit{dataset}, o manual de anotação, os registros de auditoria, os registros de execução de todas as rodadas e as fontes deste texto estão no repositório público do projeto, \url{https://github.com/vhenequim/bdgex-busca-tool-calling}. O código, o \textit{dataset} e os artefatos de avaliação estão sob a licença MIT, e as partes derivadas do protótipo do 1º CGEO mantêm a licença MIT original, como registrado no arquivo \texttt{THIRD\_PARTY\_NOTICES.md}; o texto deste trabalho segue os termos de uso do IME impressos no verso da folha de rosto. A estrutura principal é a seguinte:
+O código-fonte, o \textit{dataset}, o manual de anotação, os registros de auditoria, os registros de execução de todas as rodadas e as fontes deste texto estão no repositório público do projeto, \url{https://github.com/vhenequim/bdgex-busca-tool-calling}. O código, o \textit{dataset} e os artefatos de avaliação estão sob a licença MIT. As partes derivadas do protótipo do 1º CGEO mantêm a licença MIT original, como registra o arquivo \texttt{THIRD\_PARTY\_NOTICES.md}. O texto deste trabalho segue os termos de uso do IME impressos no verso da folha de rosto. A estrutura principal do repositório aparece abaixo.
 
 {\footnotesize
 \begin{verbatim}
@@ -264,28 +302,28 @@ bdgex-busca-tool-calling/
                          do prototipo
     prototipo_termos.py  dicionario do prototipo (so na linha de base)
     v2.py                especificacao v2 (descricoes e recusar_consulta)
-    v3.py                v3: laco de chamadas, retorno, recusa contestada
-                         e controle com Saida Estruturada
+    v3.py                v3 (laco de chamadas, retorno, recusa contestada
+                         e controle com Saida Estruturada)
     ferramentas.py       ferramentas auxiliares e validador da v3
     dados/               municipios do IBGE e indice de folhas do BDGEx
                          (o indice nao e versionado)
     tools.py, db.py      busca no PostgreSQL/PostGIS (psycopg)
-    pipeline.py          ciclo completo: traducao, busca e resposta
+    pipeline.py          ciclo completo (traducao, busca e resposta)
     api.py               rotas POST /api/search e GET /api/health (FastAPI)
     evaluation/
       manual_cases.py    camadas P e N, com rastreabilidade e notas
       gabarito.py        leituras multiplas (valor alternativo, opcional, trocas)
       relative_time.py   regras de tempo relativo (leituras aceitas)
-      dataset_builder.py pfc-dataset: constroi e valida data/dataset.json
-      audit.py           pfc-auditar: auditoria do dataset
-      run_evaluation.py  pfc-avaliar: execucao, manifesto, repontuacao
+      dataset_builder.py pfc-dataset, constroi e valida data/dataset.json
+      audit.py           pfc-auditar, auditoria do dataset
+      run_evaluation.py  pfc-avaliar, execucao, manifesto, repontuacao
       metrics.py         acuracia, P/R/F1 por campo, latencia
-      report.py          pfc-relatorio: tabelas, figuras, Wilson, McNemar
-      conferencia.py     pfc-conferir: conferencia das rodadas
+      report.py          pfc-relatorio, tabelas, figuras, Wilson, McNemar
+      conferencia.py     pfc-conferir, conferencia das rodadas
       comparacao.py      Tool Calling x Saida Estruturada (tabela e macros)
       lote.py            analise do lote 1 (tabelas e macros)
       lote2.py           analise do lote 2 (plano de analise da v3)
-      ab.py              pfc ab: teste A/B, Modo A (TC) x Modo B (SE)
+      ab.py              pfc ab, teste A/B, Modo A (TC) x Modo B (SE)
   scripts/generate_dataset_paper.py   gerador da camada G (semente 42)
   scripts/gerar_tabelas_texto.py      tabelas e macros (Ap. A, auditoria, 310)
   scripts/empacotar_colab.py          pacote dos cadernos, com os hashes
@@ -299,7 +337,7 @@ bdgex-busca-tool-calling/
   data/lote_validacao.json            lote 1
   data/lote_validacao_2.json          lote 2 (teste da v3)
   data/auditoria/                     artefatos da auditoria
-  db/                                 esquema do prototipo e semente sintetica
+  db/                                 esquema do prototipo e dados sinteticos
   results/                            registros e manifestos das rodadas
   results/ab/                         teste A/B (ab.md e ab.json)
   notebooks/avaliacao_colab.ipynb     rodadas completas em GPU de nuvem
@@ -315,7 +353,7 @@ bdgex-busca-tool-calling/
 \end{verbatim}
 }
 
-Os passos para reproduzir os resultados, a partir de um ambiente com Python 3.12 ou superior, o Ollama e, para o banco da demonstração, o Docker, são:
+Os passos abaixo, com os comandos descritos na Seção~\ref{apx:comandos}, reproduzem os resultados num ambiente com Python 3.12 ou superior, o Ollama e, para o banco da demonstração, o Docker.
 
 {\footnotesize
 \begin{verbatim}
@@ -338,12 +376,98 @@ pfc lote2 --modelo gemma4:e2b-it-qat --paper texto  # extensao da v3
 pfc lote2 --modelo qwen3:4b-instruct-2507-q4_K_M --paper texto
 pfc ab --estrito --paper texto                      # teste A/B
 python scripts/v3/validador_no_gabarito.py --tex    # autoteste do validador
-# API com a abordagem recomendada, sobre a semente sintetica
+# API com a abordagem recomendada, sobre os dados sinteticos
 docker compose up -d postgis
 pfc api
 \end{verbatim}
 }
 
-A pontuação é sempre recalculada contra o gabarito vigente, lido do arquivo \texttt{data/dataset.json} ou do arquivo do lote: os comandos de análise releem os registros de execução e reaplicam o gabarito, de modo que as tabelas e os valores citados nos Capítulos~\ref{cap:resultados} e~\ref{cap:conclusao} podem ser regenerados sem nova execução dos modelos. Num clone, as macros do autoteste do validador ficam em \texttt{data/\allowbreak v3/\allowbreak numeros\_v3.tex} e devem ser copiadas à mão para \texttt{texto/\allowbreak tabelas/}.
+Os comandos de análise releem os registros de execução e reaplicam o gabarito vigente, lido de \texttt{data/dataset.json} ou do arquivo do lote. Assim, as tabelas e os valores dos Capítulos~\ref{cap:resultados} e~\ref{cap:conclusao} podem ser regenerados sem nova execução dos modelos. Num clone, o autoteste do validador grava as suas macros só em \texttt{data/\allowbreak v3/\allowbreak numeros\_v3.tex}, que deve ser copiado à mão para \texttt{texto/\allowbreak tabelas/}.
 
-As rodadas dos lotes e da v3 usam o mesmo \texttt{pfc-avaliar}, com a opção \texttt{-{}-abordagem} (\texttt{tool\_calling\_v2}, \texttt{saida\_estruturada\_v2}, \texttt{tool\_calling\_v3d}, \texttt{tool\_calling\_v3a}, \texttt{tool\_calling\_v3} e \texttt{saida\_estruturada\_v3}) e a opção \texttt{-{}-dataset} apontada para o arquivo do lote, executadas pelos cadernos da Seção~\ref{apx:specs-colab}; as tabelas e as macros saem de \texttt{python -m pfc\_busca.evaluation.lote} e \texttt{python -m pfc\_busca.evaluation.lote2}. O índice de folhas do BDGEx que as ferramentas da v3 consultam é gerado por \texttt{scripts/v3/gerar\_dados\_ferramentas.py} a partir da coleta do catálogo e não é versionado, como a própria coleta, porque a política do BDGEx não trata de redistribuição. Como esse arquivo entra no \textit{hash} da configuração da v3 gravado no manifesto de cada rodada, uma coleta feita em outra data, com o catálogo já alterado, gera outro índice e outro \textit{hash}: a v3 continua a rodar, mas deixa de coincidir com a configuração avaliada, o que o \texttt{pfc conferir} acusa nas rodadas da v3 e o \texttt{/api/health} mostra ao não listar rodada alguma feita com ela; sem o índice, as ferramentas também deixam de reconhecer nomes de folha e de conferir códigos no acervo. A reprodução exata das rodadas da v3 exige, portanto, o índice derivado da coleta de 28/09/2026, cujas páginas têm o \textit{hash} SHA-256 registrado em \texttt{data/\allowbreak lote\_validacao/\allowbreak bdgex\_resumo.json}; a repontuação das rodadas já executadas, a partir dos registros, não depende dele.
+O índice de folhas do BDGEx que as ferramentas da v3 consultam é gerado por \texttt{scripts/v3/gerar\_dados\_ferramentas.py} a partir da coleta do catálogo. Nem o índice nem a coleta são versionados, porque a política do BDGEx não trata de redistribuição. O índice entra no \textit{hash} da configuração da v3 gravado em cada manifesto. Uma coleta de outra data, com o catálogo já alterado, gera outro índice e outro \textit{hash}, e a v3 deixa de coincidir com a configuração avaliada. O \texttt{pfc conferir} acusa a diferença, e o \texttt{/api/health} não encontra nenhuma rodada avaliada com o mesmo \textit{hash}. Sem o índice, a API sobe em modo degradado, com aviso no \textit{log}, no \texttt{/api/health} e em cada resposta, e as ferramentas deixam de reconhecer nomes de folha e de conferir códigos no acervo. A reprodução exata da v3 exige o índice da coleta de 28/09/2026, cujas páginas têm o \textit{hash} SHA-256 registrado em \texttt{data/\allowbreak lote\_validacao/\allowbreak bdgex\_resumo.json}. A repontuação a partir dos registros não depende dele.
+
+O repositório guarda também os relatórios que detalham o Capítulo~\ref{cap:resultados}. O \texttt{results/\allowbreak consolidado/\allowbreak erros\_representativos.md} traz até quatro erros sorteados de cada tipo por modelo, nas rodadas completas. O \texttt{results/\allowbreak ab/\allowbreak ab.md} lista, para cada par do teste A/B, as pastas das duas rodadas, as consultas e repetições e as condições de \textit{hardware} que decidem se a latência é comparável. O \texttt{results/\allowbreak lote2/\allowbreak consolidado/\allowbreak lote2.md} traz as medidas do plano do lote 2 que não estão nas tabelas, como os efeitos de forma. A pasta \texttt{results/\allowbreak \_descartados/\allowbreak estacao\_14set\_vram\_disputada/} guarda a rodada do Qwen 3 4B feita na estação em 14 de setembro de 2026 e depois substituída, que a Tabela~\ref{tab:concordancia-reexecucao} compara com a rodada final. O manifesto dessa rodada, anterior ao registro da VRAM livre, não informa a parcela do modelo na GPU, que pode ter sido outra na rodada de 24 de setembro.
+
+Os artefatos do lote 1 (validação; Seções~\ref{sec:lote-validacao} e~\ref{sec:lote-resultados}) ficam em \texttt{data/\allowbreak lote\_validacao/}, com a metodologia em \texttt{docs/lote\_validacao.md}. Eles incluem os alvos, a redação e a anotação, as consultas descartadas com o motivo e a auditoria dos erros. O \texttt{pfc lote} calcula também, sem chamada nova ao modelo, as configurações simuladas da Tabela~\ref{tab:lote_duas_etapas}. Os artefatos do lote 2 (teste; Seção~\ref{sec:lote-validacao}) ficam em \texttt{data/\allowbreak lote\_validacao\_2/}, e as rodadas e o relatório do teste da v3, em \texttt{results/lote2/}. Os ciclos de desenvolvimento da v3 estão em \texttt{docs/v3\_desenvolvimento.md} e \texttt{results/dev\_v3/}.
+
+\section{Comandos do \textit{pipeline} de avaliação}
+\label{apx:comandos}
+
+Esta seção completa as Seções~\ref{sec:pipeline-avaliacao} e~\ref{sec:harness}. Os comandos \texttt{pfc-dataset}, \texttt{pfc-auditar}, \texttt{pfc-avaliar}, \texttt{pfc-relatorio}, \texttt{pfc-conferir} e \texttt{pfc-ab} são pontos de entrada do pacote. O \texttt{pfc} os reúne em subcomandos com os mesmos argumentos e acrescenta \texttt{pfc abordagens}, que lista o registro e os \textit{hashes}, \texttt{pfc api}, que sobe a API, e \texttt{pfc lote} e \texttt{pfc lote2}, que analisam os lotes.
+
+As checagens do \texttt{pfc-auditar} cobrem estrutura, rastreabilidade, evidência pelo anotador por regras e consistência. O \texttt{pfc-avaliar} grava os registros em JSON Lines. A opção \texttt{-{}-abordagem} escolhe a configuração (\texttt{saida\_estruturada}, \texttt{prototipo}, \texttt{tool\_calling\_v2}, \texttt{saida\_estruturada\_v2}, \texttt{tool\_calling\_v3d}, \texttt{tool\_calling\_v3a}, \texttt{tool\_calling\_v3} e \texttt{saida\_estruturada\_v3}), e o padrão é o \textit{Tool Calling} v1 (\texttt{tool\_calling}). A opção \texttt{-{}-dataset} aponta para o arquivo de cada lote, e \texttt{-{}-provedor groq} troca o \texttt{ChatOllama} pelo \texttt{ChatOpenAI} apontado para o \textit{endpoint} compatível do Groq (Seção~\ref{apx:specs-groq}). O \texttt{pfc-relatorio} extrai também uma amostra de erros representativos por tipo.
+
+Na API, as variáveis \texttt{PFC\_ABORDAGEM} e \texttt{PFC\_MODELO\_PADRAO} escolhem a abordagem e o modelo, e \texttt{PFC\_ABORDAGEM=tool\_calling} volta à v1. Um nome fora do registro impede a subida. Com a v3, a SQL é executada uma vez, com os parâmetros da busca que encerra o laço de chamadas. O Docker Compose sobe a API com o banco, com o Ollama no \textit{host}.
+
+A integração contínua (\texttt{.github/\allowbreak workflows/\allowbreak testes.yml}) roda o \texttt{ruff} e o \texttt{pytest} em Python 3.12 a cada \textit{push} e \textit{pull request} e constrói a imagem da API, que precisa subir e responder o \texttt{/api/health} sem Ollama e sem banco. Os testes cobrem também o tempo relativo, as invariantes do \textit{dataset} e os relatórios, e a API é testada com tradutores falsos.
+
+O guia \texttt{docs/como\_estender.md} descreve, para a próxima versão, os passos que a v3 seguiu (módulo novo, entrada no registro, congelamento pelo \textit{hash}, plano de análise gravado antes da rodada e números levados ao texto por macros geradas).
+
+% ----------------------------------------------------------
+% Apêndice D — Resultados Complementares
+% Tabelas e figuras geradas (mesmos comandos do cabeçalho de cap05-resultados.tex).
+% ----------------------------------------------------------
+\chapter{Resultados Complementares}
+\label{apx:resultados}
+
+Este apêndice reúne as tabelas e as figuras que detalham o Capítulo~\ref{cap:resultados}.
+
+\section{Rodadas completas das 310 consultas}
+\label{apx:res-310}
+
+Os quatro modelos locais executaram as 310 consultas na T4, com três repetições (Seção~\ref{sec:comparativo}). Na Figura~\ref{fig:fig_acuracia_por_categoria}, a acurácia da categoria F é a taxa de recusa correta, porque o gabarito dessas consultas não tem campos.
+
+\tabelagerada{tab_latencia}{latência por modelo}
+
+\figuragerada{fig_latencia_boxplot}{Distribuição da latência da tradução nas rodadas completas, em escala logarítmica, por modelo}{boxplot de latência}
+
+\tabelagerada{tab_mcnemar}{McNemar entre pares de modelos}
+
+\tabelagerada{tab_por_categoria}{F1 por categoria}
+
+\figuragerada{fig_acuracia_por_categoria}{Acurácia por consulta, por categoria e por modelo, nas rodadas completas dos modelos locais}{acurácia por categoria}
+
+\tabelagerada{tab_por_origem}{acurácia por camada}
+
+\tabelagerada{tab_por_campo}{F1 por campo}
+
+\section{Estação de referência}
+\label{apx:res-estacao}
+
+Na validação na estação de referência, o Qwen 3 4B e o Gemma 4 E2B executaram as 62 consultas das camadas P e N (Seção~\ref{sec:validacao-local}). O teste de McNemar entre os dois está na Tabela~\ref{tab:mcnemar_estacao}. Na estação, a comparação entre as abordagens confirmou o empate no Gemma 4 E2B. Nessa amostra menor, ela não mostrou diferença significativa no Qwen 3 4B nem no Gemma 4 E4B, dois modelos em que a vantagem da Saída Estruturada na T4 era significativa (Tabela~\ref{tab:abordagens_estacao}).
+
+\tabelagerada{tab_comparativo_estacao}{comparativo na estação}
+
+\tabelagerada{tab_latencia_estacao}{latência na estação}
+
+\tabelagerada{tab_mcnemar_estacao}{McNemar na estação}
+
+\tabelagerada{tab_abordagens_estacao}{Tool Calling e Saída Estruturada na estação}
+
+\tabelagerada{tab_concordancia_ambientes}{concordância entre a estação e as rodadas completas}
+
+\tabelagerada{tab_concordancia_reexecucao}{reexecução do Qwen 3 4B na estação}
+
+\section{Referência em nuvem}
+\label{apx:res-nuvem}
+
+Os \res{groq}{geral}{nmodelos} modelos servidos pelo Groq executaram as 310 consultas uma vez (Seção~\ref{sec:referencia-nuvem}).
+
+\tabelagerada{tab_comparativo_groq}{comparativo da referência em nuvem}
+
+\tabelagerada{tab_por_categoria_groq}{F1 por categoria na referência em nuvem}
+
+\section{Lote 1 (validação)}
+\label{apx:lote}
+
+As Tabelas~\ref{tab:lote_pares}, \ref{tab:lote_duas_etapas}, \ref{tab:lote_categorias} e~\ref{tab:lote_campos} detalham a etapa 3 no lote 1, com o Gemma 4 E4B (Seção~\ref{sec:lote-resultados}).
+
+\tabelagerada{tab_lote_pares}{Comparações pareadas no lote}
+
+\tabelagerada{tab_lote_duas_etapas}{duas etapas e regra do objeto vazio}
+
+\tabelagerada{tab_lote_categorias}{Acurácia por categoria no lote}
+
+\tabelagerada{tab_lote_campos}{F1 por campo no lote}
+
+\paragraph{Registros e leituras múltiplas.} Nas consultas do domínio, a Saída Estruturada v1 foi a melhor configuração nos oito registros de linguagem. As vantagens aparentes do \textit{Tool Calling} em registros como ``direto'' e ``sem acento'' vêm da concentração das consultas fora do domínio nesses registros. Os registros sem acento e telegráfico ficaram abaixo dos demais nas quatro configurações (na Saída Estruturada v1, \res{lote}{se1}{sematel} contra \res{lote}{se1}{sematelresto}). Todas as configurações acertaram menos nas consultas com mais de uma leitura aceita, e nelas a vantagem da Saída Estruturada cresceu (\res{lote}{multiplas}{didv1} p.p. na v1 e \res{lote}{multiplas}{didv2} p.p. na v2, na diferença entre as diferenças). A ambiguidade em si não explica esse aumento. As leituras múltiplas se concentram em algumas famílias, e, comparadas as abordagens dentro de cada família, a diferença desaparece na v2. Na v1, ela vem sobretudo da não busca do \textit{Tool Calling}, mais frequente nessas consultas.

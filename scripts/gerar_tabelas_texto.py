@@ -50,7 +50,7 @@ def main() -> int:
         (report.main, ["--modelos", ",".join(LOCAIS), "--comparar-com", str(DIR_RESULTADOS / "estacao"),
                        "--sufixo", "", "--titulo", "", "--paper", texto]),
         (report.main, ["--resultados", str(DIR_RESULTADOS / "estacao"), "--modelos", ",".join(ESTACAO),
-                       "--sufixo", "_estacao", "--titulo", " --- estação de referência (camadas P e N)",
+                       "--sufixo", "_estacao", "--titulo", ", na estação de referência (camadas P e N)",
                        "--paper", texto]),
         (report.main, ["--resultados", str(DIR_RESULTADOS / "estacao"), "--modelos", ESTACAO[0],
                        "--comparar-com", str(DIR_RESULTADOS / "_descartados" / "estacao_14set_vram_disputada"),
@@ -63,9 +63,9 @@ def main() -> int:
     if nuvem:
         passos += [
             (report.main, ["--modelos", ",".join(nuvem), "--sufixo", "_groq",
-                           "--titulo", " --- referência em nuvem (Groq)", "--paper", texto]),
+                           "--titulo", ", na referência em nuvem (Groq)", "--paper", texto]),
             (report.main, ["--modelos", ",".join(nuvem), "--sufixo", "_groqcomum",
-                           "--titulo", " --- referência em nuvem, consultas das rodadas completas",
+                           "--titulo", ", na referência em nuvem, só com as consultas das rodadas completas",
                            "--mesmas-consultas-de", str(DIR_RESULTADOS), "--modelos-referencia", ",".join(LOCAIS),
                            "--saida", str(DIR_RESULTADOS / "consolidado_groqcomum"), "--paper", texto]),
         ]

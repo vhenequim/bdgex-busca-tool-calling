@@ -199,7 +199,7 @@ def gerar(dir_resultados: Path, sufixo: str = "") -> tuple[str, str] | None:
             f"Phi-4 14B & 14B & Método do protótipo & {report._pct(mp['acuracia'])} & {report._pct(mp['accsemf'])} & "
             f"{report._f(mp['f1'])} & {report._pct(mp['recusa'])} & {report._pct(mp['acrescentou'])} & --- & --- \\\\ \\hline")
 
-    titulo = " --- estação de referência (camadas P e N)" if sufixo == "_estacao" else ""
+    titulo = ", na estação de referência (camadas P e N)" if sufixo == "_estacao" else ""
     tabela = "\n".join([
         r"\begin{table}[htbp!]", r"\centering",
         rf"\caption{{Tool Calling e Saída Estruturada sobre as mesmas consultas{titulo}}}",

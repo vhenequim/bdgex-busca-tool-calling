@@ -449,7 +449,7 @@ def main() -> int:
                f"{{{milhar(v) if isinstance(v, int) else v}}}" for k, v in sorted(defs.items())]
     nomes_fam = {"VS": "Simples (um critério)", "VC": "Compostas", "VM": "Códigos MI/INOM", "VT": "Tempo",
                  "VO": "Ordenação", "VA": "Leituras múltiplas", "VE": "Subespecificadas", "VF": "Fora do domínio"}
-    tab = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Lote de validação: do alvo ao lote final, por família}",
+    tab = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Do alvo ao lote final, por família, no lote de validação}",
            r"\label{tab:lote_composicao}", r"\footnotesize", r"\begin{tabular}{|l|l|c|c|c|c|}", r"\hline",
            r"\textbf{Família} & \textbf{Testa} & \textbf{Alvos} & \textbf{Checagens} & \textbf{Anotação às cegas} & "
            r"\textbf{Lote final} \\", r"\hline"]
@@ -488,7 +488,7 @@ def main() -> int:
     sufixo = config_lote.SUFIXO_TEX
     if sufixo:   # rótulos e legendas distintos para as tabelas do lote 2
         tab = [x.replace("tab:lote_composicao", f"tab:lote{sufixo}_composicao")
-               .replace("Lote de validação:", "Lote 2 (teste):") for x in tab]
+               .replace("no lote de validação}", "no lote 2 (teste)}") for x in tab]
         tab_conc = [x.replace("tab:lote_concordancia", f"tab:lote{sufixo}_concordancia")
                     .replace("do lote de validação", "do lote 2 (teste)") for x in tab_conc]
     saidas_tex = {f"numeros_lote{sufixo}_dados.tex": "\n".join(macros) + "\n",

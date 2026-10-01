@@ -1,7 +1,7 @@
 # Lote de validação independente — metodologia
 
 Este documento descreve como foi construído, verificado e usado o **lote de validação**:
-um segundo conjunto de consultas, independente das 310 do Cap. 3, usado para (i) repetir a
+um segundo conjunto de consultas, independente das 310 do Cap. 4, usado para (i) repetir a
 comparação *Tool Calling* × Saída Estruturada numa amostra grande e nova, (ii) medir a recusa
 com um número de consultas fora do domínio suficiente para intervalos de confiança estreitos,
 (iii) introduzir consultas subespecificadas (categoria E) e consultas com mais de uma resposta
@@ -19,7 +19,7 @@ As 310 consultas deixaram três perguntas em aberto:
    (Apêndice A); a categoria F tem só 8 consultas, o que torna a "recusa F" de cada modelo uma
    proporção sobre 8 casos.
 2. **O gabarito é bom?** Nas 310 o gabarito foi verificado por auditoria automática,
-   anotação independente às cegas e adjudicação (Cap. 3); ainda assim, um conjunto em que o
+   anotação independente às cegas e adjudicação (Cap. 4); ainda assim, um conjunto em que o
    gabarito nasce **antes** da consulta (por construção) e é **confirmado** por um anotador
    que não o conhece dá uma segunda linha de evidência.
 3. **O *Tool Calling* estava mal especificado?** Na análise de erros do Gemma 4 E4B nas 310
