@@ -588,8 +588,13 @@ def tab_ambiente(dados: dict[str, dict]) -> str:
     versoes = next((d["manifesto"].get("software", {}) for d in dados.values() if d.get("manifesto")), {})
     extra = ", ".join(f"{k.replace('_', '-')} {v}" for k, v in versoes.items()
                       if k.startswith("langchain") and v)
+    if dados and all(d.get("manifesto", {}).get("provedor") == "groq" for d in dados.values()):
+        colunas = r"Na GPU e VRAM livre: não se aplicam à execução em nuvem, cujo \textit{hardware} o provedor não informa"
+    else:
+        colunas = ("Na GPU: parcela do modelo carregado (pesos e contexto) alocada na VRAM pelo Ollama, medida após o "
+                   "aquecimento; VRAM livre: no início da rodada, com os demais modelos descarregados")
     linhas += [r"\hline", r"\end{tabular}",
-               rf"\fonte{{Elaborado pelos autores a partir de \texttt{{results/<modelo>/manifesto.json}}. Na GPU: parcela do modelo carregado (pesos e contexto) alocada na VRAM pelo Ollama, medida após o aquecimento; VRAM livre: no início da rodada, com os demais modelos descarregados. Data de referência: {data_ref}. Python {versoes.get('python', '---')}; {_tex(extra)}.}}",
+               rf"\fonte{{Elaborado pelos autores a partir de \texttt{{results/<modelo>/manifesto.json}}. {colunas}. Data de referência: {data_ref}. Python {versoes.get('python', '---')}; {_tex(extra)}.}}",
                r"\end{table}"]
     return "\n".join(linhas) + "\n"
 

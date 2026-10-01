@@ -22,7 +22,8 @@ A latência só entra quando as duas rodadas têm, nos manifestos, a mesma GPU, 
 mesma parcela do modelo na GPU (`hardware_comparavel`); no Groq, o hardware é do provedor e fica de fora.
 
 Conferência: cada número da tabela é comparado com a macro já existente do mesmo par (numeros_abordagens*.tex,
-numeros.tex, numeros_estacao.tex, numeros_groq.tex, numeros_lote.tex, numeros_lote2.tex). Uma divergência é
+numeros.tex, numeros_estacao.tex, numeros_groq.tex, numeros_lote.tex, numeros_lote2.tex e, na extensão,
+numeros_lote2gemma4e2b.tex e numeros_lote2qwen34b.tex). Uma divergência é
 "explicada" quando o valor existente é reproduzido pelo critério da outra análise (média das execuções em vez
 da maioria das repetições; todas as consultas da rodada em vez das comuns ao par); senão, "não explicada".
 
@@ -140,7 +141,9 @@ def pares(dir_resultados: Path = DIR_RESULTADOS) -> list[Par]:
     # extensão a outros modelos (docs/v3.md, "Extensão a outros modelos"): entram quando as rodadas existirem
     for m in EXTENSAO:
         for espec in ("v1", "v3"):
-            saida.append(Par("lote2", "t4", m, espec, *pastas(R / "lote2", m, espec)))
+            tc, se = ESPECS[espec][:2]
+            saida.append(Par("lote2", "t4", m, espec, *pastas(R / "lote2", m, espec),
+                             refs=(Ref("lote2", lote2.sufixo_extensao(m), tc=tc, se=se, par=tc + se),)))
     return saida
 
 
@@ -413,14 +416,14 @@ def _origens(resultados: list[dict]) -> list[str]:
     for r in resultados:
         blocos.setdefault(_bloco(r), []).append(r)
     partes, notas = [], []
+    dev_pastas: dict[str, set[str]] = {}   # uma só nota †: ambiente -> pastas das rodadas de desenvolvimento
+    dev_especs: set[str] = set()
     for (conjunto, ambiente, dev), rs in blocos.items():
         rotulo = rotulo_conjunto(rs[0])
         if dev:
-            pastas = " e ".join(sorted({rf"\texttt{{{lote2._tex(Path(r['pastas'][0]).parent.as_posix())}/}}"
-                                        for r in rs}))
-            especs = " e da ".join(sorted({r["par"].espec for r in rs}))
-            notas.append(rf"$^\dagger$ desenvolvimento: as {rotulo} consultas ({pastas}) orientaram o desenho da "
-                         rf"{especs}, e o resultado nelas é de dentro da amostra, otimista por construção")
+            dev_pastas.setdefault(ambiente, set()).update(
+                rf"\texttt{{{lote2._tex(Path(r['pastas'][0]).parent.as_posix())}/}}" for r in rs)
+            dev_especs.update(r["par"].espec for r in rs)
         elif conjunto == "base" and ambiente == "t4":
             rep_tc = sorted({len(r["tc"]["repeticoes"]) for r in rs})
             rep_se = sorted({len(r["se"]["repeticoes"]) for r in rs})
@@ -441,6 +444,17 @@ def _origens(resultados: list[dict]) -> list[str]:
         elif conjunto == "lote2":
             partes.append(rf"{rotulo}: conjunto de teste da v3 ({lote._milhar(rs[0]['n'])} consultas pontuadas; "
                           r"\texttt{results/lote2/}), nenhuma delas lida no desenvolvimento")
+    if dev_pastas:   # todos os pares de desenvolvimento são das 310 (na estação, as camadas P e N delas)
+        def pastas_dev(*ambientes: str) -> str:
+            return " e ".join(sorted(set().union(*(dev_pastas.get(a, set()) for a in ambientes))))
+        outros = [a for a in dev_pastas if a != "estacao"]
+        trechos = [f"as 310 consultas ({pastas_dev(*outros)})"] if outros else []
+        if "estacao" in dev_pastas:
+            trechos.append(("as camadas P e N delas" if outros else "as camadas P e N das 310 consultas")
+                           + f" na estação ({pastas_dev('estacao')})")
+        notas.append(rf"$^\dagger$ desenvolvimento: {' e '.join(trechos)} orientaram o desenho da "
+                     rf"{' e da '.join(sorted(dev_especs))}, e o resultado nelas é de dentro da amostra, otimista "
+                     r"por construção")
     notas += [_nota_incompleto(r) for r in resultados if r["incompleto"]]
     return partes + notas
 

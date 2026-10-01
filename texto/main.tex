@@ -112,6 +112,29 @@
 % As definições são geradas por pfc-relatorio (tabelas/numeros*.tex); nenhum número é digitado à mão.
 % ---
 \providecommand{\res}[3]{\ifcsname res@#1@#2@#3\endcsname\csname res@#1@#2@#3\endcsname\else\textbf{??}\fi}
+% \resen{...}{...}{...}: o mesmo valor no formato numérico do inglês, para o Abstract. Usa a macro
+% <medida>en quando o gerador a define; senão, converte a da versão em português, trocando a vírgula
+% decimal pelo ponto e o ponto de milhar pela vírgula (60,2\% -> 60.2\%; 1.929 -> 1,929).
+\ExplSyntaxOn
+\tl_new:N \l__pfcres_en_tl
+\cs_new:Npn \__pfcres_marca: { }
+\NewDocumentCommand { \resen } { m m m }
+  {
+    \cs_if_exist:cTF { res@#1@#2@#3en }
+      { \use:c { res@#1@#2@#3en } }
+      {
+        \cs_if_exist:cTF { res@#1@#2@#3 }
+          {
+            \tl_set_eq:Nc \l__pfcres_en_tl { res@#1@#2@#3 }
+            \tl_replace_all:Nnn \l__pfcres_en_tl { , } { \__pfcres_marca: }
+            \tl_replace_all:Nnn \l__pfcres_en_tl { . } { , }
+            \tl_replace_all:Nnn \l__pfcres_en_tl { \__pfcres_marca: } { . }
+            \tl_use:N \l__pfcres_en_tl
+          }
+          { \textbf{??} }
+      }
+  }
+\ExplSyntaxOff
 \newcommand{\carregarnumeros}[1]{\IfFileExists{tabelas/#1.tex}{\input{tabelas/#1}}{}}
 \carregarnumeros{numeros}
 \carregarnumeros{numeros_estacao}

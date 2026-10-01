@@ -84,6 +84,11 @@ SUFIXO_PADRAO = "lote2"
 ROTULO_310 = "v3base"
 
 
+def sufixo_extensao(modelo: str) -> str:
+    """Rótulo das macros da extensão a outro modelo (gemma4:e2b-it-qat -> lote2gemma4e2b)."""
+    return SUFIXO_PADRAO + re.sub(r"[^a-z0-9]", "", slug(modelo).split("-it")[0].split("-instruct")[0])
+
+
 def nome(k: str, curto: bool = False) -> str:
     if k == HIB:
         return NOME_HIB[1 if curto else 0]
@@ -970,7 +975,7 @@ def main(argv: list[str] | None = None) -> int:
     if extensao:
         MODELO = slug(args.modelo)
         if args.sufixo_macro == SUFIXO_PADRAO:
-            args.sufixo_macro = SUFIXO_PADRAO + re.sub(r"[^a-z0-9]", "", MODELO.split("-it")[0].split("-instruct")[0])
+            args.sufixo_macro = sufixo_extensao(args.modelo)
         args.dir_310 = None
     if not args.dataset.exists():
         print(f"dataset não encontrado: {args.dataset}")

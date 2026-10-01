@@ -236,8 +236,10 @@ modelo na GPU: a latência só se compara entre rodadas em que as três coincide
   (`"v4": ("tc4", "se4", "tool_calling_v4", "saida_estruturada_v4")`) e os pares a `pares()`
   (`desenvolvimento=True` para os conjuntos de desenvolvimento, que a tabela marca com †); depois,
   `pfc ab --estrito --paper ../paper_revisado`.
-- `lote2.py` e os pares de lote da A/B estão fixos no Gemma 4 E4B (`lote.MODELO`): rodadas com outro
-  modelo precisam de um parâmetro de modelo nessas análises.
+- `lote2.py` aceita `--modelo` (extensão: comparação principal, ganho sobre a v1 e A/B da v1, gravados
+  em `numeros_lote2<modelo>.tex`), e os pares do lote 2 com outros modelos já estão em `ab.pares()`,
+  conferidos contra essas macros (`lote2.sufixo_extensao`); o módulo de análise de um lote 3 precisa do
+  mesmo parâmetro.
 
 ## 12. Levar ao texto
 

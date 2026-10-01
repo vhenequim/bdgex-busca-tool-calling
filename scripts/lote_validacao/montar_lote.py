@@ -23,6 +23,7 @@ corrigido à mão. Toda consulta descartada fica registrada, com o motivo, em
 
 from __future__ import annotations
 
+import argparse
 import json
 import random
 import re
@@ -475,18 +476,21 @@ def main() -> int:
                    ("Detecção de leituras múltiplas, kappa", f3(conc_a["ambiguidade_kappa"]),
                     f3(conc_ab["ambiguidade_kappa"]) if com_b else "---")]
     tab_conc = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Concordância na anotação às cegas do lote de validação}",
-                r"\label{tab:lote_concordancia}", r"\footnotesize", r"\begin{tabular}{|l|c|c|}", r"\hline",
+                r"\label{tab:lote_concordancia}", r"\footnotesize", r"\ajustartabela{%", r"\begin{tabular}{|l|c|c|}",
+                r"\hline",
                 rf"\textbf{{Medida}} & \textbf{{Construção $\times$ A}} (n={milhar(len(anotados))}) & "
                 rf"\textbf{{A $\times$ B}} (n={len(com_b)}) \\", r"\hline"]
     tab_conc += [f"{m} & {a} & {b} \\\\" for m, a, b in conc_linhas]
-    tab_conc += [r"\hline", r"\end{tabular}", r"\fonte{Elaborada pelos autores. Medidas de \texttt{audit.concordancia}, "
+    tab_conc += [r"\hline", r"\end{tabular}}", r"\fonte{Elaborada pelos autores. Medidas de \texttt{audit.concordancia}, "
                  r"as mesmas da auditoria das 310 consultas, sobre todas as consultas redigidas (antes do filtro). "
                  r"A: anotação de todas as consultas; B: segunda anotação independente de uma amostra aleatória de 20\%.}",
                  r"\end{table}", ""]
     sufixo = config_lote.SUFIXO_TEX
-    if sufixo:   # rótulos distintos para as tabelas do lote 2
-        tab = [x.replace("tab:lote_composicao", f"tab:lote{sufixo}_composicao") for x in tab]
-        tab_conc = [x.replace("tab:lote_concordancia", f"tab:lote{sufixo}_concordancia") for x in tab_conc]
+    if sufixo:   # rótulos e legendas distintos para as tabelas do lote 2
+        tab = [x.replace("tab:lote_composicao", f"tab:lote{sufixo}_composicao")
+               .replace("Lote de validação:", "Lote 2 (teste):") for x in tab]
+        tab_conc = [x.replace("tab:lote_concordancia", f"tab:lote{sufixo}_concordancia")
+                    .replace("do lote de validação", "do lote 2 (teste)") for x in tab_conc]
     saidas_tex = {f"numeros_lote{sufixo}_dados.tex": "\n".join(macros) + "\n",
                   f"tab_lote{sufixo}_composicao.tex": "\n".join(tab),
                   f"tab_lote{sufixo}_concordancia.tex": "\n".join(tab_conc)}
@@ -505,6 +509,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter).parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     raise SystemExit(main())

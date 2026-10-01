@@ -10,6 +10,7 @@ um zip antigo.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -77,4 +78,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter).parse_args()
     main()

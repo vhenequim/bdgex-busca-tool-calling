@@ -43,8 +43,12 @@ Teste A/B com o Gemma 4 E4B (`gemma4:e4b-it-qat`) na T4, uma observação por co
   recebe as mesmas descrições e o mesmo retorno da validação, mas sem as ferramentas auxiliares.
 - Nas 310, com a v1, a Saída Estruturada também foi melhor no Qwen 3 4B e no Mistral Nemo 12B e
   empatou no Gemma 4 E2B; na nuvem (Groq), o Tool Calling foi melhor no GPT-OSS 20B e empatou no
-  GPT-OSS 120B e no Qwen 3.8 27B, cuja rodada de SE ainda está incompleta (16 pares em
-  `results/ab/ab.md`).
+  GPT-OSS 120B e no Qwen 3.8 27B (`results/ab/ab.md`, 24 pares, inclusive a v1 e a v3 na estação com
+  os três modelos e a extensão do lote 2 ao Gemma 4 E2B e ao Qwen 3 4B).
+- Extensão pré-registrada no lote 2, com a mesma v3: no Gemma 4 E2B, TC v3 80,4% × SE v3 65,4%
+  (SE − TC −15,0 p.p. [−18,3 a −11,9]); no Qwen 3 4B, TC v3 73,5% × SE v3 88,3% (+14,7 p.p.
+  [+11,7 a +18,0]). Em GPU modesta, a tese recomenda o Qwen 3 4B com a SE v3 ou o Gemma 4 E2B com o
+  TC v3 (`pfc api --abordagem saida_estruturada_v3 --modelo qwen3:4b-instruct-2507-q4_K_M`).
 - A A/B pontua uma observação por consulta, pela maioria das três repetições do TC v1 nas 310; o
   relatório das 310 (`results/consolidado/comparativo.md`) pontua a média das execuções, e por isso
   dá 60,2% ao mesmo TC v1 do Gemma 4 E4B.
@@ -58,6 +62,24 @@ Teste A/B com o Gemma 4 E4B (`gemma4:e4b-it-qat`) na T4, uma observação por co
 
 Os números do texto do PFC vêm das macros geradas pelas análises (seção "Relatórios e tabelas
 do texto"), nunca desta tabela.
+
+**Recomendação final:** *Tool Calling* v3 com o Gemma 4 E4B (`pfc api`, a configuração padrão),
+a de maior acurácia no lote 2; em GPU modesta, Qwen 3 4B com a Saída Estruturada v3 (maior
+acurácia) ou Gemma 4 E2B com o *Tool Calling* v3 (menor latência medida na estação).
+
+## Produtos do PFC
+
+Os entregáveis da Seção 3.1.1 do texto, e onde estão:
+
+| Produto | Onde |
+|---|---|
+| *Backend* em Python (FastAPI + LangChain) com *Tool Calling* nativo via Ollama, v1 a v3, com a v3 como padrão | `src/pfc_busca/` (`api.py`, `pipeline.py`, `v3.py`, `ferramentas.py`), `Dockerfile`, `docker-compose.yml` |
+| *Dataset* de avaliação com 310 consultas, manual de anotação e auditoria | `data/dataset.json`, `docs/manual_de_anotacao.md`, `data/auditoria/` |
+| *Pipeline* de avaliação e teste A/B (Modo A, TC × Modo B, SE), num comando único, com registro de abordagens, CI e guia de extensão | `pfc` (`src/pfc_busca/cli.py`), `src/pfc_busca/evaluation/`, `src/pfc_busca/abordagens.py`, `.github/workflows/testes.yml`, `docs/como_estender.md` |
+| Relatório comparativo dos modelos e recomendação | `results/consolidado/comparativo.md`, `results/ab/ab.md`, Cap. 5 do texto |
+| Lotes 1 e 2 e a v3, testada no lote 2 contra o controle com SE | `data/lote_validacao.json`, `data/lote_validacao_2.json`, `results/lote/`, `results/lote2/`, `docs/v3.md` |
+| Cadernos do Colab e registros e manifestos de todas as rodadas | `notebooks/`, `results/` |
+| Texto do PFC (fontes e PDF) | `texto/` |
 
 ## O que há aqui
 
@@ -88,6 +110,8 @@ Requer Python 3.12 ou superior; para as rodadas locais e a API, o [Ollama](https
 para o banco e a API em contêiner, o Docker.
 
 ```bash
+git clone https://github.com/vhenequim/bdgex-busca-tool-calling.git pfc_busca   # os scripts e o zip do Colab esperam a pasta pfc_busca/
+cd pfc_busca
 python -m venv .venv
 .venv\Scripts\activate          # Windows; em Linux/macOS: source .venv/bin/activate
 pip install -e ".[dev]"
@@ -109,7 +133,10 @@ Depois de atualizar o código, `pip install -e .` recria os atalhos (`pfc`, `pfc
 **Índice de folhas do BDGEx.** As ferramentas da v3 consultam `src/pfc_busca/dados/indice_folhas.json`,
 que não é versionado (é derivado dos metadados públicos do BDGEx, cuja política não trata de
 redistribuição). Ele é gerado por `python scripts/v3/gerar_dados_ferramentas.py` a partir da coleta
-(`scripts/lote_validacao/coletar_bdgex.py`) ou copiado do pacote do Colab. Sem ele, a v3 funciona em
+(`scripts/lote_validacao/coletar_bdgex.py`); o pacote do Colab só o leva se ele existir no disco, e
+`dist/` não é versionado. Uma coleta feita depois de 28/09/2026 pode gerar outro índice e, portanto,
+outro *hash* da v3 (`data/lote_validacao/bdgex_resumo.json` guarda o SHA-256 de cada página da coleta
+usada). Sem o índice, a v3 funciona em
 modo degradado: as ferramentas deixam de reconhecer nomes de folha e de conferir códigos no acervo, e o
 *hash* da configuração deixa de coincidir com o das rodadas avaliadas (o arquivo entra nele).
 
@@ -236,6 +263,8 @@ copia as tabelas e as macros para `DIR/tabelas/`. Para regenerar tudo o que o te
 python scripts/gerar_tabelas_texto.py --texto ../paper_revisado   # Apêndice A, auditoria, 310, estação, nuvem, TC × SE
 pfc lote  --paper ../paper_revisado       # lote 1 e v2          -> results/lote/consolidado/
 pfc lote2 --paper ../paper_revisado       # lote 2 e v3          -> results/lote2/consolidado/
+pfc lote2 --modelo gemma4:e2b-it-qat --paper ../paper_revisado              # extensão -> numeros_lote2gemma4e2b
+pfc lote2 --modelo qwen3:4b-instruct-2507-q4_K_M --paper ../paper_revisado  # extensão -> numeros_lote2qwen34b
 pfc ab    --paper ../paper_revisado       # teste A/B TC × SE    -> results/ab/
 python scripts/v3/validador_no_gabarito.py --tex                  # autoteste do validador (numeros_v3)
 python scripts/sincronizar_texto.py       # copia fontes, tabelas e PDF para texto/
@@ -251,6 +280,8 @@ python scripts/sincronizar_texto.py       # copia fontes, tabelas e PDF para tex
   texto já usa para o mesmo par.
 - As macros de dados dos lotes (`numeros_lote_dados`, `numeros_lote2_dados`) vêm de
   `scripts/lote_validacao/montar_lote.py`, que só roda quando um lote é reconstruído.
+- `validador_no_gabarito.py --tex` grava `data/v3/numeros_v3.tex` e só o copia para
+  `../paper_revisado/tabelas/`; num clone, copie-o para `texto/tabelas/`.
 
 Nenhum número de resultado é digitado à mão no texto: cada valor é uma macro
 `\res{conjunto}{configuração}{medida}` de um `numeros_*.tex`, carregado no `main.tex` por
@@ -275,12 +306,12 @@ O lote 2 segue a mesma receita, com outra semente e outros redatores e anotadore
 |---|---|
 | `results/<modelo>/` | TC v1 nas 310 com os quatro modelos locais, três repetições, Ollama numa GPU de nuvem (Google Colab, T4 de 16 GB); só a GPU é alugada, nenhum serviço de LLM é usado |
 | `results/se-<modelo>/`, `results/prototipo-phi4-14b/` | linhas de base nas 310: SE v1 e método do protótipo, uma repetição, T4 |
-| `results/estacao/` | estação de referência (RTX 3050 Laptop, 4 GB), camadas P e N, TC v1 e SE v1 |
+| `results/estacao/` | estação de referência (RTX 3050 Laptop, 4 GB), camadas P e N: TC v1 e SE v1 e TC v3 e SE v3 (Qwen 3 4B, Gemma 4 E2B e E4B), para a latência do teste A/B |
 | `results/groq-*/`, `results/groq-se-*/` | referência em nuvem (Groq): GPT-OSS 20B e 120B e Qwen 3.8 27B |
 | `results/v2_310/` | TC v2 e SE v2 nas 310 (desenvolvimento) |
 | `results/lote/` | lote 1: TC v1, SE v1, TC v2 e SE v2 (Gemma 4 E4B, T4) |
 | `results/dev_v3/` | ciclos de desenvolvimento da v3 (160 consultas do lote 1, Gemma 4 E4B local) |
-| `results/lote2/` | lote 2: TC v1, v2, v3d, v3a e v3; SE v1, v2 e v3 (Gemma 4 E4B, T4) |
+| `results/lote2/` | lote 2: TC v1, v2, v3d, v3a e v3; SE v1, v2 e v3 (Gemma 4 E4B, T4); extensão pré-registrada com Gemma 4 E2B e Qwen 3 4B (TC v1 e v3, SE v1 e v3) |
 | `results/v3_310/` | TC v3 e SE v3 nas 310 (desenvolvimento) |
 | `results/ab/` | teste A/B TC × SE (`pfc ab`) |
 | `results/consolidado*/`, `results/*/consolidado/` | tabelas, figuras e estatísticas das análises |

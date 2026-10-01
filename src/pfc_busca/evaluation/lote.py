@@ -1470,7 +1470,7 @@ def tabela_campos(res: dict[str, Any]) -> str:
 def tabela_pares(res: dict[str, Any]) -> str:
     nomes_par = {"tc1se1": "TC v1 × SE v1", "tc2se2": "TC v2 × SE v2", "tc1tc2": "TC v1 × TC v2",
                  "se1se2": "SE v1 × SE v2", "tc1se2": "TC v1 × SE v2"}
-    L = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Comparações pareadas (Gemma 4 E4B)}",
+    L = [r"\begin{table}[htbp!]", r"\centering", r"\caption{Comparações pareadas no lote 1 e nas 310 consultas (Gemma 4 E4B)}",
          r"\label{tab:lote_pares}", r"\footnotesize", r"\ajustartabela{%",
          r"\begin{tabular}{|l|l|c|c|c|c|c|}", r"\hline",
          r"\textbf{Conjunto} & \textbf{Par (A × B)} & \textbf{Só A} & \textbf{Só B} & \textbf{\textit{p}} & "
