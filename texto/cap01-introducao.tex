@@ -35,7 +35,7 @@ Essa barreira técnica tende a restringir o uso do acervo por analistas, gestore
 
 \section{Motivação}
 
-A produção de geoinformação passa pela aquisição, pelo processamento e pela disseminação dos dados. Este trabalho trata da disseminação, a fase que liga o acervo a quem o usa. Ele busca reduzir a barreira das nomenclaturas especializadas e tornar o catálogo da DSG utilizável por quem não é especialista. Para isso, o trabalho converte as convenções do acervo (INOM, MI, escalas do SCN, tipos de produto, CGEOs e regras de tempo) em instruções e verificações do sistema de busca. Esse conhecimento do engenheiro cartógrafo é o diferencial discutido na Seção~\ref{sec:engenheiro}.
+A produção de geoinformação passa pela aquisição, pelo processamento e pela disseminação dos dados. A parte da Engenharia Cartográfica que este trabalho atende é a \textbf{disseminação da informação geoespacial}, a etapa que leva o acervo já produzido a quem precisa dele. A barreira descrita acima está nessa etapa, porque o produto está catalogado, mas só o encontra quem domina as nomenclaturas do acervo. O trabalho busca reduzir essa barreira e tornar o catálogo da DSG utilizável por quem não é especialista. Para isso, converte as convenções do acervo (INOM, MI, escalas do SCN, tipos de produto, CGEOs e regras de tempo) em instruções e verificações do sistema de busca. Esse conhecimento do engenheiro cartógrafo é o diferencial discutido na Seção~\ref{sec:engenheiro}.
 
 Os Modelos de Linguagem de Grande Porte (LLMs, do inglês \textit{Large Language Models}) conseguem interpretar intenções implícitas, normalizar variações linguísticas e traduzir descrições informais para estruturas formais \cite{brown2020gpt3, wei2022emergent}. No \textit{Tool Calling} (chamada de ferramentas), o modelo recebe a descrição de funções externas e decide se chama alguma delas e com quais argumentos \cite{schick2023toolformer, qin2023toolllm}. Na Saída Estruturada (\textit{Structured Output}), ele sempre devolve um objeto no formato pedido. A Seção~\ref{sec:tc-vs-se} detalha a diferença.
 
@@ -59,7 +59,7 @@ A Seção~\ref{sec:limitacoes} detalha cada uma.
 
 \subsection{Objetivo Geral}
 
-Este trabalho tem por objetivo aprimorar a \textbf{camada de tradução linguística} da solução de busca em linguagem natural sobre o acervo cartográfico da DSG, a parte do sistema que converte a consulta livre do usuário em parâmetros estruturados de busca. A partir do protótipo do 1º CGEO, o trabalho reimplementa o \textit{pipeline} com \textit{Tool Calling} nativo, compara-o com a Saída Estruturada nos mesmos modelos e nas mesmas consultas (teste A/B, Seção~\ref{sec:ab}), avalia modelos abertos executáveis localmente via Ollama e define métricas que permitem aferir e comparar a tradução.
+Este trabalho tem por objetivo aprimorar a \textbf{camada de tradução linguística} da solução de busca em linguagem natural sobre o acervo cartográfico da DSG, a parte do sistema que converte a consulta livre do usuário em parâmetros estruturados de busca, para facilitar a disseminação do acervo a usuários não especialistas. A partir do protótipo do 1º CGEO, o trabalho reimplementa o \textit{pipeline} com \textit{Tool Calling} nativo, compara-o com a Saída Estruturada nos mesmos modelos e nas mesmas consultas (teste A/B, Seção~\ref{sec:ab}), avalia modelos abertos executáveis localmente via Ollama e define métricas que permitem aferir e comparar a tradução.
 
 \subsection{Questões do Trabalho}
 \label{sec:questoes}
