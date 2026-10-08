@@ -387,6 +387,41 @@ pfc auditar --anotacao-independente data/auditoria/anotacao_independente.json
 - **Semente do banco sintética**: prova que a arquitetura fecha ponta a ponta; nenhuma
   métrica depende dela.
 
+## Teste no acervo real
+
+Análise exploratória, feita depois da entrega do texto, sem rodar modelos: as buscas do lote 2 (o
+gabarito e os parâmetros que cada configuração já emitiu) são executadas, com a SQL de
+`tools.montar_sql` sem mudança, nos metadados reais do BDGEx carregados num PostGIS. Não altera
+nenhum resultado do texto. Resultados em `results/acervo_real/` (`relatorio.md`, `resultados.json`,
+`resumo_slide.md` e `carga.json`).
+
+```bash
+# 1. um PostGIS só para o teste (porta 5434, para não colidir com o do docker compose)
+docker run -d --name pfc_acervo_real -e POSTGRES_USER=pfc -e POSTGRES_DB=acervo_real \
+  -e POSTGRES_HOST_AUTH_METHOD=trust -p 127.0.0.1:5434:5432 postgis/postgis:16-3.4
+docker exec pfc_acervo_real psql -U pfc -d acervo_real \
+  -c 'CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS unaccent; CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+
+# 2. carregar o acervo (idempotente: apaga e recria as tabelas do esquema do protótipo)
+python scripts/acervo_real/carregar_acervo.py --dsn postgresql://pfc@localhost:5434/acervo_real \
+  --malhas DIR_COM_AS_MALHAS
+
+# 3. executar as buscas e gerar os relatórios (cerca de 10 min)
+python scripts/acervo_real/avaliar_acervo.py --dsn postgresql://pfc@localhost:5434/acervo_real
+python scripts/acervo_real/avaliar_acervo.py --so-relatorio   # só refaz os .md a partir do JSON
+```
+
+- **O dump do CSW não é versionado.** A carga lê `data/lote_validacao/bdgex_csw/pagina_*.json`, que
+  está no `.gitignore`; gere-o antes com `scripts/lote_validacao/coletar_bdgex.py`. Uma coleta nova
+  pode trazer outro conteúdo (o catálogo muda, e a paginação do servidor repetiu páginas na coleta
+  de 28/09/2026), e os números de `results/acervo_real/` valem para aquela coleta.
+- **As malhas do IBGE também não são versionadas.** `DIR_COM_AS_MALHAS` deve conter
+  `ibge_uf_intermediaria.geojson` e `ibge_mun_intermediaria.geojson`, da API de malhas v3 do IBGE
+  (`https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/vnd.geo+json&qualidade=intermediaria&intrarregiao=UF`,
+  e o mesmo com `intrarregiao=municipio`).
+- O banco usado nos resultados versionados tinha locale `C`; num banco com locale UTF-8, três
+  keywords escritas em maiúsculas acentuadas podem dar resultado diferente (ver `relatorio.md`).
+
 ## Texto do PFC
 
 `texto/` traz as fontes LaTeX e o PDF (`texto/main.pdf`), copiados da pasta de trabalho do texto por
