@@ -4,7 +4,7 @@
 \chapter{Fundamentação Teórica}
 \label{cap:fundamentacao}
 
-Este capítulo apresenta os modelos de linguagem empregados, com os parâmetros que os distinguem e os requisitos para executá-los, analisa o projeto \texttt{prototipo\_busca\_llm}, do 1º CGEO, e define o \textit{tool calling} e os termos usados na metodologia e na avaliação dos resultados.
+Este capítulo apresenta os modelos de linguagem empregados, com os parâmetros que os distinguem e os requisitos para executá-los, analisa o protótipo do 1º CGEO e define o \textit{tool calling} e os termos usados na metodologia e na avaliação dos resultados.
 
 % ---
 \section{Modelos Amplos de Linguagem}
@@ -38,7 +38,7 @@ O catálogo do Ollama indica, para cada modelo, se ele oferece \textit{tool call
 
 A Tabela~\ref{tab:modelos} reúne os modelos empregados, agrupados pelo papel que desempenham. Entre os quatro modelos locais avaliados, o Qwen 3 4B Instruct 2507, da equipe Qwen, da Alibaba Cloud \cite{qwen2025qwen34binstruct2507}, é a variante sem modo de raciocínio de um modelo denso de 4 bilhões de parâmetros da família Qwen3 \cite{qwen2025qwen3}. O Gemma 4 E4B e o Gemma 4 E2B, da Google DeepMind \cite{team2026gemma4}, têm, respectivamente, 4,5 e 2,3 bilhões de parâmetros efetivos, ou 8 e 5,1 bilhões quando se contam as tabelas de \textit{embeddings} por camada, e foram empregados nas versões com QAT \cite{google2026gemma4qat}. O Mistral Nemo 12B, desenvolvido pela Mistral AI com a NVIDIA \cite{mistral2024nemo}, é um modelo denso de 12 bilhões de parâmetros, o maior dos quatro modelos locais avaliados.
 
-O Phi-4 14B, da Microsoft Research \cite{abdin2024phi4}, sob licença MIT \cite{microsoft2024phi4card}, é o modelo do projeto \texttt{prototipo\_busca\_llm} e, por isso, da solução do Maj Diniz (Seção~\ref{sec:metodo-maj-diniz}). O catálogo do Ollama não indica \textit{tool calling} nativo para ele, condição compatível com o emprego da saída estruturada no projeto (Seção~\ref{sec:prototipo}).
+O Phi-4 14B, da Microsoft Research \cite{abdin2024phi4}, sob licença MIT \cite{microsoft2024phi4card}, é o modelo do protótipo e, por isso, da reprodução do seu método usada na comparação (Seção~\ref{sec:metodo-prototipo}). O catálogo do Ollama não indica \textit{tool calling} nativo para ele, condição compatível com o emprego da saída estruturada no protótipo (Seção~\ref{sec:prototipo}).
 
 Três modelos maiores foram executados por meio do Groq, serviço de inferência em nuvem que executa modelos de pesos abertos. O GPT-OSS 20B e o GPT-OSS 120B, da OpenAI \cite{openai2025gptoss}, são modelos de mistura de especialistas, com 21 bilhões de parâmetros totais e 3,6 ativos no primeiro e 117 totais e 5,1 ativos no segundo. Em ambos, o modo de raciocínio não pode ser desligado \cite{groq2026reasoning}. O Qwen 3.8 27B, da equipe Qwen \cite{qwen2026qwen38}, representa a geração mais recente dessa família. A menor versão dele no catálogo do Ollama tem 27 bilhões de parâmetros e ocupa 18~GB, mais do que a VRAM das GPUs disponíveis para a execução local (Seção~\ref{sec:hardware}), e, por isso, essa geração foi avaliada apenas em nuvem.
 
@@ -60,7 +60,7 @@ Qwen 3 4B Instruct 2507 \cite{qwen2025qwen34binstruct2507} & Equipe Qwen (Alibab
 Gemma 4 E4B \cite{team2026gemma4} & Google DeepMind & 4,5 bilhões efetivos (8 com \textit{embeddings}) & 6,1~GB (QAT) & Apache 2.0 & abr. 2026 (QAT em jun. 2026) & sim \\ \hline
 Gemma 4 E2B \cite{team2026gemma4} & Google DeepMind & 2,3 bilhões efetivos (5,1 com \textit{embeddings}) & 4,3~GB (QAT) & Apache 2.0 & abr. 2026 (QAT em jun. 2026) & sim \\ \hline
 Mistral Nemo 12B \cite{mistral2024nemo} & Mistral AI e NVIDIA & 12 bilhões & 7,1~GB & Apache 2.0 & jul. 2024 & sim \\ \hline
-\multicolumn{7}{|l|}{\textit{Modelo da solução do Maj Diniz}} \\ \hline
+\multicolumn{7}{|l|}{\textit{Modelo do protótipo}} \\ \hline
 Phi-4 14B \cite{abdin2024phi4} & Microsoft Research & 14 bilhões & 9,1~GB & MIT & dez. 2024 & não \\ \hline
 \multicolumn{7}{|l|}{\textit{Modelos maiores em nuvem (Groq)}} \\ \hline
 GPT-OSS 20B \cite{openai2025gptoss} & OpenAI & 21 bilhões (3,6 ativos) & não instalado & Apache 2.0 & ago. 2025 & sim \\ \hline
@@ -100,7 +100,7 @@ A Figura~\ref{fig:arquitetura-prototipo} mostra as quatro camadas da arquitetura
   \draw[arr] (l3) to node[right, font=\scriptsize] {parâmetros de busca} (l4);
   \draw[arr, dashed] (l4.east) to ++(0.5,0) |- node[right, font=\scriptsize, pos=0.25] {resultados} (l1.east);
 \end{tikzpicture}
-\caption{Arquitetura do projeto \texttt{prototipo\_busca\_llm}, do 1º CGEO}
+\caption{Arquitetura do protótipo do 1º CGEO}
 \label{fig:arquitetura-prototipo}
 \fonte{Adaptado de \citeonline{cgeo2025prototipo}.}
 \end{fixo}
@@ -110,9 +110,9 @@ A interface, escrita em React com a biblioteca Leaflet, exibe os resultados num 
 \subsection{Contribuições e Limitações}
 \label{sec:prototipo-limitacoes}
 
-O projeto mostrou que modelos de linguagem executados localmente são tecnicamente viáveis no domínio cartográfico, que o Phi-4 14B extrai parâmetros de busca relevantes de consultas em português e que exemplos resolvidos combinados com saída estruturada produzem resultados utilizáveis. Mostrou também que a integração do modelo com o PostgreSQL e o PostGIS funciona em ambiente controlado.
+O protótipo mostrou que modelos de linguagem executados localmente são tecnicamente viáveis no domínio cartográfico, que o Phi-4 14B extrai parâmetros de busca relevantes de consultas em português e que exemplos resolvidos combinados com saída estruturada produzem resultados utilizáveis. Mostrou também que a integração do modelo com o PostgreSQL e o PostGIS funciona em ambiente controlado.
 
-Na apresentação das demandas do trabalho, o 1º CGEO apontou seis limitações do projeto, enumeradas a seguir na ordem em que os requisitos do Capítulo~\ref{cap:desenvolvimento} as referenciam:
+Na apresentação das demandas do trabalho, o 1º CGEO apontou seis limitações do protótipo, enumeradas a seguir na ordem em que os requisitos do Capítulo~\ref{cap:desenvolvimento} as referenciam:
 \begin{enumerate}
   \item o \textit{backend} foi escrito em Node.js, embora as bibliotecas de integração com modelos de linguagem tenham versões mais completas em Python;
   \item a tradução da consulta usa apenas saída estruturada, de modo que o modelo devolve sempre a estrutura predefinida, não pode recusar um pedido sem um campo próprio para isso e não pode consultar funções durante a resposta;

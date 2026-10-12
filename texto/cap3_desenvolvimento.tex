@@ -11,7 +11,7 @@ Este capítulo apresenta os requisitos da solução, o ambiente computacional e 
 \label{sec:requisitos}
 % ============================================================
 
-Os requisitos da solução têm três origens. A primeira são as demandas do cliente, apresentadas pelo Maj Diniz, do 1º CGEO, em 5 de fevereiro de 2026. A segunda é a análise do projeto \texttt{prototipo\_busca\_llm} (Seção~\ref{sec:prototipo}), que fornece o esquema de busca a preservar e as limitações a superar. A terceira são as convenções que organizam o catálogo, a saber, a ET-PCDG \cite{etpcdg2016}, a articulação sistemática das folhas do SCN \cite{scn2016}, a divisão político-administrativa do IBGE e o Perfil de Metadados Geoespaciais do Brasil (Perfil MGB) \cite{perfilmgb2009}. O manual de anotação (Seção~\ref{sec:manual}) é a forma operacional dessas convenções e não constitui origem de requisito.
+Os requisitos da solução têm três origens. A primeira são as demandas apresentadas pelo 1º CGEO para este trabalho. A segunda é a análise do protótipo desse centro (Seção~\ref{sec:prototipo}), que fornece o esquema de busca a preservar e as limitações a superar. A terceira são as convenções que organizam o catálogo, a saber, a ET-PCDG \cite{etpcdg2016}, a articulação sistemática das folhas do SCN \cite{scn2016}, a divisão político-administrativa do IBGE e o Perfil de Metadados Geoespaciais do Brasil (Perfil MGB) \cite{perfilmgb2009}. O manual de anotação (Seção~\ref{sec:manual}) é a forma operacional dessas convenções e não constitui origem de requisito.
 
 O Quadro~\ref{quadro:requisitos} lista os requisitos funcionais (RF) e não funcionais (RNF), com a origem de cada um. A tradução da consulta em parâmetros está desdobrada por funcionalidade, do RF2 ao RF7, para que cada ferramenta descrita na Seção~\ref{sec:res-modelagem} se ligue a um requisito determinado.
 
@@ -23,23 +23,23 @@ O Quadro~\ref{quadro:requisitos} lista os requisitos funcionais (RF) e não func
 \begin{tabular}{|>{\centering\arraybackslash}p{1.2cm}|>{\raggedright\arraybackslash}p{9.0cm}|>{\raggedright\arraybackslash}p{4.4cm}|}
 \hline
 \textbf{Id.} & \textbf{Requisito} & \textbf{Origem} \\ \hline
-RF1 & Receber a consulta em linguagem natural e devolver os parâmetros, os produtos e a resposta ao usuário & cliente; \texttt{prototipo\_busca\_llm} \\ \hline
-RF2 & Reconhecer o lugar citado, seja a unidade da federação (UF), pelo nome ou pela sigla, seja o município, e restringir a busca pela interseção espacial com ele & \texttt{prototipo\_busca\_llm}; divisão político-administrativa do IBGE \\ \hline
-RF3 & Reconhecer a folha pedida pelo código MI ou INOM, em qualquer grafia, ou pelo nome & cliente; articulação sistemática das folhas \\ \hline
-RF4 & Reconhecer a escala em qualquer grafia e as expressões qualitativas de escala & cliente; escalas do catálogo \\ \hline
-RF5 & Reconhecer o tipo de produto, o centro de geoinformação e o projeto pelos nomes e apelidos usuais & \texttt{prototipo\_busca\_llm}; ET-PCDG \\ \hline
-RF6 & Resolver expressões de tempo em relação à data de execução, que o \textit{prompt} informa ao modelo como data atual, e distinguir publicação de criação & \texttt{prototipo\_busca\_llm}; metadados do catálogo \\ \hline
-RF7 & Atender pedidos de ordenação e de quantidade, sem acrescentá-los quando não pedidos & \texttt{prototipo\_busca\_llm} \\ \hline
-RF8 & Recusar, com explicação ao usuário, o pedido que não é do acervo, sem recusar pedido legítimo & cliente; limitação 2 do \texttt{prototipo\_busca\_llm} \\ \hline
-RF9 & Tratar o pedido sem nenhum critério representável nos parâmetros & análise do \texttt{prototipo\_busca\_llm} \\ \hline
-RF10 & Informar a busca legítima sem resultado, com os critérios usados & cliente; \texttt{prototipo\_busca\_llm} \\ \hline
-RF11 & Registrar, por consulta, os parâmetros, as chamadas, os tempos e os erros & limitações 5 e 6 do \texttt{prototipo\_busca\_llm} \\ \hline
-RNF1 & Executar os modelos localmente & cliente \\ \hline
-RNF2 & Latência compatível com o uso interativo, sem limiar fixado \textit{a priori} & cliente \\ \hline
-RNF3 & Compatibilidade com o esquema do \texttt{prototipo\_busca\_llm} e com os metadados do BDGEx (ET-PCDG e Perfil MGB) & \texttt{prototipo\_busca\_llm}; ET-PCDG \\ \hline
-RNF4 & Reprodutibilidade das avaliações & limitação 6 do \texttt{prototipo\_busca\_llm} \\ \hline
-RNF5 & Manutenibilidade, com testes automatizados e integração contínua & limitação 1 do \texttt{prototipo\_busca\_llm} \\ \hline
-RNF6 & Troca de modelo e de abordagem por configuração & limitação 3 do \texttt{prototipo\_busca\_llm} \\ \hline
+RF1 & Receber a consulta em linguagem natural e devolver os parâmetros, os produtos e a resposta ao usuário & 1º CGEO; protótipo \\ \hline
+RF2 & Reconhecer o lugar citado, seja a unidade da federação (UF), pelo nome ou pela sigla, seja o município, e restringir a busca pela interseção espacial com ele & protótipo; divisão político-administrativa do IBGE \\ \hline
+RF3 & Reconhecer a folha pedida pelo código MI ou INOM, em qualquer grafia, ou pelo nome & 1º CGEO; articulação sistemática das folhas \\ \hline
+RF4 & Reconhecer a escala em qualquer grafia e as expressões qualitativas de escala & 1º CGEO; escalas do catálogo \\ \hline
+RF5 & Reconhecer o tipo de produto, o centro de geoinformação e o projeto pelos nomes e apelidos usuais & protótipo; ET-PCDG \\ \hline
+RF6 & Resolver expressões de tempo em relação à data de execução, que o \textit{prompt} informa ao modelo como data atual, e distinguir publicação de criação & protótipo; metadados do catálogo \\ \hline
+RF7 & Atender pedidos de ordenação e de quantidade, sem acrescentá-los quando não pedidos & protótipo \\ \hline
+RF8 & Recusar, com explicação ao usuário, o pedido que não é do acervo, sem recusar pedido legítimo & 1º CGEO; limitação 2 do protótipo \\ \hline
+RF9 & Tratar o pedido sem nenhum critério representável nos parâmetros & análise do protótipo \\ \hline
+RF10 & Informar a busca legítima sem resultado, com os critérios usados & 1º CGEO; protótipo \\ \hline
+RF11 & Registrar, por consulta, os parâmetros, as chamadas, os tempos e os erros & limitações 5 e 6 do protótipo \\ \hline
+RNF1 & Executar os modelos localmente & 1º CGEO \\ \hline
+RNF2 & Latência compatível com o uso interativo, sem limiar fixado \textit{a priori} & 1º CGEO \\ \hline
+RNF3 & Compatibilidade com o esquema do protótipo e com os metadados do BDGEx (ET-PCDG e Perfil MGB) & protótipo; ET-PCDG \\ \hline
+RNF4 & Reprodutibilidade das avaliações & limitação 6 do protótipo \\ \hline
+RNF5 & Manutenibilidade, com testes automatizados e integração contínua & limitação 1 do protótipo \\ \hline
+RNF6 & Troca de modelo e de abordagem por configuração & limitação 3 do protótipo \\ \hline
 \end{tabular}
 \fonte{Elaborado pelos autores.}
 \nota{As limitações numeradas são as da Seção~\ref{sec:prototipo-limitacoes}.}
@@ -57,7 +57,7 @@ Esta seção apresenta os componentes da solução e o \textit{hardware}, justif
 \subsection{Componentes da Solução e Tecnologias}
 \label{sec:componentes}
 
-A Figura~\ref{fig:componentes} mostra os componentes da solução e a tecnologia de cada um. O cliente envia a consulta à API, escrita em Python com o FastAPI \cite{fastapi2018} e o Pydantic \cite{pydantic2019}. O orquestrador da tradução, construído com o LangChain \cite{langchain2022}, liga as ferramentas ao modelo, servido pelo Ollama \cite{ollama2023} no formato GGUF \cite{gguf2023}, e recolhe as chamadas de ferramenta. As ferramentas auxiliares, usadas só na versão final, consultam a lista de municípios do IBGE, o índice de folhas do BDGEx e uma tabela de expressões de tempo. A ferramenta de busca confere o formato dos parâmetros e monta a consulta SQL parametrizada sobre o PostgreSQL com PostGIS \cite{postgis2001}, executado em contêiner gerido pelo Docker Compose. Na versão final, o validador confere ainda os valores antes da busca e devolve ao modelo os erros encontrados. O \textit{pipeline} de avaliação, fora do caminho do usuário, é usado para executar os conjuntos de consultas e pontuar as respostas.
+A Figura~\ref{fig:componentes} mostra os componentes da solução e a tecnologia de cada um. A aplicação cliente envia a consulta à API, escrita em Python com o FastAPI \cite{fastapi2018} e o Pydantic \cite{pydantic2019}. O orquestrador da tradução, construído com o LangChain \cite{langchain2022}, liga as ferramentas ao modelo, servido pelo Ollama \cite{ollama2023} no formato GGUF \cite{gguf2023}, e recolhe as chamadas de ferramenta. As ferramentas auxiliares, usadas só na versão final, consultam a lista de municípios do IBGE, o índice de folhas do BDGEx e uma tabela de expressões de tempo. A ferramenta de busca confere o formato dos parâmetros e monta a consulta SQL parametrizada sobre o PostgreSQL com PostGIS \cite{postgis2001}, executado em contêiner gerido pelo Docker Compose. Na versão final, o validador confere ainda os valores antes da busca e devolve ao modelo os erros encontrados. O \textit{pipeline} de avaliação, fora do caminho do usuário, é usado para executar os conjuntos de consultas e pontuar as respostas.
 
 \begin{fixo}{figure}
 \centering
@@ -70,13 +70,13 @@ A Figura~\ref{fig:componentes} mostra os componentes da solução e a tecnologia
   arr/.style={-{Stealth[length=2mm]}, thick},
   darr/.style={{Stealth[length=2mm]}-{Stealth[length=2mm]}, thick}
 ]
-  \node[ext] (cli) at (0,0) {\textbf{Cliente}\\aplicação que consome a API (HTTP e JSON)};
+  \node[ext] (cli) at (0,0) {\textbf{Aplicação cliente}\\consome a API (HTTP e JSON)};
   \node[comp] (api) [below=0.8cm of cli] {\textbf{API}\\Python, FastAPI; verificação das requisições com Pydantic};
   \node[comp, fill=orange!10, text width=4.2cm] (orq) [below=0.8cm of api] {\textbf{Orquestrador da tradução}\\Python, LangChain; laço de chamadas ao modelo (só na versão final), escrito no próprio código, com limites fixos};
   \node[comp, fill=purple!8, text width=3.4cm] (oll) [left=1.9cm of orq] {\textbf{Servidor de modelos}\\Ollama; pesos em formato GGUF, quantizados em 4 bits};
   \node[comp, text width=3.4cm] (fer) [right=1.9cm of orq] {\textbf{Ferramentas auxiliares do domínio}\\(só na versão final) Python; lista de municípios do IBGE, índice de folhas do BDGEx, tabela de expressões de tempo};
   \node[comp] (bus) [below=1.0cm of orq] {\textbf{Ferramenta de busca e validador}\\Python; conferência dos parâmetros (validador só na versão final) e montagem da SQL parametrizada (psycopg)};
-  \node[dado] (db) [below=0.8cm of bus] {\textbf{Banco de dados}\\PostgreSQL 16 com PostGIS 3.4, esquema do \texttt{prototipo\_busca\_llm}, em contêiner Docker Compose};
+  \node[dado] (db) [below=0.8cm of bus] {\textbf{Banco de dados}\\PostgreSQL 16 com PostGIS 3.4, esquema do protótipo, em contêiner Docker Compose};
   \node[aval] (pip) at (oll |- bus) {\textbf{\textit{Pipeline} de avaliação}\\Python; executa os conjuntos de consultas, pontua contra o gabarito e gera as tabelas};
 
   \draw[darr] (cli) -- node[right] {consulta / parâmetros, produtos e resposta} (api);
@@ -92,7 +92,7 @@ A Figura~\ref{fig:componentes} mostra os componentes da solução e a tecnologia
 \fonte{Elaborado pelos autores.}
 \end{fixo}
 
-Do \texttt{prototipo\_busca\_llm} foram reaproveitados o esquema do banco, os doze parâmetros de busca e a lógica das consultas SQL, portada sem o filtro pelo retângulo do mapa e sem a paginação, próprios da interface gráfica, que ficou fora do escopo. Foram reescritos em Python a API, antes em Node.js, a tradução, que passou da saída estruturada com o Instructor \cite{instructor2023} ao \textit{tool calling}, e o acesso ao banco. Foram eliminados o dicionário de normalização e o \textit{fallback} por expressões regulares, e cada falha do modelo passou a ser registrada e classificada (RF11). Foram criados as ferramentas auxiliares, o validador, os conjuntos de consultas e o \textit{pipeline} de avaliação.
+Do protótipo foram reaproveitados o esquema do banco, os doze parâmetros de busca e a lógica das consultas SQL, portada sem o filtro pelo retângulo do mapa e sem a paginação, próprios da interface gráfica, que ficou fora do escopo. Foram reescritos em Python a API, antes em Node.js, a tradução, que passou da saída estruturada com o Instructor \cite{instructor2023} ao \textit{tool calling}, e o acesso ao banco. Foram eliminados o dicionário de normalização e o \textit{fallback} por expressões regulares, e cada falha do modelo passou a ser registrada e classificada (RF11). Foram criados as ferramentas auxiliares, o validador, os conjuntos de consultas e o \textit{pipeline} de avaliação.
 
 O modelo não escreve SQL. Ele apenas preenche os parâmetros tipados de uma ferramenta fixa, com os quais a ferramenta de busca monta a consulta parametrizada (Seção~\ref{sec:tc-se-sql}). Adotou-se essa formulação porque o texto do usuário não chega à SQL, o que afasta a injeção \cite{pedro2025p2sql}, porque a geração de SQL tem acurácia ainda limitada em bancos reais \cite{li2023bird} e fica exposta à ambiguidade das perguntas diante do esquema \cite{liu2025survey}, e porque os enumerados da ET-PCDG permitem conferir cada valor antes da busca (RNF3). Em troca, a solução atende apenas às buscas que os doze parâmetros representam. Quanto à orquestração, o laço de chamadas da versão final é curto, tem limites fixos e foi escrito no próprio código do orquestrador, razão pela qual não se adotou o LangGraph \cite{langgraph2024}, que modela fluxos de agentes como grafos de estados.
 
@@ -105,12 +105,12 @@ A resposta ao usuário tem três desfechos, e em nenhum deles aparece produto qu
 
 O modelo e a abordagem são escolhidos por configuração (RNF6). A API é empacotada em contêiner, e a sua configuração padrão é a versão final com o Gemma 4 E4B (Seção~\ref{sec:recomendacao}), com as versões anteriores ainda disponíveis. Os testes automatizados cobrem o \textit{schema}, as consultas SQL, as medidas e a API sem depender do Ollama nem do banco (RNF5), e a integração contínua os executa a cada mudança. Uma alternativa mais leve, com SpatiaLite ou DuckDB e execução direta dos modelos pelo Hugging Face, sem orquestração de contêineres, fica como trabalho futuro (Seção~\ref{sec:trabalhos-futuros}).
 
-Como o \texttt{prototipo\_busca\_llm} não traz os dados do acervo, a demonstração ponta a ponta usou primeiro um banco sintético (27 UFs, 14 municípios, 5 áreas de suprimento e 117 produtos), e o acervo real foi carregado depois (Seção~\ref{sec:extracao}). O código, os conjuntos de consultas, o manual de anotação completo e os registros das rodadas estão no repositório do projeto \cite{correa2026pfcbusca}.
+Como o protótipo não traz os dados do acervo, a demonstração ponta a ponta usou primeiro um banco sintético (27 UFs, 14 municípios, 5 áreas de suprimento e 117 produtos), e o acervo real foi carregado depois (Seção~\ref{sec:extracao}). O código, os conjuntos de consultas, o manual de anotação completo e os registros das rodadas estão no repositório deste trabalho \cite{correa2026pfcbusca}.
 
 \subsection{\textit{Hardware} e Requisitos dos Modelos}
 \label{sec:hardware}
 
-Os modelos locais da Tabela~\ref{tab:modelos} ocupam de 2,5~GB a 7,1~GB em 4 bits, e o Phi-4 14B da solução do Maj Diniz, 9,1~GB, além da memória do contexto. Quando o total excede a memória da GPU (VRAM), parte do modelo é executada na CPU, e a latência aumenta. Esses requisitos justificam os três ambientes da Tabela~\ref{tab:ambientes}.
+Os modelos locais da Tabela~\ref{tab:modelos} ocupam de 2,5~GB a 7,1~GB em 4 bits, e o Phi-4 14B, modelo do protótipo, 9,1~GB, além da memória do contexto. Quando o total excede a memória da GPU (VRAM), parte do modelo é executada na CPU, e a latência aumenta. Esses requisitos justificam os três ambientes da Tabela~\ref{tab:ambientes}.
 
 A estação local (Tabela~\ref{tab:ambientes}) representa o cenário de implantação modesta do RNF1 e do RNF2. Com 4~GB de VRAM, nenhum dos três modelos executados nela, o Gemma 4 E2B, o Gemma 4 E4B e o Qwen 3 4B, foi carregado inteiro na GPU, e a parcela carregada em cada caso é apresentada com os resultados da instalação (Seção~\ref{sec:res-instalacao}).
 
@@ -138,7 +138,7 @@ Groq (nuvem) & \textit{hardware} do provedor, não controlado & primeira versão
 \label{sec:sequencia}
 % ============================================================
 
-A sequência metodológica segue as cinco fases previstas para o trabalho, que são a extração dos dados, a modelagem das funcionalidades, a instalação dos modelos, a validação dos modelos e a avaliação de performance. A Figura~\ref{fig:bpmn} apresenta essa sequência como mapa de processos na notação BPMN (\textit{Business Process Model and Notation}) \cite{omg2014bpmn} e mostra a iteração como ocorreu. A primeira versão foi modelada, os modelos foram instalados e validados no conjunto de referência, e só então os metadados do BDGEx foram extraídos para montar os conjuntos de validação e de teste. A segunda versão e a versão final foram modeladas em rodadas de correção e, congelada a versão final, a performance foi avaliada. Por fim, foi feita a análise complementar no acervo real. As tarefas destacadas em azul tiveram, além do apoio ao desenvolvimento do código, apoio de agentes de inteligência artificial (IA) (Seção~\ref{sec:uso-ia}). Depois da visão geral das versões, as subseções seguem as fases, isto é, a extração dos dados (tarefas 1 e 5), a modelagem das funcionalidades (tarefas 2 e 6), a instalação dos modelos (tarefa 3), a validação dos modelos (tarefas 4 e 5) e a avaliação de performance (tarefas 7 e 8).
+A sequência metodológica segue cinco fases, que são a extração dos dados, a modelagem das funcionalidades, a instalação dos modelos, a validação dos modelos e a avaliação de performance. A Figura~\ref{fig:bpmn} apresenta essa sequência como mapa de processos na notação BPMN (\textit{Business Process Model and Notation}) \cite{omg2014bpmn} e mostra a iteração como ocorreu. A primeira versão foi modelada, os modelos foram instalados e validados no conjunto de referência, e só então os metadados do BDGEx foram extraídos para montar os conjuntos de validação e de teste. A segunda versão e a versão final foram modeladas em rodadas de correção e, congelada a versão final, a performance foi avaliada. Por fim, foi feita a análise complementar no acervo real. As tarefas destacadas em azul tiveram, além do apoio ao desenvolvimento do código, apoio de agentes de inteligência artificial (IA) (Seção~\ref{sec:uso-ia}). Depois da visão geral das versões, as subseções seguem as fases, isto é, a extração dos dados (tarefas 1 e 5), a modelagem das funcionalidades (tarefas 2 e 6), a instalação dos modelos (tarefa 3), a validação dos modelos (tarefas 4 e 5) e a avaliação de performance (tarefas 7 e 8).
 
 \begin{fixo}{figure}
 \centering
@@ -153,7 +153,7 @@ A sequência metodológica segue as cinco fases previstas para o trabalho, que s
   nota/.style={font=\tiny, align=left, text width=3.0cm}
 ]
   \node[inicio] (ini) at (0,0) {};
-  \node[tarefa] (t1) at (2.15,0) {1. Extrair os dados do \texttt{prototipo\_\allowbreak busca\_llm} e do IBGE};
+  \node[tarefa] (t1) at (2.15,0) {1. Extrair os dados do protótipo e do IBGE};
   \node[tarefa] (t2) at (5.35,0) {2. Modelar as funcionalidades da primeira versão};
   \node[tarefa] (t3) at (8.55,0) {3. Instalar os modelos};
   \node[ia] (t4) at (11.75,0) {4. Validar os modelos no conjunto de referência e escolher o modelo};
@@ -180,7 +180,7 @@ A sequência metodológica segue as cinco fases previstas para o trabalho, que s
 
   \node[nota, anchor=north] (n6) at ([xshift=0.3cm, yshift=-0.35cm]t6.south) {cada rodada mede a versão no conjunto de validação, agrupa os erros e define se a correção será escrita na descrição ou implementada no código};
   \draw[densely dotted] (t6.south) -- (n6.north);
-  \node[nota, text width=2.3cm] (n7) at (0.75,-4.4) {conjunto de teste uma vez; outros modelos; teste A/B; solução do Maj Diniz};
+  \node[nota, text width=2.3cm] (n7) at (0.75,-4.4) {conjunto de teste uma vez; outros modelos; teste A/B; comparação com o protótipo};
   \draw[densely dotted] (t7.south west) -- (n7.north);
   \node[rectangle, draw, fill=blue!8, minimum width=0.4cm, minimum height=0.25cm] (lg) at (0.0,-6.8) {};
   \node[font=\tiny, anchor=west] at (lg.east) {tarefa com apoio de agentes de IA, além do apoio ao código (Tabela~\ref{tab:uso-ia})};
@@ -193,9 +193,9 @@ A sequência metodológica segue as cinco fases previstas para o trabalho, que s
 \subsection{Visão Geral das Três Versões}
 \label{sec:visao-versoes}
 
-As três versões diferem apenas na tradução da consulta em parâmetros, e a API, a ferramenta de busca e o banco são comuns às três. Foram desenvolvidas em sequência, a primeira a partir da solução do Maj Diniz e cada uma das seguintes a partir dos erros da anterior, e cada versão foi testada num conjunto de consultas que não serviu para desenvolvê-la.
+As três versões diferem apenas na tradução da consulta em parâmetros, e a API, a ferramenta de busca e o banco são comuns às três. Foram desenvolvidas em sequência, a primeira a partir do protótipo e cada uma das seguintes a partir dos erros da anterior, e cada versão foi testada num conjunto de consultas que não serviu para desenvolvê-la.
 
-A primeira versão oferece ao modelo uma única ferramenta de busca, com os doze parâmetros do \texttt{prototipo\_busca\_llm}, e faz uma chamada ao modelo por consulta, sem novas tentativas. Difere da solução do Maj Diniz por usar \textit{tool calling} e por dispensar o dicionário de normalização e os exemplos resolvidos no \textit{prompt}. Para recusar um pedido, o modelo não chama a ferramenta. Essa versão foi usada no conjunto de referência para escolher o modelo e para a comparação com a saída estruturada e com a solução do Maj Diniz.
+A primeira versão oferece ao modelo uma única ferramenta de busca, com os doze parâmetros do protótipo, e faz uma chamada ao modelo por consulta, sem novas tentativas. Difere do método do protótipo por usar \textit{tool calling} e por dispensar o dicionário de normalização e os exemplos resolvidos no \textit{prompt}. Para recusar um pedido, o modelo não chama a ferramenta. Essa versão foi usada no conjunto de referência para escolher o modelo e para a comparação com a saída estruturada e com o método do protótipo.
 
 A segunda versão mantém a ferramenta de busca e uma única chamada ao modelo por consulta, inclui nas descrições dos parâmetros as convenções do manual de anotação (Seção~\ref{sec:manual}) e acrescenta uma ferramenta de recusa. Foi desenhada a partir dos erros da primeira versão no conjunto de referência e testada no conjunto de validação.
 
@@ -206,9 +206,9 @@ A construção e o papel de cada conjunto estão na Seção~\ref{sec:validacao},
 \subsection{Extração dos Dados}
 \label{sec:extracao}
 
-A extração reuniu dados de três fontes, cujas estatísticas estão na Seção~\ref{sec:res-extracao}. Do \texttt{prototipo\_busca\_llm} \cite{cgeo2025prototipo} vieram os \res{principal}{e4b}{nconsultasP} casos de teste e o esquema do banco, com quatro tabelas. Do IBGE vieram a lista de municípios e as malhas das UFs e dos municípios. Do BDGEx foram coletados, pelo serviço CSW \cite{ogccsw2007}, em 28/09/2026, apenas os metadados públicos, sem baixar nenhum produto. Desses metadados foram extraídos os nomes de folha, os códigos, as escalas, os tipos de produto, os CGEOs e os anos usados nos conjuntos de validação e de teste, além do índice de folhas que as ferramentas da versão final consultam.
+A extração reuniu dados de três fontes, cujas estatísticas estão na Seção~\ref{sec:res-extracao}. Do protótipo \cite{cgeo2025prototipo} vieram os \res{principal}{e4b}{nconsultasP} casos de teste e o esquema do banco, com quatro tabelas. Do IBGE vieram a lista de municípios e as malhas das UFs e dos municípios. Do BDGEx foram coletados, pelo serviço CSW \cite{ogccsw2007}, em 28/09/2026, apenas os metadados públicos, sem baixar nenhum produto. Desses metadados foram extraídos os nomes de folha, os códigos, as escalas, os tipos de produto, os CGEOs e os anos usados nos conjuntos de validação e de teste, além do índice de folhas que as ferramentas da versão final consultam.
 
-Para a análise complementar, os metadados foram carregados num PostgreSQL com PostGIS, no esquema do \texttt{prototipo\_busca\_llm}, junto das malhas do IBGE. Como o CSW não traz a geometria da folha nem campos de tipo, de escala e de projeto, a geometria de cada registro é a caixa envolvente informada, o tipo e a escala foram inferidos do título e do formato, e as áreas de suprimento, sem polígono oficial, foram aproximadas pela união das caixas dos registros de cada CGEO.
+Para a análise complementar, os metadados foram carregados num PostgreSQL com PostGIS, no esquema do protótipo, junto das malhas do IBGE. Como o CSW não traz a geometria da folha nem campos de tipo, de escala e de projeto, a geometria de cada registro é a caixa envolvente informada, o tipo e a escala foram inferidos do título e do formato, e as áreas de suprimento, sem polígono oficial, foram aproximadas pela união das caixas dos registros de cada CGEO.
 
 \subsection{Modelagem das Funcionalidades}
 \label{sec:modelagem}
@@ -233,11 +233,11 @@ Os tipos de consulta correspondem aos requisitos RF2 a RF7. Há também cinco ex
 \subsubsection{Manual de Anotação}
 \label{sec:manual}
 
-O manual de anotação é o documento que define a resposta correta de cada consulta, chamada gabarito. Foi escrito pelos autores antes de se anotarem as consultas, com base no gabarito original dos casos de teste do \texttt{prototipo\_busca\_llm} e nas convenções do catálogo, e tem seis princípios (evidência explícita no texto, forma canônica, leituras múltiplas explícitas, tratamento das consultas fora do domínio, consistência e casos observacionais) e regras para cada um dos doze parâmetros, entre elas as regras de tempo relativo, cada uma identificada por um nome e resolvida na data de execução.
+O manual de anotação é o documento que define a resposta correta de cada consulta, chamada gabarito. Foi escrito pelos autores antes de se anotarem as consultas, com base no gabarito original dos casos de teste do protótipo e nas convenções do catálogo, e tem seis princípios (evidência explícita no texto, forma canônica, leituras múltiplas explícitas, tratamento das consultas fora do domínio, consistência e casos observacionais) e regras para cada um dos doze parâmetros, entre elas as regras de tempo relativo, cada uma identificada por um nome e resolvida na data de execução.
 
 Parte das consultas admite mais de uma resposta correta, como ``últimos 3 meses'' (noventa dias ou três meses de calendário) ou ``as mais recentes'' (por data de publicação ou de criação). O gabarito registra todas as leituras aceitas por meio de três mecanismos, a saber, o valor alternativo (mais de um valor aceito num parâmetro), o campo opcional (parâmetro que pode faltar) e a leitura estrutural alternativa (o mesmo trecho em parâmetros diferentes), cada um justificado por uma regra. Entre as leituras aceitas, uma é marcada como leitura preferencial. Fora dessas leituras, a comparação é estrita.
 
-O manual foi estendido aos conjuntos de validação e de teste sem alterar nenhuma anotação do conjunto de referência, e o texto completo está no repositório do projeto \cite{correa2026pfcbusca}. O manual nunca foi passado ao modelo, pois a sua função é definir o gabarito. Parte das suas convenções foi escrita nas descrições da ferramenta na segunda versão, e parte foi implementada em código, nas ferramentas e no validador da versão final.
+O manual foi estendido aos conjuntos de validação e de teste sem alterar nenhuma anotação do conjunto de referência, e o texto completo está no repositório deste trabalho \cite{correa2026pfcbusca}. O manual nunca foi passado ao modelo, pois a sua função é definir o gabarito. Parte das suas convenções foi escrita nas descrições da ferramenta na segunda versão, e parte foi implementada em código, nas ferramentas e no validador da versão final.
 
 \subsubsection{Ciclo de Desenvolvimento}
 \label{sec:ciclo}
@@ -247,7 +247,7 @@ A segunda versão e a versão final resultaram de rodadas de um mesmo ciclo. A v
 \subsection{Instalação dos Modelos}
 \label{sec:instalacao}
 
-Os modelos locais foram selecionados por terem suporte nativo a \textit{tool calling} no Ollama, conferido pela etiqueta do catálogo oficial \cite{ollama2023}, versões quantizadas em 4 bits executáveis em estações modestas, com parte do modelo na CPU quando a VRAM é insuficiente, e lançamento entre 2024 e 2026, e por cobrirem três organizações, a Alibaba, o Google e a Mistral AI, com dois portes da família Gemma 4. São o Qwen 3 4B \cite{qwen2025qwen34binstruct2507}, o Gemma 4 E2B e o Gemma 4 E4B \cite{team2026gemma4}, além do Mistral Nemo 12B \cite{mistral2024nemo} (Tabela~\ref{tab:modelos}). O Phi-4 14B \cite{abdin2024phi4} foi usado apenas na solução do Maj Diniz.
+Os modelos locais foram selecionados por terem suporte nativo a \textit{tool calling} no Ollama, conferido pela etiqueta do catálogo oficial \cite{ollama2023}, versões quantizadas em 4 bits executáveis em estações modestas, com parte do modelo na CPU quando a VRAM é insuficiente, e lançamento entre 2024 e 2026, e por cobrirem três organizações, a Alibaba, o Google e a Mistral AI, com dois portes da família Gemma 4. São o Qwen 3 4B \cite{qwen2025qwen34binstruct2507}, o Gemma 4 E2B e o Gemma 4 E4B \cite{team2026gemma4}, além do Mistral Nemo 12B \cite{mistral2024nemo} (Tabela~\ref{tab:modelos}). O Phi-4 14B \cite{abdin2024phi4} foi usado apenas na reprodução do método do protótipo (Seção~\ref{sec:metodo-prototipo}).
 
 Todos foram instalados pelo Ollama com as etiquetas oficiais e executados com temperatura zero (o modelo escolhe sempre o \textit{token} mais provável), limite de 1.024 \textit{tokens} de saída e contexto de 4.096 \textit{tokens} na primeira e na segunda versão e de 8.192 na versão final, porque o \textit{prompt} desta, com várias ferramentas, se aproxima de 4.096 \textit{tokens}. Cada consulta é enviada sem conversas anteriores, e todos os modelos recebem, em cada versão, o mesmo \textit{prompt} de sistema, com a data de execução.
 
@@ -261,7 +261,7 @@ Nenhum conjunto de consultas foi usado para treinar ou ajustar os pesos de um mo
 \subsubsection{Conjunto de Referência}
 \label{sec:conjunto-referencia}
 
-O conjunto de referência reúne \res{principal}{geral}{ntotal} consultas de três origens disjuntas, cujas quantidades se somam. As consultas do protótipo são os \res{principal}{e4b}{nconsultasP} casos de teste do \texttt{prototipo\_busca\_llm}, rastreados até a linha de origem no arquivo do protótipo, com a anotação original como leitura preferencial. As 40 consultas redigidas pelos autores cobrem lacunas, como as consultas simples, ausentes no protótipo, e casos de fronteira. As \res{principal}{geral}{nG} consultas geradas por modelos de frase combinam frases do português com listas fechadas do domínio (UFs, municípios, escalas, tipos, CGEOs, projetos, códigos, expressões de tempo e ordenações), com o gabarito conhecido por construção e geração determinística. As \res{principal}{geral}{nPN} consultas do protótipo e dos autores formam o \emph{subconjunto manual}.
+O conjunto de referência reúne \res{principal}{geral}{ntotal} consultas de três origens disjuntas, cujas quantidades se somam. As consultas do protótipo são os \res{principal}{e4b}{nconsultasP} casos de teste do protótipo, rastreados até a linha do arquivo de origem, com a anotação original como leitura preferencial. As 40 consultas redigidas pelos autores cobrem lacunas, como as consultas simples, ausentes no protótipo, e casos de fronteira. As \res{principal}{geral}{nG} consultas geradas por modelos de frase combinam frases do português com listas fechadas do domínio (UFs, municípios, escalas, tipos, CGEOs, projetos, códigos, expressões de tempo e ordenações), com o gabarito conhecido por construção e geração determinística. As \res{principal}{geral}{nPN} consultas do protótipo e dos autores formam o \emph{subconjunto manual}.
 
 O gabarito passou por uma auditoria em três passos. No primeiro, foram conferidas por checagens automáticas a unicidade, a validade dos valores, a resolução das regras de tempo em datas diversas, a rastreabilidade e a consistência, com o apoio de um anotador por regras escrito pelos autores. Um agente de IA de uma família que não está entre as avaliadas anotou as consultas de forma independente e às cegas, em dez blocos, só com o manual, a definição da ferramenta, a data de execução e o bloco. Os autores adjudicaram cada divergência e registraram a decisão. Um dos autores conferiu ainda à mão uma amostra estratificada de 40 consultas.
 
@@ -282,7 +282,7 @@ Para congelar a versão final antes da rodada de teste, calculou-se o resumo cri
 \subsection{Avaliação de Performance}
 \label{sec:avaliacao}
 
-A performance foi avaliada isoladamente e em comparação com a solução do Maj Diniz, com os conceitos estatísticos da Seção~\ref{sec:avaliacao-conceitos}.
+A performance foi avaliada isoladamente e em comparação com o protótipo, com os conceitos estatísticos da Seção~\ref{sec:avaliacao-conceitos}.
 
 \subsubsection{Medidas}
 \label{sec:medidas}
@@ -300,10 +300,10 @@ As medidas não são combinadas num escore único, e a acurácia por consulta é
 
 O plano registrado antes da rodada de teste fixou a medida, os testes, a comparação principal, os passos da versão final e a separação entre a resposta final e a primeira decisão, que é a primeira busca ou recusa anterior a qualquer retorno do validador. O nível de significância e a ordem dos desempates foram escritos depois das rodadas, e a correção de Holm \cite{holm1979simple}, aplicada às nove comparações planejadas do conjunto de teste, não estava no plano.
 
-\subsubsection{Comparação com a Solução do Maj Diniz}
-\label{sec:metodo-maj-diniz}
+\subsubsection{Comparação com o Protótipo}
+\label{sec:metodo-prototipo}
 
-A solução do Maj Diniz foi reproduzida em Python com o Phi-4 14B, o dicionário de 159 pares, o \textit{prompt} original em inglês com dez exemplos resolvidos, o \textit{schema} com campo de justificativa, até três novas tentativas e o \textit{fallback} por expressões regulares. As diferenças deliberadas são a temperatura zero (0,6 no protótipo), a exclusão da ordenação padrão que o protótipo acrescenta a toda busca e a ausência de conferência dos estados e municípios no banco. A saída é traduzida para os parâmetros pela correspondência usada no gabarito das consultas do protótipo. A solução foi executada uma vez, só no conjunto de referência, e comparada com a primeira versão nos quatro modelos locais e com a saída estruturada da primeira versão (Seção~\ref{sec:metodo-ab}).
+O método de tradução do protótipo foi reproduzido em Python com o Phi-4 14B, o dicionário de 159 pares, o \textit{prompt} original em inglês com dez exemplos resolvidos, o \textit{schema} com campo de justificativa, até três novas tentativas e o \textit{fallback} por expressões regulares. As diferenças deliberadas são a temperatura zero (0,6 no protótipo), a exclusão da ordenação padrão que o protótipo acrescenta a toda busca e a ausência de conferência dos estados e municípios no banco. A saída é traduzida para os parâmetros pela correspondência usada no gabarito das consultas do protótipo. A reprodução foi executada uma vez, só no conjunto de referência, e comparada com a primeira versão nos quatro modelos locais e com a saída estruturada da primeira versão (Seção~\ref{sec:metodo-ab}).
 
 \subsubsection{Passos da Versão Final e Controle}
 \label{sec:metodo-controle}
