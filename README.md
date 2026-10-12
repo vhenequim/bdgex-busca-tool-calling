@@ -392,8 +392,10 @@ pfc auditar --anotacao-independente data/auditoria/anotacao_independente.json
 Análise exploratória, feita depois da entrega do texto, sem rodar modelos: as buscas do lote 2 (o
 gabarito e os parâmetros que cada configuração já emitiu) são executadas, com a SQL de
 `tools.montar_sql` sem mudança, nos metadados reais do BDGEx carregados num PostGIS. Não altera
-nenhum resultado do texto. Resultados em `results/acervo_real/` (`relatorio.md`, `resultados.json`,
-`resumo_slide.md` e `carga.json`).
+nenhum resultado das rodadas; a versão final do texto o apresenta como avaliação pela execução, com
+os números em `texto/tabelas/numeros_acervo.tex`, gerados por `scripts/acervo_real/macros_acervo.py`.
+Resultados em `results/acervo_real/` (`relatorio.md`, `resultados.json`, `resumo_slide.md` e
+`carga.json`).
 
 ```bash
 # 1. um PostGIS só para o teste (porta 5434, para não colidir com o do docker compose)
@@ -425,7 +427,11 @@ python scripts/acervo_real/avaliar_acervo.py --so-relatorio   # só refaz os .md
 ## Texto do PFC
 
 `texto/` traz as fontes LaTeX e o PDF (`texto/main.pdf`), copiados da pasta de trabalho do texto por
-`python scripts/sincronizar_texto.py`. As tabelas, figuras e valores citados nos resultados são
+`python scripts/sincronizar_texto.py`. É a versão final, revisada depois da defesa, sem apêndices: o
+que estava nos apêndices da versão entregue fica neste repositório (consultas e gabarito em `data/`,
+manual de anotação em `docs/manual_de_anotacao.md`, versões e ferramentas em `docs/v3.md` e
+`docs/v3_desenvolvimento.md`, conjuntos de validação e de teste em `docs/lote_validacao.md`). A versão
+entregue antes da defesa está na etiqueta `texto-entregue-02out`. As tabelas, figuras e valores citados nos resultados são
 gerados pelos comandos da seção "Relatórios e tabelas do texto"; nenhum número de resultado é
 digitado à mão. Para compilar: `pdflatex main.tex`, `bibtex main` e mais duas passadas de
 `pdflatex`, ou `python build.py` (ver `texto/BUILD.md`).

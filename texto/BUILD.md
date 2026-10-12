@@ -42,6 +42,9 @@ repositório, com, na raiz do repositório:
 python scripts/gerar_tabelas_texto.py --texto texto
 ```
 
+Os números do teste no acervo real (`tabelas/numeros_acervo.tex`) vêm de
+`python scripts/acervo_real/macros_acervo.py`, a partir de `results/acervo_real/`.
+
 Nenhum número de resultado é digitado à mão.
 
 ## Estrutura
@@ -51,10 +54,7 @@ main.tex                  arquivo principal
 dados.tex                 título, autores, orientador, data e banca
 pre-texto.tex             dedicatória, resumo e abstract
 simbolo-abrev.tex         lista de abreviaturas e siglas
-cap01-introducao.tex ... cap06-conclusao.tex
-apendice.tex              Apêndices A (dataset e auditoria), B (ambientes) e C (repositório)
-apendice_manual_anotacao.tex, apendice_dataset_P.tex, apendice_dataset_N.tex,
-apendice_dataset_gerado.tex   gerados por pfc-dataset --apendice
+cap1_introducao.tex ... cap5_conclusao.tex
 tabelas/, figuras/        gerados (ver acima)
 refs.bib                  referências
 abntex2.cls, abntex2cite.sty, abntex2ime.sty   classes (não editar)

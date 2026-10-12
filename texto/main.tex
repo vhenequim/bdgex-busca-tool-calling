@@ -19,14 +19,19 @@
 \usepackage{graphicx}       % \resizebox, \includegraphics
 \usepackage{color}
 \usepackage{amsmath}        % \text{} e fórmulas matemáticas
-\usepackage{amssymb}        % \checkmark (quadros do Apêndice A)
+\usepackage{amssymb}        % \checkmark e símbolos matemáticos
 \usepackage{enumitem}       % \begin{enumerate}[label=...] para RF/RNF
 \usepackage{tikz}           % diagramas vetoriais
 \usepackage{multirow}
-\usepackage{longtable}      % listagem completa da camada G (Apêndice A)
+\usepackage{longtable}      % tabelas que se estendem por mais de uma página
 \usepackage{pdflscape}      % tabelas largas em página deitada
 % \usepackage{float} REMOVIDO — conflita com \newfloat do memoir/abntex2
 \usetikzlibrary{positioning, arrows.meta, shapes.geometric, calc, fit, backgrounds}
+% Tabelas, figuras e quadros fixos no ponto do texto em que aparecem, sem flutuar:
+% nenhum parágrafo é interrompido por eles, e pode sobrar espaço no fim da página.
+\makeatletter
+\newenvironment{fixo}[1]{\par\addvspace{\intextsep}\noindent\begin{minipage}{\linewidth}\def\@captype{#1}}{\end{minipage}\par\addvspace{\intextsep}}
+\makeatother
 
 % ---
 % Pacotes de citações (ABNT autor-data)
@@ -158,6 +163,7 @@
 \carregarnumeros{numeros_lote2gemma4e2b}
 \carregarnumeros{numeros_lote2qwen34b}
 \carregarnumeros{numeros_ab}
+\carregarnumeros{numeros_acervo}
 
 \makeindex
 
@@ -204,12 +210,11 @@
 % ==========================================================
 \textual
 
-\input{cap01-introducao}
-\input{cap02-referencial}
-\input{cap04-aprimoramento}
-\input{cap03-metodologia}
-\input{cap05-resultados}
-\input{cap06-conclusao}
+\input{cap1_introducao}
+\input{cap2_fundamentacao}
+\input{cap3_desenvolvimento}
+\input{cap4_resultados}
+\input{cap5_conclusao}
 
 % ==========================================================
 % ELEMENTOS PÓS-TEXTUAIS
@@ -217,10 +222,5 @@
 \postextual
 
 \bibliography{refs}
-
-\begin{apendicesenv}
-    \partapendices
-    \input{apendice}
-\end{apendicesenv}
 
 \end{document}

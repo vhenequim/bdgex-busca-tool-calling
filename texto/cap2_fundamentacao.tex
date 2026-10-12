@@ -1,0 +1,239 @@
+% ----------------------------------------------------------
+% Capítulo 2 - Fundamentação Teórica
+% ----------------------------------------------------------
+\chapter{Fundamentação Teórica}
+\label{cap:fundamentacao}
+
+Este capítulo apresenta os modelos de linguagem empregados, com os parâmetros que os distinguem e os requisitos para executá-los, analisa o projeto \texttt{prototipo\_busca\_llm}, do 1º CGEO, e define o \textit{tool calling} e os termos usados na metodologia e na avaliação dos resultados.
+
+% ---
+\section{Modelos Amplos de Linguagem}
+\label{sec:llm}
+% ---
+
+\subsection{Conceitos}
+\label{sec:llm-conceitos}
+
+Os modelos amplos de linguagem (LLM, do inglês \textit{Large Language Models}), também denominados modelos de linguagem de grande porte, como no título deste trabalho, são redes neurais baseadas na arquitetura \textit{Transformer} \cite{vaswani2017attention}, treinadas em grandes volumes de texto. Eles geram a resposta um \textit{token} (fragmento de palavra) por vez, e cada \textit{token} é condicionado às instruções recebidas, à consulta e ao que o próprio modelo já gerou. Com o aumento da escala do modelo e dos dados de treinamento, surgem capacidades como a de interpretar intenções implícitas \cite{brown2020gpt3, wei2022emergent}.
+
+O porte de um modelo é expresso pelo número de parâmetros, os pesos numéricos aprendidos no treinamento, contado em bilhões (B), como no Qwen 3 4B. Nas arquiteturas densas, todos os parâmetros participam do cálculo de cada \textit{token}. Nas arquiteturas de mistura de especialistas, apenas uma parte deles, os parâmetros ativos, é usada em cada \textit{token}, o que reduz o custo da geração, mas não a memória necessária para armazenar o modelo. Em alguns modelos densos, distinguem-se ainda os parâmetros efetivos dos parâmetros totais armazenados. Os efetivos excluem as tabelas de \textit{embeddings} (representações vetoriais dos \textit{tokens}) mantidas para cada camada. A Seção~\ref{sec:modelos} apresenta exemplos dos três casos.
+
+A capacidade de seguir instruções em linguagem natural é obtida pelo ajuste fino com instruções e com retorno humano \cite{ouyang2022training}. O \textit{tool calling}, definido na Seção~\ref{sec:tc-definicao}, depende dessa capacidade, porque o modelo precisa entender a consulta, interpretar o que cada ferramenta disponível faz e preencher os parâmetros dela com valores coerentes com o pedido.
+
+Dois controles da geração são relevantes para a metodologia. O primeiro é o modo de raciocínio, presente em parte dos modelos recentes, no qual o modelo gera um texto intermediário antes da resposta. Esse modo pode ajudar em escolhas que combinam vários critérios, mas consome mais \textit{tokens} e mais tempo \cite{qwen2025qwen3}. O segundo é a temperatura, que controla a aleatoriedade na escolha de cada \textit{token}. Com temperatura zero, o modelo escolhe sempre o \textit{token} mais provável, e a mesma entrada tende a produzir a mesma saída.
+
+\subsection{Execução Local e Quantização}
+\label{sec:execucao-local}
+
+A execução dos modelos em servidores da própria organização traz vantagens a instituições como a DSG. As consultas não trafegam por redes externas, não há custo por \textit{token} processado, a organização mantém a versão exata do modelo, que pode ser auditada, e o sistema funciona sem Internet. Há também desvantagens. A primeira é que os modelos de fronteira, de pesos fechados e por isso indisponíveis para execução local, ocupam a maior parte das primeiras posições em avaliações de uso de ferramentas, como o \textit{Berkeley Function Calling Leaderboard} (BFCL) \cite{patil2025berkeley}. A segunda é que o custo passa a ser o do \textit{hardware}, isto é, o de unidades de processamento gráfico (GPU, do inglês \textit{Graphics Processing Unit}), da memória delas (VRAM, do inglês \textit{Video Random Access Memory}) e de energia. A terceira é que cada modelo novo exige repetir a avaliação.
+
+O Ollama \cite{ollama2023} é uma plataforma de código aberto que instala e executa modelos de linguagem localmente e os expõe por uma interface de programação de aplicações (API, do inglês \textit{Application Programming Interface}) compatível com a da OpenAI. Os modelos são armazenados no formato de arquivo GGUF \cite{gguf2023}, que reúne os pesos e os metadados do modelo e admite várias variantes de quantização. A quantização reduz a precisão dos pesos de 16 para cerca de 4 bits e, com isso, a memória que eles ocupam, com pequena perda de qualidade \cite{frantar2022gptq}. Na quantização consciente de treinamento (QAT, do inglês \textit{Quantization-Aware Training}), o modelo é ajustado durante o treinamento para operar nessa precisão \cite{google2026gemma4qat}.
+
+A memória ocupada por um modelo em execução soma a dos pesos e a do contexto, que cresce com o texto processado. Quando o modelo não cabe na VRAM, parte dele é executada na unidade central de processamento (CPU, do inglês \textit{Central Processing Unit}), num arranjo chamado \textit{offload}, que aumenta o tempo de resposta. O tamanho do arquivo é, por isso, apenas um indicador inicial do \textit{hardware} necessário.
+
+O catálogo do Ollama indica, para cada modelo, se ele oferece \textit{tool calling} nativo, recurso definido na Seção~\ref{sec:tc-definicao}.
+
+\subsection{Modelos Empregados}
+\label{sec:modelos}
+
+A Tabela~\ref{tab:modelos} reúne os modelos empregados, agrupados pelo papel que desempenham. Entre os quatro modelos locais avaliados, o Qwen 3 4B Instruct 2507, da equipe Qwen, da Alibaba Cloud \cite{qwen2025qwen34binstruct2507}, é a variante sem modo de raciocínio de um modelo denso de 4 bilhões de parâmetros da família Qwen3 \cite{qwen2025qwen3}. O Gemma 4 E4B e o Gemma 4 E2B, da Google DeepMind \cite{team2026gemma4}, têm, respectivamente, 4,5 e 2,3 bilhões de parâmetros efetivos, ou 8 e 5,1 bilhões quando se contam as tabelas de \textit{embeddings} por camada, e foram empregados nas versões com QAT \cite{google2026gemma4qat}. O Mistral Nemo 12B, desenvolvido pela Mistral AI com a NVIDIA \cite{mistral2024nemo}, é um modelo denso de 12 bilhões de parâmetros, o maior dos quatro modelos locais avaliados.
+
+O Phi-4 14B, da Microsoft Research \cite{abdin2024phi4}, sob licença MIT \cite{microsoft2024phi4card}, é o modelo do projeto \texttt{prototipo\_busca\_llm} e, por isso, da solução do Maj Diniz (Seção~\ref{sec:metodo-maj-diniz}). O catálogo do Ollama não indica \textit{tool calling} nativo para ele, condição compatível com o emprego da saída estruturada no projeto (Seção~\ref{sec:prototipo}).
+
+Três modelos maiores foram executados por meio do Groq, serviço de inferência em nuvem que executa modelos de pesos abertos. O GPT-OSS 20B e o GPT-OSS 120B, da OpenAI \cite{openai2025gptoss}, são modelos de mistura de especialistas, com 21 bilhões de parâmetros totais e 3,6 ativos no primeiro e 117 totais e 5,1 ativos no segundo. Em ambos, o modo de raciocínio não pode ser desligado \cite{groq2026reasoning}. O Qwen 3.8 27B, da equipe Qwen \cite{qwen2026qwen38}, representa a geração mais recente dessa família. A menor versão dele no catálogo do Ollama tem 27 bilhões de parâmetros e ocupa 18~GB, mais do que a VRAM das GPUs disponíveis para a execução local (Seção~\ref{sec:hardware}), e, por isso, essa geração foi avaliada apenas em nuvem.
+
+Todos os modelos têm pesos abertos. O Phi-4 14B é distribuído sob a licença MIT e os demais sob a Apache 2.0, ambas permissivas quanto ao uso, à modificação e à redistribuição. Os lançamentos vão de julho de 2024 (Mistral Nemo 12B) a agosto de 2026 (Qwen 3.8 27B). Entre o lançamento da família Qwen3, em abril de 2025, e o do Gemma 4, em abril de 2026, passou-se cerca de um ano, e a variante Qwen 3 4B Instruct 2507 é de agosto de 2025. A data é registrada porque o ecossistema de modelos evolui rapidamente. A relação entre o lançamento, o porte e o desempenho dos modelos avaliados é discutida na Seção~\ref{sec:res-validacao}.
+
+A janela de contexto oficial, que limita o texto processado de uma vez, é de 128 mil \textit{tokens} no Gemma 4 e no Mistral Nemo 12B, de cerca de 262 mil no Qwen 3 4B Instruct 2507 e de 16 mil no Phi-4 14B. O ambiente escolhido para cada modelo é justificado na Seção~\ref{sec:hardware}.
+
+\begin{fixo}{table}
+\centering
+\caption{Modelos de linguagem empregados, com porte, licença, lançamento e suporte a \textit{tool calling}}
+\label{tab:modelos}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{1.4cm}|>{\raggedright\arraybackslash}p{1.9cm}|>{\raggedright\arraybackslash}p{1.6cm}|}
+\hline
+\textbf{Modelo} & \textbf{Or\-ga\-ni\-za\-ção} & \textbf{Parâmetros} & \textbf{Arquivo no Ollama} & \textbf{Licença} & \textbf{Lan\-ça\-men\-to} & \textbf{\textit{Tool calling} nativo no Ollama} \\ \hline
+\multicolumn{7}{|l|}{\textit{Modelos locais avaliados}} \\ \hline
+Qwen 3 4B Instruct 2507 \cite{qwen2025qwen34binstruct2507} & Equipe Qwen (Alibaba Cloud) & 4,0 bilhões & 2,5~GB & Apache 2.0 & ago. 2025 & sim \\ \hline
+Gemma 4 E4B \cite{team2026gemma4} & Google DeepMind & 4,5 bilhões efetivos (8 com \textit{embeddings}) & 6,1~GB (QAT) & Apache 2.0 & abr. 2026 (QAT em jun. 2026) & sim \\ \hline
+Gemma 4 E2B \cite{team2026gemma4} & Google DeepMind & 2,3 bilhões efetivos (5,1 com \textit{embeddings}) & 4,3~GB (QAT) & Apache 2.0 & abr. 2026 (QAT em jun. 2026) & sim \\ \hline
+Mistral Nemo 12B \cite{mistral2024nemo} & Mistral AI e NVIDIA & 12 bilhões & 7,1~GB & Apache 2.0 & jul. 2024 & sim \\ \hline
+\multicolumn{7}{|l|}{\textit{Modelo da solução do Maj Diniz}} \\ \hline
+Phi-4 14B \cite{abdin2024phi4} & Microsoft Research & 14 bilhões & 9,1~GB & MIT & dez. 2024 & não \\ \hline
+\multicolumn{7}{|l|}{\textit{Modelos maiores em nuvem (Groq)}} \\ \hline
+GPT-OSS 20B \cite{openai2025gptoss} & OpenAI & 21 bilhões (3,6 ativos) & não instalado & Apache 2.0 & ago. 2025 & sim \\ \hline
+GPT-OSS 120B \cite{openai2025gptoss} & OpenAI & 117 bilhões (5,1 ativos) & não instalado & Apache 2.0 & ago. 2025 & sim \\ \hline
+Qwen 3.8 27B \cite{qwen2026qwen38} & Equipe Qwen (Alibaba Cloud) & 27 bilhões & não instalado (18~GB no Ollama) & Apache 2.0 & ago. 2026 & sim \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores a partir das páginas dos modelos e do catálogo do Ollama \cite{ollama2025qwen3, ollama2026gemma4, ollama2024mistralnemo, google2026gemma4blog, microsoft2024phi4card}.}
+\nota{Tamanho do arquivo em GB decimais, como exibido pelo Ollama, com os pesos do modelo quantizados em cerca de 4 bits. Nos Gemma 4, o arquivo inclui também o projetor de visão e áudio, com cerca de 1~GB, em 16 bits. QAT indica quantização consciente de treinamento.}
+\end{fixo}
+
+% ---
+\section{Análise do Projeto prototipo\_busca\_llm do 1º CGEO}
+\label{sec:prototipo}
+% ---
+
+O projeto \texttt{prototipo\_busca\_llm} \cite{cgeo2025prototipo}, do 1º CGEO, apresentado na Seção~\ref{sec:contextualizacao}, é uma prova de conceito de busca no catálogo de produtos cartográficos com modelo de linguagem executado localmente, e o seu código é público.
+
+\subsection{Arquitetura}
+\label{sec:prototipo-arquitetura}
+
+A Figura~\ref{fig:arquitetura-prototipo} mostra as quatro camadas da arquitetura.
+
+\begin{fixo}{figure}
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=0.65cm,
+  layer/.style={rectangle, draw, rounded corners, text width=10.6cm, minimum height=1.0cm, align=center, fill=gray!6},
+  arr/.style={-{Stealth[length=2.2mm]}, thick}
+]
+  \node[layer, fill=blue!8] (l1) {\textbf{Interface} (React, TypeScript e Leaflet)\\\scriptsize mapa interativo do Brasil};
+  \node[layer, below=of l1] (l2) {\textbf{\textit{Backend}} (Node.js, Express e TypeScript)\\\scriptsize pré-processamento com dicionário fixo de 159 pares de termos};
+  \node[layer, below=of l2, fill=orange!10] (l3) {\textbf{Modelo de linguagem} (Phi-4 14B no Ollama)\\\scriptsize saída estruturada com Instructor e Zod; exemplos resolvidos; novas tentativas e \textit{fallback} por expressões regulares};
+  \node[layer, below=of l3, fill=green!8] (l4) {\textbf{Banco de dados} (PostgreSQL com PostGIS)\\\scriptsize busca textual, filtros espaciais e resposta em GeoJSON};
+  \draw[arr] (l1) to node[right, font=\scriptsize] {consulta em linguagem natural} (l2);
+  \draw[arr] (l2) to node[right, font=\scriptsize] {consulta normalizada} (l3);
+  \draw[arr] (l3) to node[right, font=\scriptsize] {parâmetros de busca} (l4);
+  \draw[arr, dashed] (l4.east) to ++(0.5,0) |- node[right, font=\scriptsize, pos=0.25] {resultados} (l1.east);
+\end{tikzpicture}
+\caption{Arquitetura do projeto \texttt{prototipo\_busca\_llm}, do 1º CGEO}
+\label{fig:arquitetura-prototipo}
+\fonte{Adaptado de \citeonline{cgeo2025prototipo}.}
+\end{fixo}
+
+A interface, escrita em React com a biblioteca Leaflet, exibe os resultados num mapa interativo do Brasil. O \textit{backend}, em Node.js com Express, recebe a consulta em linguagem natural numa rota de busca. Antes de a consulta chegar ao modelo, um pré-processador aplica um dicionário fixo de 159 pares de substituição, que uniformiza variações de escrita, como a conversão de ``25k'' em ``1:25.000''. O núcleo do sistema é o Phi-4 14B, executado pelo Ollama, com saída estruturada obtida pelas bibliotecas Instructor \cite{instructor2023} e Zod. O \textit{schema}, especificação dos campos que a resposta do modelo deve conter e do tipo de cada um, inclui um campo de justificativa, em que o modelo explica a extração, e doze parâmetros de busca, a saber, palavra-chave, escala, tipo de produto, estado, município, área de suprimento, projeto, período de publicação, período de criação, campo de ordenação, direção da ordenação e limite de resultados. O \textit{prompt} traz exemplos resolvidos. Se o modelo falhar mesmo depois de três novas tentativas, parte dos campos é extraída do texto por um mecanismo de contingência (\textit{fallback}) baseado em expressões regulares. Os parâmetros obtidos compõem a consulta ao banco PostgreSQL com a extensão PostGIS \cite{postgis2001}, que combina busca textual e filtros espaciais e devolve os resultados em GeoJSON. O repositório inclui o esquema do banco, com quatro tabelas, e 22 casos de teste, mas não os dados do acervo.
+
+\subsection{Contribuições e Limitações}
+\label{sec:prototipo-limitacoes}
+
+O projeto mostrou que modelos de linguagem executados localmente são tecnicamente viáveis no domínio cartográfico, que o Phi-4 14B extrai parâmetros de busca relevantes de consultas em português e que exemplos resolvidos combinados com saída estruturada produzem resultados utilizáveis. Mostrou também que a integração do modelo com o PostgreSQL e o PostGIS funciona em ambiente controlado.
+
+Na apresentação das demandas do trabalho, o 1º CGEO apontou seis limitações do projeto, enumeradas a seguir na ordem em que os requisitos do Capítulo~\ref{cap:desenvolvimento} as referenciam:
+\begin{enumerate}
+  \item o \textit{backend} foi escrito em Node.js, embora as bibliotecas de integração com modelos de linguagem tenham versões mais completas em Python;
+  \item a tradução da consulta usa apenas saída estruturada, de modo que o modelo devolve sempre a estrutura predefinida, não pode recusar um pedido sem um campo próprio para isso e não pode consultar funções durante a resposta;
+  \item um único modelo é empregado, sem comparação com alternativas, num ecossistema de modelos em rápida evolução;
+  \item o dicionário fixo no código deixa sem normalização, e sem aviso, as variações não previstas, como ``dois cgeo'' ou ``25 mil'', exige manutenção manual e pode deturpar uma consulta legítima quando um termo do dicionário aparece em contexto ambíguo;
+  \item o mecanismo de contingência por expressões regulares encobre falhas do modelo que não foram documentadas de forma sistemática, o que dificulta a análise das suas causas;
+  \item faltam métricas de avaliação, pois os 22 casos de teste são pontuados por pesos atribuídos \textit{ad hoc}, sem penalizar campos preenchidos indevidamente e sem protocolo para comparar modelos.
+\end{enumerate}
+
+% ---
+\section{\texorpdfstring{\textit{Tool Calling}}{Tool Calling}}
+\label{sec:toolcalling}
+% ---
+
+Esta seção define o \textit{tool calling}, compara-o com as formulações alternativas e reúne a literatura e os conceitos de avaliação empregados na metodologia.
+
+\subsection{Definição e Fluxo}
+\label{sec:tc-definicao}
+
+O \textit{tool calling} é a capacidade de um modelo de linguagem de reconhecer que a resposta a uma consulta exige uma função externa e de gerar a chamada dessa função, com os argumentos em JSON (do inglês \textit{JavaScript Object Notation}) \cite{schick2023toolformer, qin2023toolllm}. O modelo escolhe a função e os argumentos, e o sistema que o hospeda executa a função escolhida, em geral determinística, como uma consulta a banco de dados, uma chamada a outra API ou a execução de um código.
+
+Os termos a seguir são usados no restante do texto. Uma \textbf{ferramenta} é uma função externa oferecida ao modelo. A \textbf{descrição da ferramenta}, escrita na notação JSON Schema, informa o nome, a finalidade e os parâmetros da ferramenta, cada um com o tipo, uma descrição e, quando cabe, o \textbf{enumerado}, isto é, a lista fechada de valores válidos. Por especificar os campos e os tipos dos argumentos, a descrição é também chamada de \textit{schema} da ferramenta. A \textbf{chamada de ferramenta} é o pedido, emitido pelo modelo, de execução de uma ferramenta com certos argumentos. A \textbf{chamada ao modelo} é uma ida e volta ao modelo, na qual o sistema envia as mensagens e recebe uma resposta. O \textbf{resultado da ferramenta} é o que ela devolve e que retorna ao modelo como nova mensagem. O \textbf{laço de chamadas} é a sequência de chamadas ao modelo até a resposta final. O \textbf{\textit{prompt} de sistema} reúne as instruções fixas que a aplicação envia ao modelo. Quando o modelo foi ajustado para emitir chamadas de ferramenta, o servidor as devolve num campo próprio da resposta, separado do texto, o \textbf{canal de ferramentas}, e esse arranjo caracteriza o \textbf{\textit{tool calling} nativo}. A Figura~\ref{fig:fluxo-tc} mostra o fluxo.
+
+\begin{fixo}{figure}
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=1.4cm and 0.8cm,
+  user/.style={rectangle, draw, rounded corners, minimum height=1.0cm, text width=2.3cm, align=center, fill=gray!8},
+  llm/.style={rectangle, draw, rounded corners, minimum height=1.0cm, text width=2.3cm, align=center, fill=blue!10, very thick},
+  payload/.style={rectangle, draw, rounded corners, minimum height=1.0cm, text width=2.3cm, align=center, fill=orange!12},
+  tool/.style={rectangle, draw, rounded corners, minimum height=1.0cm, text width=2.3cm, align=center, fill=green!10},
+  arr/.style={-{Stealth[length=2.2mm]}, thick}
+]
+  \node[user] (user1) {Usuário\\\textit{consulta}};
+  \node[llm, right=of user1] (llm1) {Modelo\\\textit{escolhe a ferramenta e os argumentos}};
+  \node[payload, right=of llm1] (call) {Chamada de ferramenta (JSON)};
+  \node[tool, below=of call] (exec) {Ferramenta\\\textit{executa}};
+  \node[payload, left=of exec] (result) {Resultado devolvido ao modelo};
+  \node[llm, left=of result] (llm2) {Modelo\\\textit{responde ou chama outra ferramenta}};
+  \node[user, below=of llm2] (user2) {Usuário\\\textit{resposta}};
+  \draw[arr] (user1) -- (llm1);
+  \draw[arr] (llm1) -- (call);
+  \draw[arr] (call) -- (exec);
+  \draw[arr] (exec) -- (result);
+  \draw[arr] (result) -- (llm2);
+  \draw[arr] (llm2) -- (user2);
+  \draw[arr, dashed] (llm2.north) -- ++(0,0.6) -| node[pos=0, below right, xshift=1pt, font=\tiny] {nova chamada ao modelo (laço)} (llm1.south);
+  \draw[arr, dashed] (llm1.north) -- ++(0,0.5) -| node[pos=0.25, above, font=\tiny] {sem chamada de ferramenta (resposta direta ou recusa)} ([xshift=-0.5cm]user2.west) -- (user2.west);
+\end{tikzpicture}
+\caption{Fluxo do \textit{tool calling}}
+\label{fig:fluxo-tc}
+\fonte{Elaborado pelos autores, com base em \citeonline{schick2023toolformer} e \citeonline{qin2023toolllm}.}
+\end{fixo}
+
+Do fluxo da Figura~\ref{fig:fluxo-tc} decorrem as vantagens que motivam a adoção do \textit{tool calling}. A ausência de chamada de ferramenta é uma resposta válida, de modo que o modelo pode recusar um pedido fora do escopo sem que o formato da resposta preveja um campo para esse fim. Como os resultados das ferramentas retornam ao modelo como mensagens, ele pode escolher entre várias ferramentas, consultar funções determinísticas e corrigir os argumentos antes da resposta final. Por fim, as chamadas de ferramenta e os seus argumentos, emitidos em mensagens próprias, ficam disponíveis para auditoria. Essas vantagens dependem da capacidade do modelo de usar as ferramentas oferecidas, discutida na Seção~\ref{sec:tc-retorno}.
+
+\subsection{\texorpdfstring{\textit{Tool Calling}, Saída Estruturada e Geração de SQL}{Tool Calling, Saída Estruturada e Geração de SQL}}
+\label{sec:tc-se-sql}
+
+Na saída estruturada, o modelo devolve a resposta num objeto JSON que segue um \textit{schema} predefinido. A conformidade do objeto ao \textit{schema} é conferida com bibliotecas como o Pydantic \cite{pydantic2019} e o Zod, e, com o Instructor \cite{instructor2023}, a chamada ao modelo é repetida quando o objeto é inválido. Essa formulação, designada \textit{text-to-JSON} por analogia com o \textit{text-to-SQL} tratado adiante, foi estudada quanto ao efeito das restrições de formato sobre o desempenho. \citeonline{tam2024speak} observaram piora em tarefas de raciocínio quando o formato é imposto com rigidez, resultado competitivo em tarefas de classificação e influência da ordem dos campos sobre o que o modelo produz. \citeonline{geng2025jsonschemabench} apontam a decodificação restrita ao \textit{schema} como a técnica dominante para impor o formato, mas mostram que a cobertura dos recursos do JSON Schema varia entre as implementações e que a conformidade ao \textit{schema} não é garantida.
+
+Duas limitações estruturais distinguem a saída estruturada do \textit{tool calling}. A primeira é que ela devolve sempre um objeto no formato do \textit{schema}, de modo que toda consulta se converte numa busca e a recusa exige um campo criado para esse fim no próprio \textit{schema}. A segunda é que uma verificação externa só alcança o modelo como nova tentativa, depois de emitido o objeto inteiro. Existe ainda o risco de o modelo preencher campos sem apoio na consulta apenas para completar o \textit{schema}, hipótese que só a avaliação pode confirmar ou afastar.
+
+Na formulação \textit{text-to-SQL}, o modelo gera a consulta inteira, na linguagem de consulta estruturada SQL (do inglês \textit{Structured Query Language}), a partir da pergunta e do esquema do banco de dados. O Spider \cite{yu2018spider} consolidou a avaliação dessa tarefa, com cerca de dez mil perguntas sobre 200 bancos. Com os modelos de linguagem, a ambiguidade e a subespecificação das perguntas passaram a figurar entre os problemas centrais da tarefa \cite{liu2025survey}. A acurácia ainda é limitada em bancos reais. No BIRD, que reúne bancos grandes e com valores imperfeitos, o GPT-4 acertou o resultado de cerca de 55\% das perguntas, contra cerca de 93\% obtidos por avaliadores humanos \cite{li2023bird}. Há também um risco de segurança. \citeonline{pedro2025p2sql} mostraram que, em aplicações construídas com o LangChain \cite{langchain2022} e o LlamaIndex, um \textit{prompt} malicioso pode induzir o modelo a gerar consultas SQL maliciosas, executadas em seguida no banco. O ataque foi confirmado em vários modelos e em aplicações reais, e as defesas baseadas apenas em instruções no \textit{prompt} mostraram-se frágeis.
+
+Uma alternativa à geração de consultas SQL pelo modelo é traduzir a pergunta nos parâmetros tipados de uma ferramenta fixa, ficando a montagem da consulta SQL a cargo do sistema. A escolha adotada, com as vantagens e o custo dessa formulação, está na Seção~\ref{sec:componentes}.
+
+\subsection{Ferramentas Auxiliares, Retorno e Decisão de Chamar}
+\label{sec:tc-retorno}
+
+No ReAct \cite{yao2023react}, o modelo alterna passos de raciocínio e ações, e o resultado de cada ação alimenta o passo seguinte. A literatura indica que a revisão da resposta pelo próprio modelo é eficaz quando o sinal de erro vem de fora dele. O CRITIC \cite{gou2024critic} verifica a saída com ferramentas externas e a revisa com base no resultado, e o \textit{self-debugging} \cite{chen2024selfdebug} corrige consultas e programas a partir do resultado da execução. Já a autocorreção sem sinal externo \cite{madaan2023selfrefine} pode não ajudar e até piorar o raciocínio \cite{huang2024cannot}. Ferramentas auxiliares são ferramentas que não executam a tarefa final, mas preparam ou conferem, de forma determinística, os argumentos da ferramenta que a executa. Elas e o retorno dos erros ao modelo são, por isso, maneiras de oferecer esse sinal externo.
+
+Avaliações recentes identificam onde os modelos falham no uso de ferramentas. O ToolSandbox \cite{lu2025toolsandbox} aponta a normalização de argumentos, como datas relativas e nomes de lugares, entre as maiores dificuldades. O When2Call \cite{ross2025when2call} mostra que escolher entre chamar uma ferramenta, perguntar ao usuário ou recusar o pedido é uma capacidade própria, fraca em modelos pequenos. O $\tau$-bench \cite{yao2025taubench} avalia diálogos em que um usuário simulado, também conduzido por um modelo de linguagem, interage com o modelo avaliado, e o CRITICTOOL \cite{huang2025critictool} classifica os erros de chamada que o modelo precisa perceber e corrigir.
+
+Ajustar um sistema a partir dos erros observados num conjunto rotulado traz o risco de sobreajuste, isto é, de o sistema apresentar bom desempenho apenas nesse conjunto. O risco aplica-se às lições que o próprio modelo acumula a partir de sucessos e falhas, como no Reflexion \cite{shinn2023reflexion} e no ExpeL \cite{zhao2024expel}, e para a otimização automática de \textit{prompts} \cite{yang2024opro, khattab2024dspy}. A estimativa do desempenho exige, portanto, um conjunto de avaliação que não tenha sido consultado durante o desenvolvimento, pois o reúso do mesmo conjunto ao longo do desenvolvimento compromete a validade das conclusões \cite{dwork2015reusable}.
+
+\subsection{Avaliação}
+\label{sec:avaliacao-conceitos}
+
+Os conjuntos de avaliação de uso de ferramentas, como o API-Bank \cite{li2023apibank}, o ToolBench \cite{qin2023toolllm}, com mais de 16 mil APIs reais, e o APIBench, do Gorilla \cite{patil2023gorilla}, estão, em geral, em inglês, cobrem domínios amplos e oferecem muitas ferramentas. O BFCL \cite{patil2025berkeley} compara, pela árvore sintática, a chamada gerada com a esperada e avalia também a abstenção, quando o correto é não chamar ferramenta alguma.
+
+Em \textit{text-to-SQL}, comparar o texto da consulta gerada com o da consulta de referência é insuficiente, porque mais de uma consulta pode estar correta. Por isso o BIRD e o SQL-Eval \cite{defog2023sqleval} adotam a avaliação pela execução, também disponível no Spider, em que as duas consultas são executadas no banco e os resultados são comparados. O SQL-Eval aceita a igualdade exata ou por subconjunto dos resultados e adverte que bancos vazios produzem falsos acertos.
+
+A acurácia por consulta é a proporção de consultas completamente corretas,
+\[
+\text{Acurácia} = \frac{N_{\text{corretas}}}{N},
+\]
+em que $N_{\text{corretas}}$ é o número de consultas cuja resposta coincide integralmente com a esperada, inclusive quando o correto é não chamar ferramenta alguma, e $N$ é o total de consultas. O critério operacional de acerto é definido na Seção~\ref{sec:medidas}.
+
+O acerto parcial, campo a campo, é medido pela precisão ($P$), pelo \textit{recall} ($R$) e pelo F1 \cite{manning2008introductionir},
+\[
+P = \frac{TP}{TP + FP}, \qquad R = \frac{TP}{TP + FN}, \qquad F_1 = \frac{2PR}{P + R},
+\]
+em que $TP$ (verdadeiros positivos) conta os itens produzidos e corretos, $FP$ (falsos positivos) os produzidos e incorretos ou indevidos e $FN$ (falsos negativos) os esperados e não produzidos. As mesmas medidas aplicam-se a uma escolha binária, como recusar ou não um pedido. A acurácia por consulta exige a resposta integralmente correta, ao passo que o F1 por campo credita o acerto parcial.
+
+A concordância entre dois anotadores é medida pelo kappa de Cohen \cite{cohen1960coefficient, artstein2008intercoder},
+\[
+\kappa = \frac{p_o - p_e}{1 - p_e},
+\]
+em que $p_o$ é a concordância observada e $p_e$ a esperada ao acaso, calculada pelas frequências marginais de cada anotador.
+
+Para uma proporção $\hat{p}$ observada em $n$ casos, o intervalo de confiança de Wilson \cite{wilson1927probable} é
+\[
+\frac{\hat{p} + \dfrac{z^2}{2n} \pm z\sqrt{\dfrac{\hat{p}(1-\hat{p})}{n} + \dfrac{z^2}{4n^2}}}{1 + \dfrac{z^2}{n}},
+\]
+em que $z$ é o quantil da distribuição normal padrão para o nível de confiança, igual a 1,96 para 95\%. Ao contrário do intervalo normal simples, o de Wilson permanece entre 0 e 1 mesmo para proporções próximas dos extremos.
+
+Duas configurações avaliadas nas mesmas consultas são comparadas pelo teste exato de McNemar \cite{mcnemar1947note, dietterich1998approximate}. Apenas os pares discordantes contam, sendo $b$ o número de consultas acertadas só pela primeira configuração e $c$ o número de consultas acertadas só pela segunda. Sob a hipótese de igualdade de desempenho, $b$ segue uma distribuição binomial com $n = b + c$ tentativas e probabilidade $1/2$. O \textit{p}-valor é a probabilidade de, sob essa hipótese, observar uma diferença igual ou maior do que a observada, e, no teste bicaudal, vale
+\[
+p = \min\left(1,\ 2\sum_{k=0}^{\min(b,c)} \binom{n}{k}\left(\frac{1}{2}\right)^{n}\right).
+\]
+A diferença é considerada significativa quando o \textit{p}-valor é inferior ao nível de significância $\alpha$ fixado.
+
+O \textit{bootstrap} pareado \cite{efron1993bootstrap} estima a incerteza da diferença de acurácia entre duas configurações. As consultas são reamostradas com reposição muitas vezes, mantendo-se juntos os resultados das duas configurações em cada consulta, e a diferença é recalculada a cada reamostragem. O intervalo de 95\% é formado pelos percentis de 2,5 e 97,5 das diferenças obtidas.
+
+Quando $m$ hipóteses são testadas em conjunto, a correção de Holm \cite{holm1979simple} controla a probabilidade de ao menos uma rejeição indevida. Os \textit{p}-valores são ordenados, $p_{(1)} \le \dots \le p_{(m)}$, e a $i$-ésima hipótese é rejeitada se $p_{(i)} \le \alpha/(m - i + 1)$. As hipóteses são examinadas nessa ordem até a primeira que não satisfaça a condição, e essa e as seguintes não são rejeitadas.
+
+\subsection{Uso de Ferramentas por Modelos de Linguagem em Geoinformação}
+\label{sec:geoinformacao}
+
+O uso de ferramentas por modelos de linguagem já alcançou a geoinformação. Os modelos passaram a planejar e executar, com alta autonomia, tarefas de Sistemas de Informação Geográfica (SIG). O LLM-Geo \cite{li2023autonomous}, construído sobre o GPT-4, gera e executa o código que coleta, analisa e visualiza dados espaciais, e o GeoGPT \cite{zhang2024geogpt} planeja e encadeia ferramentas de SIG a partir de pedidos em linguagem natural. Em perspectiva mais ampla, \citeonline{mai2023geospatialllm} discutem as oportunidades e os desafios dos modelos de fundação para a inteligência artificial (IA) geoespacial, e \citeonline{manvi2024geollm} mostram que o conhecimento geográfico desses modelos serve a tarefas de predição quando o \textit{prompt} traz contexto do OpenStreetMap.
+
+Na descoberta de dados geoespaciais, a dificuldade de encontrar dados em geoportais é anterior aos modelos de linguagem. \citeonline{hu2015metadata} a atribuem, em parte, à heterogeneidade dos metadados e propõem a harmonização de tópicos e a busca semântica em geoportais. Mais recentemente, \citeonline{ning2025autonomous} propuseram um agente que escolhe a fonte de dados numa lista predefinida e gera o programa que a recupera, e \citeonline{li2025question} combinaram modelos de linguagem e um grafo de conhecimento construído a partir de cinco grandes portais para responder a perguntas de descoberta de dados.

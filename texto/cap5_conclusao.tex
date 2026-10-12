@@ -1,0 +1,59 @@
+% ----------------------------------------------------------
+% Capítulo 5 — Conclusão
+% ----------------------------------------------------------
+\chapter{Conclusão}
+\label{cap:conclusao}
+
+% ---
+\section{Retomada do Objetivo e Entrega}
+\label{sec:retomada}
+% ---
+
+O objetivo geral do trabalho (Seção~\ref{sec:objetivo-geral}) foi adequar o projeto \texttt{prototipo\_\allowbreak busca\_\allowbreak llm}, do 1º CGEO, para empregar os recursos de \textit{tool calling} na tradução de consultas em linguagem natural para critérios de busca no acervo cartográfico da DSG. O objetivo foi atingido, com as ressalvas registradas na Seção~\ref{sec:atendimento}. O \textit{backend} foi reescrito em Python com \textit{tool calling} nativo, e a tradução evoluiu em três versões, até a versão final, com ferramentas auxiliares do domínio e verificação dos parâmetros com retorno ao modelo. Quanto ao efeito da adoção (Seção~\ref{sec:respostas}), a versão final obteve acurácia maior que a da primeira versão com os três modelos avaliados, o ganho do \textit{tool calling} que se repetiu fora da amostra foi a recusa explícita das consultas fora do domínio, a vantagem em acurácia sobre a saída estruturada dependeu da versão da tradução e do modelo, e não houve ganho de tempo de processamento.
+
+A entrega, descrita na Seção~\ref{sec:entregaveis} e reunida no repositório público do projeto \cite{correa2026pfcbusca}, compreende o \textit{backend} com as três versões da tradução, as ferramentas auxiliares e o validador, os conjuntos de consultas e o instrumental de avaliação, cujo alcance é discutido na Seção~\ref{sec:contribuicoes}.
+
+Para a DSG, o resultado é uma busca em linguagem natural executada em \textit{hardware} próprio, com modelo de pesos abertos e sem serviço de nuvem, o que preserva o controle sobre os dados. O alcance dessa busca diante de pedidos reais está delimitado na Seção~\ref{sec:limitacoes}.
+
+% ---
+\section{Contribuições}
+\label{sec:contribuicoes}
+% ---
+
+O trabalho apresenta quatro contribuições, que continuarão úteis mesmo quando os modelos avaliados forem substituídos:
+\begin{enumerate}
+  \item As ferramentas auxiliares do domínio e o validador, que incorporam à tradução as convenções da cartografia sistemática (Seção~\ref{sec:res-modelagem}). A identificação de nomes trata siglas, homônimos e a divisão político-administrativa. A normalização de códigos aplica a articulação das folhas pelo INOM e pelo MI, e a normalização de escalas, o enumerado de escalas do catálogo. A resolução de períodos converte expressões de tempo em datas a partir da data de execução, o pedido de esclarecimento trata a consulta sem critério, e a verificação dos parâmetros devolve ao modelo os erros encontrados antes da busca. Essas convenções, que o \texttt{prototipo\_busca\_llm} aplicava num dicionário fixo e que as duas primeiras versões informavam apenas nas descrições dos parâmetros, passaram a ser código verificável, consultado pelo modelo durante a resposta ou aplicado pelo validador.
+  \item Os três conjuntos de consultas e o manual de anotação que define o gabarito deles (Seção~\ref{sec:manual}). O gabarito do conjunto de referência segue o manual e foi auditado por uma anotação independente e às cegas, com as divergências adjudicadas pelos autores, e o dos conjuntos de validação e de teste foi fixado antes da redação de cada consulta, a partir de valores reais dos metadados do BDGEx e da lista de municípios do IBGE (Seção~\ref{sec:validacao}).
+  \item O protocolo de comparação reprodutível, com testes pareados e o registro de cada rodada, que permite avaliar qualquer novo modelo ou nova configuração pelo mesmo critério. Como o resultado da mesma comparação mudou com o conjunto de consultas, a versão da tradução e o modelo, esse instrumento tende a permanecer útil por mais tempo que a classificação dos modelos avaliados, que se torna obsoleta à medida que novos modelos são lançados.
+  \item A avaliação pela execução no acervo real, que aplicou a interseção espacial entre as folhas e as malhas territoriais do IBGE e comparou as cartas devolvidas com as do gabarito (Seção~\ref{sec:res-acervo}), e o diagnóstico dos vícios do acervo coletado pelo CSW, como as folhas homônimas, a mesma folha em vários registros, as duas grafias do MI e os campos ausentes, de interesse direto para a DSG (Seção~\ref{sec:res-extracao}).
+\end{enumerate}
+
+% ---
+\section{Limitações}
+\label{sec:limitacoes}
+% ---
+
+As conclusões valem dentro dos limites discutidos na Seção~\ref{sec:validade}, dos quais esta seção apenas nomeia os de maior peso. O primeiro é o caráter sintético das consultas, que deixa sem medida o desempenho diante de pedidos reais. O segundo é a circularidade entre o manual de anotação, as ferramentas e o gabarito, agravada pelo fato de uma mesma família de modelos de linguagem ter redigido, anotado e julgado os conjuntos de validação e de teste. O terceiro é o alcance da comparação com o controle, que não separa o mecanismo de \textit{tool calling} das peças do domínio recebidas só pela versão final (Seção~\ref{sec:metodo-controle}), somado ao desenvolvimento dessa versão com um único modelo (Seção~\ref{sec:recomendacao}).
+
+O pedido de esclarecimento não foi exercitado com pessoas (Seção~\ref{sec:pedir-esclarecimento}), e a avaliação pela execução no acervo real ficou restrita aos metadados disponíveis no CSW (Seção~\ref{sec:res-acervo}).
+
+% ---
+\section{Trabalhos Futuros}
+\label{sec:trabalhos-futuros}
+% ---
+
+Os trabalhos futuros decorrem das limitações, dos erros restantes da versão final e dos temas deixados fora do escopo:
+\begin{enumerate}
+  \item implementar predicados espaciais relacionais, como ``perto de'', ``num raio de'' e ``ao norte de'', com a geocodificação do lugar citado, novos parâmetros na ferramenta de busca e operadores de distância e de direção (Seção~\ref{sec:predicados});
+  \item desambiguar folhas e municípios homônimos pela UF ou pelo código, tornar a busca insensível a acentos e ao zero à esquerda do MI e agrupar as edições e as duplicatas do catálogo;
+  \item avaliar o pedido de esclarecimento com usuários reais, em conversas de vários turnos;
+  \item suprir as lacunas do validador e da recusa contestada, como a palavra-chave preenchida com região, projeto ou escala, as expressões de tempo fora da tabela do manual e a contestação de recusas corretas, e medir o efeito em um terceiro conjunto de consultas, pois o conjunto de teste, já empregado na avaliação, deixou de ser inédito;
+  \item coletar consultas reais anotadas por especialistas e avaliar a solução com usuários do catálogo, em comparação com a busca atual por texto simples (Tabela~\ref{tab:consulta-tecnica}), como previam as demandas do 1º CGEO, com interface e integração ao sistema da DSG (autenticação, controle de acesso e monitoramento);
+  \item avaliar os modelos empregados num conjunto público de chamada de ferramentas, como o BFCL \cite{patil2025berkeley}, com um subconjunto de consultas traduzido para o português, de modo a situar o desempenho deles fora do domínio do catálogo, comparação que não foi feita porque os conjuntos públicos disponíveis estão em inglês e não cobrem o BDGEx (Seção~\ref{sec:validade});
+  \item coletar o catálogo completo, com o projeto, as datas de publicação e de criação e as áreas de suprimento oficiais;
+  \item avaliar localmente modelos maiores, como o GPT-OSS 20B \cite{openai2025gptoss}, distribuído para o Ollama com cerca de 14~GB \cite{ollama2025gptoss} e compatível com uma GPU de 16~GB, e o Qwen 3.8 27B \cite{qwen2026qwen38}, que ocupa 18~GB no Ollama e exige GPU com mais memória, e medir na estação local, com a GPU livre de outros programas, as duas opções recomendadas para GPU modesta;
+  \item construir uma versão leve para testes e demonstrações, com o banco num arquivo local, como o SpatiaLite, extensão espacial do SQLite, ou o DuckDB com a sua extensão espacial, e com os modelos executados diretamente pela biblioteca Transformers, do Hugging Face, de modo que a solução dispense servidor de banco, servidor de modelos e contêineres;
+  \item avaliar o modo de raciocínio dos modelos e o uso de exemplos resolvidos no \textit{prompt}, com a medida do ganho de acurácia e do custo em latência, e investigar por que o controle obteve acurácia maior que a da versão final com o Qwen 3 4B;
+  \item criar um mecanismo de contingência que, esgotado o limite do laço de chamadas sem busca válida, encaminhe a consulta à busca textual do banco e registre a falha, para que ela não fique encoberta como no \texttt{prototipo\_busca\_llm} (Seção~\ref{sec:prototipo-limitacoes});
+  \item treinar, por ajuste fino, um modelo menor para o domínio, tema excluído do escopo deste trabalho (Seção~\ref{sec:contextualizacao}).
+\end{enumerate}

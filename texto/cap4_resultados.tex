@@ -1,0 +1,626 @@
+% ----------------------------------------------------------
+% Capítulo 4 — Resultados
+% ----------------------------------------------------------
+\chapter{Resultados}
+\label{cap:resultados}
+
+Este capítulo segue a ordem das fases da sequência metodológica (Figura~\ref{fig:bpmn}). Apresenta os dados extraídos do acervo, as funcionalidades da busca, a instalação e a validação dos modelos, a avaliação de performance, a discussão dos resultados e os entregáveis.
+
+% ---
+\section{Extração dos Dados}
+\label{sec:res-extracao}
+% ---
+
+A coleta dos metadados públicos do BDGEx pelo serviço CSW, feita em 28/09/2026 pelo procedimento da Seção~\ref{sec:extracao}, produziu o acervo sobre o qual a busca foi executada na avaliação da Seção~\ref{sec:res-acervo}. O catálogo declara \res{acervo}{carga}{declarados} registros, mas a coleta trouxe \res{acervo}{carga}{distintos} registros distintos, porque o servidor repetiu páginas durante a paginação e \res{acervo}{carga}{copias} cópias idênticas foram descartadas; são esses registros distintos que formam o acervo coletado. Não se verificou se o número declarado conta registros distintos; o mais provável é que parte do catálogo não tenha sido coletada, e por isso as contagens de folhas homônimas e de edições apresentadas a seguir são limites inferiores.
+
+A Tabela~\ref{tab:acervo-composicao} resume a composição do acervo coletado. A maior parte dos registros está nas escalas 1:25.000 e 1:50.000, e as cartas topográficas matriciais e vetoriais predominam entre os tipos de produto. Quase todos os registros trazem o código MI e o INOM da folha. O CSW não tem campo de tipo de produto nem de escala, e os dois foram inferidos do título e do formato de cada registro por regras heurísticas, com \res{acervo}{carga}{semtipo} registros sem tipo reconhecido e \res{acervo}{carga}{semescala} sem escala reconhecida. Dos valores que o enumerado do catálogo prevê, \res{acervo}{carga}{tiposausentes} tipos de produto e \res{acervo}{carga}{escalasausentes} escalas não aparecem no acervo coletado. Do total, \res{acervo}{carga}{outroprodutor} registros vêm de produtor que não é um CGEO.
+
+\begin{fixo}{table}
+\centering
+\caption{Composição do acervo do BDGEx coletado pelo CSW}
+\label{tab:acervo-composicao}
+\small
+\begin{tabular}{|>{\raggedright\arraybackslash}p{8.4cm}|>{\raggedleft\arraybackslash}p{2.4cm}|>{\raggedleft\arraybackslash}p{2.6cm}|}
+\hline
+\textbf{Item} & \textbf{Registros} & \textbf{\% dos distintos} \\ \hline
+\multicolumn{3}{|l|}{\textit{Coleta}} \\ \hline
+Registros declarados pelo catálogo & \res{acervo}{carga}{declarados} & --- \\ \hline
+Registros distintos coletados & \res{acervo}{carga}{distintos} & --- \\ \hline
+Cópias idênticas descartadas & \res{acervo}{carga}{copias} & --- \\ \hline
+\multicolumn{3}{|l|}{\textit{Escala}} \\ \hline
+1:25.000 & \res{acervo}{carga}{escala25mil} & \res{acervo}{carga}{escala25milpct} \\ \hline
+1:50.000 & \res{acervo}{carga}{escala50mil} & \res{acervo}{carga}{escala50milpct} \\ \hline
+1:100.000 & \res{acervo}{carga}{escala100mil} & \res{acervo}{carga}{escala100milpct} \\ \hline
+1:250.000 & \res{acervo}{carga}{escala250mil} & \res{acervo}{carga}{escala250milpct} \\ \hline
+1:2.000 & \res{acervo}{carga}{escala2mil} & \res{acervo}{carga}{escala2milpct} \\ \hline
+1:10.000 & \res{acervo}{carga}{escala10mil} & --- \\ \hline
+Sem escala reconhecida & \res{acervo}{carga}{semescala} & \res{acervo}{carga}{semescalapct} \\ \hline
+\multicolumn{3}{|l|}{\textit{Tipo de produto}} \\ \hline
+SCN Carta Topográfica Matricial & \res{acervo}{carga}{tipotopomatricial} & \res{acervo}{carga}{tipotopomatricialpct} \\ \hline
+SCN Carta Topográfica Vetorial & \res{acervo}{carga}{tipotopovetorial} & \res{acervo}{carga}{tipotopovetorialpct} \\ \hline
+MDS (modelo digital de superfície) & \res{acervo}{carga}{tipomdsram} & \res{acervo}{carga}{tipomdsrampct} \\ \hline
+SCN Carta Ortoimagem & \res{acervo}{carga}{tipoortoimagem} & \res{acervo}{carga}{tipoortoimagempct} \\ \hline
+Sem tipo reconhecido & \res{acervo}{carga}{semtipo} & \res{acervo}{carga}{semtipopct} \\ \hline
+\multicolumn{3}{|l|}{\textit{Códigos}} \\ \hline
+Registros com MI & \res{acervo}{carga}{commi} & \res{acervo}{carga}{commipct} \\ \hline
+Registros com INOM & \res{acervo}{carga}{cominom} & \res{acervo}{carga}{cominompct} \\ \hline
+Códigos MI distintos & \res{acervo}{carga}{midistintos} & --- \\ \hline
+INOM distintos & \res{acervo}{carga}{inomdistintos} & --- \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores a partir dos metadados públicos do BDGEx, coletados em 28/09/2026.}
+\nota{Tipo e escala inferidos do título e do formato de cada registro, porque o CSW não tem esses campos.}
+\end{fixo}
+
+Além dos metadados, a versão final da busca depende de dois conjuntos de dados que as suas ferramentas consultam, a lista de municípios do IBGE, com \res{acervo}{carga}{municipioslista} municípios, e o índice de folhas do BDGEx, com os códigos e os nomes das folhas do acervo. Para a avaliação pela execução no acervo real, foram carregadas também as malhas territoriais do IBGE, com \res{acervo}{carga}{estados} UFs e \res{acervo}{carga}{municipios} municípios com polígono (\res{acervo}{carga}{municipiossempoligono} município da lista ficou sem polígono), e as \res{acervo}{carga}{areas} áreas de suprimento aproximadas (Seção~\ref{sec:extracao}).
+
+A Tabela~\ref{tab:acervo-vicios} lista os principais vícios do acervo, como as folhas homônimas, os municípios de nome ambíguo e a mesma folha em vários registros, com a frequência de cada um e a funcionalidade da Seção~\ref{sec:res-modelagem} que se relaciona com ele ou a limitação que permanece. Esses vícios foram observados na avaliação pela execução no acervo real, feita depois do desenvolvimento da busca, e nenhuma funcionalidade foi desenhada a partir deles. As frequências por pedido foram medidas nos pedidos do conjunto de teste executados no acervo, e as demais foram contadas no acervo coletado; todas descrevem o acervo, e não o acerto de algum modelo. Até essa avaliação, a busca só tinha sido executada no banco sintético da Seção~\ref{sec:componentes}, que não reproduz nenhum desses vícios.
+
+\begin{fixo}{table}
+\centering
+\caption{Vícios do acervo e funcionalidade ou limitação relacionada a cada um}
+\label{tab:acervo-vicios}
+\footnotesize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{3.3cm}|>{\raggedright\arraybackslash}p{3.9cm}|>{\raggedright\arraybackslash}p{4.0cm}|}
+\hline
+\textbf{Vício} & \textbf{Exemplo} & \textbf{Frequência} & \textbf{Funcionalidade ou limitação} \\ \hline
+Folhas homônimas em lugares distintos & Terra Nova em três folhas de lugares distintos & \res{acervo}{ambig}{nomelugares} dos \res{acervo}{ambig}{nomepedidos} pedidos por nome de folha & a identificação de nomes (Seção~\ref{sec:identificar-nome}) informa as escalas em que a folha existe; a desambiguação pela UF fica como trabalho futuro \\ \hline
+Municípios homônimos ou contidos em outro nome & ``Santa Maria'' corresponde a \res{acervo}{ambig}{santamaria} municípios & \res{acervo}{ambig}{municipiomaisdeum} dos \res{acervo}{ambig}{municipiopedidos} pedidos por município & a identificação de nomes devolve o município com a UF; o filtro por trecho do nome, herdado do \texttt{prototipo\_busca\_llm}, continua \\ \hline
+Mesma folha em vários registros (produtos, edições e duplicatas) & um código com até \res{acervo}{ambig}{codigomax} registros & \res{acervo}{ambig}{codigovarios} dos \res{acervo}{ambig}{codigopedidos} pedidos por código; \res{acervo}{carga}{dupgrupos} grupos de duplicatas com \res{acervo}{carga}{dupregistros} registros & a ordem por data mostra primeiro a edição mais recente (em \res{acervo}{ambig}{maisrecentesim} pedidos por código) \\ \hline
+MI escrito com e sem zero à esquerda & ``0757-4'' e ``757-4'' & \res{acervo}{carga}{miduasgrafias} códigos MI & limitação; a normalização de códigos (Seção~\ref{sec:normalizar-codigo}) mantém os algarismos como escritos, e a busca por igualdade não une as duas grafias (trabalho futuro) \\ \hline
+Nomes que diferem só por acento ou caixa & ``Vila Propício'' e ``Vila Propicio'' & \res{acervo}{carga}{inomacento} INOM & limitação; a busca por palavra-chave é sensível a acento \\ \hline
+Campos ausentes ou aproximados no CSW & projeto vazio em todos os registros; uma só data por registro; área de suprimento sem polígono oficial & todos os registros & limitação declarada na avaliação pela execução (Seção~\ref{sec:res-acervo}) \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores. Frequências por pedido medidas nos pedidos do conjunto de teste executados no acervo real; as demais, contadas no acervo coletado.}
+\end{fixo}
+
+% ---
+\section{Modelagem das Funcionalidades}
+\label{sec:res-modelagem}
+% ---
+
+As três versões da tradução estão resumidas na Seção~\ref{sec:visao-versoes}. Esta seção detalha cada desenvolvimento na ordem em que ocorreu, com o erro ou a ambiguidade que motivou cada peça, o conceito da Engenharia Cartográfica que ela codifica e o requisito do Quadro~\ref{quadro:requisitos} que atende. Os números que motivam cada peça vêm dos conjuntos de referência e de validação, usados no desenvolvimento; os do acervo real, citados na Seção~\ref{sec:predicados}, só descrevem o filtro espacial, e os efeitos no conjunto de teste estão na Seção~\ref{sec:res-performance}. A Tabela~\ref{tab:funcionalidades} resume a seção, e o código está no repositório do projeto \cite{correa2026pfcbusca}. Como mostra a Figura~\ref{fig:bpmn}, a segunda versão e a versão final foram modeladas depois da instalação e da validação dos modelos (Seções~\ref{sec:res-instalacao} e~\ref{sec:res-validacao}). Por isso, esta seção usa os erros observados nos conjuntos de referência e de validação apenas como motivação de cada peça, e as comparações entre abordagens e as do conjunto de teste estão na Seção~\ref{sec:res-performance}.
+
+% ---
+\subsection{Primeira Versão e a Ferramenta de Busca}
+\label{sec:primeira-versao}
+% ---
+
+A primeira versão expõe ao modelo uma única ferramenta, \texttt{buscar\_catalogo}, com os doze parâmetros do \textit{schema} do \texttt{prototipo\_busca\_llm}, e faz uma chamada ao modelo por consulta. Quando o pedido não é do acervo, o modelo recusa deixando de chamar a ferramenta e respondendo em uma frase. O \textit{prompt} de sistema informa a data de execução e não traz exemplos resolvidos nem dicionário de termos, e as descrições dos parâmetros substituem os 159 pares do dicionário de normalização do \texttt{prototipo\_busca\_llm}.
+
+O \textit{schema} foi mantido pelas razões da Seção~\ref{sec:componentes}. Os enumerados foram recortados para os valores do catálogo, com nove tipos de produto e nove projetos, contra 30 e 15 no \texttt{prototipo\_busca\_llm}, e os nomes foram escritos conforme a ET-PCDG \cite{etpcdg2016}.
+
+Os parâmetros agrupam os conceitos da cartografia sistemática que uma consulta pode citar. A folha é identificada, no parâmetro de palavra-chave, pelo código MI, pelo INOM ou pelo nome (Seção~\ref{sec:normalizar-codigo}). A escala segue o enumerado do catálogo, com oito escalas, de 1:1.000 a 1:250.000; a série do mapeamento sistemático vai de 1:1.000.000 a 1:25.000, e as escalas de 1:1.000 a 1:10.000 são escalas grandes, fora dessa série, sem norma de nomenclatura de folhas \cite{ibge1999nocoes}. O tipo de produto distingue, por exemplo, as cartas topográficas matricial e vetorial, a carta ortoimagem e os modelos digitais de terreno e de superfície. O centro de geoinformação identifica um dos cinco CGEOs, cada um com a sua área de suprimento, e o projeto, um dos projetos institucionais. O estado e o município restringem a busca pela interseção espacial entre a folha e o polígono correspondente (Seção~\ref{sec:predicados}), os parâmetros de tempo filtram pela data de publicação e pela data de criação dos metadados, e os demais parâmetros tratam da ordenação e da quantidade de resultados.
+
+Os erros da primeira versão foram observados no conjunto de referência com o Gemma 4 E4B, o modelo escolhido na validação (Seção~\ref{sec:res-validacao}), nas \res{diag}{tc1}{execucoes} execuções das três repetições. Em \res{diag}{tc1}{naochamouesclarece} delas, o modelo deixou de buscar para pedir esclarecimento, embora o \textit{prompt} diga que um único parâmetro basta. Em \res{diag}{tc1}{tipoinventado}, acrescentou um tipo de produto a pedidos de ``cartas''; em \res{diag}{tc1}{codigoalterado}, alterou o código seguindo o exemplo da descrição (``2901'' foi transformado em ``2901-2-NE''); em \res{diag}{tc1}{escalasemponto}, escreveu a escala sem o ponto de milhar do enumerado; e em \res{diag}{tc1}{periodohoje}, começou o período na data de execução. A descrição tampouco informava convenções do gabarito, como a de que ``última atualização'' indica a data de criação. Esses erros motivaram a segunda versão. A ferramenta de busca atende aos requisitos RF1 a RF7 e RF10.
+
+% ---
+\subsection{Segunda Versão, Convenções nas Descrições e Recusa}
+\label{sec:segunda-versao}
+% ---
+
+A segunda versão difere da primeira apenas no texto das descrições dos parâmetros e do \textit{prompt} de sistema. As descrições passam a conter as convenções do manual de anotação (Seção~\ref{sec:manual}), que dizem quando preencher cada campo, qual é a forma canônica de cada valor e o que não deduzir. Os códigos de exemplo da primeira versão foram retirados, com uma única exceção (``sf22yd'' $\rightarrow$ ``SF-22-Y-D''), e a descrição do estado ganhou a lista de pares de sigla e nome das 27 UFs.
+
+A segunda versão acrescenta a ferramenta \texttt{recusar\_consulta}, que codifica o limite do domínio. O acervo reúne produtos cartográficos do território brasileiro, e ficam fora dele outros assuntos, outros países e lugares fictícios, os pedidos para produzir ou editar mapas e as armadilhas de vocabulário, como ``carta de vinhos'', ``folha de pagamento'' e ``escala de plantão''. A ferramenta recebe o motivo da recusa, uma frase dirigida ao usuário, e a instrução manda chamar exatamente uma das duas ferramentas, sem pedir esclarecimento. Na saída estruturada da segunda versão, o equivalente é um campo de recusa, sem frase ao usuário, e o texto que enquadra a recusa difere entre as abordagens, porque só o \textit{tool calling} é instruído a buscar ``mesmo que de forma vaga''; a comparação entre elas mede, portanto, o mecanismo junto com esse texto. A recusa atende ao requisito RF8.
+
+No conjunto de validação, a falsa recusa do \textit{tool calling} caiu de \res{lote}{tc1}{falsarecusa} na primeira versão para \res{lote}{tc2}{falsarecusa} na segunda, e o F1 da recusa subiu de \res{lote}{tc1}{recusaf} para \res{lote}{tc2}{recusaf}. A acurácia, porém, quase não mudou (\res{lote}{tc1}{acuracia} e \res{lote}{tc2}{acuracia}; \textit{p}-valor \res{lote}{tc1tc2}{p}), porque surgiram erros de forma. A lista de siglas passou a ser usada como formato de saída, e a sigla da UF apareceu no lugar do nome em \res{lote}{tc2}{sigla} das execuções com estado; a regra do singular foi aplicada como limite igual a 1 em pedidos no plural (\res{lote}{tc2}{limite}); e a instrução de copiar o código ``exatamente como aparece'' manteve o prefixo ``MI'' em \res{lote}{tc2}{prefixo} dos pedidos por MI. Essas causas são hipóteses, porque nenhuma frase foi retirada para testá-las. Os erros são reversíveis por código, sem consulta ao gabarito, e três normalizações elevariam a acurácia a \res{lote}{tc2}{accnormalizada}, valor só de diagnóstico, porque nenhuma configuração com elas foi executada.
+
+Os erros da segunda versão eram de forma, e a literatura indica que a correção de um modelo funciona quando o sinal é externo a ele, vindo de uma ferramenta ou de um verificador \cite{huang2024cannot, gou2024critic}, como discutido na Seção~\ref{sec:tc-retorno}. Por isso, a versão final transfere parte das convenções para o código, em ferramentas que o modelo consulta e num validador que confere a saída.
+
+% ---
+\subsection{Versão Final}
+\label{sec:versao-final}
+% ---
+
+A versão final organiza a tradução como um laço de chamadas ao modelo com limites fixos, de seis chamadas ao modelo, três tentativas de busca e duas perguntas por consulta (Figura~\ref{fig:laco}). A cada chamada, o modelo pode consultar as ferramentas auxiliares, cujo resultado volta a ele, pedir esclarecimento ao usuário, recusar a consulta, com a contestação descrita na Seção~\ref{sec:recusa-contestada}, ou buscar no catálogo, e a busca passa antes pelo validador. Uma resposta só em texto é lida como chamada quando contém uma, escrita com a sintaxe de função ou em JSON; quando não contém, o modelo recebe uma vez o pedido para responder chamando uma ferramenta. Essa leitura faz parte do sistema medido.
+
+\begin{fixo}{figure}
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize,
+  caixa/.style={rectangle, draw, rounded corners, align=center, inner sep=3pt, fill=gray!6},
+  modelo/.style={caixa, fill=blue!10, very thick, minimum width=3.2cm, minimum height=0.9cm},
+  codigo/.style={caixa, fill=green!8},
+  saida/.style={caixa, fill=orange!12},
+  porta/.style={diamond, draw, aspect=2.4, align=center, inner sep=0.5pt, fill=yellow!12, font=\tiny},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  darr/.style={{Stealth[length=2mm]}-{Stealth[length=2mm]}, thick},
+  ret/.style={-{Stealth[length=2mm]}, thick, dashed}
+]
+  \node[caixa, text width=6.4cm] (ent) at (0,0) {Consulta do usuário e \textit{prompt} de sistema com a data de execução e o dia da semana};
+  \node[modelo] (mod) at (0,-2.0) {\textbf{Chamada ao modelo}};
+  \node[codigo, text width=3.5cm] (aux) at (-5.6,-0.9) {Ferramentas auxiliares\\\texttt{identificar\_nome}\\\texttt{normalizar\_codigo}\\\texttt{normalizar\_escala}\\\texttt{resolver\_periodo}};
+  \node[codigo, text width=3.5cm] (perg) at (-5.6,-3.4) {\texttt{pedir\_esclarecimento}, respondida pelo usuário simulado (resposta fixa)};
+  \node[caixa, text width=2.8cm] (rec) at (5.3,-2.0) {\texttt{recusar\_consulta}};
+  \node[porta] (cont) at (5.3,-3.75) {cita critério do\\catálogo e é a\\primeira recusa?};
+  \node[saida, text width=3.0cm] (recf) at (5.3,-5.6) {Recusa final, com o motivo dirigido ao usuário};
+  \node[caixa, text width=2.6cm] (bus) at (0.6,-3.6) {\texttt{buscar\_catalogo}};
+  \node[codigo, text width=3.0cm] (val) at (0.6,-4.9) {Verificação dos parâmetros (validador)};
+  \node[porta] (ok) at (0.6,-6.45) {erro de forma ou\\aviso ainda não\\confirmado?};
+  \node[codigo, text width=3.0cm] (sql) at (0.6,-8.2) {SQL parametrizada no banco PostGIS};
+  \node[saida, text width=3.0cm] (fim) at (0.6,-9.45) {Produtos e resposta ao usuário};
+
+  \draw[arr] (ent) -- (mod);
+  \draw[darr] (aux.east) -- node[above, sloped, pos=0.45, font=\tiny, align=center] {chamada\\e resultado} ([yshift=0.2cm]mod.west);
+  \draw[darr] (perg.east) -- node[below, sloped, pos=0.45, font=\tiny, align=center] {pergunta\\e resposta} ([yshift=-0.2cm]mod.west);
+  \draw[arr] ([yshift=0.15cm]mod.east) -- ([yshift=0.15cm]rec.west);
+  \draw[arr] (rec) -- (cont);
+  \draw[ret] (cont.west) -- ++(-0.55,0) |- node[pos=0.25, left, align=right] {sim:\\contestação} ([yshift=-0.25cm]mod.east);
+  \draw[arr] (cont) -- node[right] {não} (recf);
+  \draw[arr] (mod.south -| bus.north) -- (bus);
+  \draw[arr] (bus) -- (val);
+  \draw[arr] (val) -- (ok);
+  \draw[ret] (ok.west) -| node[pos=0.75, left, align=right] {sim: mensagem\\com os problemas} ([xshift=0.25cm]mod.south west);
+  \draw[arr] (ok) -- node[right, align=left] {não} (sql);
+  \draw[arr] (sql) -- (fim);
+
+  \node[caixa, fill=white, text width=4.4cm, font=\tiny, align=left] at (5.4,-8.75) {Limites por consulta: seis chamadas ao modelo, três tentativas de busca e duas perguntas.};
+\end{tikzpicture}
+\caption{Laço de chamadas da versão final da tradução}
+\label{fig:laco}
+\fonte{Elaborado pelos autores.}
+\end{fixo}
+
+As subseções seguintes acompanham a ordem dos passos em que a versão final foi construída e medida.
+
+% ---
+\subsubsection{Descrições Revisadas}
+\label{sec:descricoes-revisadas}
+% ---
+
+No primeiro passo da versão final, ainda com uma chamada ao modelo por consulta, as descrições foram revisadas a partir dos erros da Seção~\ref{sec:segunda-versao}. A sigla da UF passou a aparecer só como entrada (``MT'' $\rightarrow$ ``Mato Grosso''), o limite no singular passou a exigir ordenação, o código passou a ser escrito sem prefixo nem sufixo, o município, pelo nome completo, e o tipo de produto passou a exigir evidência na consulta. O \textit{prompt} passou a proibir que se deduza um parâmetro de outro, como o estado a partir do município, o CGEO a partir da região ou o projeto a partir do estado, e que se acrescentem ordenação, limite ou tipo não pedidos. Nos resultados, esse passo é a configuração só com as descrições revisadas.
+
+% ---
+\subsubsection{Identificação de Nomes}
+\label{sec:identificar-nome}
+% ---
+
+O lugar citado numa consulta é a fonte de ambiguidade mais variada, e nomes de lugares estão entre os argumentos que os modelos mais erram ao chamar ferramentas \cite{lu2025toolsandbox}. A UF pode vir pelo nome ou pela sigla, e algumas siglas coincidem com palavras comuns (``SE'', ``PA''); ``São Paulo'' e ``Rio de Janeiro'' podem designar o estado ou a capital; e há municípios cujo nome contém o de um estado (``Santa Rosa do Piauí''), municípios homônimos, nomes de folha que coincidem com nomes de município e regiões que não são UF (``Nordeste''), casos que a avaliação no acervo real, feita depois do desenvolvimento, também encontrou (Tabela~\ref{tab:acervo-vicios}). Os conceitos envolvidos são a divisão político-administrativa do IBGE, com 27 UFs e \res{acervo}{carga}{municipioslista} municípios, e a nomenclatura das folhas, cujo nome coincide muitas vezes com o de uma localidade, como se observa no acervo com a folha Terra Nova.
+
+A ferramenta \texttt{identificar\_nome} recebe o trecho da consulta que contém o nome e informa se ele é UF (com o nome por extenso), município (com a UF), folha do acervo (com as escalas em que existe) ou região, e indica em que parâmetro o valor deve entrar. Ela trata formas como ``Campinas, SP'', separa nomes compostos e, quando não encontra o nome exato, sugere o mais próximo. A ferramenta foi motivada pela sigla escrita no campo de estado na segunda versão e, nos ciclos de desenvolvimento, por municípios pequenos tomados por lugares estrangeiros e recusados; pelo mesmo motivo, o \textit{prompt} passou a dizer que nome de lugar desconhecido não é motivo de recusa e deve ser conferido com a ferramenta. A identificação de nomes atende aos requisitos RF2 e RF3.
+
+% ---
+\subsubsection{Normalização de Códigos}
+\label{sec:normalizar-codigo}
+% ---
+
+A identificação de uma folha pelo código baseia-se na articulação sistemática das folhas \cite{ibge1999nocoes}. O INOM parte da folha da Carta Internacional do Mundo ao Milionésimo (CIM), identificada pelo hemisfério (N ou S), pela zona de 4° de latitude, com letras de A a U, e pelo fuso de 6° de longitude, numerado de 1 a 60. A partir dela, a folha se subdivide até a escala 1:25.000, com as letras V, X, Y e Z para 1:500.000, as letras de A a D para 1:250.000, os algarismos romanos de I a VI para 1:100.000, os números de 1 a 4 para 1:50.000 e as letras NO, NE, SO e SE para 1:25.000. O MI numera as folhas por escala, de 1 a 46 na escala 1:1.000.000, de 1 a 550 na 1:250.000 e de 1 a 3.036 na 1:100.000, e acrescenta o sufixo de 1 a 4 para a 1:50.000 e NO, NE, SO ou SE para a 1:25.000. A folha SD-23-Y-C-IV-3-NO, por exemplo, corresponde ao MI 2215-3-NO \cite{ibge1999nocoes}. O nível do código indica a escala, mas a ferramenta não preenche a escala a partir do código, pelo princípio da evidência explícita do manual de anotação, segundo o qual só se preenche o que a consulta diz.
+
+Os códigos geraram erros nas duas versões anteriores. Na primeira, o modelo alterou o código seguindo o exemplo da descrição; na segunda, manteve o prefixo ``MI''. As consultas também escrevem o INOM de forma compacta (``sf22yd''). A ferramenta \texttt{normalizar\_codigo} recebe o código como está na consulta, devolve a forma canônica, sem prefixo e, no INOM, em maiúsculas e com hífens, e informa se o código consta no índice do acervo. A normalização de códigos atende ao requisito RF3.
+
+% ---
+\subsubsection{Normalização de Escalas}
+\label{sec:normalizar-escala}
+% ---
+
+A escala é a razão entre uma distância medida na carta e a distância correspondente no terreno, e escala grande é a de denominador pequeno, que representa uma área menor com mais detalhe. Na primeira versão, o modelo escreveu ``1:2000'' sem o ponto de milhar do enumerado (Seção~\ref{sec:primeira-versao}), e as consultas trazem formas como ``25k'' e ``25 mil'' e expressões qualitativas, como ``grande escala'' e ``maior que 100k'', que o manual aceita como um conjunto de escalas, com leituras múltiplas. A ferramenta \texttt{normalizar\_escala} recebe a expressão e devolve a escala do enumerado, o conjunto de escalas aceito ou a informação de que a escala citada não está no enumerado do catálogo. A normalização de escalas atende ao requisito RF4.
+
+% ---
+\subsubsection{Data de Execução e Resolução de Períodos}
+\label{sec:resolver-periodo}
+% ---
+
+Um modelo de linguagem não conhece a data em que é executado se ela não lhe for informada. Em todas as versões, o \textit{prompt} de sistema informa a data atual e o dia da semana (``A data atual é \ldots''). Na API, essa é a data do dia da execução; nas avaliações, ela foi fixada em cada rodada, em 14/09/2026 nas rodadas dos modelos locais no conjunto de referência e em 24/09/2026 nas dos conjuntos de validação e de teste e nas dos modelos maiores em nuvem, e o gabarito de cada rodada foi resolvido com a mesma data, para que as rodadas sejam reproduzíveis. Não há ferramenta separada que devolva a data do dia, porque ela já chega ao modelo pelo \textit{prompt}; a dificuldade remanescente estava na aritmética de datas.
+
+A informação da data no \textit{prompt} mostrou-se insuficiente, o que condiz com a dificuldade com datas relativas apontada pelo ToolSandbox \cite{lu2025toolsandbox}. Na primeira versão, o modelo pediu a data em consultas como ``ortoimagens de 2 anos atrás'' e errou os períodos em três padrões comuns aos modelos. Tratou ``esse ano'' como começando na data de execução, e não em 1º de janeiro, reduziu ``2 anos atrás'' a um único dia e trocou o trimestre-calendário por três meses corridos. A acurácia da primeira versão nas consultas de tempo relativo foi de \res{base}{tc1}{accT} no conjunto de referência e de \res{lote}{tc1}{accT} no conjunto de validação.
+
+Os conceitos envolvidos são o ano civil, o mês e o trimestre-calendário, as datas de publicação e de criação dos metadados e as regras nomeadas do manual, com as leituras aceitas de cada expressão; pela convenção do manual, ``última atualização'' indica a data de criação, e ``últimos 3 meses'' admite noventa dias ou três meses de calendário. A ferramenta \texttt{resolver\_periodo} recebe a expressão de tempo, devolve o intervalo, com a data inicial e a final, calculado pela tabela do manual a partir da data de execução, e orienta a escolha do campo de data pelo verbo da consulta. A aritmética de datas sai do modelo e passa ao código, e o validador confere o período pela mesma tabela (Seção~\ref{sec:validador}). A resolução de períodos atende ao requisito RF6.
+
+% ---
+\subsubsection{Pedido de Esclarecimento}
+\label{sec:pedir-esclarecimento}
+% ---
+
+Algumas consultas pedem produtos do acervo sem nenhum critério representável nos parâmetros, como ``cartas do Nordeste'', em que a região não é estado nem parâmetro do \textit{schema}. A segunda versão proibia perguntar e obrigava a buscar. A ferramenta \texttt{pedir\_esclarecimento} permite ao modelo fazer uma pergunta ao usuário, opção que o When2Call \cite{ross2025when2call} distingue de chamar a ferramenta e de recusar, e o \textit{prompt} a reserva às consultas sem nenhum critério. Nas avaliações e na API, quem responde é um usuário simulado, como no $\tau$-bench \cite{yao2025taubench}, neste caso com resposta fixa, que diz não ter outros detalhes além do que escreveu e que a busca pode seguir com o que foi dito. Uma pergunta escrita no texto da resposta recebe a mesma resposta, e cada consulta admite no máximo duas perguntas. O pedido de esclarecimento atende ao requisito RF9, com a ressalva de que a pergunta nunca foi respondida por uma pessoa e de que dirigi-la ao usuário real exige conversa em vários turnos (Seção~\ref{sec:trabalhos-futuros}). A frequência das perguntas no conjunto de teste está na Seção~\ref{sec:res-versoes}.
+
+% ---
+\subsubsection{Verificação dos Parâmetros com Retorno ao Modelo}
+\label{sec:validador}
+% ---
+
+Como os erros da segunda versão eram de forma e a correção de um modelo funciona melhor com um sinal externo (Seção~\ref{sec:segunda-versao}), os parâmetros passaram a ser conferidos antes da execução da busca, e os problemas encontrados passaram a ser devolvidos ao modelo como resultado da própria chamada de ferramenta, para que ele os perceba e corrija, capacidade avaliada pelo CRITICTOOL \cite{huang2025critictool}. A verificação codifica dois princípios do manual (Seção~\ref{sec:manual}), o da evidência explícita e o da forma canônica de cada valor.
+
+O validador separa três classes de problema. Os erros de forma impedem a busca e incluem o valor fora do enumerado, com a sugestão do valor canônico, a sigla ou o nome que não é UF no campo de estado e o parâmetro inexistente. Os avisos de evidência apontam o que foi preenchido sem apoio na consulta, como o estado não citado, o tipo de produto deduzido de ``cartas'', o CGEO, o projeto, a ordenação ou o limite não pedidos, o período diferente do da tabela do manual e o verbo de tempo contrário ao campo de data. Os avisos de campo ausente apontam o lugar, o código, o tempo, a escala, o tipo, o projeto ou a ordenação que a consulta cita e que não foram preenchidos. Repetir os mesmos parâmetros depois de um aviso confirma a busca, porque o aviso orienta e não obriga, e na terceira tentativa a busca segue com os parâmetros recebidos.
+
+A sigla no campo de estado é tratada como erro de forma, e não como aviso, porque a busca herdada do \texttt{prototipo\_busca\_llm} encontra o estado por trecho do nome, e a sigla corresponde a estados errados; na auditoria dos erros do conjunto de validação, por exemplo, ``AM'' correspondeu a Amazonas, Amapá e Pernambuco, e o efeito no acervo real está na Seção~\ref{sec:res-acervo}. Para garantir que o validador não rejeitasse respostas corretas, ele foi aplicado à leitura preferencial do próprio gabarito de desenvolvimento, que não podia receber nenhum erro nem aviso. A primeira implementação do validador apontou problema em \res{v3}{autoteste}{inicial} das \res{v3}{autoteste}{n} consultas do conjunto de validação que admitem busca, e a implementação congelada não apontou problema em nenhuma delas nem nas \res{v3}{autoteste}{n310} consultas do conjunto de referência que admitem busca. O controle recebe a mesma verificação, aplicada como nova tentativa depois de uma resposta completa (Seção~\ref{sec:metodo-controle}). A verificação dos parâmetros atende aos requisitos RF2 a RF7.
+
+% ---
+\subsubsection{Recusa Contestada}
+\label{sec:recusa-contestada}
+% ---
+
+Nos ciclos de desenvolvimento, o modelo recusou consultas legítimas que citam um critério do catálogo junto de uma finalidade, como ``ortoimagens \ldots{} pra uma obra'', tomando a finalidade declarada pelo assunto do pedido. Pela regra da recusa contestada, quando a consulta cita tipo de produto, código, escala, CGEO, projeto, UF, município ou nome de folha, a primeira recusa volta ao modelo com a lista desses critérios, e só a segunda é registrada. As palavras ``carta'' e ``mapa'' sozinhas não contam como critério, porque aparecem em muitas consultas fora do domínio. Medida no desenvolvimento, a regra contestaria \res{v3}{recusa}{contestadasF} das \res{v3}{recusa}{nF} consultas fora do domínio do conjunto de validação. A recusa contestada atende ao requisito RF8, na parte que proíbe recusar pedido legítimo.
+
+% ---
+\subsubsection{Desenvolvimento e Congelamento}
+\label{sec:congelamento}
+% ---
+
+Nos ciclos de desenvolvimento com o Gemma 4 E4B (Seção~\ref{sec:ciclo}), uma variante com orientações escritas a partir dos erros, no estilo de \citeonline{zhao2024expel}, foi retirada por não ter efeito mensurável, com \res{v3dev}{orientacoes}{com} e \res{v3dev}{orientacoes}{sem} acertos, com e sem as orientações, nas \res{v3dev}{orientacoes}{n} consultas da amostra estratificada usada nos ciclos, números de dentro da amostra. Em seguida, a versão final foi congelada para o teste (Seção~\ref{sec:papeis}).
+
+% ---
+\subsection{Predicados Espaciais}
+\label{sec:predicados}
+% ---
+
+A busca aplica interseção espacial entre a geometria da folha e o polígono do estado, do município ou da área de suprimento, com o predicado de interseção do PostGIS \cite{postgis2001}. Na avaliação pela execução no acervo real, esse filtro foi executado com as malhas de estados e municípios do IBGE em \res{acervo}{latencia}{espacialn} buscas medidas (Seção~\ref{sec:res-acervo}), com quatro particularidades. A geometria da folha é a caixa envolvente, o retângulo de coordenadas informado pelo CSW, e \res{acervo}{carga}{semcaixa} registros sem caixa válida ficam fora dos filtros espaciais. A interseção inclui as folhas que apenas tocam o limite do estado ou do município, e por isso folhas vizinhas aparecem no resultado. A área de suprimento aproximada (Seção~\ref{sec:extracao}) corresponde à região onde cada CGEO tem produtos no catálogo, e não à área de suprimento real. O estado e o município, por fim, são encontrados por trecho do nome, o que faz ``Santa Maria'' corresponder a vários municípios (Tabela~\ref{tab:acervo-vicios}).
+
+Os predicados relacionais, como ``perto de'', ``num raio de'' e ``ao norte de'', exigem geocodificar o lugar citado, acrescentar parâmetros ao \textit{schema} e implementar operadores de distância e de direção, e ficam como trabalho futuro (Seção~\ref{sec:trabalhos-futuros}). A interseção espacial atende ao requisito RF2.
+
+% ---
+\subsection{Síntese das Funcionalidades}
+\label{sec:sintese-funcionalidades}
+% ---
+
+A Tabela~\ref{tab:funcionalidades} relaciona cada funcionalidade ao erro ou à ambiguidade que resolve, ao conceito do domínio que codifica, ao requisito que atende e à versão em que entrou na busca.
+
+\begin{fixo}{table}
+\centering
+\caption{Funcionalidades da busca, erro ou ambiguidade que resolvem, conceito, requisito e versão}
+\label{tab:funcionalidades}
+\footnotesize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.9cm}|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}p{3.6cm}|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{1.6cm}|}
+\hline
+\textbf{Funcionalidade} & \textbf{Erro ou ambiguidade que resolve} & \textbf{Conceito do domínio} & \textbf{Re\-qui\-si\-to} & \textbf{Versão} \\ \hline
+Busca no catálogo & modelo escrevendo SQL; dicionário fixo de normalização & enumerado do catálogo, tipos da ET-PCDG, interseção espacial & RF1 a RF7, RF10 & primeira \\ \hline
+Convenções nas descrições & convenções do gabarito não informadas ao modelo & regras do manual de anotação & RF2 a RF7 & segunda; revisadas na final \\ \hline
+Recusa & não buscar sem explicar; saída estruturada sempre busca & limites do acervo & RF8 & segunda \\ \hline
+Identificação de nomes & sigla, homônimos, estado ou capital, região & divisão político-administrativa; nomes das folhas & RF2, RF3 & final \\ \hline
+Normalização de códigos & código copiado, prefixo, INOM compacto & articulação INOM e MI & RF3 & final \\ \hline
+Normalização de escalas & grafias e expressões qualitativas & escala como razão; enumerado do catálogo & RF4 & final \\ \hline
+Resolução de períodos & datas relativas erradas & tempo civil; publicação e criação & RF6 & final \\ \hline
+Pedido de esclarecimento & consulta sem critério & região não é UF & RF9 & final \\ \hline
+Verificação dos parâmetros & erros de forma e campos sem evidência & evidência explícita; forma canônica & RF2 a RF7 & final \\ \hline
+Recusa contestada & recusa de pedido legítimo & critérios do catálogo & RF8 & final \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores.}
+\end{fixo}
+
+% ---
+\section{Instalação}
+\label{sec:res-instalacao}
+% ---
+
+Os quatro modelos locais e o Phi-4 14B da solução do Maj Diniz foram instalados pelo Ollama com as etiquetas oficiais, listadas na Tabela~\ref{tab:instalacao}. Os critérios de escolha e a configuração estão na Seção~\ref{sec:instalacao}, e as características de cada modelo, na Tabela~\ref{tab:modelos}. Foram usadas três versões do Ollama. Na GPU T4 do Google Colab, as rodadas do Gemma 4 E4B e a comparação no conjunto de referência usaram a 0.34.4, e as rodadas do Gemma 4 E2B e do Qwen 3 4B no conjunto de teste, a 0.35.0; a estação local usou a 0.34.0. Na T4, todos os modelos couberam inteiros na GPU; na estação local, nenhum dos três modelos executados foi carregado inteiro nela. A ocupação de memória do Gemma 4 diferiu entre os dois ambientes com a mesma etiqueta, por causa não registrada, e a VRAM necessária a cada modelo não foi tratada como requisito medido.
+
+\begin{fixo}{table}
+\centering
+\caption{Modelos instalados, memória ocupada e emissão das chamadas de ferramenta}
+\label{tab:instalacao}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{3.7cm}|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{4.3cm}|}
+\hline
+\textbf{Modelo} & \textbf{Etiqueta no Ollama} & \textbf{Memória na T4} & \textbf{Estação local (carregado; parcela na GPU)} & \textbf{Emissão da chamada de ferramenta} \\ \hline
+Qwen 3 4B Instruct 2507 & \texttt{qwen3:4b-instruct-\allowbreak 2507-q4\_K\_M} & 3,18~GB & 3,53~GB; \res{estacao}{qwen}{nagpu} & pelo canal de ferramentas; na versão final, às vezes escrita no texto \\ \hline
+Gemma 4 E4B & \texttt{gemma4:e4b-it-qat} & 3,09~GB & 6,04~GB; cerca de um quarto & pelo canal de ferramentas; na versão final, escrita no texto com mais frequência \\ \hline
+Gemma 4 E2B & \texttt{gemma4:e2b-it-qat} & 1,65~GB & 3,93~GB; \res{estacao}{e2b}{nagpu} & pelo canal de ferramentas; na versão final, às vezes escrita no texto \\ \hline
+Mistral Nemo 12B & \texttt{mistral-nemo:12b} & 7,48~GB & não executado & deixou de chamar a ferramenta em muitas execuções, várias vezes descrevendo em texto a chamada que faria \\ \hline
+Phi-4 14B (solução do Maj Diniz) & \texttt{phi4:14b} & 9,73~GB & não executado & sem \textit{tool calling} nativo no Ollama; usado com saída estruturada \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores a partir dos registros de cada rodada \cite{correa2026pfcbusca}.}
+\nota{Memória do modelo carregado com contexto de 4.096 \textit{tokens}, informada pelo Ollama. Na T4, a memória registrada para os dois Gemma 4 é menor que o tamanho do arquivo na Tabela~\ref{tab:modelos}. A causa dessa diferença não foi registrada, e o valor não entra em nenhuma conclusão.}
+\end{fixo}
+
+Os modelos diferiram na emissão das chamadas pelo \textit{tool calling} nativo (Seção~\ref{sec:tc-definicao}). O Qwen 3 4B e os dois Gemma 4 emitiram as chamadas pelo canal de ferramentas. O Mistral Nemo 12B descreveu em texto a chamada que faria, sem emiti-la, em \res{principal}{mistral}{naochamounarrada} das \res{principal}{mistral}{execucoes} execuções do conjunto de referência; para ``preciso da carta MI 2965-2-NE do segundo cgeo'', respondeu que chamaria a ferramenta com o código e o segundo CGEO. O Phi-4 14B não tem \textit{tool calling} nativo no Ollama e, na solução do Maj Diniz, é usado com saída estruturada. No conjunto de validação, com a segunda versão, só \res{lote}{tc2}{chamadastexto} das \res{lote}{tc2}{n} respostas do Gemma 4 E4B trouxeram a chamada escrita no texto. A versão final lê essas chamadas (Seção~\ref{sec:versao-final}), e a frequência delas no conjunto de teste está na Seção~\ref{sec:res-versoes}. Nenhum modelo produziu, na primeira versão, argumento com campo inexistente ou tipo inválido.
+
+% ---
+\section{Validação dos Modelos}
+\label{sec:res-validacao}
+% ---
+
+Esta seção trata dos conjuntos de consultas construídos para validar os modelos e da validação dos quatro modelos locais com a primeira versão no conjunto de referência. O conjunto de validação, um desses conjuntos, não se confunde com o validador da versão final (Seção~\ref{sec:validador}).
+
+A Tabela~\ref{tab:conjuntos} resume os três conjuntos, cuja construção está na Seção~\ref{sec:validacao}. Das \res{principal}{geral}{ntotal} consultas do conjunto de referência, quatro são observacionais e ficam fora da pontuação, e por isso \res{principal}{geral}{nprincipais} são pontuadas.
+
+\begin{fixo}{table}
+\centering
+\caption{Conjuntos de consultas construídos para a validação e a avaliação}
+\label{tab:conjuntos}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{3.7cm}|>{\raggedright\arraybackslash}p{1.4cm}|>{\raggedright\arraybackslash}p{1.4cm}|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{2.8cm}|}
+\hline
+\textbf{Conjunto} & \textbf{Con\-sul\-tas} & \textbf{Construção} & \textbf{Fora do domínio} & \textbf{Sem critério} & \textbf{Leituras múltiplas} & \textbf{Papel} \\ \hline
+Referência & \res{principal}{geral}{ntotal} (\res{principal}{geral}{nprincipais} pontuadas) & três origens disjuntas (Seção~\ref{sec:conjunto-referencia}); gabarito dos autores pelo manual, auditado & \res{principal}{geral}{nF} & --- & \res{base}{tc1}{nmultiplas} & escolha do modelo; comparação com a solução do Maj Diniz; desenvolvimento \\ \hline
+Validação & \res{lotedados}{geral}{aceitas} & \res{lotedados}{geral}{alvos} alvos sorteados do BDGEx e do IBGE, com o gabarito fixado antes da redação; redação e anotação às cegas por agentes; filtro de compatibilidade & \res{lotedados}{geral}{nF} & \res{lotedados}{geral}{nE} & \res{lotedados}{geral}{multiplas} & teste da segunda versão; desenvolvimento da versão final \\ \hline
+Teste & \res{lote2dados}{geral}{aceitas} & mesma receita, \res{lote2dados}{geral}{alvos} alvos com outras sementes e outras sessões de agentes & \res{lote2dados}{geral}{nF} & \res{lote2dados}{geral}{nE} & \res{lote2dados}{geral}{multiplas} & medida única da versão final e da extensão a outros modelos \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores. Listagens, manual e auditoria em \citeonline{correa2026pfcbusca}.}
+\end{fixo}
+
+A qualidade do gabarito foi verificada pelo procedimento da Seção~\ref{sec:conjunto-referencia}. No conjunto de referência, a anotação independente às cegas concordou com o gabarito em \res{auditoria310}{antes}{valorespct} dos valores de campo e encontrou leitura compatível em \res{auditoria310}{antes}{compat} das \res{auditoria310}{antes}{n} consultas. Na decisão de buscar ou não, concordou em \res{auditoria310}{antes}{decisaoconcorda} consultas, com kappa de \res{auditoria310}{antes}{decisaokappa}, que passou a \res{auditoria310}{depois}{decisaokappa} depois da adjudicação de \res{auditoria310}{adjudicacao}{n} consultas; o kappa desconta a concordância esperada ao acaso, que é alta quando quase todas as consultas pedem busca. A principal divergência foi de classificação; o gabarito tratava como observacionais as \res{principal}{geral}{nFextenso} consultas que a adjudicação passou a classificar como fora do domínio. Além disso, um dos autores conferiu à mão uma amostra de 40 consultas e confirmou o gabarito de todas. Nos conjuntos de validação e de teste, antes do filtro de compatibilidade, o kappa na decisão de buscar foi de \res{lotedados}{geral}{kappadecisao} e \res{lote2dados}{geral}{kappadecisao}, e a segunda anotação, feita fora do filtro, foi compatível com o gabarito em \res{lotedados}{geral}{compatBfinal} das \res{lotedados}{geral}{nBfinal} e em \res{lote2dados}{geral}{compatBfinal} das \res{lote2dados}{geral}{nBfinal} consultas da amostra. Esses números são altos por construção, porque a mesma família de modelos redigiu e anotou as consultas, e nenhuma pessoa conferiu esses dois conjuntos. Na auditoria dos erros, que julgou pelo manual \res{auditoria}{erros}{n} execuções erradas do conjunto de validação, sorteadas por configuração e estratificadas por família de consulta, \res{auditoria}{erros}{a} (\res{auditoria}{erros}{pcta}; IC 95\% de \res{auditoria}{erros}{ica}) eram erros reais do modelo, \res{auditoria}{erros}{b} tinham gabarito discutível e nenhuma tinha gabarito contrário ao manual.
+
+A Tabela~\ref{tab:primeira-versao} traz o resultado da primeira versão nos quatro modelos locais, executada em três repetições na T4. Três modelos não apresentaram diferença significativa entre si (\textit{p}-valor \res{principal}{qwen-e4b}{p} entre o Qwen 3 4B e o Gemma 4 E4B, \res{principal}{e4b-e2b}{p} entre os dois Gemma 4 e \res{principal}{qwen-e2b}{p} entre o Qwen 3 4B e o Gemma 4 E2B). O Mistral Nemo 12B, o maior dos quatro, obteve acurácia menor, com diferença significativa para cada um dos outros três. Parte relevante dessa diferença decorre da chamada descrita em texto (Seção~\ref{sec:res-instalacao}), mas a sua acurácia foi menor também com saída estruturada. Entre os modelos locais, o desempenho não acompanhou o porte. O Mistral Nemo 12B é também o mais antigo dos quatro, lançado em julho de 2024 (Tabela~\ref{tab:modelos}), mas com quatro modelos não se separa o efeito da geração do efeito do porte, e a coincidência fica como observação.
+
+\begin{fixo}{table}
+\centering
+\caption{Primeira versão nos quatro modelos locais, saída estruturada e solução do Maj Diniz no conjunto de referência}
+\label{tab:primeira-versao}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{2.9cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{1.8cm}|>{\centering\arraybackslash}p{1.8cm}|}
+\hline
+\textbf{Configuração} & \textbf{Acurácia (IC 95\%)} & \textbf{F1 dos campos} & \textbf{Acerto fora do domínio} & \textbf{Latência mediana na T4} & \textbf{Acurácia com saída estruturada} & \textbf{\textit{p}-valor (\textit{tool calling} e saída estruturada)} \\ \hline
+\multicolumn{7}{|l|}{\textit{Primeira versão (tool calling)}} \\ \hline
+Qwen 3 4B & \res{principal}{qwen}{acuracia} (\res{principal}{qwen}{ic}) & \res{principal}{qwen}{f1} & \res{principal}{qwen}{accF} & \res{principal}{qwen}{latmeds}~s & \res{abordagens}{qwen}{acuraciase} & \res{abordagens}{qwen}{p} \\ \hline
+Gemma 4 E4B & \res{principal}{e4b}{acuracia} (\res{principal}{e4b}{ic}) & \res{principal}{e4b}{f1} & \res{principal}{e4b}{accF} & \res{principal}{e4b}{latmeds}~s & \res{abordagens}{e4b}{acuraciase} & \res{abordagens}{e4b}{p} \\ \hline
+Gemma 4 E2B & \res{principal}{e2b}{acuracia} (\res{principal}{e2b}{ic}) & \res{principal}{e2b}{f1} & \res{principal}{e2b}{accF} & \res{principal}{e2b}{latmeds}~s & \res{abordagens}{e2b}{acuraciase} & \res{abordagens}{e2b}{p} \\ \hline
+Mistral Nemo 12B & \res{principal}{mistral}{acuracia} (\res{principal}{mistral}{ic}) & \res{principal}{mistral}{f1} & \res{principal}{mistral}{accF} & \res{principal}{mistral}{latmeds}~s & \res{abordagens}{mistral}{acuraciase} & \res{abordagens}{mistral}{p} \\ \hline
+\multicolumn{7}{|l|}{\textit{Solução do Maj Diniz (saída estruturada)}} \\ \hline
+Phi-4 14B & \res{abordagens}{prototipo}{acuracia} (\res{abordagens}{prototipo}{ic}) & \res{abordagens}{prototipo}{f} & \res{abordagens}{prototipo}{recusa} & \res{abordagens}{prototipo}{latmeds}~s & --- & --- \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores.}
+\nota{Primeira versão com três repetições (média); saída estruturada e solução do Maj Diniz com uma. O \textit{p}-valor é o do teste de McNemar entre o \textit{tool calling} e a saída estruturada no mesmo modelo, com uma observação por consulta. Acerto fora do domínio nas \res{principal}{geral}{nFextenso} consultas fora do domínio.}
+\end{fixo}
+
+O Qwen 3 4B teve a menor precisão nos campos, porque acrescentou ordenação e limite não pedidos, e declarou fora do escopo consultas legítimas em \res{principal}{qwen}{naochamouescopo} execuções. As três repetições deram a mesma resposta em \res{principal}{e4b}{estaveis} a \res{principal}{qwen}{estaveis} das \res{principal}{qwen}{nestaveis} consultas. Pelo desempate do F1 (Seção~\ref{sec:regra-decisao}), o Gemma 4 E4B foi escolhido para o desenvolvimento da segunda versão e da versão final. Na estação local, nas \res{ambientes}{qwen}{n} consultas pontuadas do subconjunto manual (as observacionais ficam fora), a pontuação coincidiu com a da primeira repetição na T4 em \res{ambientes}{qwen}{mesmanota} delas em cada um dos três modelos executados, e a qualidade praticamente não mudou com o \textit{hardware}.
+
+Com a primeira versão e as mesmas consultas, os modelos maiores em nuvem acertaram mais. O Qwen 3.8 27B \cite{qwen2026qwen38} acertou \res{groqcomum}{qwen38}{acuracia}, e o GPT-OSS 120B e o GPT-OSS 20B \cite{openai2025gptoss}, \res{groqcomum}{gptoss120}{acuracia} e \res{groqcomum}{gptoss20}{acuracia}. Esses resultados indicam que a tarefa, com o gabarito adotado, é solúvel por modelos maiores, mas esses modelos não atendem ao RNF1, que exige execução local, e ficam fora da recomendação. As colunas da Tabela~\ref{tab:primeira-versao} sobre a saída estruturada e a solução do Maj Diniz são discutidas na Seção~\ref{sec:res-maj-diniz}.
+
+% ---
+\section{Avaliação de Performance}
+\label{sec:res-performance}
+% ---
+
+Esta seção avalia a busca em comparação com a solução do Maj Diniz e isoladamente, pelos métodos da Seção~\ref{sec:avaliacao}, com as versões no conjunto de teste, o teste A/B, a execução no acervo real e o tempo de processamento.
+
+% ---
+\subsection{Comparação com a Solução do Maj Diniz}
+\label{sec:res-maj-diniz}
+% ---
+
+A solução do Maj Diniz acertou \res{abordagens}{prototipo}{acuracia} das consultas do conjunto de referência (Tabela~\ref{tab:primeira-versao}), sem diferença significativa para a primeira versão com os três melhores modelos locais (\textit{p}-valor \res{abordagens}{e4b-prototipo}{p}, \res{abordagens}{e2b-prototipo}{p} e \res{abordagens}{qwen-prototipo}{p} contra o Gemma 4 E4B, o Gemma 4 E2B e o Qwen 3 4B). O empate não demonstra equivalência (Seção~\ref{sec:regra-decisao}).
+
+A primeira versão chegou a essa acurácia com modelos de 2,3 a 4,5 bilhões de parâmetros efetivos, mais de quinze vezes mais rápidos, com mediana de \res{principal}{e2b}{latmeds}~s a \res{principal}{qwen}{latmeds}~s por consulta na T4, contra \res{abordagens}{prototipo}{latmeds}~s da solução do Maj Diniz, sem dicionário nem exemplos e com recusa explícita. A redução de porte e de tempo decorreu da troca de modelo, e não do \textit{tool calling}. Na solução do Maj Diniz, a primeira resposta foi rejeitada pela conferência do \textit{schema} e exigiu nova tentativa em \res{abordagens}{prototipo}{novastentativas} das \res{abordagens}{prototipo}{execucoes} consultas, o dicionário alterou o texto de \res{abordagens}{prototipo}{dicionarioalterou} consultas antes de chegarem ao modelo, e o \textit{fallback} por expressões regulares foi acionado em \res{abordagens}{prototipo}{fallback} consultas.
+
+Com uma chamada ao modelo, a saída estruturada acertou mais que o \textit{tool calling} em três dos quatro modelos, com diferença significativa, e no Gemma 4 E2B as duas empataram (Tabela~\ref{tab:primeira-versao}). A vantagem decorreu em boa parte da liberdade que o \textit{tool calling} tem de não buscar. Das \res{abordagens}{e4b}{sose} consultas que só a saída estruturada acertou com o Gemma 4 E4B, em \res{abordagens}{e4b}{sosenaochamou} o \textit{tool calling} não buscou, quase sempre para pedir esclarecimento. Só o \textit{tool calling} recusou consultas fora do domínio. A versão final só foi comparada à solução do Maj Diniz no conjunto de referência, dentro da amostra, com acurácia de \res{v3base}{tc3}{acuracia}, porque essa solução, reproduzida com as três diferenças deliberadas da Seção~\ref{sec:metodo-maj-diniz}, não foi executada nos conjuntos de validação e de teste.
+
+% ---
+\subsection{As Versões no Conjunto de Teste}
+\label{sec:res-versoes}
+% ---
+
+A Tabela~\ref{tab:versoes-teste} reúne os passos da versão final, o controle e a extensão aos outros dois modelos no conjunto de teste. Com o Gemma 4 E4B, a diferença da primeira para a segunda versão não foi significativa (\textit{p}-valor \res{lote2}{tc1tc2}{p}), como no conjunto de validação, empate interpretado conforme a regra de decisão (Seção~\ref{sec:regra-decisao}). Os três passos seguintes acrescentaram acurácia com diferença significativa. Em relação ao passo anterior, a diferença foi de \res{lote2}{tc2tc3d}{difacc} p.p. só com as descrições revisadas, o maior ganho isolado, obtido apenas com o texto das descrições, de \res{lote2}{tc3dtc3a}{difacc} p.p. com as ferramentas auxiliares, passo que também introduz o usuário simulado e o laço de chamadas, e de \res{lote2}{tc3atc3}{difacc} p.p. com a verificação dos parâmetros e a recusa contestada. Com a correção de Holm nas nove comparações do plano (Seção~\ref{sec:regra-decisao}), as diferenças significativas continuam significativas.
+
+\begin{fixo}{table}
+\centering
+\caption{Passos da versão final, controle e outros modelos no conjunto de teste}
+\label{tab:versoes-teste}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\centering\arraybackslash}p{2.6cm}|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.3cm}|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{1.9cm}|}
+\hline
+\textbf{Configuração} & \textbf{Acurácia (IC 95\%)} & \textbf{\textit{p}-valor do passo} & \textbf{Acurácia no domínio} & \textbf{F1 da recusa} & \textbf{Falsa recusa} & \textbf{Latência mediana na T4 (s)} & \textbf{Chamadas ao modelo} \\ \hline
+\multicolumn{8}{|l|}{\textit{Gemma 4 E4B}} \\ \hline
+Primeira versão & \res{lote2}{tc1}{acuracia} (\res{lote2}{tc1}{ic}) & --- & \res{lote2}{tc1}{accdominio} & \res{lote2}{tc1}{recusaf} & \res{lote2}{tc1}{falsarecusa} & \res{lote2}{tc1}{latmed} & \res{lote2}{tc1}{chamadas} \\ \hline
+Segunda versão & \res{lote2}{tc2}{acuracia} (\res{lote2}{tc2}{ic}) & \res{lote2}{tc1tc2}{p} & \res{lote2}{tc2}{accdominio} & \res{lote2}{tc2}{recusaf} & \res{lote2}{tc2}{falsarecusa} & \res{lote2}{tc2}{latmed} & \res{lote2}{tc2}{chamadas} \\ \hline
+Só com as descrições revisadas & \res{lote2}{tc3d}{acuracia} (\res{lote2}{tc3d}{ic}) & \res{lote2}{tc2tc3d}{p} & \res{lote2}{tc3d}{accdominio} & \res{lote2}{tc3d}{recusaf} & \res{lote2}{tc3d}{falsarecusa} & \res{lote2}{tc3d}{latmed} & \res{lote2}{tc3d}{chamadas} \\ \hline
+Com as ferramentas auxiliares & \res{lote2}{tc3a}{acuracia} (\res{lote2}{tc3a}{ic}) & \res{lote2}{tc3dtc3a}{p} & \res{lote2}{tc3a}{accdominio} & \res{lote2}{tc3a}{recusaf} & \res{lote2}{tc3a}{falsarecusa} & \res{lote2}{tc3a}{latmed} & \res{lote2}{tc3a}{chamadas} \\ \hline
+Versão final (com a verificação dos parâmetros) & \res{lote2}{tc3}{acuracia} (\res{lote2}{tc3}{ic}) & \res{lote2}{tc3atc3}{p} & \res{lote2}{tc3}{accdominio} & \res{lote2}{tc3}{recusaf} & \res{lote2}{tc3}{falsarecusa} & \res{lote2}{tc3}{latmed} & \res{lote2}{tc3}{chamadas} \\ \hline
+Controle & \res{lote2}{se3}{acuracia} (\res{lote2}{se3}{ic}) & \res{lote2}{tc3se3}{p} & \res{lote2}{se3}{accdominio} & \res{lote2}{se3}{recusaf} & \res{lote2}{se3}{falsarecusa} & \res{lote2}{se3}{latmed} & \res{lote2}{se3}{chamadas} \\ \hline
+\multicolumn{8}{|l|}{\textit{Gemma 4 E2B}} \\ \hline
+Versão final & \res{lote2gemma4e2b}{tc3}{acuracia} (\res{lote2gemma4e2b}{tc3}{ic}) & --- & \res{lote2gemma4e2b}{tc3}{accdominio} & \res{lote2gemma4e2b}{tc3}{recusaf} & \res{lote2gemma4e2b}{tc3}{falsarecusa} & \res{lote2gemma4e2b}{tc3}{latmed} & \res{lote2gemma4e2b}{tc3}{chamadas} \\ \hline
+Controle & \res{lote2gemma4e2b}{se3}{acuracia} (\res{lote2gemma4e2b}{se3}{ic}) & \res{lote2gemma4e2b}{tc3se3}{p} & \res{lote2gemma4e2b}{se3}{accdominio} & \res{lote2gemma4e2b}{se3}{recusaf} & \res{lote2gemma4e2b}{se3}{falsarecusa} & \res{lote2gemma4e2b}{se3}{latmed} & \res{lote2gemma4e2b}{se3}{chamadas} \\ \hline
+\multicolumn{8}{|l|}{\textit{Qwen 3 4B}} \\ \hline
+Versão final & \res{lote2qwen34b}{tc3}{acuracia} (\res{lote2qwen34b}{tc3}{ic}) & --- & \res{lote2qwen34b}{tc3}{accdominio} & \res{lote2qwen34b}{tc3}{recusaf} & \res{lote2qwen34b}{tc3}{falsarecusa} & \res{lote2qwen34b}{tc3}{latmed} & \res{lote2qwen34b}{tc3}{chamadas} \\ \hline
+Controle & \res{lote2qwen34b}{se3}{acuracia} (\res{lote2qwen34b}{se3}{ic}) & \res{lote2qwen34b}{tc3se3}{p} & \res{lote2qwen34b}{se3}{accdominio} & \res{lote2qwen34b}{se3}{recusaf} & \res{lote2qwen34b}{se3}{falsarecusa} & \res{lote2qwen34b}{se3}{latmed} & \res{lote2qwen34b}{se3}{chamadas} \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores. Conjunto de teste, uma execução por consulta, GPU T4.}
+\nota{O \textit{p}-valor do passo compara cada linha com a anterior no mesmo modelo (teste de McNemar); nas linhas do controle, com a versão final do mesmo modelo. O controle é a saída estruturada com as mesmas descrições e a mesma verificação. As latências do Gemma 4 E2B e do Qwen 3 4B vêm de outra versão do Ollama e não se comparam às do Gemma 4 E4B.}
+\end{fixo}
+
+Na comparação principal, a versão final acertou \res{lote2}{tc3}{acuracia} das consultas (IC 95\% de \res{lote2}{tc3}{ic}), e o controle, \res{lote2}{se3}{acuracia}, com \res{lote2}{tc3se3}{soa} consultas acertadas só pela versão final e \res{lote2}{tc3se3}{sob} só pelo controle (\textit{p}-valor \res{lote2}{tc3se3}{p}). A vantagem decorreu inteiramente das consultas do domínio, em que o controle declarou fora do escopo \res{lote2}{se3}{falsarecusa} das consultas. O controle recusou todas as consultas fora do domínio, contra \res{lote2}{tc3}{recusa} da versão final, e acertou \res{lote2}{se3}{accE} das consultas sem critério, contra \res{lote2}{tc3}{accE}, quase sempre declarando-as fora do escopo, o que a pontuação aceita. A diferença mede o mecanismo junto com as peças que só o \textit{tool calling} recebe (Seção~\ref{sec:metodo-controle}).
+
+A decomposição entre a primeira decisão e a resposta final indica quanto do acerto se deve ao modelo e quanto ao código. A primeira decisão da versão final acertou \res{lote2}{tc3}{primeira}, contra \res{lote2}{se3}{primeira} do controle, numa comparação exploratória, e já inclui o retorno das ferramentas auxiliares, de modo que não mede o modelo sem o código. O retorno do validador produziu diferença de \res{lote2}{tc3}{ganhoretorno} p.p. na versão final e de \res{lote2}{se3}{ganhoretorno} p.p. no controle. Das consultas corrigidas pelo retorno na versão final, \res{lote2}{tc3}{consertouvalorpct} receberam do validador o valor a usar, e nelas o acerto se deve ao código, que implementa as convenções do manual.
+
+No laço, o Gemma 4 E4B escreveu ao menos uma chamada no texto da resposta em \res{lote2}{tc3}{chamadastexto} consultas (\res{lote2}{tc3}{chamadastextopct}), lidas como chamadas; essa leitura faz parte do sistema medido, e não se sabe quanto a versão final acertaria sem ela, porque o diálogo seria outro. O modelo perguntou ao usuário simulado em \res{lote2}{tc3}{compergunta} consultas, mais que as \res{lote2}{tc3}{en} consultas sem critério, as únicas a que o \textit{prompt} reserva a pergunta. A recusa contestada foi acionada em \res{lote2}{tc3}{contestadas} consultas, e em \res{lote2}{tc3}{contestadasFerrada} consultas fora do domínio a recusa estava certa, foi contestada e o modelo passou a buscar, o que explica parte da queda do \textit{recall} da recusa em relação à segunda versão (\res{lote2}{tc2}{recusa}). Numa leitura exploratória, a acurácia nas consultas de tempo relativo foi de \res{lote2}{tc1}{accT} na primeira versão e de \res{lote2}{tc3}{accT} na versão final.
+
+Com o Gemma 4 E2B e o Qwen 3 4B, a mesma versão final congelada foi executada nas condições da Seção~\ref{sec:metodo-controle}. Em relação à primeira versão, a diferença de acurácia do \textit{tool calling} foi de \res{lote2gemma4e2b}{tc1tc3}{difacc} p.p. com o Gemma 4 E2B e de \res{lote2qwen34b}{tc1tc3}{difacc} p.p. com o Qwen 3 4B, mas a comparação principal dependeu do modelo. Com o Gemma 4 E2B, a versão final superou o controle (\res{lote2gemma4e2b}{tc3se3}{soa} consultas acertadas só por ela, contra \res{lote2gemma4e2b}{tc3se3}{sob}; \textit{p}-valor \res{lote2gemma4e2b}{tc3se3}{p}). Com o Qwen 3 4B, a diferença foi de \res{lote2qwen34b}{tc3se3}{difacc} p.p. a favor do controle (\textit{p}-valor \res{lote2qwen34b}{tc3se3}{p}), que já estava à frente na primeira decisão (\res{lote2qwen34b}{se3}{primeira} contra \res{lote2qwen34b}{tc3}{primeira}); segundo uma análise exploratória dos erros, o modelo acrescentou ordenações não pedidas com o \textit{tool calling} e, avisado pelo validador, repetiu os mesmos parâmetros, o que pela regra confirma a busca.
+
+Numa comparação exploratória, a acurácia nas consultas do domínio caiu do conjunto de referência, dentro da amostra, para o conjunto de teste, de \res{v3base}{tc3}{accdominio} para \res{lote2}{tc3}{accdominio} na versão final e de \res{v3base}{se3}{accdominio} para \res{lote2}{se3}{accdominio} no controle, uma queda esperada em regras ajustadas sobre os erros do desenvolvimento e maior no controle. Os erros restantes da versão final, lidos depois do teste e sem alterá-la, concentram-se no parâmetro de palavra-chave preenchido com o que não é nome de carta, como uma região, um projeto ou uma escala, que o validador não confere, nas consultas fora do domínio em que o modelo buscou e nas expressões de tempo que a tabela do manual não cobre. Corrigi-los a partir do conjunto de teste o transformaria em conjunto de desenvolvimento, e a medição do efeito dessas correções fica para um conjunto novo (Seção~\ref{sec:trabalhos-futuros}).
+
+% ---
+\subsection{Teste A/B}
+\label{sec:res-ab}
+% ---
+
+A Tabela~\ref{tab:ab} resume o teste A/B. Nos \res{ab}{geral}{npares} pares de rodadas em que o mesmo modelo executou as duas abordagens, a saída estruturada foi melhor em \res{ab}{geral}{nsemelhor}, o \textit{tool calling} em \res{ab}{geral}{ntcmelhor}, e houve \res{ab}{geral}{nempate} empates. Nos \res{ab}{geral}{nparessemdesenv} pares medidos fora da amostra, isto é, num conjunto que não serviu ao desenvolvimento da versão avaliada, as contagens foram de \res{ab}{geral}{nsemelhorsemdesenv}, \res{ab}{geral}{ntcmelhorsemdesenv} e \res{ab}{geral}{nempatesemdesenv}.
+
+\begin{fixo}{table}
+\centering
+\caption{Teste A/B entre o \textit{tool calling} e a saída estruturada}
+\label{tab:ab}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{5.2cm}|>{\centering\arraybackslash}p{2.4cm}|>{\centering\arraybackslash}p{2.4cm}|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\multicolumn{5}{|l|}{\textit{Placar dos pares (teste de McNemar)}} \\ \hline
+\textbf{Pares} & \textbf{Saída estruturada melhor} & \textbf{\textit{Tool calling} melhor} & \multicolumn{2}{c|}{\textbf{Empate}} \\ \hline
+Todos (\res{ab}{geral}{npares}) & \res{ab}{geral}{nsemelhor} & \res{ab}{geral}{ntcmelhor} & \multicolumn{2}{c|}{\res{ab}{geral}{nempate}} \\ \hline
+Fora da amostra (\res{ab}{geral}{nparessemdesenv}) & \res{ab}{geral}{nsemelhorsemdesenv} & \res{ab}{geral}{ntcmelhorsemdesenv} & \multicolumn{2}{c|}{\res{ab}{geral}{nempatesemdesenv}} \\ \hline
+\multicolumn{5}{|l|}{\textit{Pares com diferença significativa que não aparecem nas Tabelas~\ref{tab:primeira-versao} e~\ref{tab:versoes-teste}}} \\ \hline
+\textbf{Conjunto, versão e modelo} & \textbf{Acurácia da saída estruturada} & \textbf{Diferença (p.p.)} & \textbf{\textit{p}-valor} & \textbf{F1 da recusa (\textit{tool calling}; saída estruturada)} \\ \hline
+Referência, primeira versão, GPT-OSS 20B (nuvem) & \res{ab}{basegroqgptoss20v1}{accse} & \res{ab}{basegroqgptoss20v1}{dif} & \res{ab}{basegroqgptoss20v1}{p} & \res{ab}{basegroqgptoss20v1}{recusaftc}; \res{ab}{basegroqgptoss20v1}{recusafse} \\ \hline
+Validação, segunda versão, Gemma 4 E4B & \res{ab}{lotee4bv2}{accse} & \res{ab}{lotee4bv2}{dif} & \res{ab}{lotee4bv2}{p} & \res{ab}{lotee4bv2}{recusaftc}; \res{ab}{lotee4bv2}{recusafse} \\ \hline
+Teste, primeira versão, Gemma 4 E2B & \res{ab}{lote2e2bv1}{accse} & \res{ab}{lote2e2bv1}{dif} & \res{ab}{lote2e2bv1}{p} & \res{ab}{lote2e2bv1}{recusaftc}; \res{ab}{lote2e2bv1}{recusafse} \\ \hline
+Teste, primeira versão, Qwen 3 4B & \res{ab}{lote2qwenv1}{accse} & \res{ab}{lote2qwenv1}{dif} & \res{ab}{lote2qwenv1}{p} & \res{ab}{lote2qwenv1}{recusaftc}; \res{ab}{lote2qwenv1}{recusafse} \\ \hline
+Teste, segunda versão, Gemma 4 E4B & \res{ab}{lote2e4bv2}{accse} & \res{ab}{lote2e4bv2}{dif} & \res{ab}{lote2e4bv2}{p} & \res{ab}{lote2e4bv2}{recusaftc}; \res{ab}{lote2e4bv2}{recusafse} \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores.}
+\nota{Diferença = saída estruturada menos \textit{tool calling}; valor negativo é vantagem do \textit{tool calling}. Os outros seis pares com diferença significativa fora da amostra são os do Gemma 4 E4B, do Qwen 3 4B e do Mistral Nemo 12B na primeira versão (Tabela~\ref{tab:primeira-versao}) e os da versão final com os três modelos (Tabela~\ref{tab:versoes-teste}).}
+\end{fixo}
+
+A abordagem que acerta mais depende da versão e do modelo. Com a primeira versão, no conjunto de referência, a saída estruturada acertou mais em três dos quatro modelos locais, e as duas empataram no Gemma 4 E2B (Seção~\ref{sec:res-maj-diniz}). No conjunto de teste, com o Gemma 4 E2B e o Qwen 3 4B, a vantagem do \textit{tool calling} na primeira versão decorreu sobretudo das consultas fora do domínio, que a saída estruturada da primeira versão não tem como recusar; por isso o F1 da recusa da saída estruturada é nulo nas linhas da primeira versão. No conjunto de validação, com a primeira versão e o Gemma 4 E4B, as duas abordagens empataram por compensação, porque a saída estruturada acertava mais nas consultas do domínio e só o \textit{tool calling} recusava as consultas fora dele. Como a acurácia geral pondera as duas partes pela proporção de consultas fora do domínio, as acurácias das duas abordagens igualam-se quando essa proporção vale \res{lote}{tc1se1}{pstar}, e esse conjunto tinha \res{lote}{tc1se1}{propf}. Entre os modelos maiores em nuvem, o GPT-OSS 20B acertou mais com \textit{tool calling} também sem as consultas fora do domínio. Com a segunda versão, a saída estruturada obteve acurácia significativamente maior, numa comparação em que o texto de recusa difere entre as abordagens (Seção~\ref{sec:segunda-versao}). Com a versão final, o \textit{tool calling} obteve acurácia maior com os dois Gemma 4 e menor com o Qwen 3 4B.
+
+O ganho que se repetiu foi o da recusa. Quando as duas abordagens podiam recusar, o \textit{tool calling} teve o maior F1 da recusa em todos os pares fora da amostra, e com o Qwen 3 4B na versão final a diferença entre os dois valores foi mínima. Três diferenças a favor do \textit{tool calling} ficam fora da acurácia ou só entram nela junto com outras peças, a saber, a frase de recusa dirigida ao usuário, o canal próprio para perguntar, exercitado só com o usuário simulado, e a verificação recebida no meio da resposta, como resultado da própria chamada, que entra na acurácia da versão final junto com o código das ferramentas.
+
+% ---
+\subsection{Avaliação pela Execução no Acervo Real}
+\label{sec:res-acervo}
+% ---
+
+A avaliação pela execução no acervo real é uma análise complementar, sem novas rodadas de modelos (Seção~\ref{sec:metodo-execucao}). As buscas do gabarito e as emitidas por cada configuração no conjunto de teste foram executadas no acervo, sem alteração da consulta SQL, e a Tabela~\ref{tab:acervo-execucao} compara o acerto por resultado com o acerto por parâmetros.
+
+\begin{fixo}{table}
+\centering
+\caption{Acerto por resultado e por parâmetros no acervo real do BDGEx}
+\label{tab:acervo-execucao}
+\footnotesize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{5.6cm}|>{\centering\arraybackslash}p{2.8cm}|>{\centering\arraybackslash}p{2.8cm}|>{\centering\arraybackslash}p{2.8cm}|}
+\hline
+\textbf{Configuração} & \textbf{Acerto por resultado (todas as consultas)} & \textbf{Acerto por parâmetros (gabarito com cartas)} & \textbf{Acerto por resultado (gabarito com cartas)} \\ \hline
+\multicolumn{4}{|l|}{\textit{Gemma 4 E4B}} \\ \hline
+Primeira versão & \res{acervo}{tc1}{accresult} & \res{acervo}{tc1}{accparamcartas} & \res{acervo}{tc1}{accresultcartas} \\ \hline
+Segunda versão & \res{acervo}{tc2}{accresult} & \res{acervo}{tc2}{accparamcartas} & \res{acervo}{tc2}{accresultcartas} \\ \hline
+Só com as descrições revisadas & \res{acervo}{tc3d}{accresult} & \res{acervo}{tc3d}{accparamcartas} & \res{acervo}{tc3d}{accresultcartas} \\ \hline
+Com as ferramentas auxiliares & \res{acervo}{tc3a}{accresult} & \res{acervo}{tc3a}{accparamcartas} & \res{acervo}{tc3a}{accresultcartas} \\ \hline
+Versão final & \res{acervo}{tc3}{accresult} & \res{acervo}{tc3}{accparamcartas} & \res{acervo}{tc3}{accresultcartas} \\ \hline
+Controle & \res{acervo}{se3}{accresult} & \res{acervo}{se3}{accparamcartas} & \res{acervo}{se3}{accresultcartas} \\ \hline
+\multicolumn{4}{|l|}{\textit{Gemma 4 E2B}} \\ \hline
+Versão final & \res{acervo}{e2btc3}{accresult} & \res{acervo}{e2btc3}{accparamcartas} & \res{acervo}{e2btc3}{accresultcartas} \\ \hline
+Controle & \res{acervo}{e2bse3}{accresult} & \res{acervo}{e2bse3}{accparamcartas} & \res{acervo}{e2bse3}{accresultcartas} \\ \hline
+\multicolumn{4}{|l|}{\textit{Qwen 3 4B}} \\ \hline
+Versão final & \res{acervo}{qwentc3}{accresult} & \res{acervo}{qwentc3}{accparamcartas} & \res{acervo}{qwentc3}{accresultcartas} \\ \hline
+Controle & \res{acervo}{qwense3}{accresult} & \res{acervo}{qwense3}{accparamcartas} & \res{acervo}{qwense3}{accresultcartas} \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores. Conjunto de teste (\res{acervo}{geral}{n} consultas; \res{acervo}{tc3}{ncartas} com gabarito com cartas) executado no acervo real.}
+\end{fixo}
+
+Em \res{acervo}{gabarito}{todaszeram} consultas, todas as leituras aceitas do gabarito devolvem zero cartas, por causa do projeto ausente do CSW, de combinações de filtros sem carta em comum e de tipos e escalas ausentes do acervo. Nelas, qualquer busca que também devolva zero cartas conta como resultado igual, e por isso a comparação justa é a restrita às \res{acervo}{tc3}{ncartas} consultas cujo gabarito tem cartas.
+
+A pontuação por parâmetros não superestimou o acerto. Na versão final, \res{acervo}{tc3}{certoigual} das \res{acervo}{tc3}{certos} buscas com parâmetros certos devolveram as mesmas cartas do gabarito. Entre as buscas com parâmetros errados, \res{acervo}{tc3}{erradoigual} devolveram as mesmas cartas, a maioria por limitação do acervo, e não por equivalência entre os parâmetros. Delas, \res{acervo}{tc3}{erradoigualzero} devolveram zero cartas nos dois lados, \res{acervo}{tc3}{inofdata} trocaram o campo de data, o que só coincide porque o CSW grava uma única data por registro, \res{acervo}{tc3}{inoflimit} mudaram só o limite ou a direção da ordenação, e só \res{acervo}{tc3}{inofreal} eram realmente inofensivas. Como quase nenhum erro de parâmetro é inofensivo, a métrica por parâmetros não é tratada como conservadora.
+
+Pelo acerto por resultado, nas consultas cujo gabarito tem cartas, a versão final continua à frente do controle com os dois Gemma 4, e o controle continua à frente com o Qwen 3 4B; com o Gemma 4 E4B, a versão final devolveu as mesmas cartas do gabarito em \res{acervo}{tc3}{accresultcartas} dessas consultas. Nem toda a ordem se mantém, porque o passo com as ferramentas auxiliares e o controle trocam de posição em relação à Tabela~\ref{tab:versoes-teste}.
+
+A avaliação mostra também por que o validador bloqueia a sigla no campo de estado (Seção~\ref{sec:validador}). Numa simulação com as \res{acervo}{siglas}{n} siglas, só \res{acervo}{siglas}{funcionam} devolveram o mesmo resultado que o nome da UF, \res{acervo}{siglas}{propriaeoutras} corresponderam ao próprio estado e também a outros, \res{acervo}{siglas}{nenhum} não corresponderam a estado algum e \res{acervo}{siglas}{errado} corresponderam a um estado errado, como ``SP'', que corresponde a Espírito Santo. Nas rodadas, \res{acervo}{siglas}{mudam} das \res{acervo}{siglas}{execucoes} execuções com sigla mudaram o resultado, todas na segunda versão. Em \res{acervo}{ambig}{paginacorta} das \res{acervo}{ambig}{buscas} buscas do gabarito, por fim, o resultado passa da primeira página, e o usuário vê só as cartas mais recentes. Pelas limitações do CSW descritas na Seção~\ref{sec:metodo-execucao}, a avaliação mede se a busca devolve as mesmas cartas que a do gabarito, e não se o usuário encontrou o que queria.
+
+% ---
+\subsection{Tempo de Processamento}
+\label{sec:res-tempo}
+% ---
+
+Na T4, as medianas de latência e as chamadas ao modelo por consulta estão na Tabela~\ref{tab:versoes-teste}, e a versão final, com cerca de duas chamadas ao modelo por consulta, demora mais que o controle. Com uma chamada ao modelo, as duas abordagens têm latências da mesma ordem de grandeza, em geral com décimos de segundo a favor da saída estruturada, exceto no Mistral Nemo 12B (\res{ab}{basemistralv1}{latmedtc}~s com \textit{tool calling} contra \res{ab}{basemistralv1}{latmedse}~s), que respondeu com textos longos descrevendo a chamada.
+
+Na estação local, nas consultas pontuadas do subconjunto manual, dentro da amostra e com a GPU por vezes compartilhada com outros programas, a versão final teve mediana de \res{ab}{baseestacaoe4bv3}{latmedtc}~s com o Gemma 4 E4B, contra \res{ab}{baseestacaoe4bv3}{latmedse}~s do controle, de \res{ab}{baseestacaoe2bv3}{latmedtc}~s com o Gemma 4 E2B, contra \res{ab}{baseestacaoe2bv3}{latmedse}~s, e de \res{ab}{baseestacaoqwenv3}{latmedtc}~s com o Qwen 3 4B, contra \res{ab}{baseestacaoqwenv3}{latmedse}~s. O tempo de execução da consulta SQL no acervo real teve mediana de \res{acervo}{latencia}{mediana}~ms (percentil 95 de \res{acervo}{latencia}{p95}~ms), enquanto a resposta do modelo demora alguns segundos. Só se comparam latências com a mesma GPU, a mesma versão do Ollama e a mesma parcela do modelo na GPU (Seção~\ref{sec:metodo-ab}).
+
+% ---
+\section{Discussão dos Resultados}
+\label{sec:discussao}
+% ---
+
+A discussão retoma os resultados pelos requisitos, pelos ganhos observados, pelas questões do trabalho, pela recomendação por cenário e pela validade do que foi medido.
+
+% ---
+\subsection{Atendimento dos Requisitos}
+\label{sec:atendimento}
+% ---
+
+A Tabela~\ref{tab:atendimento} mostra como cada requisito do Quadro~\ref{quadro:requisitos} foi atendido. Todos foram atendidos, a maior parte com ressalvas que vêm dos limites do acervo coletado pelo CSW, do usuário simulado no lugar de pessoas ou da dependência do modelo, discutidas na Seção~\ref{sec:validade}.
+
+\begin{fixo}{table}
+\centering
+\caption{Atendimento dos requisitos}
+\label{tab:atendimento}
+\footnotesize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{5.9cm}|>{\raggedright\arraybackslash}p{3.4cm}|>{\raggedright\arraybackslash}p{3.8cm}|}
+\hline
+\textbf{Req.} & \textbf{Como foi atendido} & \textbf{Evidência} & \textbf{Situação} \\ \hline
+RF1 & API com tradução e busca; execução no acervo real & Seções~\ref{sec:componentes} e~\ref{sec:res-acervo} & atendido \\ \hline
+RF2 & identificação de nomes, verificação da sigla e interseção espacial & Seções~\ref{sec:identificar-nome}, \ref{sec:validador} e~\ref{sec:predicados} & atendido com ressalva (homônimos sem desambiguação; sem predicados relacionais) \\ \hline
+RF3 & normalização de códigos e índice do acervo & Seção~\ref{sec:normalizar-codigo} & atendido com ressalva (MI com e sem zero à esquerda) \\ \hline
+RF4 & normalização de escalas & Seção~\ref{sec:normalizar-escala} & atendido \\ \hline
+RF5 & descrições revisadas e verificação & Seções~\ref{sec:descricoes-revisadas} e~\ref{sec:validador} & atendido com ressalva (projeto ausente do CSW) \\ \hline
+RF6 & data de execução no \textit{prompt} e resolução de períodos & Seção~\ref{sec:resolver-periodo} & atendido com ressalva (expressões fora da tabela; uma data por rodada) \\ \hline
+RF7 & descrições e avisos de ordenação e limite não pedidos & Seções~\ref{sec:descricoes-revisadas} e~\ref{sec:res-versoes} & atendido com ressalva (depende do modelo) \\ \hline
+RF8 & recusa com motivo e recusa contestada & Seções~\ref{sec:segunda-versao}, \ref{sec:recusa-contestada} e~\ref{sec:res-versoes} & atendido com ressalva (\textit{recall} da recusa menor na versão final) \\ \hline
+RF9 & pedido de esclarecimento & Seção~\ref{sec:pedir-esclarecimento} & atendido com ressalva (só com usuário simulado) \\ \hline
+RF10 & lista vazia com os critérios usados & Seção~\ref{sec:componentes} & atendido, não pontuado \\ \hline
+RF11 & registro por consulta & Seção~\ref{sec:componentes} & atendido \\ \hline
+RNF1 & modelos locais pelo Ollama & Seção~\ref{sec:res-instalacao} & atendido \\ \hline
+RNF2 & latência por ambiente & Seção~\ref{sec:res-tempo} & atendido com ressalva (sem limiar fixado) \\ \hline
+RNF3 & esquema do \texttt{prototipo\_busca\_llm} e metadados do BDGEx & Seções~\ref{sec:componentes} e~\ref{sec:res-acervo} & atendido com ressalva (conformidade não verificada à parte) \\ \hline
+RNF4 & registros, congelamento e repontuação & Seção~\ref{sec:papeis} & atendido \\ \hline
+RNF5 & testes automatizados e integração contínua & Seção~\ref{sec:componentes} & atendido \\ \hline
+RNF6 & modelo e abordagem por configuração & Seção~\ref{sec:componentes} & atendido \\ \hline
+\end{tabular}
+\fonte{Elaborada pelos autores.}
+\end{fixo}
+
+% ---
+\subsection{Ganhos Observados}
+\label{sec:ganhos}
+% ---
+
+No conjunto de teste, com o Gemma 4 E4B, o maior ganho isolado da versão final decorreu das descrições revisadas, isto é, das convenções do domínio escritas em texto, sem nenhuma ferramenta nova (Tabela~\ref{tab:versoes-teste}). Os passos seguintes, com as ferramentas auxiliares e com a verificação dos parâmetros, acrescentaram ganhos menores, também significativos depois da correção de Holm. Nesses dois passos, parte do que o modelo errava de forma sistemática, como a aritmética de datas, a sigla da UF no campo de estado e a forma canônica dos códigos, foi transferida ao código. Esses ganhos condizem com a dificuldade dos modelos com datas relativas e nomes de lugares apontada pelo ToolSandbox \cite{lu2025toolsandbox} e com a eficácia da correção guiada por um sinal externo ao modelo \cite{gou2024critic, huang2024cannot}, discutidas na Seção~\ref{sec:tc-retorno}. Pelo acerto por resultado no acervo real, a posição relativa da versão final e do controle manteve-se nos três modelos (Seção~\ref{sec:res-acervo}).
+
+Em relação à solução do Maj Diniz, a primeira versão não apresentou diferença significativa de acurácia, e a redução de porte e de tempo decorreu da troca de modelo (Seção~\ref{sec:res-maj-diniz}). O único ganho do mecanismo de \textit{tool calling} que se repetiu em todos os pares fora da amostra foi o da recusa das consultas fora do domínio (Seção~\ref{sec:res-ab}), que corresponde à decisão de não chamar a ferramenta de busca, avaliada como abstenção pelo BFCL \cite{patil2025berkeley} e distinguida pelo When2Call \cite{ross2025when2call} das decisões de chamar e de perguntar. O restante da vantagem da versão final sobre o controle não se separa das peças do domínio que só ela recebe (Seção~\ref{sec:metodo-controle}).
+
+% ---
+\subsection{Respostas às Questões do Trabalho}
+\label{sec:respostas}
+% ---
+
+As respostas seguem a ordem das questões da Seção~\ref{sec:questoes}:
+\begin{enumerate}
+  \item \textit{O tool calling melhora a tradução em relação à solução do Maj Diniz?} Parcialmente. Com a primeira versão, o \textit{tool calling} não diferiu significativamente em acurácia da solução do Maj Diniz no conjunto de referência, com modelos menores e mais rápidos e com recusa explícita, que aquela solução não tem; a redução de tempo, porém, decorre da troca de modelo. A versão final só foi comparada a ela no conjunto de referência, dentro da amostra (Seção~\ref{sec:res-maj-diniz}).
+  \item \textit{No teste A/B, o tool calling obtém acurácia maior que a da saída estruturada?} Parcialmente. A abordagem que acerta mais depende da versão e do modelo, e o ganho que se repetiu fora da amostra foi o da recusa (Seção~\ref{sec:res-ab}).
+  \item \textit{No teste A/B, o tool calling reduz o tempo de processamento em relação à saída estruturada?} Não. Com uma chamada ao modelo, não houve ganho de tempo, e a versão final faz cerca de duas chamadas ao modelo por consulta e demora mais (Seção~\ref{sec:res-tempo}).
+  \item \textit{As ferramentas auxiliares do domínio aumentam a acurácia dos modelos locais?} Parcialmente. Com o Gemma 4 E4B, o passo com as ferramentas auxiliares acrescentou acurácia com diferença significativa, mas esse passo inclui também o pedido de esclarecimento, o usuário simulado e o laço de chamadas, sem isolá-los, e não foi medido com outros modelos. Com o Qwen 3 4B, o controle, sem as ferramentas auxiliares, acertou mais que a versão final. O efeito depende, portanto, do modelo (Seção~\ref{sec:res-versoes}), com as ressalvas da Seção~\ref{sec:metodo-controle}.
+\end{enumerate}
+
+Na análise complementar no acervo real, que não corresponde a uma questão planejada, verificou-se se as buscas produzidas devolvem as mesmas cartas que as buscas do gabarito. A resposta é sim para a versão final com o Gemma 4 E4B, cujas buscas devolveram as mesmas cartas que as do gabarito em \res{acervo}{tc3}{accresultcartas} das consultas cujo gabarito contém cartas; com os outros modelos, o acerto foi menor, e os limites do CSW restringem o alcance da verificação (Seção~\ref{sec:res-acervo}).
+
+% ---
+\subsection{Recomendação por Cenário}
+\label{sec:recomendacao}
+% ---
+
+Recomenda-se, como configuração padrão, a versão final com o Gemma 4 E4B. Em GPU modesta, as opções são o controle com o Qwen 3 4B ou a versão final com o Gemma 4 E2B, e, quando só se admite uma chamada ao modelo, a configuração só com as descrições revisadas (Quadro~\ref{quadro:recomendacao}). A escolha seguiu o critério da acurácia (Seção~\ref{sec:regra-decisao}), e o \textit{recall} menor da recusa e as cerca de duas chamadas ao modelo por consulta entram como custo declarado. A escolha do modelo com a versão final não passou por teste pareado; ela se apoia no desempate do conjunto de referência e na maior acurácia observada no conjunto de teste, e a versão final foi desenvolvida com o Gemma 4 E4B, o que pode favorecê-lo. As duas opções de GPU modesta tampouco foram comparadas por teste. Numa estação com mais VRAM, o candidato a avaliar é o GPT-OSS 20B, distribuído para o Ollama com cerca de 14~GB \cite{ollama2025gptoss}, medido só em nuvem e com a primeira versão.
+
+Na implantação, as ferramentas, o validador e a leitura das chamadas escritas em texto acompanham a versão final e precisam ser atualizados junto com o catálogo, e convém fixar as versões do Ollama e do modelo e repetir o subconjunto manual a cada troca.
+
+\begin{fixo}{quadro}
+\centering
+\caption{Configurações recomendadas por cenário de implantação}
+\label{quadro:recomendacao}
+\footnotesize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}p{4.0cm}|}
+\hline
+\textbf{Cenário} & \textbf{Configuração} & \textbf{Fundamento} & \textbf{Ressalva} \\ \hline
+Padrão & versão final com o Gemma 4 E4B & maior acurácia no conjunto de teste; recusa com motivo ao usuário & versão desenvolvida com esse modelo; cerca de duas chamadas ao modelo; \textit{recall} da recusa menor \\ \hline
+Latência restrita & controle com o Gemma 4 E4B & uma chamada na maior parte das consultas & mais falsa recusa \\ \hline
+GPU modesta (a) & controle com o Qwen 3 4B & maior acurácia observada entre os modelos menores & as opções (a) e (b) não foram comparadas por teste \\ \hline
+GPU modesta (b) & versão final com o Gemma 4 E2B & menor latência na estação local & idem \\ \hline
+Uma chamada ao modelo & só com as descrições revisadas, Gemma 4 E4B & sem laço; mesmo custo da primeira versão & sem ferramentas auxiliares nem retorno do validador \\ \hline
+\end{tabular}
+\fonte{Elaborado pelos autores, com os valores da Tabela~\ref{tab:versoes-teste} e da Seção~\ref{sec:res-tempo}.}
+\nota{Latências comparáveis só entre rodadas da mesma versão do Ollama (Seção~\ref{sec:metodo-ab}).}
+\end{fixo}
+
+% ---
+\subsection{Validade dos Resultados}
+\label{sec:validade}
+% ---
+
+As consultas são sintéticas, nenhuma foi formulada por um usuário real, e a proporção real de consultas fora do domínio é desconhecida. Uma mesma família de modelos (Claude) redigiu e anotou os conjuntos de validação e de teste e julgou os erros, embora em nenhum processo a IA tenha definido o gabarito, e a auditoria de \res{auditoria}{erros}{n} erros do conjunto de validação foi feita por um único agente, sem conferência humana. O código das ferramentas e do validador codifica o manual que define o gabarito, inclusive a tabela de datas. Os conjuntos de validação e de teste sortearam nomes e códigos das mesmas listas que as ferramentas consultam, e o alcance das ferramentas fora dessas listas não foi medido.
+
+Nenhum conjunto público de avaliação foi empregado. Os de uso de ferramentas (Seção~\ref{sec:avaliacao-conceitos}) estão, em geral, em inglês e não cobrem o catálogo do BDGEx, e os de \textit{text-to-SQL}, como o Spider \cite{yu2018spider}, o BIRD \cite{li2023bird} e o SQL-Eval \cite{defog2023sqleval}, avaliam a geração da consulta SQL, que a solução não faz (Seção~\ref{sec:componentes}). Do SQL-Eval adotou-se o princípio da avaliação pela execução (Seção~\ref{sec:res-acervo}), e a avaliação num conjunto público fica como trabalho futuro (Seção~\ref{sec:trabalhos-futuros}).
+
+A pontuação também tem vieses conhecidos. A primeira versão é penalizada por convenções do gabarito que não lhe foram dadas, das quais dependem \res{auditoria}{conv}{n} consultas do conjunto de validação, e nas consultas sem critério qualquer resposta que não busque conta como acerto. Cada rodada usou uma só data de execução, e os conjuntos de validação e de teste tiveram uma execução por configuração. O pedido de esclarecimento foi respondido só pelo usuário simulado de resposta fixa, a versão final foi desenvolvida com um só modelo, e a extensão aos outros dois modelos usou outra versão do Ollama.
+
+% ---
+\section{Entregáveis}
+\label{sec:entregaveis}
+% ---
+
+Os códigos e os conjuntos de dados produzidos estão disponíveis no repositório público do projeto \cite{correa2026pfcbusca}, citado desde a Seção~\ref{sec:componentes}, que reúne os seguintes entregáveis:
+\begin{itemize}
+  \item o \textit{backend} em Python com \textit{tool calling} nativo e as três versões da tradução, selecionáveis por configuração;
+  \item as ferramentas do domínio e o validador;
+  \item os três conjuntos de consultas, com o manual de anotação completo e a auditoria do gabarito;
+  \item o \textit{pipeline} de avaliação, com o teste A/B;
+  \item a avaliação pela execução no acervo real;
+  \item os registros de todas as rodadas, que permitem repontuar os resultados sem executar os modelos.
+\end{itemize}
+
+As listagens das consultas, a auditoria detalhada, a descrição dos ambientes e os resultados complementares, que não cabem no corpo do texto, também estão no repositório.
