@@ -44,6 +44,37 @@
 \usepackage{abntex2ime}
 
 % ---
+% Ficha catalográfica: a caixa CIP gerada pelo Sistema de Geração Automática da Biblioteca do IME
+% (ficha_catalografica_ime.pdf) entra no lugar da caixa montada pelo modelo; o texto de direitos
+% acima dela é o do modelo do IME.
+% ---
+\renewcommand{\imprimirfichacatalografica}{
+    \begin{fichacatalografica}
+    \savegeometry{Mem}
+    \newgeometry{top=3cm,bottom=2cm,left=2cm,right=3cm}
+    \sffamily
+    \begin{normalsize}
+         \noindent{\copyright\imprimirdata}\\
+        INSTITUTO MILITAR DE ENGENHARIA\\
+        Praça General Tibúrcio, 80 – Praia Vermelha\\
+        Rio de Janeiro – RJ CEP: 22290-270\\
+        \par\noindent
+        Este exemplar é de propriedade do Instituto Militar de Engenharia, que poderá incluí-lo em base de dados, armazenar em computador, microfilmar ou adotar qualquer forma de arquivamento.
+        \par\noindent
+        É permitida a menção, reprodução parcial ou integral e a transmissão entre bibliotecas deste trabalho, sem modificação de seu texto, em qualquer meio que esteja ou venha a ser fixado, para pesquisa acadêmica, comentários e citações, desde que sem finalidade comercial e que seja feita a referência bibliográfica completa.
+        \par\noindent
+        Os conceitos expressos neste trabalho são de responsabilidade do(s) autor(es) e do(s) orientador(es).
+    \end{normalsize}
+    \vspace*{\fill}
+    \begin{center}
+        \includegraphics[trim=100 64 83 395, clip, width=14cm]{ficha_catalografica_ime.pdf}
+    \end{center}
+    \clearpage
+    \loadgeometry{Mem}
+    \end{fichacatalografica}
+}
+
+% ---
 % Dados do trabalho
 % ---
 \input{dados}
@@ -182,8 +213,7 @@
 \imprimircapa
 \imprimirfolhaderosto*
 \imprimirfichacatalografica
-% Folha de aprovação (banca) — desativada nesta entrega; preencher antes da defesa.
-% \imprimirfolhadeaprovacao
+\imprimirfolhadeaprovacao
 
 \input{pre-texto}
 

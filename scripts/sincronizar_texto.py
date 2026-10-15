@@ -20,7 +20,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 DESTINO = RAIZ / "texto"
 EXTENSOES_RAIZ = {".tex", ".bib", ".cls", ".sty", ".md", ".py", ".ps1", ".sh", ".txt"}
 SUBPASTAS = {"tabelas": {".tex"}, "figuras": {".pdf"}, "images": {".pdf", ".png", ".jpg", ".jpeg", ".eps"}}
-EXTRAS = {"main.pdf"}
+EXTRAS = {"main.pdf", "ficha_catalografica_ime.pdf"}
 
 
 def selecionar(origem: Path) -> list[Path]:
